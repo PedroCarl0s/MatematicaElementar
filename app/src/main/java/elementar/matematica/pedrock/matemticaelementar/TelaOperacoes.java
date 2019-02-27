@@ -3,20 +3,19 @@ package elementar.matematica.pedrock.matemticaelementar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class TelaOperacoes extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_operacoes);
     }
 
-    public void abrirOperacoes(View view) {
-        startActivity(new Intent(this, TelaOperacoes.class));
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
         finish();
-
     }
 
 }

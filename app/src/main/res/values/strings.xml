@@ -6,4 +6,7 @@
     <string name="relacoes">Relações de Conjunto</string>
     <string name="teoria_conjuntos">Teoria dos Conjuntos</string>
     <string name="titulo">Matemática Elementar</string>
+    <string name="titulo_operacoes">Operações entre Conjuntos</string>
+    <string name="conjunto_a">Conjunto A</string>
+    <string name="tbox_a">Insira os elementos</string>
 </resources>
