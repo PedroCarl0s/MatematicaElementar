@@ -8,4 +8,12 @@
     <string name="titulo">Matemática Elementar</string>
     <string name="titulo_operacoes">Operações entre Conjuntos</string>
     <string name="tbox_a">Insira os elementos</string>
+    <string name="operacoes">Operações entre Conjuntos</string>
+    <string name="oper">Operações entre conjuntos</string>
+    <string name="conjunto_a">Conjunto A</string>
+    <string name="conjunto_b">Conjunto B</string>
+    <string name="uniao">União</string>
+    <string name="inter">Interseção</string>
+    <string name="comp">Complementar</string>
+    <string name="diferen">Diferença</string>
 </resources>
