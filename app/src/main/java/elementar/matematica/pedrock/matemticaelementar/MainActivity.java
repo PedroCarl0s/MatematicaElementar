@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
     public void abrirOperacoes(View view) {
         startActivity(new Intent(this, TelaOperacoes.class));
         finish();
-
     }
 
 }
