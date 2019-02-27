@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Matemática Elementar</string>
+    <string name="tabela">Tabela Verdade</string>
+    <string name="contagem">Análise Combinatória</string>
+    <string name="funcoes">Funções</string>
+    <string name="relacoes">Relações de Conjunto</string>
+    <string name="teoria_conjuntos">Teoria dos Conjuntos</string>
+    <string name="titulo">Matemática Elementar</string>
 </resources>
