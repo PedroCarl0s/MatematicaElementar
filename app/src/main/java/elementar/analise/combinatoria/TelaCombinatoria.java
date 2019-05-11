@@ -32,8 +32,7 @@ public class TelaCombinatoria extends AppCompatActivity {
 
         permutationPlot = (MathView) findViewById(R.id.resultado_arranjo);
         //permutationPlot.setText(arranjoForm+ combinationForm);
-        permutationPlot.setText(primeiraImpressao + arranjoForm + combinationForm + primeiraImpressao + arranjoForm + combinationForm + primeiraImpressao + arranjoForm + combinationForm);
-
+        permutationPlot.setText(primeiraImpressao);
 
 
     }

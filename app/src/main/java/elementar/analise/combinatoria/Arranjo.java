@@ -95,6 +95,7 @@ public class Arranjo extends Fragment {
                 numerador.append(Integer.toString(e));
                 numerador.append(".");
             }
+            numerador.append("!");
         }
 
     }

@@ -6,25 +6,40 @@
     android:layout_height="match_parent"
     tools:context="elementar.analise.combinatoria.TelaCombinatoria">
 
-
-    <io.github.kexanie.library.MathView
-        android:id="@+id/resultado_arranjo"
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="0dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tab_layout"
-        app:text="">
+        app:layout_constraintVertical_bias="0.059">
 
-    </io.github.kexanie.library.MathView>
+        <io.github.kexanie.library.MathView
+            android:id="@+id/resultado_arranjo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout"
+            app:text="">
+
+        </io.github.kexanie.library.MathView>
+
+    </ScrollView>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
