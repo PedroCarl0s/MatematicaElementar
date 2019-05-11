@@ -11,13 +11,18 @@ import io.github.kexanie.library.MathView;
 public class TelaCombinatoria extends AppCompatActivity {
 
     MathView permutationPlot;
-    int n = 10, p = 5;
+    String n = "10",  p = "5";
 
-    String permutationForm = "Fórmula da Permutação"
-            + "$$P(n, p) = \\frac{n!} {(n-p)!}$$";
+    String arranjoForm = "Fórmula do Arranjo"
+            + "$$A(n, p) = \\frac{n!} {(n-p)!}$$";
 
     String combinationForm = "Fórmula da Combinação:"
-            + "$$C(n, p) = \\frac{n!} {p! * (n-p)!}$$";
+            + "$$C(n, p) = \\frac{n!} {p! \\ (n-p)!}$$";
+
+
+
+    String primeiraImpressao = "Resultado" + "$$A(" + n + ", " + p +
+            ") = \\frac{" + n + "!" + "} {(" + n + "-" + p + ")!}$$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +30,9 @@ public class TelaCombinatoria extends AppCompatActivity {
         setContentView(R.layout.activity_tela_combinatoria);
 
 
-        permutationPlot = (MathView) findViewById(R.id.formula_one);
-        permutationPlot.setText(permutationForm + combinationForm);
+        permutationPlot = (MathView) findViewById(R.id.resultado_arranjo);
+        //permutationPlot.setText(arranjoForm+ combinationForm);
+        permutationPlot.setText(primeiraImpressao + arranjoForm + combinationForm + primeiraImpressao + arranjoForm + combinationForm + primeiraImpressao + arranjoForm + combinationForm);
 
 
 

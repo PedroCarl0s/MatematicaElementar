@@ -21,4 +21,7 @@
     <string name="analise">ANÁLISE COMBINATÓRIA</string>
     <string name="teoria">Teoria dos Conjuntos</string>
     <string name="opconjuntos">Operações entre Conjuntos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
