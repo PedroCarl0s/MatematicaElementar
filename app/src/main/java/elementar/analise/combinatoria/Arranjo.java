@@ -32,8 +32,14 @@ public class Arranjo extends Fragment {
     private String mParam2;
 
 
-    private TextInputLayout inputElementos;
-    private TextInputLayout inputPosicoes;
+    private TextInputLayout inputElementos = getView().findViewById(R.id.elementos_arranjo);
+    private TextInputLayout inputPosicoes = getView().findViewById(R.id.posicoes_arranjo);
+
+    private MathView formulaArranjo = (MathView) getView().findViewById(R.id.formula_arranjo);
+    private MathView resultadoArranjo = (MathView) getView().findViewById(R.id.resultado_arranjo);
+
+    private String valorElementos = inputElementos.getEditText().toString();
+    private String valorPosicoes = inputPosicoes.getEditText().toString();
 
     private OnFragmentInteractionListener mListener;
 
@@ -57,7 +63,6 @@ public class Arranjo extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
 
-
         return fragment;
     }
 
@@ -69,79 +74,38 @@ public class Arranjo extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        String formulaArranjo = "Fórmula do Arranjo" + "$$A(n, p) = \\frac{n!} {(n-p)!}$$";
+        this.formulaArranjo.setText(formulaArranjo);
     }
 
-    // A(n, p). Onde n = número de elementos a arranjar e p = número de posições
+    public String gerarArranjoLaTeX() {
+
+        String numeradorElementos = Calculadora.gerarFatorialElementos(inputElementos, inputPosicoes);
+        String denominadorPosicoes = Calculadora.gerarElementosMenosPosicoes(inputElementos, inputPosicoes);
+
+        String resultado = "Resultado" +
+                "$$A(" + this.valorElementos + ", " + this.valorPosicoes + ") = \\frac{" + this.valorElementos + "!} " +
+                "{(" + this.valorElementos + "-" + this.valorPosicoes + ")!}$$";
+
+        return resultado;
+
+    }
+
     public void calcularArranjo(View view) {
-         inputElementos = view.findViewById(R.id.elementos_arranjo);
-         inputPosicoes = view.findViewById(R.id.posicoes_arranjo);
 
-        if (validarElementos() && validarPosicoes()) {
-            String n = inputElementos.getEditText().toString();
-            String p = inputPosicoes.getEditText().toString();
-
-            String primeiraImpressao = "Resultado" + "$$A(" + n + ", " + p +
-                    ") = \\frac{" + n + "!" + "} {(" + n + "-" + p + ")!}$$";
-
-
-            String segundaImpressao;
-
-            int elementos = Integer.parseInt(n);
-            int posicoes = Integer.parseInt(p);
-
-            StringBuilder numerador = new StringBuilder();
-
-            for (int e = elementos; e <= (elementos-posicoes); e--) {
-                numerador.append(Integer.toString(e));
-                numerador.append(".");
-            }
-            numerador.append("!");
+        if (Calculadora.validarEntrada(inputElementos, inputPosicoes)) {
+            this.resultadoArranjo.setText(gerarArranjoLaTeX());
         }
-
-    }
-
-
-    public void setarResultado(View view, TextInputLayout elementos, TextInputLayout posicoes) {
-        MathView resultadoFormula = view.findViewById(R.id.resultado_arranjo);
-
-        if (validarElementos() && validarPosicoes()) {
-
-        }
-
-    }
-
-    // Realiza a validação de campo vazio
-    public boolean validarElementos() {
-        String testeElementos =  inputElementos.getEditText().toString().trim();
-
-        if (testeElementos.isEmpty()) {
-            inputElementos.setError("Número de elementos não pode ser vazio!");
-            return false;
-        }
-        inputElementos.setError(null);
-
-        return true;
-    }
-
-    // Realiza a validação de campo vazio
-    public boolean validarPosicoes() {
-        String testePosicoes = inputPosicoes.getEditText().toString().trim();
-
-        if (testePosicoes.isEmpty()) {
-            inputPosicoes.setError("Número de posições não pode ser vazio!");
-            return true;
-        }
-        inputPosicoes.setError(null);
-
-        return false;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
         View view = inflater.inflate(R.layout.fragment_arranjo, container, false);
 
-
+    /*
         MathView formula;
         int n = 10, p = 5;
 
@@ -151,7 +115,7 @@ public class Arranjo extends Fragment {
 
         formula = view.findViewById(R.id.formula_arranjo);
         formula.setText(formulaArranjo);
-
+        */
         return view;
     }
 
