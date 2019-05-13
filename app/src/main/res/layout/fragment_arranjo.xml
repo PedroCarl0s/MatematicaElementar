@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="top"
+    android:background="#22A7F0"
+
     tools:context="elementar.analise.combinatoria.Arranjo">
 
     <!-- TODO: Update blank fragment layout -->
@@ -16,7 +18,7 @@
         <io.github.kexanie.library.MathView
             android:id="@+id/formula_arranjo"
             android:layout_width="0dp"
-            android:layout_height="122dp"
+            android:layout_height="85dp"
 
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
@@ -36,7 +38,7 @@
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputLayout"
-            android:layout_width="0dp"
+            android:layout_width="246dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
@@ -44,30 +46,29 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
+            android:hint="Elementos a arranjar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.24000001">
+            app:layout_constraintVertical_bias="0.25">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/elementos_arranjo"
                 style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="245dp"
                 android:layout_height="wrap_content"
-                android:contentDescription="sdfasdf"
-                android:hint="Número de elementos a arranjar"
+                android:hint="Elementos a arranjar"
                 android:inputType="number" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputLayout2"
-            android:layout_width="0dp"
+            android:layout_width="245dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
@@ -79,7 +80,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/posicoes_arranjo"
-                android:layout_width="match_parent"
+                android:layout_width="243dp"
                 android:layout_height="wrap_content"
                 android:hint="Número de posições"
                 android:inputType="number" />
@@ -89,22 +90,59 @@
         <io.github.kexanie.library.MathView
             android:id="@+id/resultado_arranjo"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="219dp"
 
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
-            app:layout_constraintVertical_bias="0.24000001"
+            app:layout_constraintVertical_bias="1.0"
             app:text="">
 
         </io.github.kexanie.library.MathView>
+
+        <Button
+            android:id="@+id/calcular_arranjo"
+            android:layout_width="159dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/calc"
+            android:onClick="calcularArranjo"
+            android:text="calcular"
+            app:layout_constraintBottom_toTopOf="@+id/resultado_arranjo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+            app:layout_constraintVertical_bias="0.77" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/botao_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:src="@android:drawable/ic_dialog_info"
+            android:tint="@android:color/background_light"
+            app:backgroundTint="@android:color/holo_green_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
