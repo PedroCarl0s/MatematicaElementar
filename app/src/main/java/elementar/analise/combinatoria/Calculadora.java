@@ -24,8 +24,26 @@ public class Calculadora {
             inputElementos.setError(null);
             inputPosicoes.setError(null);
 
-            elementos = Integer.parseInt(Arranjo.getNumeroElementos());
-            posicoes = Integer.parseInt(Arranjo.getNumeroPosicoes());
+            try {
+                elementos = Integer.parseInt(Arranjo.getNumeroElementos());
+
+            } catch (Exception error) {
+                inputElementos.setError("O valor digitado é muito grande!");
+
+                return false;
+            }
+
+            try {
+                posicoes = Integer.parseInt(Arranjo.getNumeroPosicoes());
+
+            } catch (Exception error) {
+                inputPosicoes.setError("O valor digitado é muito grande!");
+
+                return false;
+            }
+
+
+
 
             // Condição necessária para realizar cálculo de arranjo A(n, p), onde n >= p
             if (elementos >= posicoes) {
