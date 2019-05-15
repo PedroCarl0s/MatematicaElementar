@@ -1,90 +1,95 @@
 package elementar.analise.combinatoria;
 
 import android.support.design.widget.TextInputLayout;
-import android.view.View;
-
-import elementar.matematica.pedrock.matemticaelementar.R;
+import elementar.analise.combinatoria.Fragments.Arranjo;
 
 public class Calculadora {
 
     private static int elementos, posicoes;
 
-
+    // Verifica se a entrada está vazia
     private static boolean validarCampoVazio(TextInputLayout inputText) {
-        String testeInput = inputText.getEditText().toString().trim();
-
+        String testeInput = inputText.getEditText().getText().toString();
         return testeInput.isEmpty();
     }
 
-    private static boolean validarElementos(TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
+    // Verifica a entrada, para saber se alguma condição está violada
+    public static boolean validarEntradas(TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
 
-        // Campo preenchido
-        if (!validarCampoVazio(inputElementos)) {
+        boolean elementosVazio = validarCampoVazio(inputElementos);
+        boolean posicoesVazio = validarCampoVazio(inputPosicoes);
 
-            elementos = Integer.parseInt(inputElementos.toString());
-            posicoes = Integer.parseInt(inputPosicoes.toString());
+        // Campos de elemento e posição preenchidos
+        if (!elementosVazio && !posicoesVazio) {
+            inputElementos.setError(null);
+            inputPosicoes.setError(null);
+
+            elementos = Integer.parseInt(Arranjo.getNumeroElementos());
+            posicoes = Integer.parseInt(Arranjo.getNumeroPosicoes());
 
             // Condição necessária para realizar cálculo de arranjo A(n, p), onde n >= p
             if (elementos >= posicoes) {
                 inputElementos.setError(null);
+
                 return true;
             }
             inputElementos.setError("O número de elementos deve ser ≥ posições");
+            inputElementos.requestFocus();
 
             return false;
+
+        } else if (!elementosVazio && posicoesVazio){
+            inputPosicoes.setError("O número de posições não pode ser vazio!");
+            inputPosicoes.requestFocus();
+            inputElementos.setError(null);
+
+            return false;
+
+        } else {
+           inputElementos.setError("O número de elementos não pode ser vazio!");
+           inputElementos.requestFocus();
+           inputPosicoes.setError(null);
+
+           return false;
+
         }
 
-        // Campo vazio
-        inputElementos.setError("Número de elementos não pode ser vazio!");
-
-        return false;
     }
 
-    private static boolean validarPosicoes(TextInputLayout inputPosicoes) {
+    // Gera o fatorial dos elementos a Arranjar, para ser usado no MathView
+    public static String gerarFatorialElementos() {
 
-        // Campo preenchido
-        if (!validarCampoVazio(inputPosicoes)) {
-            inputPosicoes.setError(null);
-            return true;
-        }
-
-        // Campo vazio
-        inputPosicoes.setError("Número de posições não pode ser vazio!");
-
-        return false;
-    }
-
-    // Verifica se número de elementos e posições estão corretos
-    public static boolean validarEntrada(TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
-        return validarElementos(inputElementos, inputPosicoes) && validarPosicoes(inputPosicoes);
-    }
-
-
-    public static String gerarFatorialElementos(TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
-
-        String n = inputElementos.getEditText().toString();
-        String p = inputPosicoes.getEditText().toString();
+        String n = Arranjo.getNumeroElementos();
+        String p = Arranjo.getNumeroPosicoes();
 
         elementos = Integer.parseInt(n);
         posicoes = Integer.parseInt(p);
 
+        int elementosMenosPosicoes = elementos - posicoes;
+
         StringBuilder numerador = new StringBuilder();
 
         // Gera os valores do numerador até o menor valor possível para simplificar
-        for (int e = elementos; e >= (elementos-posicoes); e++) {
+        for (int e = elementos; e >= elementosMenosPosicoes; e--) {
             numerador.append(Integer.toString(e));
             numerador.append(".");
         }
 
         // Remove o último caracter em excesso (um ponto final)
         numerador.delete(numerador.length()-1, numerador.length());
-        numerador.append("!");
 
         return numerador.toString();
     }
 
-    public static String gerarElementosMenosPosicoes(TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
-        return "(" + inputElementos.toString() + "-" + inputPosicoes + ")";
+    // Gera (n-p) da fórmula para ser usado na String do LaTeX
+    public static String gerarElementosMenosPosicoes() {
+        return Arranjo.getNumeroElementos() + "-" + Arranjo.getNumeroPosicoes();
+    }
+
+    // Gera o resultado da subtração de (n-p) para ser usado na String do LaTeX
+    public static String resultadoElementosMenosPosicoes() {
+        int resultado =  Integer.parseInt(Arranjo.getNumeroElementos()) - Integer.parseInt(Arranjo.getNumeroPosicoes());
+        return Integer.toString(resultado);
     }
 
 }
