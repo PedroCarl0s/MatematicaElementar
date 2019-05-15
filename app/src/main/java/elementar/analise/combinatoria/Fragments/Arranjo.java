@@ -1,4 +1,4 @@
-package elementar.analise.combinatoria;
+package elementar.analise.combinatoria.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,7 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import elementar.analise.combinatoria.Calculadora;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import io.github.kexanie.library.MathView;
 
@@ -31,12 +33,13 @@ public class Arranjo extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private View view;
+    private static TextInputLayout inputElementos, inputPosicoes;
 
-    private TextInputLayout inputElementos;
-    private TextInputLayout inputPosicoes;
-
+    private static MathView formulaArranjo, resultadoArranjo;
+    private static String valorElementos, valorPosicoes;
+    private Button button_calcular;
     private OnFragmentInteractionListener mListener;
-
     public Arranjo() {
         // Required empty public constructor
     }
@@ -57,7 +60,6 @@ public class Arranjo extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
 
-
         return fragment;
     }
 
@@ -71,85 +73,71 @@ public class Arranjo extends Fragment {
 
     }
 
-    // A(n, p). Onde n = número de elementos a arranjar e p = número de posições
+    // Gera o resultado em formato LaTeX para impressão na tela
+    public String gerarArranjoLaTeX() {
+
+        String numeradorElementos = Calculadora.gerarFatorialElementos();
+        String denominadorPosicoes = Calculadora.gerarElementosMenosPosicoes();
+
+        this.valorElementos = getNumeroElementos();
+        this.valorPosicoes = getNumeroPosicoes();
+
+        String resultado = "Resultado" +
+                "$$A(" + this.valorElementos + ", " + this.valorPosicoes + ") = \\frac{" + this.valorElementos + "!} " +
+                "{(" + Calculadora.gerarElementosMenosPosicoes() + ")!}$$";
+
+
+        String segundoPasso = "$$A(" + this.valorElementos + ", " + this.valorPosicoes + ") = \\frac{" + numeradorElementos + "!} " +
+                "{" + Calculadora.resultadoElementosMenosPosicoes() + "!}$$";
+
+        return resultado + segundoPasso;
+    }
+
+    // Inicializa componentes de Input, MathView e Button
+    public void init() {
+        this.inputElementos = view.findViewById(R.id.elementos_arranjo);
+        this.inputPosicoes = view.findViewById(R.id.posicoes_arranjo);
+
+
+        this.formulaArranjo = view.findViewById(R.id.formula_arranjo);
+        this.resultadoArranjo = view.findViewById(R.id.resultado_arranjo);
+
+        this.button_calcular = view.findViewById(R.id.btn_calcular);
+
+        String formulaArranjo = "Fórmula do Arranjo" + " $$A(n, p) = \\frac{n!} {(n-p)!}$$";
+        this.formulaArranjo.setText(formulaArranjo);;
+    }
+
+    // Responsável por solicitar o cálculo e impressão no formato LaTeX
     public void calcularArranjo(View view) {
-         inputElementos = view.findViewById(R.id.elementos_arranjo);
-         inputPosicoes = view.findViewById(R.id.posicoes_arranjo);
-
-        if (validarElementos() && validarPosicoes()) {
-            String n = inputElementos.getEditText().toString();
-            String p = inputPosicoes.getEditText().toString();
-
-            String primeiraImpressao = "Resultado" + "$$A(" + n + ", " + p +
-                    ") = \\frac{" + n + "!" + "} {(" + n + "-" + p + ")!}$$";
-
-
-            String segundaImpressao;
-
-            int elementos = Integer.parseInt(n);
-            int posicoes = Integer.parseInt(p);
-
-            StringBuilder numerador = new StringBuilder();
-
-            for (int e = elementos; e <= (elementos-posicoes); e--) {
-                numerador.append(Integer.toString(e));
-                numerador.append(".");
-            }
+        if (Calculadora.validarEntradas(inputElementos, inputPosicoes)) {
+            resultadoArranjo.setText(gerarArranjoLaTeX());
         }
-
     }
 
-
-    public void setarResultado(View view, TextInputLayout elementos, TextInputLayout posicoes) {
-        MathView resultadoFormula = view.findViewById(R.id.resultado_arranjo);
-
-        if (validarElementos() && validarPosicoes()) {
-
-        }
-
+    public static String getNumeroElementos() {
+        return inputElementos.getEditText().getText().toString();
     }
 
-    // Realiza a validação de campo vazio
-    public boolean validarElementos() {
-        String testeElementos =  inputElementos.getEditText().toString().trim();
-
-        if (testeElementos.isEmpty()) {
-            inputElementos.setError("Número de elementos não pode ser vazio!");
-            return false;
-        }
-        inputElementos.setError(null);
-
-        return true;
-    }
-
-    // Realiza a validação de campo vazio
-    public boolean validarPosicoes() {
-        String testePosicoes = inputPosicoes.getEditText().toString().trim();
-
-        if (testePosicoes.isEmpty()) {
-            inputPosicoes.setError("Número de posições não pode ser vazio!");
-            return true;
-        }
-        inputPosicoes.setError(null);
-
-        return false;
+    public static String getNumeroPosicoes() {
+        return inputPosicoes.getEditText().getText().toString();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_arranjo, container, false);
+        this.view = inflater.inflate(R.layout.fragment_arranjo, container, false);
+        init();
 
+        // Método onClick do botão para calcular o Arranjo
+        button_calcular.setOnClickListener(new View.OnClickListener() {
 
-        MathView formula;
-        int n = 10, p = 5;
-
-        // Fórmula de Arranjo com código LaTeX
-        String formulaArranjo = "Fórmula do Arranjo"
-                + "$$A(n, p) = \\frac{n!} {(n-p)!}$$";
-
-        formula = view.findViewById(R.id.formula_arranjo);
-        formula.setText(formulaArranjo);
+            @Override
+            public void onClick(View v) {
+                calcularArranjo(view);
+            }
+        });
 
         return view;
     }

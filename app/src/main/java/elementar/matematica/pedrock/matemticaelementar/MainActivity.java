@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import elementar.analise.combinatoria.Fragments.Arranjo;
 import elementar.analise.combinatoria.TelaCombinatoria;
 import elementar.teoria.dos.conjuntos.TelaConjuntos;
 
@@ -28,6 +29,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, TelaConjuntos.class));
         finish();
     }
-
 
 }
