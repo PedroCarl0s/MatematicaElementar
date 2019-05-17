@@ -24,6 +24,8 @@ public class Calculadora {
             inputElementos.setError(null);
             inputPosicoes.setError(null);
 
+
+            // Tentativa de conversão de String para Inteiro, e caso o valor exceda 32 bits, ocorrerá uma exceção
             try {
                 elementos = Integer.parseInt(Arranjo.getNumeroElementos());
 
@@ -41,9 +43,6 @@ public class Calculadora {
 
                 return false;
             }
-
-
-
 
             // Condição necessária para realizar cálculo de arranjo A(n, p), onde n >= p
             if (elementos >= posicoes) {
