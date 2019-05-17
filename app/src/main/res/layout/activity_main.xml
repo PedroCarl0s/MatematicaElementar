@@ -12,7 +12,6 @@
         android:id="@+id/txtTitulo"
         android:layout_width="0dp"
         android:layout_height="112dp"
-        android:layout_marginTop="1dp"
         android:background="#F4D03F"
         android:gravity="center"
         android:lineSpacingExtra="8sp"
@@ -70,6 +69,8 @@
         android:layout_marginStart="6dp"
         android:layout_marginLeft="6dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -88,7 +89,7 @@
             android:textSize="16sp" />
 
         <Space
-            android:layout_width="1dp"
+            android:layout_width="0sp"
             android:layout_height="40sp"
             android:layout_weight="1" />
 

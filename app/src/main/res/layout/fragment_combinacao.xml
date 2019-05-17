@@ -23,7 +23,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:text="Combinação"
-            android:textSize="18sp"
+            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
