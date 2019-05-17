@@ -3,6 +3,9 @@ package elementar.analise.combinatoria.Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import elementar.analise.combinatoria.Calculadora;
+import elementar.matematica.pedrock.matemticaelementar.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import io.github.kexanie.library.MathView;
 
@@ -35,7 +39,7 @@ public class Arranjo extends Fragment {
 
     private View view;
     private static TextInputLayout inputElementos, inputPosicoes;
-
+    private static TextInputEditText txtElementos, txtPosicoes;
     private static MathView formulaArranjo, resultadoArranjo;
     private static String valorElementos, valorPosicoes;
     private Button button_calcular;
@@ -65,13 +69,10 @@ public class Arranjo extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        MainActivity.hideKeyboard(getActivity());
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
-    }
+     }
 
     // Gera o resultado em formato LaTeX para impressão na tela
     public String gerarArranjoLaTeX() {
@@ -90,6 +91,12 @@ public class Arranjo extends Fragment {
         String segundoPasso = "$$A(" + this.valorElementos + ", " + this.valorPosicoes + ") = \\frac{" + numeradorElementos + "!} " +
                 "{" + Calculadora.resultadoElementosMenosPosicoes() + "!}$$";
 
+
+        String teste = "$$ x = \\begin{cases}" +
+                " n = \\text{numero de elementos a arranjar }  \\\\" +
+                " p = \\text{numero de posicoes a arranjar }" +
+                " \\end{cases}$$";
+
         return resultado + segundoPasso;
     }
 
@@ -98,19 +105,30 @@ public class Arranjo extends Fragment {
         this.inputElementos = view.findViewById(R.id.elementos_arranjo);
         this.inputPosicoes = view.findViewById(R.id.posicoes_arranjo);
 
+        this.txtElementos = view.findViewById(R.id.txt_elementos);
+        this.txtPosicoes = view.findViewById(R.id.txt_posicoes);
 
         this.formulaArranjo = view.findViewById(R.id.formula_arranjo);
         this.resultadoArranjo = view.findViewById(R.id.resultado_arranjo);
 
         this.button_calcular = view.findViewById(R.id.btn_calcular);
 
-        String formulaArranjo = "Fórmula do Arranjo" + " $$A(n, p) = \\frac{n!} {(n-p)!}$$";
-        this.formulaArranjo.setText(formulaArranjo);;
+        String formulaArranjo = "$$\\normalsize \\bold{\\text{Formula do Arranjo}}$$" + " $${A(n, p)} = \\frac{n!} {(n-p)!}$$";
+
+        String teste = "$$ x = \\begin{cases}" +
+                " n = \\text{numero de elementos a arranjar }  \\\\" +
+                " p = \\text{numero de posicoes a arranjar }" +
+                " \\end{cases}$$";
+
+        String letra = "$$\\normalsize \\bold{\\text{Formula do Arranjo}}$$";
+
+        this.formulaArranjo.setText(formulaArranjo);
     }
 
     // Responsável por solicitar o cálculo e impressão no formato LaTeX
     public void calcularArranjo(View view) {
         if (Calculadora.validarEntradas(inputElementos, inputPosicoes)) {
+            MainActivity.hideKeyboard(getActivity());
             resultadoArranjo.setText(gerarArranjoLaTeX());
         }
     }
@@ -128,6 +146,14 @@ public class Arranjo extends Fragment {
 
         // Inflate the layout for this fragment
         this.view = inflater.inflate(R.layout.fragment_arranjo, container, false);
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         init();
 
         // Método onClick do botão para calcular o Arranjo
@@ -138,8 +164,6 @@ public class Arranjo extends Fragment {
                 calcularArranjo(view);
             }
         });
-
-        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -158,6 +182,31 @@ public class Arranjo extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("elementos", Arranjo.getNumeroElementos());
+        outState.putString("posicoes", Arranjo.getNumeroPosicoes());
+        outState.putString("latex", resultadoArranjo.getText());
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            MainActivity.hideKeyboard(getActivity());
+
+            this.txtElementos.setText(savedInstanceState.getString("elementos"));
+            this.txtPosicoes.setText(savedInstanceState.getString("posicoes"));
+
+            MathView calculoRecuperado = view.findViewById(R.id.resultado_arranjo);
+            calculoRecuperado.setText(savedInstanceState.getString("latex"));
+        }
+
     }
 
     @Override
