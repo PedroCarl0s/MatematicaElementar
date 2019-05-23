@@ -3,6 +3,8 @@ package elementar.analise.combinatoria;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 
+import javax.security.auth.login.LoginException;
+
 import elementar.analise.combinatoria.Fragments.Arranjo;
 
 
@@ -35,7 +37,7 @@ public class GeradorFormulas {
     //Gera a primeira equação, após aplicar os valores N e P
     private static String gerarAplicacaoValores() {
 
-        String resultado = "$$\\bold{Resultado}$$" +
+        String resultado = "$$\\bold{\\text{Passo a Passo}}$$" +
                 "Após a aplicação dos valores, obtemos:" +
                 "$$A(" + valorElementos + ", " + valorPosicoes + ") = \\frac{" + valorElementos + "!} " +
                 "{(" + Calculadora.gerarElementosMenosPosicoes() + ")!}$$";
@@ -51,6 +53,8 @@ public class GeradorFormulas {
         String numeradorElementos = Calculadora.gerarFatorialElementos();
         //String denominadorPosicoes = Calculadora.gerarElementosMenosPosicoes();
 
+
+
         String mensagem = "Desenvolvendo até o valor do fatorial do denominador para simplificar, obtemos:";
 
         elementosMenosPosicoes = Calculadora.resultadoElementosMenosPosicoes();
@@ -63,85 +67,71 @@ public class GeradorFormulas {
 
     // Gera a simplificação do fatorial (numerador e denominador)
     private static String gerarSimplificacaoFatorial() {
+        String mensagem;
 
-        String mensagem = "Simplificando o " + elementosMenosPosicoes +
-            "! do numerador, com o " + elementosMenosPosicoes + "! ficamos com:";
+        if (!Calculadora.gerarFatorialElementos().equals(Calculadora.resultadoElementosMenosPosicoes())) {
 
-        String ultimoValorNumerador = Calculadora.gerarFatorialElementos();
-        ultimoValorNumerador = removerUltimoValor(ultimoValorNumerador);
+            mensagem = "Simplificando o " + elementosMenosPosicoes +
+                    "! do numerador, com o " + elementosMenosPosicoes + "! ficamos com:";
 
-        String terceiroPasso = "$$A(" + valorElementos + ", " + valorPosicoes + ") = " + ultimoValorNumerador + "$$";
+            String ultimoValorNumerador = Calculadora.gerarFatorialElementos();
+            ultimoValorNumerador = removerUltimoValor(ultimoValorNumerador);
 
-        return mensagem + terceiroPasso;
+            String terceiroPasso = "$$A(" + valorElementos + ", " + valorPosicoes + ") = " + ultimoValorNumerador + "$$";
+
+            return mensagem + terceiroPasso;
+
+        } else {
+            if (Calculadora.gerarFatorialElementos().equals("0")) {
+                return "E como 0! é igual a um, resulta em (1/1) = 1";
+            }
+
+            return "";
+        }
+
     }
 
     private static String gerarResultadoFinal() {
-        String resultadoFinal = "$$A(" + valorElementos + ", " + valorPosicoes + ") = " + Integer.toString(Calculadora.gerarResultadoCalculo()) + "$$";
+        //Log.i("RESULTADO", Integer.toString(Calculadora.gerarResultadoCalculo()));
 
+        String resultadoFinal = "$$\\bold{Resultado}$$" + "$$A(" + valorElementos + ", " + valorPosicoes + ") = " + Calculadora.gerarResultadoCalculo() + "$$";
+        // "$$\\bold{\\text{Passo a Passo}}$$
         return resultadoFinal;
     }
 
     // Remove o último valor que continha o fatorial
     public static String removerUltimoValor(String fatorialNumerador) {
+
         // Exemplo: 4.3.2.1! retornará os caracteres a partir do 4 até  2. Igual a 4.3.2
+        String[] valores = fatorialNumerador.replace(".", ";").split(";");
 
-        // Pega o primeiro valor da String (índice zero)0
-        int indexZero = Character.getNumericValue(fatorialNumerador.charAt(0));
+        // Pega o primeiro valor da String (índice zero)
+        int indexZero = Integer.parseInt(valores[0]);
 
-        Log.i("INDEX ZERO", Integer.toString(indexZero));
-
-        Log.i("FATORIAL", fatorialNumerador);
-        Log.i("FATORIAL SIZE", Integer.toString(fatorialNumerador.length()));
         if (indexZero > 2) {
-            int fim = fatorialNumerador.length() - 2;
 
-            Log.i("Fat Numerador", fatorialNumerador.substring(0, fim));
-            return fatorialNumerador.substring(0, fim);
+            // Valor que será removido, fica no último índice do vetor
+            String valorARemover = valores[valores.length-1];
+
+            int tamanhoUltimo = valorARemover.length();
+            int tamanhoFatorial = fatorialNumerador.length();
+
+            /*Removendo o último valor, e o ponto final excedente
+             Ex.: Remover o valor 10 e ponto final -> 11.10
+             Dez possui tamanho dois, e então decrementando dois índices da substring,
+             o 10 é removido, mas o ponto final ainda fica. Para remover o ponto final,
+             decrementa-se +1 índice da String. RESULTADO = 11
+             */
+            fatorialNumerador = fatorialNumerador.substring(0, (tamanhoFatorial - tamanhoUltimo)-1);
+
+            return fatorialNumerador;
 
         } else {
 
             // 0! = 1 | 1! = 1 ou 2! = 2
-            return (indexZero == 0) ? "0" : fatorialNumerador;
+            return fatorialNumerador;
         }
 
     }
-
-
-    //        return resultado + segundoPasso;
-    //
-    //
-    //        String res = "Desenvolvendo ate o valor do fatorial do denominador, obtemos";
-    //
-    //                " \\end{cases}$$";
-    //                " p = \\text{numero de posicoes a arranjar }" +
-    //                " n = \\text{numero de elementos a arranjar }  \\\\" +
-    //        String teste = "$$ x = \\begin{cases}" +
-    //
-    //                "do numerador, com o " + Calculadora.resultadoElementosMenosPosicoes() + "ficamos com:";
-    //        String terceiroPasso = "Simplificando o " + Calculadora.resultadoElementosMenosPosicoes() +
-    //
-    //                "{" + Calculadora.resultadoElementosMenosPosicoes() + "!}$$";
-    //                "$$A(" + this.valorElementos + ", " + this.valorPosicoes + ") = \\frac{" + numeradorElementos + "!} " +
-    //        String segundoPasso = "Desenvolvendo até o valor do fatorial do denominador para simplificar, obtemos:" +
-    //
-    //
-    //                "{(" + Calculadora.gerarElementosMenosPosicoes() + ")!}$$";
-    //                "$$A(" + this.valorElementos + ", " + this.valorPosicoes + ") = \\frac{" + this.valorElementos + "!} " +
-    //                "Após a aplicação dos valores, obtemos:" +
-    //        String resultado = "$$\\bold{Resultado}$$" +
-    //
-    //        this.valorPosicoes = getNumeroPosicoes(inputPosicoes);
-    //        this.valorElementos = getNumeroElementos(inputElementos);
-    //
-    //        String denominadorPosicoes = Calculadora.gerarElementosMenosPosicoes();
-    //        String numeradorElementos = Calculadora.gerarFatorialElementos();
-    //
-    //    public String gerarArranjoLaTeX(TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
-    //
-//    // Gera o resultado em formato LaTeX para impressão na tela
-
-//    }
-
-
 
 }
