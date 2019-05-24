@@ -37,9 +37,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:hint="@string/elementos_a_arranjar"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:errorTextAppearance="@style/ErrorAppearance"
             app:layout_constraintTop_toBottomOf="@+id/formula_arranjo">
 
             <android.support.design.widget.TextInputEditText
@@ -48,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Elementos a arranjar"
                 android:inputType="number"
+                android:textColorHint="@android:color/black"
                 android:textSize="20sp" />
 
         </android.support.design.widget.TextInputLayout>
@@ -61,15 +64,18 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Menu"
+            app:errorTextAppearance="@style/ErrorAppearance"
             app:layout_constraintTop_toBottomOf="@+id/elementos_arranjo">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/txt_posicoes"
                 android:layout_width="245dp"
                 android:layout_height="wrap_content"
-                android:hint="Número de posições"
+                android:hint="Posições a arranjar"
                 android:inputType="number"
                 android:textSize="20sp" />
 
@@ -112,10 +118,11 @@
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +130,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <io.github.kexanie.library.MathView
@@ -140,6 +147,7 @@
                     app:text="">
 
                 </io.github.kexanie.library.MathView>
+
             </LinearLayout>
         </ScrollView>
 
