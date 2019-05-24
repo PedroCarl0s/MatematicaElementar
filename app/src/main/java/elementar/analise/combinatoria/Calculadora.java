@@ -1,7 +1,6 @@
 package elementar.analise.combinatoria;
 
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 
 import elementar.analise.combinatoria.Fragments.Arranjo;
 
@@ -80,7 +79,6 @@ public class Calculadora {
         String valoresFinais = Calculadora.gerarFatorialElementos();
         valoresFinais = GeradorFormulas.removerUltimoValor(valoresFinais);
 
-        Log.i("FINAIS", valoresFinais);
 
         if (!valoresFinais.equals("0") && !valoresFinais.equals("1") && !valoresFinais.equals("2")) {
             valoresFinais = valoresFinais.replace(".", ";");
@@ -90,18 +88,14 @@ public class Calculadora {
 
             for (int i = 0; i < valores.length; i++) {
                 resultado *= Integer.parseInt(valores[i]);
-                //Log.i("FOR", Integer.toString(resultado));;
             }
 
-            //Log.i("PRIMEIRO IF", Integer.toString(resultado));
             return resultado;
 
         } else if (valoresFinais.equals("0")){
-            Log.i("SEGUNDO IF", "1");
             return 1;
 
         } else {
-            Log.i("TERCEIRO IF ELSE", valoresFinais);
             return Integer.parseInt(valoresFinais);
         }
 
@@ -116,38 +110,40 @@ public class Calculadora {
         elementos = Integer.parseInt(n);
         posicoes = Integer.parseInt(p);
 
-        // removido && elementos > 1
+        // Número de elementos a arranjar maior que zero, é necessário desenvolver o fatorial
         if (elementos > 0) {
 
             int fim;
+
+            // Nº de elementos igual ao nº de posições, o resultado será um
             if (elementos == posicoes) {
                 fim = 1;
 
+            // nº de posições sendo zero, um ou dois temos que desenvolver até o valor um
             } else if (posicoes == 0 || elementos == 1 || elementos == 2){
                 fim = 1;
 
+            // O fatorial do nº de elementos irá até o "valor normal" da fórmula (n-p)
             } else {
                 fim = elementos - posicoes;
             }
-
 
             StringBuilder numerador = new StringBuilder();
 
             // Gera os valores do numerador até o menor valor possível para simplificar
             for (int e = elementos; e >= fim; e--) {
-                numerador.append(Integer.toString(e));
+                numerador.append(e);
                 numerador.append(".");
             }
 
             // Remove o último caracter em excesso (um ponto final)
             numerador.delete(numerador.length()-1, numerador.length());
 
-            Log.i("GERAR", numerador.toString());
             return numerador.toString();
 
+        // 0! = 1
         } else if (elementos == 0){
-            Log.i("ZERO", "zero;");
-            return "0";
+            return "1";
 
         } else {
             return "não suporta valores negativos!";
