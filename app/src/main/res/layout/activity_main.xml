@@ -4,103 +4,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#22A7F0"
     tools:context=".MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
-    <Button
-        android:id="@+id/btnTabela"
-        android:layout_width="144dp"
-        android:layout_height="74dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/tabela"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.078"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.189" />
-
-    <Button
-        android:id="@+id/btnContagem"
-        android:layout_width="142dp"
-        android:layout_height="74dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="@string/contagem"
-        app:layout_constraintEnd_toStartOf="@+id/btnRelacoes"
-        app:layout_constraintHorizontal_bias="0.562"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTabela" />
-
-    <Button
-        android:id="@+id/btnFuncoes"
-        android:layout_width="142dp"
-        android:layout_height="74dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/funcoes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.004"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnContagem"
-        app:layout_constraintVertical_bias="0.056" />
-
-    <Button
-        android:id="@+id/btnRelacoes"
-        android:layout_width="142dp"
-        android:layout_height="75dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginBottom="196dp"
-        android:text="@string/relacoes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/btnConjuntos"
-        android:layout_width="144dp"
-        android:layout_height="74dp"
-        android:layout_marginTop="188dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginBottom="8dp"
-        android:onClick="abrirOperacoes"
-        android:text="@string/teoria_conjuntos"
-        android:textAllCaps="true"
-        app:layout_constraintBottom_toTopOf="@+id/btnRelacoes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.026" />
-
     <TextView
         android:id="@+id/txtTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="81dp"
-        android:gravity="center_horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/titulo"
-        android:textSize="33sp"
+        android:layout_width="0dp"
+        android:layout_height="112dp"
+        android:background="#F4D03F"
+        android:gravity="center"
+        android:lineSpacingExtra="8sp"
+        android:text="@string/matematica"
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:fontFamily="casual"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/button_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@android:color/transparent"
+        android:src="@android:drawable/ic_dialog_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitulo"
+        app:layout_constraintVertical_bias="0.65">
+
+        <Button
+            android:id="@+id/btnRelacoes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="@string/rel"
+
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtTitulo"
+        app:layout_constraintVertical_bias="0.797">
+
+        <Button
+            android:id="@+id/btnCombinatoria"
+            android:layout_width="162dp"
+            android:layout_height="81dp"
+            android:layout_weight="2"
+            android:onClick="abrirAnaliseCombinatoria"
+            android:text="@string/analise"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="0sp"
+            android:layout_height="40sp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnConjuntos"
+            android:layout_width="162dp"
+            android:layout_height="81dp"
+            android:layout_weight="2"
+            android:onClick="abrirOperacoesConjuntos"
+            android:text="@string/opconjuntos"
+            android:textSize="16sp" />
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

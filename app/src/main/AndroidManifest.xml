@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +23,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".TelaOperacoes"></activity>
+        <activity android:name="elementar.teoria.dos.conjuntos.TelaConjuntos" />
+        <activity android:name="elementar.analise.combinatoria.TelaCombinatoria"></activity>
     </application>
 
 </manifest>
