@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class Arranjo extends Fragment {
     private static MathView formulaArranjo, resultadoArranjo;
     private static String valorElementos, valorPosicoes;
     private Button button_calcular;
+    private boolean jaCalculou = false;
     private OnFragmentInteractionListener mListener;
     public Arranjo() {
         // Required empty public constructor
@@ -105,9 +107,34 @@ public class Arranjo extends Fragment {
 
     // Responsável por solicitar o cálculo e impressão no formato LaTeX
     public void calcularArranjo(View view) {
+
         if (Calculadora.validarEntradas(inputElementos, inputPosicoes)) {
             MainActivity.hideKeyboard(getActivity());
-            resultadoArranjo.setText(GeradorFormulas.gerarResultado());
+
+            if (jaCalculou) {
+
+                // Campos de entrada com os mesmos valores, não é necessário recalcular
+                if (Arranjo.getNumeroElementos().equals(valorElementos) && Arranjo.getNumeroPosicoes().equals(valorPosicoes)) {
+
+                // Uma ou as duas entradas distintas, é necessário calcular
+                } else {
+                    resultadoArranjo.setText(GeradorFormulas.gerarResultado());
+
+                    valorElementos = Arranjo.getNumeroElementos();
+                    valorPosicoes = Arranjo.getNumeroPosicoes();
+
+                    jaCalculou = true;
+                }
+
+            // Muda estado da variável jaCalculou e calcula (apenas no primeiro cálculo)
+            } else {
+                resultadoArranjo.setText(GeradorFormulas.gerarResultado());
+
+                jaCalculou = true;
+                valorElementos = Arranjo.getNumeroElementos();
+                valorPosicoes = Arranjo.getNumeroPosicoes();
+            }
+
         }
     }
 
