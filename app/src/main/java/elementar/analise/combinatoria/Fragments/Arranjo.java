@@ -112,11 +112,15 @@ public class Arranjo extends Fragment {
     }
 
     public static String getNumeroElementos() {
-        return inputElementos.getEditText().getText().toString();
+        int elementos =  Integer.parseInt(inputElementos.getEditText().getText().toString());
+
+        return Integer.toString(elementos);
     }
 
     public static String getNumeroPosicoes() {
-        return inputPosicoes.getEditText().getText().toString();
+        int posicoes = Integer.parseInt(inputPosicoes.getEditText().getText().toString());
+
+        return Integer.toString(posicoes);
     }
 
     @Override
