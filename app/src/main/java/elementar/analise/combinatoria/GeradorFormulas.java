@@ -1,10 +1,6 @@
 package elementar.analise.combinatoria;
 
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
-
-import javax.security.auth.login.LoginException;
-
 import elementar.analise.combinatoria.Fragments.Arranjo;
 
 
@@ -13,20 +9,10 @@ public class GeradorFormulas {
     private static String valorElementos, valorPosicoes;
     private static String elementosMenosPosicoes, fatorialElementos;
 
-
     public GeradorFormulas() {
 
     }
 
-    private static String getNumeroElementos(TextInputLayout inputElementos) {
-        return inputElementos.getEditText().getText().toString();
-    }
-
-
-
-    private static String getNumeroPosicoes(TextInputLayout inputPosicoes) {
-        return inputPosicoes.getEditText().getText().toString();
-    }
 
     //Gera a primeira equação, após aplicar os valores N e P
     private static String gerarAplicacaoValores() {
@@ -36,8 +22,6 @@ public class GeradorFormulas {
 
         String resultado = "$$A(" + valorElementos + ", " + valorPosicoes + ") = \\frac{" + valorElementos + "!} " +
                 "{(" + Calculadora.gerarElementosMenosPosicoes() + ")!}$$";
-
-        Log.i("gerarAplicacaoValores", "x");
 
         return mensagem + resultado;
     }
@@ -53,8 +37,22 @@ public class GeradorFormulas {
         String numeradorDesenvolvimento;
         long resultadoFinal;
 
-        // Valores distintos, é necessário desenvolver o fatorial
-        if (!valorElementos.equals(elementosMenosPosicoes)) {
+        // Elementos = Posições, o valor do denominador será zero. Basta fazer o cálculo do numerador (no Arranjo Simples)
+        if (valorElementos.equals(valorPosicoes)) {
+            mensagemDesenvolvimento = "Desenvolvendo o fatorial do denominador, obtemos " + valorElementos + "!" + " do numerador " +
+                    "com " + elementosMenosPosicoes + "!" + " do denominador, resultando em:";
+
+            mensagemSimplificacao = "Como o valor do denominador é 0!, e 0! = 1, basta resolver o " +
+                    valorElementos + "!" + " do numerador";
+
+            numeradorDesenvolvimento = valorElementos;
+
+            resultadoFinal = Calculadora.gerarResultadoCalculo();
+
+        }
+
+        // Valores distintos, é necessário desenvolver o fatorial (no Arranjo Simples)
+        else if (!valorElementos.equals(elementosMenosPosicoes)) {
             mensagemDesenvolvimento = "Desenvolvendo até o valor do fatorial do denominador para simplificar, obtemos:";
 
             mensagemSimplificacao = "Simplificando o " + elementosMenosPosicoes +
@@ -64,6 +62,7 @@ public class GeradorFormulas {
 
             resultadoFinal = Calculadora.gerarResultadoCalculo();
 
+        // Nº de elementos igual ao resultado de (n-p)!, sempre resultará 1 (no Arranjo Simples)
         } else {
             mensagemDesenvolvimento = "Desenvolvendo o fatorial do denominador, obtemos " + valorElementos + "!" + " do numerador " +
                     "com " + elementosMenosPosicoes + "!" + " do denominador, resultando em:";
@@ -77,8 +76,6 @@ public class GeradorFormulas {
             resultadoFinal = 1;
         }
 
-
-
         return gerarAplicacaoValores() + mensagemDesenvolvimento + gerarDesenvolvimentoFatorial(numeradorDesenvolvimento) + mensagemSimplificacao + gerarSimplificacaoFatorial() + gerarResultadoFinal(resultadoFinal);
     }
 
@@ -87,7 +84,6 @@ public class GeradorFormulas {
         String desenvolvimento = "$$A(" + valorElementos + ", " + valorPosicoes + ") = \\frac{" + valorNumerador + "!} " +
                 "{" + elementosMenosPosicoes + "!}$$";
 
-        Log.i("XXXXXX", valorNumerador);
         return desenvolvimento;
     }
 
@@ -96,11 +92,11 @@ public class GeradorFormulas {
         String ultimoValorNumerador = fatorialElementos;
         String simplificacao;
 
-        if (!valorElementos.equals(elementosMenosPosicoes)) {
-            Log.i("ULTIMO", ultimoValorNumerador);
-            ultimoValorNumerador = removerUltimoValor(ultimoValorNumerador);
-            Log.i("ULTIMO", ultimoValorNumerador);
+        // Elementos = Posições, o valor do denominador será zero. Basta fazer o cálculo do numerador
+        if (valorElementos.equals(valorPosicoes)) {
 
+        } else if (!valorElementos.equals(elementosMenosPosicoes)) {
+            ultimoValorNumerador = removerUltimoValor(ultimoValorNumerador);
 
         } else {
             ultimoValorNumerador = "1";
@@ -112,10 +108,8 @@ public class GeradorFormulas {
     }
 
     private static String gerarResultadoFinal(long resultadoFinal) {
-        //Log.i("RESULTADO", Integer.toString(Calculadora.gerarResultadoCalculo()));
-
         String resultado = "$$\\bold{Resultado}$$" + "$$A(" + valorElementos + ", " + valorPosicoes + ") = " + resultadoFinal + "$$";
-        // "$$\\bold{\\text{Passo a Passo}}$$
+
         return resultado;
     }
 
@@ -148,7 +142,7 @@ public class GeradorFormulas {
 
         } else {
 
-            // 0! = 1 | 1! = 1 ou 2! = 2
+            // 0! ou 1!, não tem o que remover então retorna o próprio valor
             return fatorialNumerador;
         }
 
