@@ -139,13 +139,27 @@ public class Arranjo extends Fragment {
     }
 
     public static String getNumeroElementos() {
-        int elementos =  Integer.parseInt(inputElementos.getEditText().getText().toString());
+        int elementos;
+
+        try {
+            elementos =  Integer.parseInt(inputElementos.getEditText().getText().toString());
+
+        } catch (Exception e) {
+            return "";
+        }
 
         return Integer.toString(elementos);
     }
 
     public static String getNumeroPosicoes() {
-        int posicoes = Integer.parseInt(inputPosicoes.getEditText().getText().toString());
+        int posicoes;
+
+        try {
+            posicoes = Integer.parseInt(inputPosicoes.getEditText().getText().toString());
+
+        } catch (Exception error) {
+            return "";
+        }
 
         return Integer.toString(posicoes);
     }
