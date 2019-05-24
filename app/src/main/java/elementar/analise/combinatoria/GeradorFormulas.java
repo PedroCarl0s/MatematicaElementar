@@ -11,24 +11,18 @@ import elementar.analise.combinatoria.Fragments.Arranjo;
 public class GeradorFormulas {
 
     private static String valorElementos, valorPosicoes;
-    private static String elementosMenosPosicoes;
+    private static String elementosMenosPosicoes, fatorialElementos;
 
 
     public GeradorFormulas() {
 
     }
 
-    //Gera todoo o cálculo no formato LaTeX
-    public static String gerarResultado() {
-        valorElementos = Arranjo.getNumeroElementos();
-        valorPosicoes = Arranjo.getNumeroPosicoes();
-
-        return gerarAplicacaoValores() + gerarDesenvolvimentoFatorial() + gerarSimplificacaoFatorial() + gerarResultadoFinal();
-    }
-
     private static String getNumeroElementos(TextInputLayout inputElementos) {
         return inputElementos.getEditText().getText().toString();
     }
+
+
 
     private static String getNumeroPosicoes(TextInputLayout inputPosicoes) {
         return inputPosicoes.getEditText().getText().toString();
@@ -37,66 +31,92 @@ public class GeradorFormulas {
     //Gera a primeira equação, após aplicar os valores N e P
     private static String gerarAplicacaoValores() {
 
-        String resultado = "$$\\bold{\\text{Passo a Passo}}$$" +
-                "Após a aplicação dos valores, obtemos:" +
-                "$$A(" + valorElementos + ", " + valorPosicoes + ") = \\frac{" + valorElementos + "!} " +
+        String mensagem = "$$\\bold{\\text{Passo a Passo}}$$" +
+                "Após a aplicação dos valores, obtemos:";
+
+        String resultado = "$$A(" + valorElementos + ", " + valorPosicoes + ") = \\frac{" + valorElementos + "!} " +
                 "{(" + Calculadora.gerarElementosMenosPosicoes() + ")!}$$";
 
         Log.i("gerarAplicacaoValores", "x");
 
-        return resultado;
+        return mensagem + resultado;
+    }
+
+    //Gera todo o cálculo no formato LaTeX
+    public static String gerarResultado() {
+        valorElementos = Arranjo.getNumeroElementos();
+        valorPosicoes = Arranjo.getNumeroPosicoes();
+        elementosMenosPosicoes = Calculadora.resultadoElementosMenosPosicoes();
+        fatorialElementos = Calculadora.gerarFatorialElementos();
+
+        String mensagemDesenvolvimento, mensagemSimplificacao;
+        String numeradorDesenvolvimento;
+        long resultadoFinal;
+
+        // Valores distintos, é necessário desenvolver o fatorial
+        if (!valorElementos.equals(elementosMenosPosicoes)) {
+            mensagemDesenvolvimento = "Desenvolvendo até o valor do fatorial do denominador para simplificar, obtemos:";
+
+            mensagemSimplificacao = "Simplificando o " + elementosMenosPosicoes +
+                    "! do numerador, com o " + elementosMenosPosicoes + "! ficamos com:";
+
+            numeradorDesenvolvimento = fatorialElementos;
+
+            resultadoFinal = Calculadora.gerarResultadoCalculo();
+
+        } else {
+            mensagemDesenvolvimento = "Desenvolvendo o fatorial do denominador, obtemos " + valorElementos + "!" + " do numerador " +
+                    "com " + elementosMenosPosicoes + "!" + " do denominador, resultando em:";
+
+            mensagemSimplificacao = "Simplificando " + valorElementos + "!" + " do numerador com " +
+                    elementosMenosPosicoes + "!" + " do denominador, resulta-se em 1";
+
+            numeradorDesenvolvimento = valorElementos;
+
+            // a! sobre b!, sendo a = b, resultará sempre em 1
+            resultadoFinal = 1;
+        }
+
+
+
+        return gerarAplicacaoValores() + mensagemDesenvolvimento + gerarDesenvolvimentoFatorial(numeradorDesenvolvimento) + mensagemSimplificacao + gerarSimplificacaoFatorial() + gerarResultadoFinal(resultadoFinal);
     }
 
     // Gera o desenvolvimento do fatorial
-    private static String gerarDesenvolvimentoFatorial() {
-
-        String numeradorElementos = Calculadora.gerarFatorialElementos();
-        //String denominadorPosicoes = Calculadora.gerarElementosMenosPosicoes();
-
-
-
-        String mensagem = "Desenvolvendo até o valor do fatorial do denominador para simplificar, obtemos:";
-
-        elementosMenosPosicoes = Calculadora.resultadoElementosMenosPosicoes();
-
-        String segundoPasso = "$$A(" + valorElementos + ", " + valorPosicoes + ") = \\frac{" + numeradorElementos + "!} " +
+    private static String gerarDesenvolvimentoFatorial(String valorNumerador) {
+        String desenvolvimento = "$$A(" + valorElementos + ", " + valorPosicoes + ") = \\frac{" + valorNumerador + "!} " +
                 "{" + elementosMenosPosicoes + "!}$$";
 
-        return mensagem + segundoPasso;
+        Log.i("XXXXXX", valorNumerador);
+        return desenvolvimento;
     }
 
     // Gera a simplificação do fatorial (numerador e denominador)
     private static String gerarSimplificacaoFatorial() {
-        String mensagem;
+        String ultimoValorNumerador = fatorialElementos;
+        String simplificacao;
 
-        if (!Calculadora.gerarFatorialElementos().equals(Calculadora.resultadoElementosMenosPosicoes())) {
-
-            mensagem = "Simplificando o " + elementosMenosPosicoes +
-                    "! do numerador, com o " + elementosMenosPosicoes + "! ficamos com:";
-
-            String ultimoValorNumerador = Calculadora.gerarFatorialElementos();
+        if (!valorElementos.equals(elementosMenosPosicoes)) {
+            Log.i("ULTIMO", ultimoValorNumerador);
             ultimoValorNumerador = removerUltimoValor(ultimoValorNumerador);
+            Log.i("ULTIMO", ultimoValorNumerador);
 
-            String terceiroPasso = "$$A(" + valorElementos + ", " + valorPosicoes + ") = " + ultimoValorNumerador + "$$";
-
-            return mensagem + terceiroPasso;
 
         } else {
-            if (Calculadora.gerarFatorialElementos().equals("0")) {
-                return "E como 0! é igual a um, resulta em (1/1) = 1";
-            }
-
-            return "";
+            ultimoValorNumerador = "1";
         }
 
+        simplificacao = "$$A(" + valorElementos + ", " + valorPosicoes + ") = " + ultimoValorNumerador + "$$";
+
+        return simplificacao;
     }
 
-    private static String gerarResultadoFinal() {
+    private static String gerarResultadoFinal(long resultadoFinal) {
         //Log.i("RESULTADO", Integer.toString(Calculadora.gerarResultadoCalculo()));
 
-        String resultadoFinal = "$$\\bold{Resultado}$$" + "$$A(" + valorElementos + ", " + valorPosicoes + ") = " + Calculadora.gerarResultadoCalculo() + "$$";
+        String resultado = "$$\\bold{Resultado}$$" + "$$A(" + valorElementos + ", " + valorPosicoes + ") = " + resultadoFinal + "$$";
         // "$$\\bold{\\text{Passo a Passo}}$$
-        return resultadoFinal;
+        return resultado;
     }
 
     // Remove o último valor que continha o fatorial
@@ -108,7 +128,7 @@ public class GeradorFormulas {
         // Pega o primeiro valor da String (índice zero)
         int indexZero = Integer.parseInt(valores[0]);
 
-        if (indexZero > 2) {
+        if (indexZero > 1) {
 
             // Valor que será removido, fica no último índice do vetor
             String valorARemover = valores[valores.length-1];
