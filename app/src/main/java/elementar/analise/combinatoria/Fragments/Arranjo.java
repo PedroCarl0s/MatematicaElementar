@@ -147,7 +147,7 @@ public class Arranjo extends Fragment {
             }
         });
 
-
+        // Troca o título do TextInput ao clicar
         txtElementos.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
@@ -161,7 +161,7 @@ public class Arranjo extends Fragment {
             }
         });
 
-
+        // Troca o título do TextInput ao clicar
         txtPosicoes.setOnFocusChangeListener(new View.OnFocusChangeListener(){
 
             @Override
@@ -221,23 +221,12 @@ public class Arranjo extends Fragment {
 
     }
 
-    public static void clearInputFocus() {
-        txtElementos.clearFocus();
-        txtPosicoes.clearFocus();
-    }
-
-    public static void setInputFocus() {
-        txtElementos.setFocusable(true);
-        txtPosicoes.setFocusable(true);
-    }
-
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
-    ;
 
     /**
      * This interface must be implemented by activities that contain this
