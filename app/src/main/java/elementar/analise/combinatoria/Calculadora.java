@@ -1,6 +1,8 @@
 package elementar.analise.combinatoria;
 
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
+
 import elementar.analise.combinatoria.Fragments.Arranjo;
 
 public class Calculadora {
@@ -73,7 +75,39 @@ public class Calculadora {
 
     }
 
-    // Gera o fatorial dos elementos a Arranjar, para ser usado no MathView
+    public static long gerarResultadoCalculo() {
+
+        String valoresFinais = Calculadora.gerarFatorialElementos();
+        valoresFinais = GeradorFormulas.removerUltimoValor(valoresFinais);
+
+        Log.i("FINAIS", valoresFinais);
+
+        if (!valoresFinais.equals("0") && !valoresFinais.equals("1") && !valoresFinais.equals("2")) {
+            valoresFinais = valoresFinais.replace(".", ";");
+
+            long resultado = 1;
+            String[] valores = valoresFinais.split(";");
+
+            for (int i = 0; i < valores.length; i++) {
+                resultado *= Integer.parseInt(valores[i]);
+                //Log.i("FOR", Integer.toString(resultado));;
+            }
+
+            //Log.i("PRIMEIRO IF", Integer.toString(resultado));
+            return resultado;
+
+        } else if (valoresFinais.equals("0")){
+            Log.i("SEGUNDO IF", "1");
+            return 1;
+
+        } else {
+            Log.i("TERCEIRO IF ELSE", valoresFinais);
+            return Integer.parseInt(valoresFinais);
+        }
+
+    }
+
+    // Gera o fatorial dos elementos a Arranjar, para ser usado no MathView. Exemplo: 4! = 4.3.2.1
     public static String gerarFatorialElementos() {
 
         String n = Arranjo.getNumeroElementos();
@@ -82,20 +116,43 @@ public class Calculadora {
         elementos = Integer.parseInt(n);
         posicoes = Integer.parseInt(p);
 
-        int elementosMenosPosicoes = elementos - posicoes;
+        // removido && elementos > 1
+        if (elementos > 0) {
 
-        StringBuilder numerador = new StringBuilder();
+            int fim;
+            if (elementos == posicoes) {
+                fim = 1;
 
-        // Gera os valores do numerador até o menor valor possível para simplificar
-        for (int e = elementos; e >= elementosMenosPosicoes; e--) {
-            numerador.append(Integer.toString(e));
-            numerador.append(".");
+            } else if (posicoes == 0 || elementos == 1 || elementos == 2){
+                fim = 1;
+
+            } else {
+                fim = elementos - posicoes;
+            }
+
+
+            StringBuilder numerador = new StringBuilder();
+
+            // Gera os valores do numerador até o menor valor possível para simplificar
+            for (int e = elementos; e >= fim; e--) {
+                numerador.append(Integer.toString(e));
+                numerador.append(".");
+            }
+
+            // Remove o último caracter em excesso (um ponto final)
+            numerador.delete(numerador.length()-1, numerador.length());
+
+            Log.i("GERAR", numerador.toString());
+            return numerador.toString();
+
+        } else if (elementos == 0){
+            Log.i("ZERO", "zero;");
+            return "0";
+
+        } else {
+            return "não suporta valores negativos!";
         }
 
-        // Remove o último caracter em excesso (um ponto final)
-        numerador.delete(numerador.length()-1, numerador.length());
-
-        return numerador.toString();
     }
 
     // Gera (n-p) da fórmula para ser usado na String do LaTeX
@@ -106,6 +163,7 @@ public class Calculadora {
     // Gera o resultado da subtração de (n-p) para ser usado na String do LaTeX
     public static String resultadoElementosMenosPosicoes() {
         int resultado =  Integer.parseInt(Arranjo.getNumeroElementos()) - Integer.parseInt(Arranjo.getNumeroPosicoes());
+
         return Integer.toString(resultado);
     }
 
