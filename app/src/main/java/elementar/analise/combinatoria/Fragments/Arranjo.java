@@ -1,5 +1,6 @@
 package elementar.analise.combinatoria.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,9 +12,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import elementar.analise.combinatoria.Calculadora;
+import elementar.analise.combinatoria.GeradorFormulas;
 import elementar.matematica.pedrock.matemticaelementar.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import io.github.kexanie.library.MathView;
@@ -69,36 +73,9 @@ public class Arranjo extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        MainActivity.hideKeyboard(getActivity());
         super.onCreate(savedInstanceState);
 
      }
-
-    // Gera o resultado em formato LaTeX para impressão na tela
-    public String gerarArranjoLaTeX() {
-
-        String numeradorElementos = Calculadora.gerarFatorialElementos();
-        String denominadorPosicoes = Calculadora.gerarElementosMenosPosicoes();
-
-        this.valorElementos = getNumeroElementos();
-        this.valorPosicoes = getNumeroPosicoes();
-
-        String resultado = "Resultado" +
-                "$$A(" + this.valorElementos + ", " + this.valorPosicoes + ") = \\frac{" + this.valorElementos + "!} " +
-                "{(" + Calculadora.gerarElementosMenosPosicoes() + ")!}$$";
-
-
-        String segundoPasso = "$$A(" + this.valorElementos + ", " + this.valorPosicoes + ") = \\frac{" + numeradorElementos + "!} " +
-                "{" + Calculadora.resultadoElementosMenosPosicoes() + "!}$$";
-
-
-        String teste = "$$ x = \\begin{cases}" +
-                " n = \\text{numero de elementos a arranjar }  \\\\" +
-                " p = \\text{numero de posicoes a arranjar }" +
-                " \\end{cases}$$";
-
-        return resultado + segundoPasso;
-    }
 
     // Inicializa componentes de Input, MathView e Button
     public void init() {
@@ -108,12 +85,13 @@ public class Arranjo extends Fragment {
         this.txtElementos = view.findViewById(R.id.txt_elementos);
         this.txtPosicoes = view.findViewById(R.id.txt_posicoes);
 
+
         this.formulaArranjo = view.findViewById(R.id.formula_arranjo);
         this.resultadoArranjo = view.findViewById(R.id.resultado_arranjo);
 
         this.button_calcular = view.findViewById(R.id.btn_calcular);
 
-        String formulaArranjo = "$$\\normalsize \\bold{\\text{Formula do Arranjo}}$$" + " $${A(n, p)} = \\frac{n!} {(n-p)!}$$";
+        String formulaArranjo = "$$\\normalsize \\bold{\\text{Formula do Arranjo}}$$" + " $${A(n, p)} = \\frac{n!} {(n-p)!}, n \\geqslant p$$";
 
         String teste = "$$ x = \\begin{cases}" +
                 " n = \\text{numero de elementos a arranjar }  \\\\" +
@@ -129,7 +107,7 @@ public class Arranjo extends Fragment {
     public void calcularArranjo(View view) {
         if (Calculadora.validarEntradas(inputElementos, inputPosicoes)) {
             MainActivity.hideKeyboard(getActivity());
-            resultadoArranjo.setText(gerarArranjoLaTeX());
+            resultadoArranjo.setText(GeradorFormulas.gerarResultado());
         }
     }
 
@@ -164,7 +142,37 @@ public class Arranjo extends Fragment {
                 calcularArranjo(view);
             }
         });
+
+
+        txtElementos.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    inputElementos.setHint("N");
+
+                } else {
+                    inputElementos.setHint("Elementos a arranjar");
+                }
+            }
+        });
+
+
+        txtPosicoes.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    inputPosicoes.setHint("P");
+
+                } else {
+
+                    inputPosicoes.setHint("Posições a arranjar");
+                }
+            }
+        });
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -209,11 +217,23 @@ public class Arranjo extends Fragment {
 
     }
 
+    public static void clearInputFocus() {
+        txtElementos.clearFocus();
+        txtPosicoes.clearFocus();
+    }
+
+    public static void setInputFocus() {
+        txtElementos.setFocusable(true);
+        txtPosicoes.setFocusable(true);
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
+
+    ;
 
     /**
      * This interface must be implemented by activities that contain this
