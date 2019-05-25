@@ -1,8 +1,8 @@
 package elementar.analise.combinatoria;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import elementar.analise.combinatoria.Fragments.Arranjo;
 import elementar.analise.combinatoria.Fragments.Combinacao;
@@ -22,20 +22,16 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
 
             case 0:
-                Arranjo arranjo = new Arranjo();
-                return arranjo;
+                return new Arranjo();
 
             case 1:
-                Combinacao combinacao = new Combinacao();
-                return combinacao;
+                return new Combinacao();
 
             case 2:
-                Combinacao c1 = new Combinacao();
-                return c1;
+                return new Combinacao();
 
             case 3:
-                Combinacao c2 = new Combinacao();
-                return c2;
+                return new Combinacao();
 
             default:
                 return null;

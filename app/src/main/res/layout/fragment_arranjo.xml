@@ -11,7 +11,7 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -28,7 +28,7 @@
 
         </io.github.kexanie.library.MathView>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/elementos_arranjo"
             android:layout_width="246dp"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             app:errorTextAppearance="@style/ErrorAppearance"
             app:layout_constraintTop_toBottomOf="@+id/formula_arranjo">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_elementos"
                 android:layout_width="245dp"
                 android:layout_height="wrap_content"
@@ -53,9 +53,9 @@
                 android:textColorHint="@android:color/black"
                 android:textSize="20sp" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/posicoes_arranjo"
             android:layout_width="246dp"
             android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
             app:errorTextAppearance="@style/ErrorAppearance"
             app:layout_constraintTop_toBottomOf="@+id/elementos_arranjo">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_posicoes"
                 android:layout_width="245dp"
                 android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                 android:inputType="number"
                 android:textSize="20sp" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_calcular"
@@ -97,7 +97,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/posicoes_arranjo" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/botao_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -151,6 +151,6 @@
             </LinearLayout>
         </ScrollView>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
