@@ -116,6 +116,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -150,6 +151,48 @@
 
             </LinearLayout>
         </ScrollView>
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_write"
+            android:layout_width="250dp"
+            android:layout_height="198dp"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.48"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
+            app:layout_constraintVertical_bias="1.0"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false" />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_swipe"
+            android:layout_width="125dp"
+            android:layout_height="104dp"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.97"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
+            app:layout_constraintVertical_bias="0.68"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
