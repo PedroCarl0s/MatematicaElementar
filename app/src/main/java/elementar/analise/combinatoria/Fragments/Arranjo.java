@@ -5,10 +5,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,13 +43,19 @@ public class Arranjo extends Fragment {
     private String mParam2;
 
     private View view;
+
     private static TextInputLayout inputElementos, inputPosicoes;
     private static TextInputEditText txtElementos, txtPosicoes;
+
     private static MathView formulaArranjo, resultadoArranjo;
     private static String valorElementos, valorPosicoes;
     private Button button_calcular;
     private boolean jaCalculou = false;
     private OnFragmentInteractionListener mListener;
+
+    private LottieAnimationView animationWrite, animationSwipe;
+    private final int DELAY_TIME = 2000;
+
     public Arranjo() {
         // Required empty public constructor
     }
@@ -115,7 +124,7 @@ public class Arranjo extends Fragment {
 
                 // Uma ou as duas entradas distintas, é necessário calcular
                 } else {
-                    resultadoArranjo.setText(GeradorFormulas.gerarResultado());
+                    setResultado();
 
                     valorElementos = Arranjo.getNumeroElementos();
                     valorPosicoes = Arranjo.getNumeroPosicoes();
@@ -125,7 +134,7 @@ public class Arranjo extends Fragment {
 
             // Muda estado da variável jaCalculou e calcula (apenas no primeiro cálculo)
             } else {
-                resultadoArranjo.setText(GeradorFormulas.gerarResultado());
+                setResultado();
 
                 jaCalculou = true;
                 valorElementos = Arranjo.getNumeroElementos();
@@ -134,6 +143,34 @@ public class Arranjo extends Fragment {
 
         }
     }
+
+    private void startAnimationWrite(View view, LottieAnimationView animationView, String jsonFile) {
+        animationView = view.findViewById(R.id.animation_write);
+        animationView.setAnimation(jsonFile);
+        animationView.setProgress(1.0f);
+        animationView.playAnimation();
+    }
+
+    private void startAnimationSwipe(View view, LottieAnimationView animationView, String jsonFile) {
+        animationView = view.findViewById(R.id.animation_swipe);
+        animationView.setAnimation(jsonFile);
+        animationView.setProgress(1.0f);
+        animationView.playAnimation();
+    }
+
+    private void setResultado() {
+        startAnimationWrite(view, animationWrite, "write.json");
+        //startAnimationSwipe(view, animationSwipe, "swipe.json");
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                resultadoArranjo.setText(GeradorFormulas.gerarResultado());
+
+            }
+        }, DELAY_TIME);
+    }
+
 
     public static String getNumeroElementos() {
         int elementos;
