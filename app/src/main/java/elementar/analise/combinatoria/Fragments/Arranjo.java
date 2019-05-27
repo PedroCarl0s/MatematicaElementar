@@ -1,5 +1,6 @@
 package elementar.analise.combinatoria.Fragments;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.GeradorFormulas;
@@ -43,6 +45,7 @@ public class Arranjo extends Fragment {
     private String mParam2;
 
     private View view;
+    private Handler handler;
 
     private static TextInputLayout inputElementos, inputPosicoes;
     private static TextInputEditText txtElementos, txtPosicoes;
@@ -54,7 +57,8 @@ public class Arranjo extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private LottieAnimationView animationWrite, animationSwipe;
-    private final int DELAY_TIME = 2000;
+    private final int id_write = R.id.animation_write, id_swipe = R.id.animation_swipe;
+    private final int DELAY_TIME = 750;
 
     public Arranjo() {
         // Required empty public constructor
@@ -121,6 +125,7 @@ public class Arranjo extends Fragment {
 
                 // Campos de entrada com os mesmos valores, não é necessário recalcular
                 if (Arranjo.getNumeroElementos().equals(valorElementos) && Arranjo.getNumeroPosicoes().equals(valorPosicoes)) {
+                    showToastMessage("O valor já foi calculado!");
 
                 // Uma ou as duas entradas distintas, é necessário calcular
                 } else {
@@ -144,31 +149,68 @@ public class Arranjo extends Fragment {
         }
     }
 
-    private void startAnimationWrite(View view, LottieAnimationView animationView, String jsonFile) {
-        animationView = view.findViewById(R.id.animation_write);
-        animationView.setAnimation(jsonFile);
-        animationView.setProgress(1.0f);
-        animationView.playAnimation();
+    private void showToastMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void startAnimationSwipe(View view, LottieAnimationView animationView, String jsonFile) {
-        animationView = view.findViewById(R.id.animation_swipe);
+    private void startAnimation(View view, LottieAnimationView animationView, int id ,String jsonFile, float speed, int loops) {
+        animationView = view.findViewById(id);
         animationView.setAnimation(jsonFile);
-        animationView.setProgress(1.0f);
+        animationView.setSpeed(speed);
+        animationView.setRepeatCount(loops);
         animationView.playAnimation();
     }
 
     private void setResultado() {
-        startAnimationWrite(view, animationWrite, "write.json");
-        //startAnimationSwipe(view, animationSwipe, "swipe.json");
+        animationWrite = view.findViewById(R.id.animation_write);
+        animationSwipe = view.findViewById(R.id.animation_swipe);
 
-        new Handler().postDelayed(new Runnable() {
+        animationWrite.setVisibility(View.VISIBLE);
+        animationSwipe.setVisibility(View.VISIBLE);
+
+        startAnimation(view, animationWrite, id_write ,"write.json",1.5f, 0);
+
+        // Delay para mostrar animação + resultado
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 resultadoArranjo.setText(GeradorFormulas.gerarResultado());
+                startAnimation(view, animationSwipe, id_swipe, "swipeup.json", 1f, 2);
+            }
+
+        }, DELAY_TIME);
+
+        cancelLottieAnimation(animationWrite);
+        cancelLottieAnimation(animationSwipe);
+    }
+
+
+    // Cancela e esconde a animações Lottie
+    private void cancelLottieAnimation(final LottieAnimationView animationView) {
+        animationView.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                animationView.cancelAnimation();
+                animationView.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
 
             }
-        }, DELAY_TIME);
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+
+
+        });
     }
 
 
