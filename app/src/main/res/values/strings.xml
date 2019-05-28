@@ -19,7 +19,7 @@
     <string name="matematica">MATEMÁTICA ELEMENTAR</string>
     <string name="rel">RELAÇÕES ENTRE CONJUNTOS</string>
     <string name="analise">ANÁLISE COMBINATÓRIA</string>
-    <string name="teoria">Teoria dos Conjuntos</string>
+    <string name="txt_teoria">Teoria</string>
     <string name="opconjuntos">Operações entre Conjuntos</string>
 
     <!-- TODO: Remove or change this placeholder text -->
