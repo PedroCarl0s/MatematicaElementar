@@ -1,8 +1,6 @@
 package elementar.analise.combinatoria.Fragments;
 
 import android.animation.Animator;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,10 +25,6 @@ import io.github.kexanie.library.MathView;
 
 
 public class Arranjo extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     private View view;
     private Handler handler;
