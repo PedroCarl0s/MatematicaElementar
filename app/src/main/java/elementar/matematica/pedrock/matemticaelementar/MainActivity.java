@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import android.os.Bundle;;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.GridLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 
@@ -18,16 +22,56 @@ public class MainActivity extends AppCompatActivity {
 
     private final int  DELAY_TIME = 2100;
     private static LottieAnimationView animationClock;
+    private GridLayout mainGrid;
     private Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mainGrid = (GridLayout) findViewById(R.id.mainGrid);
+        setSingleEvent(mainGrid);
+
     }
 
 
-    public void abrirAnaliseCombinatoria(View view) {
+    private void setSingleEvent(GridLayout mainGrid) {
+
+        // Percorre todos os filhos do GridLayout Pai
+        for (int atual = 0; atual < mainGrid.getChildCount(); atual++) {
+
+            CardView cardView = (CardView) mainGrid.getChildAt(atual);
+            final int choice = atual;
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openActivity(choice);
+                }
+            });
+
+        }
+    }
+
+    public void openActivity(int choice) {
+
+        switch (choice) {
+
+            case 0:
+                abrirAnaliseCombinatoria();
+                break;
+
+            case 1:
+                abrirOperacoesConjuntos();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void abrirAnaliseCombinatoria() {
 
         // Inicia a animação Lottie
         startAnimationClock(animationClock, "clock.json");
@@ -71,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         animationView.playAnimation();
     }
 
-    public void abrirOperacoesConjuntos(View view) {
+    public void abrirOperacoesConjuntos() {
         startActivity(new Intent(this, TelaConjuntos.class));
         finish();
     }
