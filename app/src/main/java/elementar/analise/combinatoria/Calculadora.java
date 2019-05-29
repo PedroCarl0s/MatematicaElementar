@@ -1,6 +1,6 @@
 package elementar.analise.combinatoria;
 
-import android.support.design.widget.TextInputLayout;
+import com.google.android.material.textfield.TextInputLayout;
 
 import elementar.analise.combinatoria.Fragments.Arranjo;
 
@@ -86,8 +86,8 @@ public class Calculadora {
             long resultado = 1;
             String[] valores = valoresFinais.split(";");
 
-            for (int i = 0; i < valores.length; i++) {
-                resultado *= Integer.parseInt(valores[i]);
+            for (String atual : valores) {
+                resultado *= Integer.parseInt(atual);
             }
 
             return resultado;

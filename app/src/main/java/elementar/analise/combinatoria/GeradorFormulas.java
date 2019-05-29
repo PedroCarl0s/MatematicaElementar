@@ -1,6 +1,5 @@
 package elementar.analise.combinatoria;
 
-import android.support.design.widget.TextInputLayout;
 import elementar.analise.combinatoria.Fragments.Arranjo;
 
 

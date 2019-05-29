@@ -3,31 +3,119 @@ package elementar.matematica.pedrock.matemticaelementar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
+import android.os.Bundle;;
+import android.util.AttributeSet;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
+import android.widget.GridLayout;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import elementar.analise.combinatoria.TelaCombinatoria;
 import elementar.teoria.dos.conjuntos.TelaConjuntos;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final int  DELAY_TIME = 2100;
+    private static LottieAnimationView animationClock;
+    private GridLayout mainGrid;
+    private Thread thread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mainGrid = (GridLayout) findViewById(R.id.mainGrid);
+        setSingleEvent(mainGrid);
+
     }
 
 
-    public void abrirAnaliseCombinatoria(View view) {
-        //Toast.makeText(getApplicationContext(), "Coming Soon", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, TelaCombinatoria.class));
-        finish();
+    private void setSingleEvent(GridLayout mainGrid) {
+
+        // Percorre todos os filhos do GridLayout Pai
+        for (int atual = 0; atual < mainGrid.getChildCount(); atual++) {
+
+            CardView cardView = (CardView) mainGrid.getChildAt(atual);
+            final int choice = atual;
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openActivity(choice);
+                }
+            });
+
+        }
     }
 
-    public void abrirOperacoesConjuntos(View view) {
+    public void openActivity(int choice) {
+
+        switch (choice) {
+
+            case 0:
+                abrirAnaliseCombinatoria();
+                break;
+
+            case 1:
+                abrirOperacoesConjuntos();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void abrirAnaliseCombinatoria() {
+
+        // Inicia a animação Lottie
+        startAnimationClock(animationClock, "clock.json");
+
+        // Desativa a Activity (impedir clique em outro botão)
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+        // Inicia a Thread (delay + pré-carregamento da activity)
+        thread = new Thread(runnable);
+        thread.start();
+    }
+
+    public Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+
+            try {
+                Thread.sleep(DELAY_TIME );
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // Inicia a Activity TelaCombinatoria
+            try {
+                startActivity(new Intent(MainActivity.this, TelaCombinatoria.class));
+                finish();
+
+            } catch (Exception e) {
+
+            }
+        }
+
+    };
+
+    private void startAnimationClock(LottieAnimationView animationView, String jsonFile) {
+        animationView = findViewById(R.id.animation_clock);
+        animationView.setAnimation(jsonFile);
+        animationView.setProgress(1.0f);
+        animationView.playAnimation();
+    }
+
+    public void abrirOperacoesConjuntos() {
         startActivity(new Intent(this, TelaConjuntos.class));
         finish();
     }

@@ -1,20 +1,23 @@
 package elementar.analise.combinatoria.Fragments;
 
-import android.app.Activity;
+import android.animation.Animator;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.fragment.app.Fragment;
+
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.GeradorFormulas;
@@ -42,12 +45,21 @@ public class Arranjo extends Fragment {
     private String mParam2;
 
     private View view;
+    private Handler handler;
+
     private static TextInputLayout inputElementos, inputPosicoes;
     private static TextInputEditText txtElementos, txtPosicoes;
+
     private static MathView formulaArranjo, resultadoArranjo;
     private static String valorElementos, valorPosicoes;
     private Button button_calcular;
+    private boolean jaCalculou = false;
     private OnFragmentInteractionListener mListener;
+
+    private LottieAnimationView animationWrite, animationSwipe;
+    private final int id_write = R.id.animation_write, id_swipe = R.id.animation_swipe;
+    private final int DELAY_TIME = 750;
+
     public Arranjo() {
         // Required empty public constructor
     }
@@ -105,20 +117,125 @@ public class Arranjo extends Fragment {
 
     // Responsável por solicitar o cálculo e impressão no formato LaTeX
     public void calcularArranjo(View view) {
+
         if (Calculadora.validarEntradas(inputElementos, inputPosicoes)) {
             MainActivity.hideKeyboard(getActivity());
-            resultadoArranjo.setText(GeradorFormulas.gerarResultado());
+
+            if (jaCalculou) {
+
+                // Campos de entrada com os mesmos valores, não é necessário recalcular
+                if (Arranjo.getNumeroElementos().equals(valorElementos) && Arranjo.getNumeroPosicoes().equals(valorPosicoes)) {
+                    showToastMessage("O valor já foi calculado!");
+
+                // Uma ou as duas entradas distintas, é necessário calcular
+                } else {
+                    setResultado();
+
+                    valorElementos = Arranjo.getNumeroElementos();
+                    valorPosicoes = Arranjo.getNumeroPosicoes();
+
+                    jaCalculou = true;
+                }
+
+            // Muda estado da variável jaCalculou e calcula (apenas no primeiro cálculo)
+            } else {
+                setResultado();
+
+                jaCalculou = true;
+                valorElementos = Arranjo.getNumeroElementos();
+                valorPosicoes = Arranjo.getNumeroPosicoes();
+            }
+
         }
     }
 
+    private void showToastMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void startAnimation(View view, LottieAnimationView animationView, int id ,String jsonFile, float speed, int loops) {
+        animationView = view.findViewById(id);
+        animationView.setAnimation(jsonFile);
+        animationView.setSpeed(speed);
+        animationView.setRepeatCount(loops);
+        animationView.playAnimation();
+    }
+
+    private void setResultado() {
+        animationWrite = view.findViewById(R.id.animation_write);
+        animationSwipe = view.findViewById(R.id.animation_swipe);
+
+        animationWrite.setVisibility(View.VISIBLE);
+        animationSwipe.setVisibility(View.VISIBLE);
+
+        startAnimation(view, animationWrite, id_write ,"write.json",1.5f, 0);
+
+        // Delay para mostrar animação + resultado
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                resultadoArranjo.setText(GeradorFormulas.gerarResultado());
+                startAnimation(view, animationSwipe, id_swipe, "swipeup.json", 1f, 2);
+            }
+
+        }, DELAY_TIME);
+
+        cancelLottieAnimation(animationWrite);
+        cancelLottieAnimation(animationSwipe);
+    }
+
+
+    // Cancela e esconde a animações Lottie
+    private void cancelLottieAnimation(final LottieAnimationView animationView) {
+        animationView.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                animationView.cancelAnimation();
+                animationView.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+
+
+        });
+    }
+
+
     public static String getNumeroElementos() {
-        int elementos =  Integer.parseInt(inputElementos.getEditText().getText().toString());
+        int elementos;
+
+        try {
+            elementos =  Integer.parseInt(inputElementos.getEditText().getText().toString());
+
+        } catch (Exception e) {
+            return "";
+        }
 
         return Integer.toString(elementos);
     }
 
     public static String getNumeroPosicoes() {
-        int posicoes = Integer.parseInt(inputPosicoes.getEditText().getText().toString());
+        int posicoes;
+
+        try {
+            posicoes = Integer.parseInt(inputPosicoes.getEditText().getText().toString());
+
+        } catch (Exception error) {
+            return "";
+        }
 
         return Integer.toString(posicoes);
     }
