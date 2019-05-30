@@ -3,6 +3,7 @@ package elementar.analise.combinatoria;
 import com.google.android.material.textfield.TextInputLayout;
 
 import elementar.analise.combinatoria.Fragments.Arranjo;
+import elementar.analise.combinatoria.Fragments.Permutacao;
 
 public class Calculadora {
 
@@ -70,6 +71,33 @@ public class Calculadora {
 
            return false;
 
+        }
+
+    }
+
+    // Verifica se o campo da Permutação é válido
+    public static boolean validarEntradaPermutacao(TextInputLayout inputPermutacao) {
+        boolean entradaVazia = validarCampoVazio(inputPermutacao);
+        int teste;
+
+        if (!entradaVazia) {
+            inputPermutacao.setError(null);
+
+            try {
+                teste = Integer.parseInt(Permutacao.getEntradaPermutacao());
+
+                return true;
+
+            } catch (Exception e) {
+                inputPermutacao.setError("O valor digitado é muito grande!");
+
+                return false;
+            }
+
+        } else {
+            inputPermutacao.setError("O valor de N não pode ser vazio!");
+
+             return false;
         }
 
     }
@@ -159,6 +187,44 @@ public class Calculadora {
     // Gera o resultado da subtração de (n-p) para ser usado na String do LaTeX
     public static String resultadoElementosMenosPosicoes() {
         int resultado =  Integer.parseInt(Arranjo.getNumeroElementos()) - Integer.parseInt(Arranjo.getNumeroPosicoes());
+
+        return Integer.toString(resultado);
+    }
+
+    // Gera o resultado da Permutação
+    public static String gerarDesenvolvimentoPermutacao() {
+
+        String n = Permutacao.getEntradaPermutacao();
+        int permutacao = Integer.parseInt(n);
+
+        if (permutacao > 0) {
+
+            StringBuilder valores = new StringBuilder();
+            for (int atual = permutacao; atual >= 1; atual--) {
+                valores.append(atual);
+                valores.append(".");
+            }
+
+            // Remove o último caracter em excesso (um ponto final)
+            valores.delete(valores.length()-1, valores.length());
+
+            return valores.toString();
+
+        } else if (permutacao == 0) {
+            return "1";
+
+        } else {
+            return "Insira apenas valores positivos!";
+        }
+    }
+
+    public static String gerarResultadoPermutacao() {
+        int valorEntrada = Integer.parseInt(Permutacao.getEntradaPermutacao());
+
+        int resultado = 1;
+        for (int atual = valorEntrada; atual >= 2; atual--) {
+            resultado *= atual;
+        }
 
         return Integer.toString(resultado);
     }
