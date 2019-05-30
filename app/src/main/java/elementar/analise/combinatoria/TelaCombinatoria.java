@@ -1,29 +1,23 @@
 package elementar.analise.combinatoria;
 
 import android.content.Intent;
-import android.net.Uri;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import elementar.analise.combinatoria.Fragments.Arranjo;
-import elementar.analise.combinatoria.Fragments.Combinacao;
 import elementar.matematica.pedrock.matemticaelementar.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 
-public class TelaCombinatoria extends AppCompatActivity implements Arranjo.OnFragmentInteractionListener, Combinacao.OnFragmentInteractionListener {
+public class TelaCombinatoria extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_combinatoria);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         //tabLayout.addTab(tabLayout.newTab().setText("Arranjo"));
-        //tabLayout.addTab(tabLayout.newTab().setText("Combinação"));
-        //tabLayout.addTab(tabLayout.newTab().setText("Permutação"));
-        //tabLayout.addTab(tabLayout.newTab().setText("Anagrama"));
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewAnalise);
         final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
@@ -56,8 +50,4 @@ public class TelaCombinatoria extends AppCompatActivity implements Arranjo.OnFra
         finish();
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 }

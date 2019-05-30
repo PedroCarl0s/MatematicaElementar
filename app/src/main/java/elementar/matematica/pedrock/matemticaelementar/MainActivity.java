@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.GridLayout;
+import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
@@ -72,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void abrirAnaliseCombinatoria() {
+
+        TextView textView = findViewById(R.id.textGrid);
+        textView.setVisibility(View.INVISIBLE);
 
         // Inicia a animação Lottie
         startAnimationClock(animationClock, "clock.json");
