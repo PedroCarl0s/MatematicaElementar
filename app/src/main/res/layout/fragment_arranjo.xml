@@ -46,6 +46,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_elementos"
+                style="@style/Widget.AppCompat.EditText"
                 android:layout_width="245dp"
                 android:layout_height="wrap_content"
                 android:hint="Elementos a arranjar"
