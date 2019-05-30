@@ -115,7 +115,7 @@ public class Arranjo extends Fragment {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void startAnimation(View view, LottieAnimationView animationView, int id ,String jsonFile, float speed, int loops) {
+    private void startAnimation(View view, LottieAnimationView animationView, int id, String jsonFile, float speed, int loops) {
         animationView = view.findViewById(id);
         animationView.setAnimation(jsonFile);
         animationView.setSpeed(speed);
@@ -137,7 +137,7 @@ public class Arranjo extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoArranjo.setText(GeradorFormulas.gerarResultado());
+                resultadoArranjo.setText(GeradorFormulas.gerarResultadoArranjo());
                 startAnimation(view, animationSwipe, id_swipe, "swipeup.json", 1f, 2);
             }
 
@@ -232,10 +232,10 @@ public class Arranjo extends Fragment {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (hasFocus) {
-                    inputElementos.setHint("N");
+                    inputElementos.setHint("Elementos a arranjar");
 
                 } else {
-                    inputElementos.setHint("Elementos a arranjar");
+                    inputElementos.setHint("Valor de N");
                 }
             }
         });
@@ -246,11 +246,11 @@ public class Arranjo extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    inputPosicoes.setHint("P");
+                    inputPosicoes.setHint("Posições a arranjar");
 
                 } else {
 
-                    inputPosicoes.setHint("Posições a arranjar");
+                    inputPosicoes.setHint("Valor de P");
                 }
             }
         });
