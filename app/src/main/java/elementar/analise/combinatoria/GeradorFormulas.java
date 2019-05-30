@@ -1,6 +1,7 @@
 package elementar.analise.combinatoria;
 
 import elementar.analise.combinatoria.Fragments.Arranjo;
+import elementar.analise.combinatoria.Fragments.Permutacao;
 
 
 public class GeradorFormulas {
@@ -26,7 +27,7 @@ public class GeradorFormulas {
     }
 
     //Gera todo o cálculo no formato LaTeX
-    public static String gerarResultado() {
+    public static String gerarResultadoArranjo() {
         valorElementos = Arranjo.getNumeroElementos();
         valorPosicoes = Arranjo.getNumeroPosicoes();
         elementosMenosPosicoes = Calculadora.resultadoElementosMenosPosicoes();
@@ -130,7 +131,7 @@ public class GeradorFormulas {
             int tamanhoFatorial = fatorialNumerador.length();
 
             /*Removendo o último valor, e o ponto final excedente
-             Ex.: Remover o valor 10 e ponto final -> 11.10
+             Ex.: Remover o valor 10 e o ponto final -> 11.10
              Dez possui tamanho dois, e então decrementando dois índices da substring,
              o 10 é removido, mas o ponto final ainda fica. Para remover o ponto final,
              decrementa-se +1 índice da String. RESULTADO = 11
@@ -146,5 +147,30 @@ public class GeradorFormulas {
         }
 
     }
+
+    public static String gerarResultadoPermutacao() {
+        String resultadoParcial = Calculadora.gerarDesenvolvimentoPermutacao();
+        String valorEntrada = Permutacao.getEntradaPermutacao();
+        int entrada = Integer.parseInt(valorEntrada);
+
+
+        String resultado = "$$\\bold{Resultado}$$";
+        if (entrada  > 1 && entrada <= 10) {
+            resultado += "$$" + valorEntrada +  "!" +  " = " + resultadoParcial + " = " + Calculadora.gerarResultadoPermutacao() + "$$";
+
+        } else if (entrada > 10) {
+            resultado += "$$" + valorEntrada +  "!" +  " = " + resultadoParcial + "$$";
+            resultado += "$$" + valorEntrada + "!" + " = " + Calculadora.gerarResultadoPermutacao() + "$$";
+
+        } else if (entrada > 0 || entrada <= 1) {
+            resultado += "$$" + valorEntrada + "!" + " = " + Calculadora.gerarResultadoPermutacao() + "$$";
+
+        } else {
+            return "Apenas valores inteiros positivos";
+        }
+
+        return resultado;
+    }
+
 
 }
