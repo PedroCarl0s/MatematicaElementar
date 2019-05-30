@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,8 @@ public class Permutacao extends Fragment {
 
     private View view;
 
-    private static MathView formulaPermutacao, resultadoPermutacao;
+    private MathView formulaPermutacao;
+    private static MathView resultadoPermutacao;
 
     private static TextInputEditText txtPermutacao;
     private static TextInputLayout inputPermutacao;
@@ -49,6 +51,12 @@ public class Permutacao extends Fragment {
         // Required empty public constructor
     }
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -195,8 +203,12 @@ public class Permutacao extends Fragment {
         if (savedInstanceState != null) {
             MainActivity.hideKeyboard((getActivity()));
 
-            this.txtPermutacao.setText(savedInstanceState.getString("entrada_permutacao"));
-            this.resultadoPermutacao.setText(savedInstanceState.getString("resultado_permutacao"));
+            Log.i("RESTORED", savedInstanceState.getString("resultado_permutacao"));
+            txtPermutacao.setText(savedInstanceState.getString("entrada_permutacao"));
+
+            MathView calculoRecuperado = view.findViewById(R.id.resultado_permutacao);
+            calculoRecuperado.setText(savedInstanceState.getString("resultado_permutacao"));
+
         }
     }
 }
