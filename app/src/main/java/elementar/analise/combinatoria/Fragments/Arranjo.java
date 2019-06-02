@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.GeradorFormulas;
+import elementar.matematica.pedrock.matemticaelementar.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import io.github.kexanie.library.MathView;
@@ -41,7 +42,7 @@ public class Arranjo extends Fragment {
     private boolean jaCalculou = false;
 
     private LottieAnimationView animationWrite, animationSwipe;
-    private final int id_write = R.id.animation_write, id_swipe = R.id.animation_swipe;
+    private final int ID_WRITE = R.id.animation_write, ID_SWIPE = R.id.animation_swipe;
     private final int DELAY_TIME = 750;
 
     public Arranjo() {
@@ -189,7 +190,8 @@ public class Arranjo extends Fragment {
         animationWrite.setVisibility(View.VISIBLE);
         animationSwipe.setVisibility(View.VISIBLE);
 
-        startAnimation(view, animationWrite, id_write ,"write.json",1.5f, 0);
+        // Inicia a animação de escrita
+        LottieController.startLottieAnimation(view, animationWrite, ID_WRITE, "write.json", 1.5f, 0);
 
         // Delay para mostrar animação + resultado
         handler = new Handler();
@@ -197,43 +199,16 @@ public class Arranjo extends Fragment {
             @Override
             public void run() {
                 resultadoArranjo.setText(GeradorFormulas.gerarResultadoArranjo());
-                startAnimation(view, animationSwipe, id_swipe, "swipeup.json", 1f, 2);
+                LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
+
             }
 
         }, DELAY_TIME);
 
-        cancelLottieAnimation(animationWrite);
-        cancelLottieAnimation(animationSwipe);
+        // Cancela as animações
+        LottieController.cancelLottieAnimation(animationWrite);
+        LottieController.cancelLottieAnimation(animationSwipe);
     }
-
-    // Cancela e esconde a animações Lottie
-
-    private void cancelLottieAnimation(final LottieAnimationView animationView) {
-        animationView.addAnimatorListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                animationView.cancelAnimation();
-                animationView.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-
-
-        });
-    }
-
 
     public static String getNumeroElementos() {
         int elementos;
