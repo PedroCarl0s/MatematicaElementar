@@ -1,9 +1,12 @@
 package elementar.matematica.pedrock.matemticaelementar;
 
 import android.animation.Animator;
+import android.content.res.Configuration;
 import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
+
+import elementar.analise.combinatoria.Fragments.Arranjo;
 
 public class LottieController {
 
@@ -48,6 +51,18 @@ public class LottieController {
 
             }
         });
+    }
+
+    // Modifica a visibilidade da animação ao girar tela (corrige bug de animação aparecer sozinha)
+    public static void changeAnimationVisibility(View view, LottieAnimationView animationView, int id, int currentOrientation) {
+        animationView = view.findViewById(id);
+
+        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+            animationView.setVisibility(View.INVISIBLE);
+
+        } else {
+            animationView.setVisibility(View.INVISIBLE);
+        }
     }
 
 }
