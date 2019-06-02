@@ -9,10 +9,13 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -75,7 +78,7 @@ public class Permutacao extends Fragment {
         this.animationWrite = (LottieAnimationView) view.findViewById(R.id.animation_write);
 
 
-        String formula = "$$\\normalsize \\bold{\\text{Formula da Permutacao}}$$"
+        String formula = "$$\\normalsize \\bold{Formula}$$"
                 + "$$ n! = n.(n-1).(n-2) \\ ... \\ 2.1$$";
 
         formulaPermutacao.setText(formula);
@@ -94,6 +97,19 @@ public class Permutacao extends Fragment {
                 calcularPermutacao();
             }
         });
+
+        txtPermutacao.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
+                    calcularPermutacao();
+
+                    return true;
+                }
+                return false;
+            }
+        });
+
     }
 
     // Troca o título do TextInput ao clicar
@@ -120,6 +136,7 @@ public class Permutacao extends Fragment {
             if (jaCalculou) {
 
                 if (Permutacao.getEntradaPermutacao().equals(valorEntrada)) {
+                    MainActivity.hideKeyboard(getActivity());
                     showToastMessage("O valor já foi calculado!");
 
                 } else {
@@ -134,8 +151,10 @@ public class Permutacao extends Fragment {
 
                 jaCalculou = true;
                 valorEntrada = Permutacao.getEntradaPermutacao();
-
             }
+
+        } else {
+            MainActivity.hideKeyboard(getActivity());
         }
     }
 
