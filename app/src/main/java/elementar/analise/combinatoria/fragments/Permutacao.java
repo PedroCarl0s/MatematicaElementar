@@ -37,8 +37,8 @@ public class Permutacao extends Fragment {
     private MathView formulaPermutacao;
     private static MathView resultadoPermutacao;
 
-    private static TextInputEditText txtPermutacao;
     private static TextInputLayout inputPermutacao;
+    private static TextInputEditText txtPermutacao;
 
     private Button btnCalcular;
     private Handler handler;
@@ -72,11 +72,12 @@ public class Permutacao extends Fragment {
     private void init() {
         this.formulaPermutacao = (MathView) view.findViewById(R.id.formula_permutacao);
         this.resultadoPermutacao = (MathView) view.findViewById(R.id.resultado_permutacao);
-        this.txtPermutacao = (TextInputEditText) view.findViewById(R.id.inputPermutacao);
-        this.inputPermutacao = (TextInputLayout) view.findViewById(R.id.txt_permutacao);
+
+        this.inputPermutacao = (TextInputLayout) view.findViewById(R.id.input_permutacao);
+        this.txtPermutacao = (TextInputEditText) view.findViewById(R.id.txt_permutacao);
+
         this.btnCalcular = (Button) view.findViewById(R.id.btn_calcular);
         this.animationWrite = (LottieAnimationView) view.findViewById(R.id.animation_write);
-
 
         String formula = "$$\\normalsize \\bold{Formula}$$"
                 + "$$ n! = n.(n-1).(n-2) \\ ... \\ 2.1$$";
@@ -114,7 +115,7 @@ public class Permutacao extends Fragment {
 
     // Troca o título do TextInput ao clicar
     private void changeTextInputTitle() {
-        txtPermutacao.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        this.txtPermutacao.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
@@ -137,7 +138,7 @@ public class Permutacao extends Fragment {
 
                 if (Permutacao.getEntradaPermutacao().equals(valorEntrada)) {
                     MainActivity.hideKeyboard(getActivity());
-                    showToastMessage("O valor já foi calculado!");
+                    showToastMessage("A permutação já foi calculada!");
 
                 } else {
                     setResultado();

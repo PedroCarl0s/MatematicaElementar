@@ -11,16 +11,16 @@ public class Calculadora {
     private static int elementos, posicoes;
 
     // Verifica se a entrada está vazia
-    private static boolean validarCampoVazio(TextInputLayout inputText) {
+    public static boolean verificarCampoVazio(TextInputLayout inputText) {
         String testeInput = inputText.getEditText().getText().toString();
         return testeInput.isEmpty();
     }
 
     // Verifica a entrada, para saber se alguma condição está violada
-    public static boolean validarEntradas(TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
+    public static boolean validarEntradasPermutacao(TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
 
-        boolean elementosVazio = validarCampoVazio(inputElementos);
-        boolean posicoesVazio = validarCampoVazio(inputPosicoes);
+        boolean elementosVazio = verificarCampoVazio(inputElementos);
+        boolean posicoesVazio = verificarCampoVazio(inputPosicoes);
 
         // Campos de elemento e posição preenchidos
         if (!elementosVazio && !posicoesVazio) {
@@ -78,7 +78,7 @@ public class Calculadora {
 
     // Verifica se o campo da Permutação é válido
     public static boolean validarEntradaPermutacao(TextInputLayout inputPermutacao) {
-        boolean entradaVazia = validarCampoVazio(inputPermutacao);
+        boolean entradaVazia = verificarCampoVazio(inputPermutacao);
         int teste;
 
         if (!entradaVazia) {
@@ -103,7 +103,7 @@ public class Calculadora {
 
     }
 
-    public static long gerarResultadoCalculo() {
+    public static long gerarResultadoCalculoPermutacao() {
 
         String valoresFinais = Calculadora.gerarFatorialElementos();
         valoresFinais = GeradorFormulas.removerUltimoValor(valoresFinais);
@@ -232,5 +232,6 @@ public class Calculadora {
 
         return Integer.toString(resultado);
     }
+
 
 }

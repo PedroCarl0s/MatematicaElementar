@@ -151,7 +151,7 @@ public class Arranjo extends Fragment {
     // Responsável por solicitar o cálculo e impressão no formato LaTeX
     public void calcularArranjo(View view) {
 
-        if (Calculadora.validarEntradas(inputElementos, inputPosicoes)) {
+        if (Calculadora.validarEntradasPermutacao(inputElementos, inputPosicoes)) {
             MainActivity.hideKeyboard(getActivity());
 
             if (jaCalculou) {

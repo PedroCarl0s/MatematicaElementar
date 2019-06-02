@@ -25,7 +25,7 @@
         </io.github.kexanie.library.MathView>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_permutacao"
+            android:id="@+id/input_permutacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -40,7 +40,7 @@
             app:layout_constraintTop_toBottomOf="@+id/formula_permutacao">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputPermutacao"
+                android:id="@+id/txt_permutacao"
                 android:layout_width="289dp"
                 android:layout_height="52dp"
                 android:gravity="center_vertical"
@@ -64,7 +64,7 @@
             android:text="calcular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_permutacao" />
+            app:layout_constraintTop_toBottomOf="@id/input_permutacao" />
 
         <LinearLayout
             android:id="@+id/linearLayout"

@@ -48,7 +48,7 @@ public class GeradorFormulas {
 
             numeradorDesenvolvimento = valorElementos;
 
-            resultadoFinal = Calculadora.gerarResultadoCalculo();
+            resultadoFinal = Calculadora.gerarResultadoCalculoPermutacao();
 
         }
 
@@ -61,7 +61,7 @@ public class GeradorFormulas {
 
             numeradorDesenvolvimento = fatorialElementos;
 
-            resultadoFinal = Calculadora.gerarResultadoCalculo();
+            resultadoFinal = Calculadora.gerarResultadoCalculoPermutacao();
 
         // Nº de elementos igual ao resultado de (n-p)!, sempre resultará 1 (no Arranjo Simples)
         } else {
