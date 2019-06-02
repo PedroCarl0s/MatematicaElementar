@@ -1,6 +1,7 @@
 package elementar.analise.combinatoria.Fragments;
 
 import android.animation.Animator;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,7 +55,20 @@ public class Arranjo extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    // Inicializa componentes de Input, MathView e Button
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        // Inflate the layout for this fragment
+        this.view = inflater.inflate(R.layout.fragment_arranjo, container, false);
+
+        int currentOrientation = getResources().getConfiguration().orientation;
+        LottieController.changeAnimationVisibility(view, animationSwipe, ID_SWIPE, currentOrientation);
+
+        return view;
+    }
+
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -112,6 +126,7 @@ public class Arranjo extends Fragment {
         });
     }
 
+    // Inicializa componentes de Input, MathView e Button
     public void init() {
         this.inputElementos = view.findViewById(R.id.elementos_arranjo);
         this.inputPosicoes = view.findViewById(R.id.posicoes_arranjo);
@@ -175,14 +190,6 @@ public class Arranjo extends Fragment {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void startAnimation(View view, LottieAnimationView animationView, int id, String jsonFile, float speed, int loops) {
-        animationView = view.findViewById(id);
-        animationView.setAnimation(jsonFile);
-        animationView.setSpeed(speed);
-        animationView.setRepeatCount(loops);
-        animationView.playAnimation();
-    }
-
     private void setResultado() {
         animationWrite = view.findViewById(R.id.animation_write);
         animationSwipe = view.findViewById(R.id.animation_swipe);
@@ -235,17 +242,6 @@ public class Arranjo extends Fragment {
 
         return Integer.toString(posicoes);
     }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
-        this.view = inflater.inflate(R.layout.fragment_arranjo, container, false);
-
-        return view;
-    }
-
-
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
