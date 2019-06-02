@@ -4,6 +4,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import elementar.analise.combinatoria.Fragments.Arranjo;
 import elementar.analise.combinatoria.Fragments.Permutacao;
+import elementar.matematica.pedrock.matemticaelementar.MainActivity;
 
 public class Calculadora {
 
@@ -221,7 +222,10 @@ public class Calculadora {
     public static String gerarResultadoPermutacao() {
         int valorEntrada = Integer.parseInt(Permutacao.getEntradaPermutacao());
 
+        // O fatorial vai até o valor 1
         int resultado = 1;
+
+        // Multiplica até o valor 2 (removi o 1, porque 1 vezes outro valor, dá ele mesmo). Exemplo: 5! = 5 * 4 * 3 * 2
         for (int atual = valorEntrada; atual >= 2; atual--) {
             resultado *= atual;
         }
