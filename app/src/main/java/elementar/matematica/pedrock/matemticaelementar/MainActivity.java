@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -22,7 +21,8 @@ import elementar.teoria.dos.conjuntos.TelaConjuntos;
 public class MainActivity extends AppCompatActivity {
 
     private final int  DELAY_TIME = 900;
-    private static LottieAnimationView animationClock;
+    public static LottieAnimationView animationClock;
+    public final int CLOCK_ID = R.id.animation_clock;
     private GridLayout mainGrid;
     private Thread thread;
 
@@ -33,8 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
         mainGrid = (GridLayout) findViewById(R.id.mainGrid);
         setSingleEvent(mainGrid);
-
     }
+
+
 
 
     private void setSingleEvent(GridLayout mainGrid) {
@@ -77,8 +78,10 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textGrid);
         textView.setVisibility(View.INVISIBLE);
 
+        animationClock = findViewById(R.id.animation_clock);
+
         // Inicia a animação Lottie
-        startAnimationClock(animationClock, "clock.json");
+        LottieController.startLottieAnimation(animationClock, CLOCK_ID, "clock.json", 1.5f, 0);
 
         // Desativa a Activity (impedir clique em outro botão)
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -112,13 +115,6 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
-    private void startAnimationClock(LottieAnimationView animationView, String jsonFile) {
-        animationView = findViewById(R.id.animation_clock);
-        animationView.setAnimation(jsonFile);
-        animationView.setSpeed(1.5f);
-        animationView.playAnimation();
-    }
-
     public void abrirOperacoesConjuntos() {
         startActivity(new Intent(this, TelaConjuntos.class));
         finish();
@@ -137,6 +133,5 @@ public class MainActivity extends AppCompatActivity {
             inputMananger.hideSoftInputFromWindow(currentFocusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
-
 
 }
