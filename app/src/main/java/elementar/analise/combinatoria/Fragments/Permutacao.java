@@ -1,6 +1,7 @@
 package elementar.analise.combinatoria.Fragments;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.GeradorFormulas;
+import elementar.matematica.pedrock.matemticaelementar.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import io.github.kexanie.library.MathView;
@@ -44,7 +46,7 @@ public class Permutacao extends Fragment {
     private final int DELAY_TIME = 750;
 
     private LottieAnimationView animationWrite;
-    private final int id_write = R.id.animation_write;
+    private final int ID_WRITE = R.id.animation_write;
 
     private boolean jaCalculou = false;
     private String valorEntrada;
@@ -58,7 +60,6 @@ public class Permutacao extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -163,21 +164,20 @@ public class Permutacao extends Fragment {
     }
 
     private void setResultado() {
-        animationWrite = view.findViewById(R.id.animation_write);
-
         animationWrite.setVisibility(View.VISIBLE);
-        startAnimation(view, animationWrite, id_write, "write.json", 2f, 0);
+
+        startAnimation(view, animationWrite, ID_WRITE, "write.json", 2f, 0);
 
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 resultadoPermutacao.setText(GeradorFormulas.gerarResultadoPermutacao());
-                //startAnimation(view, animationWrite, id_write, "write,json", 1.5f, 0);
             }
 
         }, DELAY_TIME);
 
+        LottieController.cancelLottieAnimation(animationWrite);
     }
 
     public static String getEntradaPermutacao() {
