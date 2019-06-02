@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#22A7F0"
-    tools:context="elementar.analise.combinatoria.Fragments.Anagrama">
+    tools:context="elementar.analise.combinatoria.fragments.Anagrama">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

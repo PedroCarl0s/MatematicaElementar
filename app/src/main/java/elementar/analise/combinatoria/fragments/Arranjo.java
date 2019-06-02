@@ -1,7 +1,5 @@
-package elementar.analise.combinatoria.Fragments;
+package elementar.analise.combinatoria.fragments;
 
-import android.animation.Animator;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import elementar.analise.combinatoria.Calculadora;
-import elementar.analise.combinatoria.GeradorFormulas;
+import elementar.analise.combinatoria.latex.GeradorFormulas;
 import elementar.matematica.pedrock.matemticaelementar.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;

@@ -2,9 +2,9 @@ package elementar.analise.combinatoria;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import elementar.analise.combinatoria.Fragments.Arranjo;
-import elementar.analise.combinatoria.Fragments.Permutacao;
-import elementar.matematica.pedrock.matemticaelementar.MainActivity;
+import elementar.analise.combinatoria.fragments.Arranjo;
+import elementar.analise.combinatoria.fragments.Permutacao;
+import elementar.analise.combinatoria.latex.GeradorFormulas;
 
 public class Calculadora {
 

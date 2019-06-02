@@ -6,8 +6,6 @@ import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-import elementar.analise.combinatoria.Fragments.Arranjo;
-
 public class LottieController {
 
     // Método que inicia a Animação Lottie (apenas no MainActivity)

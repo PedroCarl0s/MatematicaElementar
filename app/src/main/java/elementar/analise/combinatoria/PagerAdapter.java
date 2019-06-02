@@ -1,15 +1,13 @@
 package elementar.analise.combinatoria;
 
-import android.util.Log;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import elementar.analise.combinatoria.Fragments.Anagrama;
-import elementar.analise.combinatoria.Fragments.Arranjo;
-import elementar.analise.combinatoria.Fragments.Combinacao;
-import elementar.analise.combinatoria.Fragments.Permutacao;
+import elementar.analise.combinatoria.fragments.Anagrama;
+import elementar.analise.combinatoria.fragments.Arranjo;
+import elementar.analise.combinatoria.fragments.Combinacao;
+import elementar.analise.combinatoria.fragments.Permutacao;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 

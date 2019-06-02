@@ -7,7 +7,7 @@
     android:layout_gravity="top"
     android:background="#22A7F0"
 
-    tools:context="elementar.analise.combinatoria.Fragments.Arranjo">
+    tools:context="elementar.analise.combinatoria.fragments.Arranjo">
 
     <!-- TODO: Update blank fragment layout -->
 

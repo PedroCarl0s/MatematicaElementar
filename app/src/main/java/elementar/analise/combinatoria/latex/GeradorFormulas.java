@@ -1,7 +1,8 @@
-package elementar.analise.combinatoria;
+package elementar.analise.combinatoria.latex;
 
-import elementar.analise.combinatoria.Fragments.Arranjo;
-import elementar.analise.combinatoria.Fragments.Permutacao;
+import elementar.analise.combinatoria.Calculadora;
+import elementar.analise.combinatoria.fragments.Arranjo;
+import elementar.analise.combinatoria.fragments.Permutacao;
 
 
 public class GeradorFormulas {

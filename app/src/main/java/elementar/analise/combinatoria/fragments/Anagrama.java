@@ -1,4 +1,4 @@
-package elementar.analise.combinatoria.Fragments;
+package elementar.analise.combinatoria.fragments;
 
 
 import android.os.Bundle;
