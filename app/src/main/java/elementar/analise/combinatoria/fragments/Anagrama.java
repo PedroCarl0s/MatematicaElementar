@@ -22,6 +22,7 @@ import elementar.analise.combinatoria.latex.GeradorAnagrama;
 import elementar.matematica.pedrock.matemticaelementar.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
+import elementar.matematica.pedrock.matemticaelementar.TextInputController;
 import io.github.kexanie.library.MathView;
 
 
@@ -59,6 +60,8 @@ public class Anagrama extends Fragment {
         super.onResume();
 
         init();
+        TextInputController.setLabelTextInput(inputAnagrama, txtAnagrama, "Anagrama de", "Insira uma palavra");
+
 
 //        String formulaAnagrama = "$$\\text{Ocorrencias} \\begin{cases}" +
 //                "a = & \\text{2 vezes} \\\\" +

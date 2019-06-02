@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import elementar.analise.combinatoria.latex.GeradorFormulas;
 import elementar.matematica.pedrock.matemticaelementar.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
+import elementar.matematica.pedrock.matemticaelementar.TextInputController;
 import io.github.kexanie.library.MathView;
 
 
@@ -34,7 +36,7 @@ public class Permutacao extends Fragment {
 
     private View view;
 
-    private MathView formulaPermutacao;
+    private static MathView formulaPermutacao;
     private static MathView resultadoPermutacao;
 
     private static TextInputLayout inputPermutacao;
@@ -83,6 +85,8 @@ public class Permutacao extends Fragment {
                 + "$$ n! = n.(n-1).(n-2) \\ ... \\ 2.1$$";
 
         formulaPermutacao.setText(formula);
+
+
     }
 
     @Override
@@ -90,7 +94,7 @@ public class Permutacao extends Fragment {
         super.onResume();
 
         init();
-        changeTextInputTitle();
+        TextInputController.setLabelTextInput(this.inputPermutacao, this.txtPermutacao, "Fatorial de", "Valor de n");
 
         btnCalcular.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,22 +117,6 @@ public class Permutacao extends Fragment {
 
     }
 
-    // Troca o título do TextInput ao clicar
-    private void changeTextInputTitle() {
-        this.txtPermutacao.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    inputPermutacao.setHint("Fatorial de");
-
-                } else {
-                    inputPermutacao.setHint("Insira o valor de n");
-                }
-
-            }
-        });
-    }
-
     private void calcularPermutacao() {
 
         if (Calculadora.validarEntradaPermutacao(inputPermutacao)) {
@@ -138,6 +126,8 @@ public class Permutacao extends Fragment {
 
                 if (Permutacao.getEntradaPermutacao().equals(valorEntrada)) {
                     MainActivity.hideKeyboard(getActivity());
+
+                    inputPermutacao.setHint("Fatorial de");
                     showToastMessage("A permutação já foi calculada!");
 
                 } else {
@@ -164,6 +154,7 @@ public class Permutacao extends Fragment {
     }
 
     private void setResultado() {
+        inputPermutacao.setHint("Fatorial de");
         animationWrite.setVisibility(View.VISIBLE);
 
         startAnimation(view, animationWrite, ID_WRITE, "write.json", 2f, 0);

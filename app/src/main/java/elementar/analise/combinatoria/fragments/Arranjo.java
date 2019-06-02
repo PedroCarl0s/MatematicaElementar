@@ -24,6 +24,7 @@ import elementar.analise.combinatoria.latex.GeradorFormulas;
 import elementar.matematica.pedrock.matemticaelementar.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
+import elementar.matematica.pedrock.matemticaelementar.TextInputController;
 import io.github.kexanie.library.MathView;
 
 
@@ -83,33 +84,10 @@ public class Arranjo extends Fragment {
         });
 
         // Troca o título do TextInput ao clicar
-        txtElementos.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    inputElementos.setHint("Elementos a arranjar");
-
-                } else {
-                    inputElementos.setHint("Valor de N");
-                }
-            }
-        });
+        TextInputController.setLabelTextInput(this.inputElementos, this.txtElementos, "Valor de n", "Elementos a arranjar");
 
         // Troca o título do TextInput ao clicar
-        txtPosicoes.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    inputPosicoes.setHint("Posições a arranjar");
-
-                } else {
-
-                    inputPosicoes.setHint("Valor de P");
-                }
-            }
-        });
+        TextInputController.setLabelTextInput(this.inputPosicoes, this.txtPosicoes, "Valor de p", "Posições a arranjar");
 
         txtPosicoes.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -122,6 +100,7 @@ public class Arranjo extends Fragment {
                 return false;
             }
         });
+
     }
 
     // Inicializa componentes de Input, MathView e Button
@@ -158,6 +137,9 @@ public class Arranjo extends Fragment {
 
                 // Campos de entrada com os mesmos valores, não é necessário recalcular
                 if (Arranjo.getNumeroElementos().equals(valorElementos) && Arranjo.getNumeroPosicoes().equals(valorPosicoes)) {
+                    inputElementos.setHint("Elementos a arranjar");
+                    inputPosicoes.setHint("Posições a arranjar");
+
                     showToastMessage("O valor já foi calculado!");
 
                 // Uma ou as duas entradas distintas, é necessário calcular
@@ -189,6 +171,9 @@ public class Arranjo extends Fragment {
     }
 
     private void setResultado() {
+        inputElementos.setHint("Elementos a arranjar");
+        inputPosicoes.setHint("Posições a arranjar");
+
         animationWrite = view.findViewById(R.id.animation_write);
         animationSwipe = view.findViewById(R.id.animation_swipe);
 
