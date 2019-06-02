@@ -27,6 +27,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_anagrama"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -46,7 +47,7 @@
                 android:layout_height="52dp"
                 android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
                 android:gravity="center_vertical"
-                android:hint="Insira a palavra"
+                android:hint="Insira uma palavra"
                 android:inputType="text"
                 android:textSize="20sp" />
 
