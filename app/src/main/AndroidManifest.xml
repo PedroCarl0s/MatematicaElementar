@@ -19,12 +19,17 @@
             </intent-filter>
         </activity>
 
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name="elementar.teoria.dos.conjuntos.TelaConjuntos" />
-        <activity android:name="elementar.analise.combinatoria.TelaCombinatoria"></activity>
+        <activity
+            android:name="elementar.analise.combinatoria.TelaCombinatoria"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
     </application>
 
 </manifest>
