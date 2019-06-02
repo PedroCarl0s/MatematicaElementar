@@ -21,7 +21,7 @@ import elementar.teoria.dos.conjuntos.TelaConjuntos;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int  DELAY_TIME = 2100;
+    private final int  DELAY_TIME = 900;
     private static LottieAnimationView animationClock;
     private GridLayout mainGrid;
     private Thread thread;
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     private void startAnimationClock(LottieAnimationView animationView, String jsonFile) {
         animationView = findViewById(R.id.animation_clock);
         animationView.setAnimation(jsonFile);
-        animationView.setProgress(1.0f);
+        animationView.setSpeed(1.5f);
         animationView.playAnimation();
     }
 
