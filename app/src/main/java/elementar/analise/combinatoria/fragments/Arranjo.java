@@ -37,13 +37,14 @@ public class Arranjo extends Fragment {
     private static TextInputEditText txtElementos, txtPosicoes;
 
     private static MathView formulaArranjo, resultadoArranjo;
-    private static String valorElementos, valorPosicoes;
+    private static int valorElementos, valorPosicoes;
     private Button btnCalcular;
     private boolean jaCalculou = false;
 
     private LottieAnimationView animationWrite, animationSwipe;
     private final int ID_WRITE = R.id.animation_write, ID_SWIPE = R.id.animation_swipe;
     private final int DELAY_TIME = 750;
+    private static final int ERRO_CONVERSAO = -10000;
 
     public Arranjo() {
         // Required empty public constructor
@@ -79,7 +80,7 @@ public class Arranjo extends Fragment {
 
             @Override
             public void onClick(View v) {
-                calcularArranjo(view);
+                calcularArranjo(view, Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes());
             }
         });
 
@@ -93,7 +94,7 @@ public class Arranjo extends Fragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
-                    calcularArranjo(view);
+                    calcularArranjo(view, Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes());
 
                     return true;
                 }
@@ -128,7 +129,7 @@ public class Arranjo extends Fragment {
     }
 
     // Responsável por solicitar o cálculo e impressão no formato LaTeX
-    public void calcularArranjo(View view) {
+    public void calcularArranjo(View view, int valorElementos, int valorPosicoes) {
 
         if (Calculadora.validarEntradasPermutacao(inputElementos, inputPosicoes)) {
             MainActivity.hideKeyboard(getActivity());
@@ -136,7 +137,7 @@ public class Arranjo extends Fragment {
             if (jaCalculou) {
 
                 // Campos de entrada com os mesmos valores, não é necessário recalcular
-                if (Arranjo.getNumeroElementos().equals(valorElementos) && Arranjo.getNumeroPosicoes().equals(valorPosicoes)) {
+                if ((Arranjo.getNumeroElementos() == this.valorElementos) && Arranjo.getNumeroPosicoes() == this.valorPosicoes) {
                     inputElementos.setHint("Elementos a arranjar");
                     inputPosicoes.setHint("Posições a arranjar");
 
@@ -144,21 +145,21 @@ public class Arranjo extends Fragment {
 
                 // Uma ou as duas entradas distintas, é necessário calcular
                 } else {
-                    setResultado();
+                    setResultado(valorElementos, valorPosicoes);
 
-                    valorElementos = Arranjo.getNumeroElementos();
-                    valorPosicoes = Arranjo.getNumeroPosicoes();
+                    this.valorElementos = Arranjo.getNumeroElementos();
+                    this.valorPosicoes = Arranjo.getNumeroPosicoes();
 
                     jaCalculou = true;
                 }
 
             // Muda estado da variável jaCalculou e calcula (apenas no primeiro cálculo)
             } else {
-                setResultado();
+                setResultado(valorElementos, valorPosicoes);
 
                 jaCalculou = true;
-                valorElementos = Arranjo.getNumeroElementos();
-                valorPosicoes = Arranjo.getNumeroPosicoes();
+                this.valorElementos = Arranjo.getNumeroElementos();
+                this.valorPosicoes = Arranjo.getNumeroPosicoes();
             }
 
         } else {
@@ -170,7 +171,7 @@ public class Arranjo extends Fragment {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void setResultado() {
+    private void setResultado(final int valorElementos, final int valorPosicoes) {
         inputElementos.setHint("Elementos a arranjar");
         inputPosicoes.setHint("Posições a arranjar");
 
@@ -188,7 +189,7 @@ public class Arranjo extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoArranjo.setText(GeradorFormulas.gerarResultadoArranjo());
+                resultadoArranjo.setText(GeradorFormulas.gerarResultadoArranjo(valorElementos, valorPosicoes));
                 LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
 
             }
@@ -200,38 +201,38 @@ public class Arranjo extends Fragment {
         LottieController.cancelLottieAnimation(animationSwipe);
     }
 
-    public static String getNumeroElementos() {
+    public static int getNumeroElementos() {
         int elementos;
 
         try {
             elementos =  Integer.parseInt(inputElementos.getEditText().getText().toString());
 
         } catch (Exception e) {
-            return "";
+            return ERRO_CONVERSAO;
         }
 
-        return Integer.toString(elementos);
+        return elementos;
     }
 
-    public static String getNumeroPosicoes() {
+    public static int getNumeroPosicoes() {
         int posicoes;
 
         try {
             posicoes = Integer.parseInt(inputPosicoes.getEditText().getText().toString());
 
         } catch (Exception error) {
-            return "";
+            return ERRO_CONVERSAO;
         }
 
-        return Integer.toString(posicoes);
+        return posicoes;
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString("elementos", Arranjo.getNumeroElementos());
-        outState.putString("posicoes", Arranjo.getNumeroPosicoes());
+        outState.putString("elementos", Integer.toString(Arranjo.getNumeroElementos()));
+        outState.putString("posicoes", Integer.toString(Arranjo.getNumeroPosicoes()));
         outState.putString("latex", resultadoArranjo.getText());
     }
 
