@@ -29,9 +29,9 @@ public class Calculadora {
             inputPosicoes.setError(null);
 
 
-            // Tentativa de conversão de String para Inteiro, e caso o valor exceda 32 bits, ocorrerá uma exceção
+            // Tentativa de atribuição para Inteiro, e caso o valor exceda 32 bits, ocorrerá uma exceção
             try {
-                elementos = Integer.parseInt(Arranjo.getNumeroElementos());
+                elementos = Arranjo.getNumeroElementos();
 
             } catch (Exception error) {
                 inputElementos.setError("O valor digitado é muito grande!");
@@ -40,7 +40,7 @@ public class Calculadora {
             }
 
             try {
-                posicoes = Integer.parseInt(Arranjo.getNumeroPosicoes());
+                posicoes = Arranjo.getNumeroPosicoes();
 
             } catch (Exception error) {
                 inputPosicoes.setError("O valor digitado é muito grande!");
@@ -104,9 +104,9 @@ public class Calculadora {
 
     }
 
-    public static long gerarResultadoCalculoPermutacao() {
+    public static long gerarResultadoCalculoPermutacao(int elementos, int posicoes) {
 
-        String valoresFinais = Calculadora.gerarFatorialElementos();
+        String valoresFinais = Calculadora.gerarFatorialElementos(elementos, posicoes);
         valoresFinais = GeradorFormulas.removerUltimoValor(valoresFinais);
 
 
@@ -133,13 +133,13 @@ public class Calculadora {
 
 
     // Gera o fatorial dos elementos a Arranjar, para ser usado no MathView. Exemplo: 4! = 4.3.2.1
-    public static String gerarFatorialElementos() {
+    public static String gerarFatorialElementos(int elementos, int posicoes) {
 
-        String n = Arranjo.getNumeroElementos();
-        String p = Arranjo.getNumeroPosicoes();
+//        String n = Arranjo.getNumeroElementos();
+//        String p = Arranjo.getNumeroPosicoes();
 
-        elementos = Integer.parseInt(n);
-        posicoes = Integer.parseInt(p);
+//        elementos = Integer.parseInt(n);
+//        posicoes = Integer.parseInt(p);
 
         // Número de elementos a arranjar maior que zero, é necessário desenvolver o fatorial
         if (elementos > 0) {
@@ -188,10 +188,8 @@ public class Calculadora {
     }
 
     // Gera o resultado da subtração de (n-p) para ser usado na String do LaTeX
-    public static String resultadoElementosMenosPosicoes() {
-        int resultado =  Integer.parseInt(Arranjo.getNumeroElementos()) - Integer.parseInt(Arranjo.getNumeroPosicoes());
-
-        return Integer.toString(resultado);
+    public static int resultadoElementosMenosPosicoes(int valorElementos, int valorPosicoes) {
+       return valorElementos - valorPosicoes;
     }
 
     // Gera o resultado da Permutação
