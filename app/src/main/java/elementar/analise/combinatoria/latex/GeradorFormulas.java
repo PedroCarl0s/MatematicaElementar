@@ -1,17 +1,30 @@
 package elementar.analise.combinatoria.latex;
 
+import android.support.v4.app.INotificationSideChannel;
+import android.telephony.mbms.MbmsErrors;
+
 import elementar.analise.combinatoria.Calculadora;
 
-public class GeradorFormulas {
+public final class GeradorFormulas {
 
-    private static String valorElementos, valorPosicoes;
+    private static GeradorFormulas INSTANCE = null;
+
     private static int elementosMenosPosicoes;
     private static String fatorialElementos;
 
-    public GeradorFormulas() {
+    private static Calculadora calculadora = Calculadora.getInstance();
+    private static GeradorFormulas geradorFormulas = GeradorFormulas.getInstance();
+
+    private GeradorFormulas() {
 
     }
 
+    public static synchronized GeradorFormulas getInstance() {
+        if (INSTANCE == null) {
+            return new GeradorFormulas();
+        }
+        return INSTANCE;
+    }
 
     //Gera a primeira equação, após aplicar os valores N e P
     private static String gerarAplicacaoValores(int valorElementos, int valorPosicoes) {
@@ -20,19 +33,17 @@ public class GeradorFormulas {
                 "Após a aplicação dos valores, obtemos:";
 
         String resultado = "$$A(" + valorElementos + ", " + valorPosicoes + ") = \\frac{" + valorElementos + "!} " +
-                "{(" + Calculadora.gerarElementosMenosPosicoes() + ")!}$$";
+                "{(" + calculadora.gerarElementosMenosPosicoes() + ")!}$$";
 
         return mensagem + resultado;
     }
 
     //Gera todo o cálculo no formato LaTeX
     public static String gerarResultadoArranjo(int valorElementos, int valorPosicoes) {
-//        valorElementos = Arranjo.getNumeroElementos();
-//        valorPosicoes = Arranjo.getNumeroPosicoes();
 
-        elementosMenosPosicoes = Calculadora.resultadoElementosMenosPosicoes(valorElementos, valorPosicoes);
+        elementosMenosPosicoes = calculadora.resultadoElementosMenosPosicoes(valorElementos, valorPosicoes);
 
-        fatorialElementos = Calculadora.gerarFatorialElementos(valorElementos, valorPosicoes);
+        fatorialElementos = calculadora.gerarFatorialElementos(valorElementos, valorPosicoes);
 
         String mensagemDesenvolvimento, mensagemSimplificacao;
         String numeradorDesenvolvimento;
@@ -48,7 +59,7 @@ public class GeradorFormulas {
 
             numeradorDesenvolvimento = Integer.toString(valorElementos);
 
-            resultadoFinal = Calculadora.gerarResultadoCalculoPermutacao(valorElementos, valorPosicoes);
+            resultadoFinal = calculadora.gerarResultadoCalculoPermutacao(valorElementos, valorPosicoes);
 
         }
 
@@ -61,7 +72,7 @@ public class GeradorFormulas {
 
             numeradorDesenvolvimento = fatorialElementos;
 
-            resultadoFinal = Calculadora.gerarResultadoCalculoPermutacao(valorElementos, valorPosicoes);
+            resultadoFinal = calculadora.gerarResultadoCalculoPermutacao(valorElementos, valorPosicoes);
 
         // Nº de elementos igual ao resultado de (n-p)!, sempre resultará 1 (no Arranjo Simples)
         } else {
@@ -152,13 +163,9 @@ public class GeradorFormulas {
 
     // Gera o resultado final, contendo o passo a passo construído
     public static String gerarResultadoPermutacao(int valorEntrada) {
-        //String valorEntrada = Permutacao.getEntradaPermutacao();
-
-        //int valorEntrada = Integer.parseInt(valorEntrada);
 
         String resultadoParcial = Calculadora.gerarDesenvolvimentoPermutacao(valorEntrada);
         String textoResultado = Integer.toString(Calculadora.gerarResultadoPermutacao(valorEntrada));
-
 
         String resultado = "$$\\bold{Resultado}$$";
 
