@@ -130,6 +130,7 @@ public class Calculadora {
 
     }
 
+
     // Gera o fatorial dos elementos a Arranjar, para ser usado no MathView. Exemplo: 4! = 4.3.2.1
     public static String gerarFatorialElementos() {
 
@@ -219,13 +220,12 @@ public class Calculadora {
         }
     }
 
-    public static String gerarResultadoPermutacao() {
-        int valorEntrada = Integer.parseInt(Permutacao.getEntradaPermutacao());
+    public static String gerarResultadoPermutacao(int valorEntrada) {
 
         // O fatorial vai até o valor 1
         int resultado = 1;
 
-        // Multiplica até o valor 2 (removi o 1, porque 1 vezes outro valor, dá ele mesmo). Exemplo: 5! = 5 * 4 * 3 * 2
+        // Multiplica até o valor 2 (removi o 1, porque 1 vezes outro valor, dá ele mesmo). Exemplo: 3! = 3 * 2 * 1 equivale a 3 * 2
         for (int atual = valorEntrada; atual >= 2; atual--) {
             resultado *= atual;
         }
