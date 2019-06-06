@@ -32,6 +32,8 @@ public class Arranjo extends Fragment {
 
     private View view;
     private Handler handler;
+    private Calculadora calculadora = Calculadora.getInstance();
+    private GeradorFormulas geradorFormulas = GeradorFormulas.getInstance();
 
     private static TextInputLayout inputElementos, inputPosicoes;
     private static TextInputEditText txtElementos, txtPosicoes;
@@ -131,7 +133,7 @@ public class Arranjo extends Fragment {
     // Responsável por solicitar o cálculo e impressão no formato LaTeX
     public void calcularArranjo(View view, int valorElementos, int valorPosicoes) {
 
-        if (Calculadora.validarEntradasPermutacao(inputElementos, inputPosicoes)) {
+        if (calculadora.validarEntradasPermutacao(Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes() ,inputElementos, inputPosicoes)) {
             MainActivity.hideKeyboard(getActivity());
 
             if (jaCalculou) {
@@ -189,7 +191,7 @@ public class Arranjo extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoArranjo.setText(GeradorFormulas.gerarResultadoArranjo(valorElementos, valorPosicoes));
+                resultadoArranjo.setText(geradorFormulas.gerarResultadoArranjo(valorElementos, valorPosicoes));
                 LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
 
             }
