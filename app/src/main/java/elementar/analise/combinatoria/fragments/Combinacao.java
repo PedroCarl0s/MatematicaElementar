@@ -63,6 +63,25 @@ public class Combinacao extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        init();
+    }
+
+    private void init() {
+        this.inputElementos = view.findViewById(R.id.elementos_combinacao);
+        this.inputPosicoes = view.findViewById(R.id.posicoes_combinacao);
+
+        this.txtElementos = view.findViewById(R.id.txt_elementos);
+        this.txtPosicoes = view.findViewById(R.id.txt_posicoes);
+
+        this.formulaCombinacao = view.findViewById(R.id.formula_combinacao);
+        this.resultadoCombinacao = view.findViewById(R.id.resultado_combinacao);
+
+        this.btnCalcular = view.findViewById(R.id.btn_calcular);
+
+        String formulaCombinacao = "$$\\normalsize \\bold{Formula}$$" + "$${C(n, p)} = \\frac{n!} {p! \\ (n-p)!}, n \\geqslant p$$";
+
+        this.formulaCombinacao.setText(formulaCombinacao);
     }
 
 }
