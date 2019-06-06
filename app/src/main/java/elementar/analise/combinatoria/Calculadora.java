@@ -1,5 +1,6 @@
 package elementar.analise.combinatoria;
 
+
 import com.google.android.material.textfield.TextInputLayout;
 
 import elementar.analise.combinatoria.fragments.Arranjo;
@@ -194,15 +195,12 @@ public class Calculadora {
     }
 
     // Gera o resultado da Permutação
-    public static String gerarDesenvolvimentoPermutacao() {
+    public static String gerarDesenvolvimentoPermutacao(int valorPermutacao) {
 
-        String n = Permutacao.getEntradaPermutacao();
-        int permutacao = Integer.parseInt(n);
-
-        if (permutacao > 0) {
+        if (valorPermutacao > 0) {
 
             StringBuilder valores = new StringBuilder();
-            for (int atual = permutacao; atual >= 1; atual--) {
+            for (int atual = valorPermutacao; atual >= 1; atual--) {
                 valores.append(atual);
                 valores.append(".");
             }
@@ -212,7 +210,7 @@ public class Calculadora {
 
             return valores.toString();
 
-        } else if (permutacao == 0) {
+        } else if (valorPermutacao == 0) {
             return "1";
 
         } else {
@@ -220,7 +218,7 @@ public class Calculadora {
         }
     }
 
-    public static String gerarResultadoPermutacao(int valorEntrada) {
+    public static int gerarResultadoPermutacao(int valorEntrada) {
 
         // O fatorial vai até o valor 1
         int resultado = 1;
@@ -230,7 +228,7 @@ public class Calculadora {
             resultado *= atual;
         }
 
-        return Integer.toString(resultado);
+        return resultado;
     }
 
 
