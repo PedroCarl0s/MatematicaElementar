@@ -42,6 +42,7 @@ public class Anagrama extends Fragment {
     private String palavraDigitada;
 
     private MathView formulaAnagrama, resultadoAnagrama;
+    private Calculadora calculadora = Calculadora.getInstance();
 
     private Button btnCalcular;
 
@@ -62,13 +63,7 @@ public class Anagrama extends Fragment {
         init();
         TextInputController.setLabelTextInput(inputAnagrama, txtAnagrama, "Anagrama de", "Insira uma palavra");
 
-
-//        String formulaAnagrama = "$$\\text{Ocorrencias} \\begin{cases}" +
-//                "a = & \\text{2 vezes} \\\\" +
-//                "b = & \\text{3 vezes} \\\\" +
-//                "c = & \\text{2 vezes}" +
-//                "\\end{cases}$$";
-            this.formulaAnagrama.setText(GeradorAnagrama.gerarFormula());
+        this.formulaAnagrama.setText(GeradorAnagrama.gerarFormula());
     }
 
     @Override
@@ -122,7 +117,7 @@ public class Anagrama extends Fragment {
     private void calcularAnagrama() {
 
         // Campo não vazio
-        if (!Calculadora.verificarCampoVazio(inputAnagrama)) {
+        if (!calculadora.verificarCampoVazio(inputAnagrama)) {
             MainActivity.hideKeyboard(getActivity());
 
             if (jaCalculou) {
