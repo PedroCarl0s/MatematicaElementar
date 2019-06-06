@@ -85,8 +85,6 @@ public class Permutacao extends Fragment {
                 + "$$ n! = n.(n-1).(n-2) \\ ... \\ 2.1$$";
 
         formulaPermutacao.setText(formula);
-
-
     }
 
     @Override
@@ -159,11 +157,13 @@ public class Permutacao extends Fragment {
 
         startAnimation(view, animationWrite, ID_WRITE, "write.json", 2f, 0);
 
+        final int entradaPermutacao = Integer.parseInt(Permutacao.getEntradaPermutacao());
+
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoPermutacao.setText(GeradorFormulas.gerarResultadoPermutacao());
+                resultadoPermutacao.setText(GeradorFormulas.gerarResultadoPermutacao(entradaPermutacao));
             }
 
         }, DELAY_TIME);
