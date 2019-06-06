@@ -152,19 +152,19 @@ public class GeradorFormulas {
     public static String gerarResultadoPermutacao() {
         String resultadoParcial = Calculadora.gerarDesenvolvimentoPermutacao();
         String valorEntrada = Permutacao.getEntradaPermutacao();
-        int entrada = Integer.parseInt(valorEntrada);
+        int entradaConvertida = Integer.parseInt(valorEntrada);
 
 
         String resultado = "$$\\bold{Resultado}$$";
-        if (entrada  > 1 && entrada <= 10) {
-            resultado += "$$" + valorEntrada +  "!" +  " = " + resultadoParcial + " = " + Calculadora.gerarResultadoPermutacao() + "$$";
+        if (entradaConvertida  > 1 && entradaConvertida <= 10) {
+            resultado += "$$" + valorEntrada +  "!" +  " = " + resultadoParcial + " = " + Calculadora.gerarResultadoPermutacao(entradaConvertida) + "$$";
 
-        } else if (entrada > 10) {
+        } else if (entradaConvertida > 10) {
             resultado += "$$" + valorEntrada +  "!" +  " = " + resultadoParcial + "$$";
-            resultado += "$$" + valorEntrada + "!" + " = " + Calculadora.gerarResultadoPermutacao() + "$$";
+            resultado += "$$" + valorEntrada + "!" + " = " + Calculadora.gerarResultadoPermutacao(entradaConvertida) + "$$";
 
-        } else if (entrada > 0 || entrada <= 1) {
-            resultado += "$$" + valorEntrada + "!" + " = " + Calculadora.gerarResultadoPermutacao() + "$$";
+        } else if (entradaConvertida > 0 || entradaConvertida <= 1) {
+            resultado += "$$" + valorEntrada + "!" + " = " + Calculadora.gerarResultadoPermutacao(entradaConvertida) + "$$";
 
         } else {
             return "Apenas valores inteiros positivos";
