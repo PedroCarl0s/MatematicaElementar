@@ -13,7 +13,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.TextView;
@@ -51,6 +50,8 @@ public class Permutacao extends Fragment {
 
     private boolean jaCalculou = false;
     private String valorEntrada;
+
+    private Calculadora calculadora = Calculadora.getInstance();
 
 
     public Permutacao() {
@@ -117,7 +118,7 @@ public class Permutacao extends Fragment {
 
     private void calcularPermutacao() {
 
-        if (Calculadora.validarEntradaPermutacao(inputPermutacao)) {
+        if (calculadora.validarEntradaPermutacao(inputPermutacao)) {
             MainActivity.hideKeyboard(getActivity());
 
             if (jaCalculou) {
