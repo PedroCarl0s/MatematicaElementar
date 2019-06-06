@@ -1,15 +1,26 @@
 package elementar.analise.combinatoria;
 
-
 import com.google.android.material.textfield.TextInputLayout;
 
 import elementar.analise.combinatoria.fragments.Arranjo;
 import elementar.analise.combinatoria.fragments.Permutacao;
 import elementar.analise.combinatoria.latex.GeradorFormulas;
 
-public class Calculadora {
+public final class Calculadora {
 
+    private static Calculadora INSTANCE = null;
     private static int elementos, posicoes;
+
+    private Calculadora() {
+
+    }
+
+    public static synchronized Calculadora getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE  = new Calculadora();
+        }
+        return INSTANCE;
+    }
 
     // Verifica se a entrada está vazia
     public static boolean verificarCampoVazio(TextInputLayout inputText) {
@@ -18,7 +29,7 @@ public class Calculadora {
     }
 
     // Verifica a entrada, para saber se alguma condição está violada
-    public static boolean validarEntradasPermutacao(TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
+    public static boolean validarEntradasPermutacao(int elementosEntrada, int posicoesEntrada, TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
 
         boolean elementosVazio = verificarCampoVazio(inputElementos);
         boolean posicoesVazio = verificarCampoVazio(inputPosicoes);
@@ -31,7 +42,7 @@ public class Calculadora {
 
             // Tentativa de atribuição para Inteiro, e caso o valor exceda 32 bits, ocorrerá uma exceção
             try {
-                elementos = Arranjo.getNumeroElementos();
+                elementos = elementosEntrada;
 
             } catch (Exception error) {
                 inputElementos.setError("O valor digitado é muito grande!");
@@ -40,7 +51,7 @@ public class Calculadora {
             }
 
             try {
-                posicoes = Arranjo.getNumeroPosicoes();
+                posicoes = posicoesEntrada;
 
             } catch (Exception error) {
                 inputPosicoes.setError("O valor digitado é muito grande!");
@@ -135,12 +146,6 @@ public class Calculadora {
     // Gera o fatorial dos elementos a Arranjar, para ser usado no MathView. Exemplo: 4! = 4.3.2.1
     public static String gerarFatorialElementos(int elementos, int posicoes) {
 
-//        String n = Arranjo.getNumeroElementos();
-//        String p = Arranjo.getNumeroPosicoes();
-
-//        elementos = Integer.parseInt(n);
-//        posicoes = Integer.parseInt(p);
-
         // Número de elementos a arranjar maior que zero, é necessário desenvolver o fatorial
         if (elementos > 0) {
 
@@ -228,6 +233,5 @@ public class Calculadora {
 
         return resultado;
     }
-
 
 }
