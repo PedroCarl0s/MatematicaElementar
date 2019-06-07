@@ -2,7 +2,16 @@ package elementar.analise.combinatoria.latex;
 
 import android.util.Log;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class GeradorAnagrama {
+
+    private static final String beginCases = "$$\\text{Ocorrencias} \\begin{cases}";
+    private static final String EqualEcomInit = "= \\text{";
+    private static final String fimText = " vez} \\\\";
+    private static final String fimTextS = " vezes} \\\\";
+    private static final String endCases = "\\end{cases}$$";
 
     public static String gerarFormula() {
         String formulaAnagrama = "$$\\bold{Formula}$$" +
@@ -11,15 +20,29 @@ public class GeradorAnagrama {
         return formulaAnagrama;
     }
 
-    public static String gerarDescricaoVariaveis(String palavraInserida) {
+    public static String gerarDescricaoVariaveis(HashMap<String,Integer> mapPalavras) {
 
-        String descricao = "$$\\text{Ocorrencias} \\begin{cases}" +
-                "a = & \\text{2 vezes} \\\\" +
-                "b = & \\text{3 vezes} \\\\" +
-                "c = & \\text{2 vezes}" +
-                "\\end{cases}$$";
+        StringBuilder descricao = new StringBuilder();
 
-        return descricao;
+        descricao.append(beginCases);
+
+        for(Map.Entry<String,Integer> entry : mapPalavras.entrySet()){
+
+            descricao.append(entry.getKey()).append(EqualEcomInit).append(entry.getValue());
+
+            if(entry.getValue() == 1){
+                descricao.append(fimText);
+            }else{
+                descricao.append(fimTextS);
+            }
+
+        }
+
+        // Removendo os 4 últimos índices (os quatro \\\\ excedentes)
+        descricao.delete(descricao.length()-3, descricao.length());
+        descricao.append(endCases);
+
+        return String.valueOf(descricao);
     }
 
 }
