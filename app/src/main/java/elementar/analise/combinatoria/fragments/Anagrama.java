@@ -1,21 +1,27 @@
 package elementar.analise.combinatoria.fragments;
 
-
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.latex.GeradorAnagrama;
@@ -62,13 +68,38 @@ public class Anagrama extends Fragment {
         init();
         TextInputController.setLabelTextInput(inputAnagrama, txtAnagrama, "Anagrama de", "Insira uma palavra");
 
+        // Ação do botão para calcular
+        btnCalcular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputAnagrama.setError(null);
+                calcularAnagrama();
+            }
+        });
 
-//        String formulaAnagrama = "$$\\text{Ocorrencias} \\begin{cases}" +
-//                "a = & \\text{2 vezes} \\\\" +
-//                "b = & \\text{3 vezes} \\\\" +
-//                "c = & \\text{2 vezes}" +
-//                "\\end{cases}$$";
-            this.formulaAnagrama.setText(GeradorAnagrama.gerarFormula());
+        // Verifica se o usuário digitou de A até Z, ou algum espaço
+        txtAnagrama.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+                    if (Anagrama.getEntradaAnagrama().matches("[a-zA-Z ]*")) {
+                        inputAnagrama.setError(null);
+                        calcularAnagrama();
+
+                        return true;
+                    }
+                }
+                inputAnagrama.setError("Insira apenas letras!");
+                MainActivity.hideKeyboard(getActivity());
+
+                return false;
+
+            }
+        });
+
+        this.formulaAnagrama.setText(GeradorAnagrama.gerarFormula());
     }
 
     @Override
@@ -90,9 +121,10 @@ public class Anagrama extends Fragment {
         this.btnCalcular = (Button) view.findViewById(R.id.btn_calcular);
     }
 
+
     // Retorna a palavra que foi digitada
     public static String getEntradaAnagrama() {
-        return inputAnagrama.getEditText().getText().toString();
+        return inputAnagrama.getEditText().getText().toString().toUpperCase();
     }
 
     private void setResultado() {
@@ -102,14 +134,16 @@ public class Anagrama extends Fragment {
         animationWrite.setVisibility(View.VISIBLE);
         animationSwipe.setVisibility(View.VISIBLE);
 
+        MainActivity.hideKeyboard(getActivity());
+
         LottieController.startLottieAnimation(view, animationWrite, ID_WRITE, "write.json", 1.5f, 0);
 
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoAnagrama.setText("RESULTADO AQUI");
-                LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1.5f, 0);
+                resultadoAnagrama.setText(GeradorAnagrama.gerarDescricaoVariaveis(getEntradaAnagrama()));
+                LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
             }
 
         }, DELAY_TIME);
@@ -119,30 +153,28 @@ public class Anagrama extends Fragment {
         LottieController.cancelLottieAnimation(animationSwipe);
     }
 
+
     private void calcularAnagrama() {
 
-        // Campo não vazio
+        // Campo não vaz
         if (!Calculadora.verificarCampoVazio(inputAnagrama)) {
-            MainActivity.hideKeyboard(getActivity());
+            //verifica se tem apenas letras
+            if(Anagrama.getEntradaAnagrama().matches("[a-zA-z]*")){
+                //retorna um HashMap de letra e valor
+                HashMap<String,Integer> novoArrayQuantPalavras = contarPalavrasIguais(Anagrama.getEntradaAnagrama());
+                //verifica se tem letra repetidas
+                if(verificarTemQuantPalavrasMaiorUm(novoArrayQuantPalavras)){
 
-            if (jaCalculou) {
+                    Log.i("array","resultado com palavras repetidas "+calcularResultadoAnagrama(Anagrama.getEntradaAnagrama().length(),novoArrayQuantPalavras));
 
-                if (Anagrama.getEntradaAnagrama().equals(palavraDigitada)) {
-                    MainActivity.hideKeyboard(getActivity());
-                    showToastMessage("O anagrama já foi calculado!");
+                }else{
 
-                } else {
-                    setResultado();
+                    Log.i("array","resultado sem palavras repetidas "+Calculadora.gerarResultadoPermutacao(Anagrama.getEntradaAnagrama().length()));
 
-                    palavraDigitada = Anagrama.getEntradaAnagrama();
-                    jaCalculou = true;
                 }
 
-            } else {
-                setResultado();
-
-                jaCalculou = true;
-                palavraDigitada = Anagrama.getEntradaAnagrama();
+            }else{
+                inputAnagrama.setError("Insira apenas letras sem acento");
             }
 
         } else {
@@ -150,8 +182,66 @@ public class Anagrama extends Fragment {
         }
     }
 
+    private int calcularResultadoAnagrama(int tamanhoPalavra,HashMap<String,Integer> arrayNumeroDeLetras){
+
+        int valorPalavra = Calculadora.gerarResultadoPermutacao(tamanhoPalavra);
+        int somaValorLetras = 1;
+
+        for(int quantidadeRepet: arrayNumeroDeLetras.values()){
+            somaValorLetras *= Calculadora.gerarResultadoPermutacao(quantidadeRepet);
+        }
+
+        return valorPalavra / somaValorLetras;
+
+    }
+
+    private boolean verificarTemQuantPalavrasMaiorUm(HashMap<String,Integer> listPalavras){
+
+        for(int valor : listPalavras.values()){
+
+            if(valor > 1) return true;
+
+        }
+
+        return false;
+
+    }
+
+    private HashMap<String,Integer> contarPalavrasIguais(String palavra){
+
+        int length = palavra.length();
+        HashMap<String,Integer> returnLetrasIguais = new HashMap<>();
+        int[] contLetrasIguais = new int[222];
+
+        for(int i = 0;i < length;i++){
+            contLetrasIguais[palavra.charAt(i)]++;
+        }
+
+        char[] palavraDoArray = new char[length];
+
+        for(int i = 0;i < length; i++){
+
+            int cont = 0;
+            palavraDoArray[i] = palavra.charAt(i);
+
+            for(int j = 0; j <= i;j++){
+                if(palavra.charAt(i) == palavraDoArray[j]){
+                    cont++;
+                }
+            }
+
+            if(cont == 1){
+                String letra = String.valueOf(palavra.charAt(i));
+                int valor = contLetrasIguais[palavra.charAt(i)];
+                returnLetrasIguais.put(letra,valor);
+            }
+        }
+
+        return returnLetrasIguais;
+
+    }
+
     private void showToastMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
-
 }
