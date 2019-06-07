@@ -1,7 +1,5 @@
 package elementar.analise.combinatoria.latex;
 
-import android.support.v4.app.INotificationSideChannel;
-import android.telephony.mbms.MbmsErrors;
 
 import elementar.analise.combinatoria.Calculadora;
 

@@ -1,4 +1,4 @@
-package elementar.matematica.pedrock.matemticaelementar;
+package elementar.matematica.pedrock.matemticaelementar.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 
 import elementar.analise.combinatoria.TelaCombinatoria;
+import elementar.lottie.LottieController;
+import elementar.matematica.pedrock.matemticaelementar.R;
 import elementar.teoria.dos.conjuntos.TelaConjuntos;
 
 public class MainActivity extends AppCompatActivity {

@@ -29,7 +29,7 @@ public final class Calculadora {
     }
 
     // Verifica a entrada, para saber se alguma condição está violada
-    public static boolean validarEntradasPermutacao(int elementosEntrada, int posicoesEntrada, TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
+    public static boolean validarElementosEPosicoes(int elementosEntrada, int posicoesEntrada, TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
 
         boolean elementosVazio = verificarCampoVazio(inputElementos);
         boolean posicoesVazio = verificarCampoVazio(inputPosicoes);

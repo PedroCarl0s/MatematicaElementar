@@ -21,10 +21,10 @@ import android.widget.Toast;
 
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.latex.GeradorFormulas;
-import elementar.matematica.pedrock.matemticaelementar.LottieController;
-import elementar.matematica.pedrock.matemticaelementar.MainActivity;
+import elementar.lottie.LottieController;
+import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
-import elementar.matematica.pedrock.matemticaelementar.TextInputController;
+import elementar.analise.combinatoria.controller.TextInputController;
 import io.github.kexanie.library.MathView;
 
 
@@ -133,7 +133,7 @@ public class Arranjo extends Fragment {
     // Responsável por solicitar o cálculo e impressão no formato LaTeX
     public void calcularArranjo(View view, int valorElementos, int valorPosicoes) {
 
-        if (calculadora.validarEntradasPermutacao(Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes() ,inputElementos, inputPosicoes)) {
+        if (calculadora.validarElementosEPosicoes(Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes() ,inputElementos, inputPosicoes)) {
             MainActivity.hideKeyboard(getActivity());
 
             if (jaCalculou) {

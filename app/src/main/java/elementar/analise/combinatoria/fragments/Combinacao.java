@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
-import android.support.v4.app.INotificationSideChannel;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,8 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import elementar.matematica.pedrock.matemticaelementar.MainActivity;
+import elementar.analise.combinatoria.controller.TextInputController;
+import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import io.github.kexanie.library.MathView;
 
@@ -69,6 +69,19 @@ public class Combinacao extends Fragment {
         super.onResume();
 
         init();
+
+        btnCalcular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        // Troca o titulo do TextInputElementos ao clicar
+        TextInputController.setLabelTextInput(this.inputElementos, this.txtElementos, "Valor de n", "Elementos a Combinar");
+
+        // Troca o título do TextInputPosicoes ao clicar
+        TextInputController.setLabelTextInput(this.inputPosicoes, this.txtPosicoes, "Valor de P", "Posições a Combinar");
     }
 
     private void init() {

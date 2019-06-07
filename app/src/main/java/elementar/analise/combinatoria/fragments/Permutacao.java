@@ -24,10 +24,10 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.latex.GeradorFormulas;
-import elementar.matematica.pedrock.matemticaelementar.LottieController;
-import elementar.matematica.pedrock.matemticaelementar.MainActivity;
+import elementar.lottie.LottieController;
+import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
-import elementar.matematica.pedrock.matemticaelementar.TextInputController;
+import elementar.analise.combinatoria.controller.TextInputController;
 import io.github.kexanie.library.MathView;
 
 

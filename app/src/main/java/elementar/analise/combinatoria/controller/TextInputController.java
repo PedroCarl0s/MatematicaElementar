@@ -1,4 +1,4 @@
-package elementar.matematica.pedrock.matemticaelementar;
+package elementar.analise.combinatoria.controller;
 
 
 import android.view.View;

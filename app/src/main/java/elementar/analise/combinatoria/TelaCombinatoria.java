@@ -6,7 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import elementar.matematica.pedrock.matemticaelementar.MainActivity;
+import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 
 public class TelaCombinatoria extends AppCompatActivity {

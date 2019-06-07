@@ -1,4 +1,4 @@
-package elementar.matematica.pedrock.matemticaelementar;
+package elementar.lottie;
 
 import android.animation.Animator;
 import android.content.res.Configuration;
