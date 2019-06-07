@@ -23,6 +23,7 @@ import java.util.HashMap;
 
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.latex.GeradorAnagrama;
+import elementar.analise.combinatoria.latex.GeradorFormulas;
 import elementar.matematica.pedrock.matemticaelementar.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
@@ -126,7 +127,11 @@ public class Anagrama extends Fragment {
         return inputAnagrama.getEditText().getText().toString().toUpperCase();
     }
 
-    private void setResultado() {
+    public static int getTamanhodaPalavra(){
+        return inputAnagrama.getEditText().getText().toString().toUpperCase().length();
+    }
+
+    private void setResultado(final HashMap<String,Integer> hashLetraEQuant) {
         animationWrite = view.findViewById(R.id.animation_write);
         animationSwipe = view.findViewById(R.id.animation_swipe);
 
@@ -141,7 +146,7 @@ public class Anagrama extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoAnagrama.setText(GeradorAnagrama.gerarDescricaoVariaveis(getEntradaAnagrama()));
+                resultadoAnagrama.setText(GeradorAnagrama.gerarDescricaoVariaveis(hashLetraEQuant));
                 LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
             }
 
@@ -152,6 +157,11 @@ public class Anagrama extends Fragment {
         LottieController.cancelLottieAnimation(animationSwipe);
     }
 
+    private String gerarTrechoInicial(int tamanhoPalavra) {
+        String trecho = "$$A(" + tamanhoPalavra + ", " + tamanhoPalavra + ") = P_" + tamanhoPalavra + "$$";
+
+        return trecho;
+    }
 
     private void calcularAnagrama() {
 
@@ -166,16 +176,17 @@ public class Anagrama extends Fragment {
                 if (Anagrama.getEntradaAnagrama().matches("[a-zA-z]*")) {
 
                     // Retorna um HashMap de letra e valor
-                    HashMap<String, Integer> novoArrayQuantPalavras = contarPalavrasIguais(Anagrama.getEntradaAnagrama());
+                    HashMap<String, Integer> novoArrayQuantPalavras = contarPalavrasIguais(getEntradaAnagrama());
 
+                    int resultadoFinal = calcularResultadoAnagrama(getTamanhodaPalavra(), novoArrayQuantPalavras);
                     // Verifica se tem letras repetidas
                     if (verificarTemQuantPalavrasMaiorUm(novoArrayQuantPalavras)) {
 
-                        Log.i("array", "resultado com palavras repetidas " + calcularResultadoAnagrama(Anagrama.getEntradaAnagrama().length(), novoArrayQuantPalavras));
+                        setResultado(novoArrayQuantPalavras);
 
                     } else {
 
-                        Log.i("array", "resultado sem palavras repetidas " + Calculadora.gerarResultadoPermutacao(Anagrama.getEntradaAnagrama().length()));
+                        resultadoAnagrama.setText("Como nenhuma letra se repetiu, isso equivale a fazer um Arranjo onde:"+ GeradorFormulas.gerarResultadoPermutacao(getTamanhodaPalavra()) + gerarTrechoInicial(getTamanhodaPalavra()));
 
                     }
 
