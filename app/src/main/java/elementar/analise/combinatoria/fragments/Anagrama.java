@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.latex.GeradorAnagrama;
@@ -31,6 +33,14 @@ import io.github.kexanie.library.MathView;
 
 
 public class Anagrama extends Fragment {
+
+    private final String inicio1 = "$$\\\\large {P_{";
+    private final String início2 = " \\\\small {\\\\frac{";
+    private final String potencia = "} \\\\ ^ {";
+    private final String separador1 = ", \\\\ ";
+    private final String separador2 = "\\\\ ";
+    private final String fechaChaves1 = "}} =";
+    private final String fechaChaves2 = "}}$$";
 
     private View view;
     private Handler handler;
@@ -123,7 +133,7 @@ public class Anagrama extends Fragment {
 
     // Retorna a palavra que foi digitada
     public static String getEntradaAnagrama() {
-        return inputAnagrama.getEditText().getText().toString().toUpperCase();
+        return inputAnagrama.getEditText().getText().toString().toLowerCase().replaceAll("\\s","");
     }
 
     public static int getTamanhodaPalavra(){
@@ -145,7 +155,10 @@ public class Anagrama extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoAnagrama.setText(GeradorAnagrama.gerarDescricaoVariaveis(hashLetraEQuant));
+                String teste = "$$\\large {P_{3} \\ ^ {1, \\ 2}} = \\small {\\frac{3!} {1! \\ 2!}}$$";
+                Log.i("bomba"," teste "+teste);
+                Log.i("bomba"," igual "+teste.equals(gerarAplicacaoValores(hashLetraEQuant)));
+                resultadoAnagrama.setText(GeradorAnagrama.gerarDescricaoVariaveis(hashLetraEQuant) + gerarAplicacaoValores(hashLetraEQuant));
                 LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
             }
 
@@ -258,6 +271,41 @@ public class Anagrama extends Fragment {
 
     private void showToastMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private String gerarAplicacaoValores(HashMap<String,Integer> hashMapLetras){
+
+        StringBuilder aplicacao = new StringBuilder(inicio1);
+        aplicacao.append(getTamanhodaPalavra()).append(potencia);
+
+        for(Map.Entry<String,Integer> entry : hashMapLetras.entrySet()){
+
+            aplicacao.append(entry.getValue()).append(separador1);
+
+        }
+
+        //remover os \\ sobrando
+        aplicacao = aplicacao.replace(aplicacao.length()-3,aplicacao.length()-1,"");
+//      //remover , do final
+        aplicacao = aplicacao.replace(aplicacao.length()-2,aplicacao.length()-1,"");
+        aplicacao.delete(aplicacao.length()-2, aplicacao.length());
+        aplicacao.append(fechaChaves1);
+
+        aplicacao.append(início2).append(getTamanhodaPalavra()).append("!} {");
+
+        for(Map.Entry<String,Integer> entry : hashMapLetras.entrySet()){
+
+            aplicacao.append(entry.getValue()).append("! ").append(separador2);
+
+        }
+
+        aplicacao.delete(aplicacao.length()-4,aplicacao.length());
+        aplicacao.append(fechaChaves2);
+
+        Log.i("bomba"," nao pega "+aplicacao.toString());
+
+        return aplicacao.toString();
+
     }
 
 }
