@@ -177,6 +177,7 @@ public class Permutacao extends Fragment {
 
         try {
             permutacao = Integer.parseInt(inputPermutacao.getEditText().getText().toString());
+            txtPermutacao.setText(Integer.toString(permutacao));
 
         } catch (Exception e) {
             return "";
@@ -214,7 +215,6 @@ public class Permutacao extends Fragment {
         if (savedInstanceState != null) {
             MainActivity.hideKeyboard((getActivity()));
 
-            Log.i("RESTORED", savedInstanceState.getString("resultado_permutacao"));
             txtPermutacao.setText(savedInstanceState.getString("entrada_permutacao"));
 
             MathView calculoRecuperado = view.findViewById(R.id.resultado_permutacao);
