@@ -116,6 +116,7 @@
             android:layout_height="match_parent"
             android:layout_toEndOf="@id/formula_permutacao"
             android:layout_toRightOf="@id/formula_permutacao"
+            android:foregroundGravity="left"
             app:lottie_autoPlay="false"
             app:lottie_loop="false" />
 
