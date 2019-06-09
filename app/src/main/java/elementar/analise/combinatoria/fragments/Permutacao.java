@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import elementar.analise.combinatoria.Calculadora;
-import elementar.analise.combinatoria.latex.GeradorFormulas;
+import elementar.analise.combinatoria.geradores.GeradorPermutacao;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
@@ -52,6 +51,7 @@ public class Permutacao extends Fragment {
     private String valorEntrada;
 
     private Calculadora calculadora = Calculadora.getInstance();
+    private GeradorPermutacao gerador = new GeradorPermutacao();
 
 
     public Permutacao() {
@@ -164,7 +164,7 @@ public class Permutacao extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoPermutacao.setText(GeradorFormulas.gerarResultadoPermutacao(entradaPermutacao));
+                resultadoPermutacao.setText(gerador.gerarResultadoPermutacaoLatex("Resultado", entradaPermutacao));
             }
 
         }, DELAY_TIME);
