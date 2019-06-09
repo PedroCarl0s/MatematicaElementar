@@ -133,7 +133,10 @@ public class Anagrama extends Fragment {
 
     // Retorna a palavra que foi digitada
     public static String getEntradaAnagrama() {
-        return inputAnagrama.getEditText().getText().toString().toLowerCase().replaceAll("\\s","");
+        String entrada = inputAnagrama.getEditText().getText().toString().toLowerCase().replaceAll("\\s","");
+        inputAnagrama.getEditText().setText(entrada);
+        return entrada;
+
     }
 
     public static int getTamanhodaPalavra(){
@@ -181,34 +184,30 @@ public class Anagrama extends Fragment {
         if (!calculadora.verificarCampoVazio(inputAnagrama)) {
             MainActivity.hideKeyboard(getActivity());
 
-            // Campo não vaz
-            if (!Calculadora.verificarCampoVazio(inputAnagrama)) {
+            // Verifica se tem apenas letras
+            if (Anagrama.getEntradaAnagrama().matches("[a-zA-z]*")) {
 
-                // Verifica se tem apenas letras
-                if (Anagrama.getEntradaAnagrama().matches("[a-zA-z]*")) {
+                // Retorna um HashMap de letra e valor
+                HashMap<String, Integer> novoArrayQuantPalavras = contarPalavrasIguais(getEntradaAnagrama());
 
-                    // Retorna um HashMap de letra e valor
-                    HashMap<String, Integer> novoArrayQuantPalavras = contarPalavrasIguais(getEntradaAnagrama());
+                int resultadoFinal = calcularResultadoAnagrama(getTamanhodaPalavra(), novoArrayQuantPalavras);
+                // Verifica se tem letras repetidas
+                if (verificarTemQuantPalavrasMaiorUm(novoArrayQuantPalavras)) {
 
-                    int resultadoFinal = calcularResultadoAnagrama(getTamanhodaPalavra(), novoArrayQuantPalavras);
-                    // Verifica se tem letras repetidas
-                    if (verificarTemQuantPalavrasMaiorUm(novoArrayQuantPalavras)) {
-
-                        setResultado(novoArrayQuantPalavras);
-
-                    } else {
-
-                        resultadoAnagrama.setText("Como nenhuma letra se repetiu, isso equivale a fazer um Arranjo onde:"+ GeradorFormulas.gerarResultadoPermutacao(getTamanhodaPalavra()) + gerarTrechoInicial(getTamanhodaPalavra()));
-
-                    }
+                    setResultado(novoArrayQuantPalavras);
 
                 } else {
-                    inputAnagrama.setError("Insira apenas letras sem acento");
+
+                    resultadoAnagrama.setText("Como nenhuma letra se repetiu, isso equivale a fazer um Arranjo onde:"+ GeradorFormulas.gerarResultadoPermutacao(getTamanhodaPalavra()) + gerarTrechoInicial(getTamanhodaPalavra()));
+
                 }
 
             } else {
-                MainActivity.hideKeyboard(getActivity());
+                inputAnagrama.setError("Insira apenas letras sem acento");
             }
+
+        }else {
+            MainActivity.hideKeyboard(getActivity());
         }
     }
 
