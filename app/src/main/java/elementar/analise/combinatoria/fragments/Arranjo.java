@@ -10,7 +10,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import elementar.analise.combinatoria.Calculadora;
-import elementar.analise.combinatoria.latex.GeradorFormulas;
+import elementar.analise.combinatoria.geradores.GeradorArranjo;
+import elementar.analise.combinatoria.geradores.GeradorFormulas;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
@@ -34,7 +34,7 @@ public class Arranjo extends Fragment {
     private View view;
     private Handler handler;
     private Calculadora calculadora = Calculadora.getInstance();
-    private GeradorFormulas geradorFormulas = GeradorFormulas.getInstance();
+    private GeradorArranjo gerador = new GeradorArranjo();
 
     private static TextInputLayout inputElementos, inputPosicoes;
     private static TextInputEditText txtElementos, txtPosicoes;
@@ -185,7 +185,7 @@ public class Arranjo extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoArranjo.setText(geradorFormulas.gerarResultadoArranjo(valorElementos, valorPosicoes));
+                resultadoArranjo.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
                 LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
 
             }
