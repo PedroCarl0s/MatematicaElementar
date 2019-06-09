@@ -32,14 +32,6 @@ import io.github.kexanie.library.MathView;
 
 public class Anagrama extends Fragment {
 
-    private final String inicio1 = "$$\\large {P_{";
-    private final String início2 = " \\small {\\frac{";
-    private final String potencia = "} \\ ^ {";
-    private final String separador1 = ", \\ ";
-    private final String separador2 = "\\ ";
-    private final String fechaChaves1 = "}} =";
-    private final String fechaChaves2 = "}}$$";
-
     private View view;
     private Handler handler;
 
@@ -158,7 +150,7 @@ public class Anagrama extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoAnagrama.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerarAplicacaoValores(hashLetraEQuant));
+                resultadoAnagrama.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerador.gerarAplicacaoValores(hashLetraEQuant,getTamanhodaPalavra()));
                 LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
             }
 
@@ -269,42 +261,6 @@ public class Anagrama extends Fragment {
 
     private void showToastMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    private String gerarAplicacaoValores(HashMap<String,Integer> hashMapLetras){
-
-        StringBuilder aplicacao = new StringBuilder(inicio1);
-        aplicacao.append(getTamanhodaPalavra()).append(potencia);
-
-        for(Map.Entry<String,Integer> entry : hashMapLetras.entrySet()){
-
-            aplicacao.append(entry.getValue()).append(separador1);
-
-        }
-
-        //remover os \\ sobrando
-        aplicacao = aplicacao.replace(aplicacao.length()-3,aplicacao.length()-1,"");
-
-        //remover , do final
-        aplicacao = aplicacao.replace(aplicacao.length()-2,aplicacao.length()-1,"");
-
-        aplicacao.append(fechaChaves1);
-
-        aplicacao.append(início2).append(getTamanhodaPalavra()).append("!} {");
-
-        for(Map.Entry<String,Integer> entry : hashMapLetras.entrySet()){
-
-            aplicacao.append(entry.getValue()).append("! ").append(separador2);
-
-        }
-
-        //remover os \\ sobrando
-        aplicacao = aplicacao.replace(aplicacao.length()-2,aplicacao.length()-1,"");
-
-        aplicacao.append(fechaChaves2);
-
-        return aplicacao.toString();
-
     }
 
 }
