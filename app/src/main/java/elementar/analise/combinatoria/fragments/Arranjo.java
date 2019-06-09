@@ -202,7 +202,8 @@ public class Arranjo extends Fragment {
 
         try {
             elementos =  Integer.parseInt(inputElementos.getEditText().getText().toString());
-            txtElementos.setText(Integer.toString(elementos));
+
+            inputElementos.getEditText().setText(Integer.toString(elementos));
 
         } catch (Exception e) {
             return ERRO_CONVERSAO;
@@ -216,7 +217,8 @@ public class Arranjo extends Fragment {
 
         try {
             posicoes = Integer.parseInt(inputPosicoes.getEditText().getText().toString());
-            txtPosicoes.setText(Integer.toString(posicoes));
+
+            inputPosicoes.getEditText().setText(Integer.toString(posicoes));
 
         } catch (Exception error) {
             return ERRO_CONVERSAO;

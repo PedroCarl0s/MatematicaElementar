@@ -177,8 +177,9 @@ public class Permutacao extends Fragment {
 
         try {
             permutacao = Integer.parseInt(inputPermutacao.getEditText().getText().toString());
-            txtPermutacao.setText(Integer.toString(permutacao));
 
+            inputPermutacao.getEditText().setText(Integer.toString(permutacao));
+            
         } catch (Exception e) {
             return "";
         }
