@@ -198,12 +198,12 @@ public final class Calculadora {
     }
 
     // Gera o resultado da Permutação
-    public static String gerarDesenvolvimentoPermutacao(int valorPermutacao) {
+    public static String gerarDesenvolvimentoPermutacao(long valorPermutacao) {
 
         if (valorPermutacao > 0) {
 
             StringBuilder valores = new StringBuilder();
-            for (int atual = valorPermutacao; atual >= 1; atual--) {
+            for (long atual = valorPermutacao; atual >= 1; atual--) {
                 valores.append(atual);
                 valores.append(".");
             }
@@ -221,13 +221,13 @@ public final class Calculadora {
         }
     }
 
-    public static int gerarResultadoPermutacao(int valorEntrada) {
+    public static long gerarResultadoPermutacao(long valorEntrada) {
 
         // O fatorial vai até o valor 1
-        int resultado = 1;
+        long resultado = 1;
 
         // Multiplica até o valor 2 (removi o 1, porque 1 vezes outro valor, dá ele mesmo). Exemplo: 3! = 3 * 2 * 1 equivale a 3 * 2
-        for (int atual = valorEntrada; atual >= 2; atual--) {
+        for (long atual = valorEntrada; atual >= 2; atual--) {
             resultado *= atual;
         }
 

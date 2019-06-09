@@ -160,10 +160,10 @@ public final class GeradorFormulas {
     }
 
     // Gera o resultado final, contendo o passo a passo construído
-    public static String gerarResultadoPermutacao(int valorEntrada) {
+    public static String gerarResultadoPermutacao(long valorEntrada) {
 
         String resultadoParcial = Calculadora.gerarDesenvolvimentoPermutacao(valorEntrada);
-        String textoResultado = Integer.toString(Calculadora.gerarResultadoPermutacao(valorEntrada));
+        String textoResultado = Long.toString(Calculadora.gerarResultadoPermutacao(valorEntrada));
 
         String resultado = "$$\\bold{Resultado}$$";
 

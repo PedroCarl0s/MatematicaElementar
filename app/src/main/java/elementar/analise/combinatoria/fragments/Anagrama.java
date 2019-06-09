@@ -34,11 +34,11 @@ import io.github.kexanie.library.MathView;
 
 public class Anagrama extends Fragment {
 
-    private final String inicio1 = "$$\\\\large {P_{";
-    private final String início2 = " \\\\small {\\\\frac{";
-    private final String potencia = "} \\\\ ^ {";
-    private final String separador1 = ", \\\\ ";
-    private final String separador2 = "\\\\ ";
+    private final String inicio1 = "$$\\large {P_{";
+    private final String início2 = " \\small {\\frac{";
+    private final String potencia = "} \\ ^ {";
+    private final String separador1 = ", \\ ";
+    private final String separador2 = "\\ ";
     private final String fechaChaves1 = "}} =";
     private final String fechaChaves2 = "}}$$";
 
@@ -161,6 +161,7 @@ public class Anagrama extends Fragment {
                 String teste = "$$\\large {P_{3} \\ ^ {1, \\ 2}} = \\small {\\frac{3!} {1! \\ 2!}}$$";
                 Log.i("bomba"," teste "+teste);
                 Log.i("bomba"," igual "+teste.equals(gerarAplicacaoValores(hashLetraEQuant)));
+
                 resultadoAnagrama.setText(GeradorAnagrama.gerarDescricaoVariaveis(hashLetraEQuant) + gerarAplicacaoValores(hashLetraEQuant));
                 LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
             }
@@ -190,7 +191,7 @@ public class Anagrama extends Fragment {
                 // Retorna um HashMap de letra e valor
                 HashMap<String, Integer> novoArrayQuantPalavras = contarPalavrasIguais(getEntradaAnagrama());
 
-                int resultadoFinal = calcularResultadoAnagrama(getTamanhodaPalavra(), novoArrayQuantPalavras);
+                long resultadoFinal = calcularResultadoAnagrama(getTamanhodaPalavra(), novoArrayQuantPalavras);
                 // Verifica se tem letras repetidas
                 if (verificarTemQuantPalavrasMaiorUm(novoArrayQuantPalavras)) {
 
@@ -211,12 +212,12 @@ public class Anagrama extends Fragment {
         }
     }
 
-    private int calcularResultadoAnagrama(int tamanhoPalavra,HashMap<String,Integer> arrayNumeroDeLetras) {
+    private long calcularResultadoAnagrama(long tamanhoPalavra,HashMap<String,Integer> arrayNumeroDeLetras) {
 
-        int valorPalavra = Calculadora.gerarResultadoPermutacao(tamanhoPalavra);
-        int somaValorLetras = 1;
+        long valorPalavra = Calculadora.gerarResultadoPermutacao(tamanhoPalavra);
+        long somaValorLetras = 1;
 
-        for(int quantidadeRepet: arrayNumeroDeLetras.values()){
+        for(long quantidadeRepet: arrayNumeroDeLetras.values()){
             somaValorLetras *= Calculadora.gerarResultadoPermutacao(quantidadeRepet);
         }
 
@@ -285,7 +286,8 @@ public class Anagrama extends Fragment {
 
         //remover os \\ sobrando
         aplicacao = aplicacao.replace(aplicacao.length()-3,aplicacao.length()-1,"");
-//      //remover , do final
+
+        //remover , do final
         aplicacao = aplicacao.replace(aplicacao.length()-2,aplicacao.length()-1,"");
         aplicacao.delete(aplicacao.length()-2, aplicacao.length());
         aplicacao.append(fechaChaves1);
