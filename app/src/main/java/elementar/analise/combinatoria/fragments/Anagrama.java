@@ -133,7 +133,7 @@ public class Anagrama extends Fragment {
 
     // Retorna a palavra que foi digitada
     public static String getEntradaAnagrama() {
-        String entrada = inputAnagrama.getEditText().getText().toString().toLowerCase().replaceAll("\\s","");
+        String entrada = inputAnagrama.getEditText().getText().toString().toLowerCase().replaceAll("[^a-zA-Z]","");
         inputAnagrama.getEditText().setText(entrada);
         return entrada;
 
