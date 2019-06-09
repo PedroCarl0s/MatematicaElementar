@@ -10,6 +10,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,7 +83,7 @@ public class Arranjo extends Fragment {
 
             @Override
             public void onClick(View v) {
-                calcularArranjo(view, Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes());
+                calcularArranjo(Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes());
             }
         });
 
@@ -96,7 +97,7 @@ public class Arranjo extends Fragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
-                    calcularArranjo(view, Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes());
+                    calcularArranjo(Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes());
 
                     return true;
                 }
@@ -122,16 +123,11 @@ public class Arranjo extends Fragment {
 
         String formulaArranjo = "$$\\normalsize \\bold{Formula}$$" + " $${A(n, p)} = \\frac{n!} {(n-p)!}, n \\geqslant p$$";
 
-//        String teste = "$$ x = \\begin{cases}" +
-//                " n = \\text{numero de elementos a arranjar }  \\\\" +
-//                " p = \\text{numero de posicoes a arranjar }" +
-//                " \\end{cases}$$";
-
         this.formulaArranjo.setText(formulaArranjo);
     }
 
     // Responsável por solicitar o cálculo e impressão no formato LaTeX
-    public void calcularArranjo(View view, int valorElementos, int valorPosicoes) {
+    public void calcularArranjo(int valorElementos, int valorPosicoes) {
 
         if (calculadora.validarElementosEPosicoes(Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes() ,inputElementos, inputPosicoes)) {
             MainActivity.hideKeyboard(getActivity());
@@ -151,8 +147,6 @@ public class Arranjo extends Fragment {
 
                     this.valorElementos = Arranjo.getNumeroElementos();
                     this.valorPosicoes = Arranjo.getNumeroPosicoes();
-
-                    jaCalculou = true;
                 }
 
             // Muda estado da variável jaCalculou e calcula (apenas no primeiro cálculo)
@@ -184,7 +178,7 @@ public class Arranjo extends Fragment {
         animationSwipe.setVisibility(View.VISIBLE);
 
         // Inicia a animação de escrita
-        LottieController.startLottieAnimation(view, animationWrite, ID_WRITE, "write.json", 1.5f, 0);
+        LottieController.startLottieAnimation(view, animationWrite, ID_WRITE, "write.json", 1.7f, 0);
 
         // Delay para mostrar animação + resultado
         handler = new Handler();
@@ -209,6 +203,8 @@ public class Arranjo extends Fragment {
         try {
             elementos =  Integer.parseInt(inputElementos.getEditText().getText().toString());
 
+            inputElementos.getEditText().setText(Integer.toString(elementos));
+
         } catch (Exception e) {
             return ERRO_CONVERSAO;
         }
@@ -221,6 +217,8 @@ public class Arranjo extends Fragment {
 
         try {
             posicoes = Integer.parseInt(inputPosicoes.getEditText().getText().toString());
+
+            inputPosicoes.getEditText().setText(Integer.toString(posicoes));
 
         } catch (Exception error) {
             return ERRO_CONVERSAO;
