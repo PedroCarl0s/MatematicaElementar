@@ -25,13 +25,15 @@ public final class GeradorFormulas {
     }
 
     //Gera a primeira equação, após aplicar os valores N e P
-    private static String gerarAplicacaoValores(int valorElementos, int valorPosicoes) {
+    private static String gerarAplicacaoArranjo(int elementos, int posicoes) {
+        String resultado = null;
 
         String mensagem = "$$\\bold{\\text{Passo a Passo}}$$" +
                 "Após a aplicação dos valores, obtemos:";
 
-        String resultado = "$$A(" + valorElementos + ", " + valorPosicoes + ") = \\frac{" + valorElementos + "!} " +
-                "{(" + calculadora.gerarElementosMenosPosicoes() + ")!}$$";
+        resultado = "$$A(" + elementos + ", " + posicoes + ") = \\frac{" + elementos + "!} " +
+                "{(" + calculadora.gerarElementosMenosPosicoes(elementos, posicoes) + ")!}$$";
+
 
         return mensagem + resultado;
     }
@@ -86,7 +88,7 @@ public final class GeradorFormulas {
             resultadoFinal = 1;
         }
 
-        return gerarAplicacaoValores(valorElementos, valorPosicoes) + mensagemDesenvolvimento + gerarDesenvolvimentoFatorial(valorElementos, valorPosicoes, numeradorDesenvolvimento) +
+        return gerarAplicacaoArranjo(valorElementos, valorPosicoes) + mensagemDesenvolvimento + gerarDesenvolvimentoFatorial(valorElementos, valorPosicoes, numeradorDesenvolvimento) +
                 mensagemSimplificacao + gerarSimplificacaoFatorial(valorElementos, valorPosicoes) + gerarResultadoFinal(valorElementos, valorPosicoes, resultadoFinal);
     }
 
