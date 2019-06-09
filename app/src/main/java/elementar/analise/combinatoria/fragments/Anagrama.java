@@ -158,10 +158,6 @@ public class Anagrama extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                String teste = "$$\\large {P_{3} \\ ^ {1, \\ 2}} = \\small {\\frac{3!} {1! \\ 2!}}$$";
-                Log.i("bomba"," teste "+teste);
-                Log.i("bomba"," igual "+teste.equals(gerarAplicacaoValores(hashLetraEQuant)));
-
                 resultadoAnagrama.setText(GeradorAnagrama.gerarDescricaoVariaveis(hashLetraEQuant) + gerarAplicacaoValores(hashLetraEQuant));
                 LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
             }
@@ -289,7 +285,7 @@ public class Anagrama extends Fragment {
 
         //remover , do final
         aplicacao = aplicacao.replace(aplicacao.length()-2,aplicacao.length()-1,"");
-        aplicacao.delete(aplicacao.length()-2, aplicacao.length());
+
         aplicacao.append(fechaChaves1);
 
         aplicacao.append(início2).append(getTamanhodaPalavra()).append("!} {");
@@ -300,10 +296,10 @@ public class Anagrama extends Fragment {
 
         }
 
-        aplicacao.delete(aplicacao.length()-4,aplicacao.length());
-        aplicacao.append(fechaChaves2);
+        //remover os \\ sobrando
+        aplicacao = aplicacao.replace(aplicacao.length()-2,aplicacao.length()-1,"");
 
-        Log.i("bomba"," nao pega "+aplicacao.toString());
+        aplicacao.append(fechaChaves2);
 
         return aplicacao.toString();
 
