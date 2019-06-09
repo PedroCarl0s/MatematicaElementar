@@ -12,62 +12,52 @@
         android:layout_height="match_parent">
 
         <io.github.kexanie.library.MathView
-            android:id="@+id/formula_arranjo"
+            android:id="@+id/formula_anagrama"
             android:layout_width="283dp"
-            android:layout_height="94dp"
+            android:layout_height="98dp"
+
             android:layout_gravity="center"
-            android:padding="16dp">
+            android:layout_weight="1"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:text="">
 
         </io.github.kexanie.library.MathView>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/elementos_arranjo"
+            android:id="@+id/input_anagrama"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="265dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/formula_arranjo"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
+            android:layout_below="@id/formula_anagrama"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/scrollView"
+            android:layout_weight="1"
             app:boxStrokeColor="@color/colorPrimaryDark"
             app:errorTextAppearance="@style/ErrorAppearance"
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/formula_anagrama">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_elementos"
-                style="@style/Widget.AppCompat.EditText"
-                android:layout_width="245dp"
-                android:layout_height="wrap_content"
-                android:hint="Elementos a arranjar"
-                android:inputType="number"
-                android:textColorHint="@android:color/black"
-                android:textSize="20sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/posicoes_arranjo"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="265dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/elementos_arranjo"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_toStartOf="@id/scrollView"
-            android:layout_toLeftOf="@id/scrollView"
-            app:errorTextAppearance="@style/ErrorAppearance"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Menu"
-            app:layout_constraintVertical_bias="0.0">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_posicoes"
-                android:layout_width="245dp"
-                android:layout_height="wrap_content"
-                android:hint="Posições a arranjar"
-                android:inputType="number"
-                android:textSize="20sp" />
+                android:id="@+id/txt_anagrama"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:hint="Insira uma palavra"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                tools:ignore="DuplicateIds" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,10 +65,10 @@
             android:id="@+id/btn_calcular"
             android:layout_width="200dp"
             android:layout_height="48dp"
-            android:layout_below="@id/posicoes_arranjo"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="50dp"
-            android:layout_toLeftOf="@id/animation_write"
+            android:layout_below="@id/input_anagrama"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="47dp"
+            android:layout_toLeftOf="@id/scrollView"
             android:layout_weight="1"
             android:drawableLeft="@drawable/calc"
             android:text="calcular"
@@ -92,8 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_toRightOf="@id/formula_arranjo"
+            android:layout_toRightOf="@id/formula_anagrama"
             android:foregroundGravity="center"
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -102,11 +91,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
             android:text="">
-
             <io.github.kexanie.library.MathView
-                android:id="@+id/resultado_arranjo"
+                android:id="@+id/resultado_anagrama"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_toRightOf="@id/formula_anagrama"
                 android:foregroundGravity="center"
                 android:padding="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -126,8 +117,8 @@
             android:layout_height="157dp"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="231dp"
-            android:layout_toEndOf="@id/formula_arranjo"
-            android:layout_toRightOf="@id/formula_arranjo"
+            android:layout_toEndOf="@id/formula_anagrama"
+            android:layout_toRightOf="@id/formula_anagrama"
             app:lottie_autoPlay="false"
             app:lottie_loop="false"
             android:layout_marginLeft="231dp" />
@@ -136,8 +127,8 @@
             android:id="@+id/animation_write"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/formula_arranjo"
-            android:layout_toEndOf="@id/posicoes_arranjo"
+            android:layout_toRightOf="@id/formula_anagrama"
+            android:layout_toEndOf="@id/formula_anagrama"
             app:lottie_autoPlay="false"
             app:lottie_loop="false"/>
     </RelativeLayout>
