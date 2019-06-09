@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +22,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import elementar.analise.combinatoria.Calculadora;
-import elementar.analise.combinatoria.latex.GeradorAnagrama;
+import elementar.analise.combinatoria.geradores.GeradorAnagrama;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
-import elementar.analise.combinatoria.latex.GeradorFormulas;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import elementar.analise.combinatoria.controller.TextInputController;
 import io.github.kexanie.library.MathView;
@@ -57,6 +55,8 @@ public class Anagrama extends Fragment {
 
     private MathView formulaAnagrama, resultadoAnagrama;
     private Calculadora calculadora = Calculadora.getInstance();
+
+    private GeradorAnagrama gerador = new GeradorAnagrama();
 
     private Button btnCalcular;
 
@@ -108,7 +108,7 @@ public class Anagrama extends Fragment {
             }
         });
 
-        this.formulaAnagrama.setText(GeradorAnagrama.gerarFormula());
+        this.formulaAnagrama.setText(gerador.gerarFormula());
     }
 
     @Override
@@ -158,7 +158,7 @@ public class Anagrama extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoAnagrama.setText(GeradorAnagrama.gerarDescricaoVariaveis(hashLetraEQuant) + gerarAplicacaoValores(hashLetraEQuant));
+                resultadoAnagrama.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerarAplicacaoValores(hashLetraEQuant));
                 LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
             }
 
@@ -194,8 +194,10 @@ public class Anagrama extends Fragment {
                     setResultado(novoArrayQuantPalavras);
 
                 } else {
+                    String mensagem = "$$\\bold{\\text{Passo a Passo}}$$" +
+                            "Como nenhuma letra se repetiu, isso equivale a fazer um Arranjo onde: nº elementos e de posições serão iguais ao tamanho da palavra, que é " + getTamanhodaPalavra();
 
-                    resultadoAnagrama.setText("Como nenhuma letra se repetiu, isso equivale a fazer um Arranjo onde:"+ GeradorFormulas.gerarResultadoPermutacao(getTamanhodaPalavra()) + gerarTrechoInicial(getTamanhodaPalavra()));
+                    resultadoAnagrama.setText(mensagem + gerarTrechoInicial(getTamanhodaPalavra()) + gerador.gerarResultadoPermutacaoLatex("", getTamanhodaPalavra()));
 
                 }
 
@@ -210,11 +212,11 @@ public class Anagrama extends Fragment {
 
     private long calcularResultadoAnagrama(long tamanhoPalavra,HashMap<String,Integer> arrayNumeroDeLetras) {
 
-        long valorPalavra = Calculadora.gerarResultadoPermutacao(tamanhoPalavra);
+        long valorPalavra = calculadora.gerarResultadoPermutacao(tamanhoPalavra);
         long somaValorLetras = 1;
 
         for(long quantidadeRepet: arrayNumeroDeLetras.values()){
-            somaValorLetras *= Calculadora.gerarResultadoPermutacao(quantidadeRepet);
+            somaValorLetras *= calculadora.gerarResultadoPermutacao(quantidadeRepet);
         }
 
         return valorPalavra / somaValorLetras;
