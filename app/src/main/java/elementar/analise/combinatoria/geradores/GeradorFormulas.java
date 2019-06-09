@@ -3,26 +3,13 @@ package elementar.analise.combinatoria.latex;
 
 import elementar.analise.combinatoria.Calculadora;
 
-public final class GeradorFormulas {
-
-    private static GeradorFormulas INSTANCE = null;
+public abstract class GeradorFormulas {
 
     private static int elementosMenosPosicoes;
     private static String fatorialElementos;
 
     private static Calculadora calculadora = Calculadora.getInstance();
-    private static GeradorFormulas geradorFormulas = GeradorFormulas.getInstance();
 
-    private GeradorFormulas() {
-
-    }
-
-    public static synchronized GeradorFormulas getInstance() {
-        if (INSTANCE == null) {
-            return new GeradorFormulas();
-        }
-        return INSTANCE;
-    }
 
     //Gera a primeira equação, após aplicar os valores N e P
     private static String gerarAplicacaoArranjo(int elementos, int posicoes) {
