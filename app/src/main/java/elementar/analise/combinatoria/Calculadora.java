@@ -2,11 +2,10 @@ package elementar.analise.combinatoria;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import elementar.analise.combinatoria.fragments.Arranjo;
 import elementar.analise.combinatoria.fragments.Permutacao;
-import elementar.analise.combinatoria.latex.GeradorFormulas;
+import elementar.analise.combinatoria.geradores.GeradorFormulas;
 
-public final class Calculadora {
+public final class Calculadora extends GeradorFormulas{
 
     private static Calculadora INSTANCE = null;
     private static int elementos, posicoes;
