@@ -188,8 +188,8 @@ public final class Calculadora {
     }
 
     // Gera (n-p) da fórmula para ser usado na String do LaTeX
-    public static String gerarElementosMenosPosicoes() {
-        return Arranjo.getNumeroElementos() + "-" + Arranjo.getNumeroPosicoes();
+    public static String gerarElementosMenosPosicoes(int numeroElementos, int numeroPosicoes) {
+        return numeroElementos + "-" + numeroPosicoes;
     }
 
     // Gera o resultado da subtração de (n-p) para ser usado na String do LaTeX
