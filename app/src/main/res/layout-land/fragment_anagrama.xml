@@ -36,7 +36,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/resultado_anagrama"
+            android:layout_toLeftOf="@id/scrollView"
             android:layout_weight="1"
             app:boxStrokeColor="@color/colorPrimaryDark"
             app:errorTextAppearance="@style/ErrorAppearance"
@@ -68,7 +68,7 @@
             android:layout_below="@id/input_anagrama"
             android:layout_marginTop="20dp"
             android:layout_marginRight="47dp"
-            android:layout_toLeftOf="@id/resultado_anagrama"
+            android:layout_toLeftOf="@id/scrollView"
             android:layout_weight="1"
             android:drawableLeft="@drawable/calc"
             android:text="calcular"
@@ -77,12 +77,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_anagrama" />
 
-        <io.github.kexanie.library.MathView
-            android:id="@+id/resultado_anagrama"
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
             android:layout_toRightOf="@id/formula_anagrama"
             android:foregroundGravity="center"
             android:padding="8dp"
@@ -91,9 +90,26 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
-            app:text="">
+            android:text="">
+            <io.github.kexanie.library.MathView
+                android:id="@+id/resultado_anagrama"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_toRightOf="@id/formula_anagrama"
+                android:foregroundGravity="center"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
+                app:text="">
 
-        </io.github.kexanie.library.MathView>
+            </io.github.kexanie.library.MathView>
+
+        </ScrollView>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_swipe"
