@@ -42,7 +42,6 @@ public class Anagrama extends Fragment {
     private static LottieAnimationView animationWrite, animationSwipe;
 
     private final int ID_WRITE = R.id.animation_write, ID_SWIPE = R.id.animation_swipe;
-    private boolean jaCalculou = false;
     private String palavraGuardada = "";
 
     private MathView formulaAnagrama, resultadoAnagrama;
@@ -139,7 +138,7 @@ public class Anagrama extends Fragment {
         return inputAnagrama.getEditText().getText().toString().toUpperCase().length();
     }
 
-    private void setResultado(final HashMap<String,Integer> hashLetraEQuant) {
+    private void setResultado(final HashMap<String,Integer> hashLetraEQuant, final Long resultadoFinal) {
 
         animationWrite.setVisibility(View.VISIBLE);
         animationSwipe.setVisibility(View.VISIBLE);
@@ -152,7 +151,7 @@ public class Anagrama extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoAnagrama.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerador.gerarAplicacaoValores(hashLetraEQuant,getTamanhodaPalavra()));
+                resultadoAnagrama.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerador.gerarAplicacaoValores(hashLetraEQuant,getTamanhodaPalavra()) + gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal,getTamanhodaPalavra()));
                 LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
             }
 
@@ -164,7 +163,7 @@ public class Anagrama extends Fragment {
     }
 
     private String gerarTrechoInicial(int tamanhoPalavra) {
-        String trecho = "$$A(" + tamanhoPalavra + ", " + tamanhoPalavra + ") = P_" + tamanhoPalavra + "$$";
+        String trecho = "$$A(" + tamanhoPalavra + ", " + tamanhoPalavra + ") = P_{" + tamanhoPalavra + "}$$";
 
         return trecho;
     }
@@ -173,6 +172,7 @@ public class Anagrama extends Fragment {
 
         // Campo não vazio
         if (!calculadora.verificarCampoVazio(inputAnagrama)) {
+            inputAnagrama.setError(null);
             MainActivity.hideKeyboard(getActivity());
 
             // Verifica se tem apenas letras
@@ -188,7 +188,7 @@ public class Anagrama extends Fragment {
 
                     if (verificarTemQuantPalavrasMaiorUm(novoArrayQuantPalavras)) {
 
-                        setResultado(novoArrayQuantPalavras);
+                        setResultado(novoArrayQuantPalavras,resultadoFinal);
 
                     } else {
                         String mensagem = "$$\\bold{\\text{Passo a Passo}}$$" +
@@ -208,6 +208,7 @@ public class Anagrama extends Fragment {
             }
 
         }else {
+            inputAnagrama.setError("O campo está vazio!");
             MainActivity.hideKeyboard(getActivity());
         }
     }
