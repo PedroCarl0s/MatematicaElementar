@@ -1,5 +1,7 @@
 package elementar.analise.combinatoria.geradores;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,12 +14,15 @@ public class GeradorAnagrama extends GeradorFormulas {
     private static final String endCases = "\\end{cases}$$";
 
     private final String inicio1 = "$$\\large {P_{";
-    private final String início2 = " \\small {\\frac{";
+    private final String inicio2 = " \\small {\\frac{";
     private final String potencia = "} \\ ^ {";
     private final String separador1 = ", \\ ";
     private final String separador2 = "\\ ";
     private final String fechaChaves1 = "}} =";
     private final String fechaChaves2 = "}}$$";
+
+    private final String igualdadaFinal = "} =";
+    private final String fechamentoFinal = "}$$";
 
     public String gerarFormula() {
         String formulaAnagrama = "$$\\bold{Formula}$$" +
@@ -54,6 +59,17 @@ public class GeradorAnagrama extends GeradorFormulas {
 
     public String gerarAplicacaoValores(HashMap<String, Integer> hashMapLetras, int getTamanhodaPalavra){
 
+        StringBuilder resultaooFinal = gerarEtapa1(hashMapLetras,getTamanhodaPalavra);
+
+        resultaooFinal = gerarEtapa2(resultaooFinal,hashMapLetras,getTamanhodaPalavra);
+
+        return resultaooFinal.toString();
+
+    }
+
+
+    private StringBuilder gerarEtapa1(HashMap<String, Integer> hashMapLetras, int getTamanhodaPalavra){
+
         StringBuilder aplicacao = new StringBuilder(inicio1);
         aplicacao.append(getTamanhodaPalavra).append(potencia);
 
@@ -71,21 +87,57 @@ public class GeradorAnagrama extends GeradorFormulas {
 
         aplicacao.append(fechaChaves1);
 
-        aplicacao.append(início2).append(getTamanhodaPalavra).append("!} {");
+        return aplicacao;
 
-        for(Map.Entry<String,Integer> entry : hashMapLetras.entrySet()){
+    }
+
+    private StringBuilder gerarEtapa2(StringBuilder aplicacao,HashMap<String,Integer> hashMap,int tamanhoPalavra){
+
+        aplicacao.append(inicio2).append(tamanhoPalavra).append("!} {");
+
+        for(Map.Entry<String,Integer> entry : hashMap.entrySet()){
 
             aplicacao.append(entry.getValue()).append("! ").append(separador2);
 
         }
 
-        //remover os \\ sobrando
+//        //remover os \\ sobrando
         aplicacao = aplicacao.replace(aplicacao.length()-2,aplicacao.length()-1,"");
 
         aplicacao.append(fechaChaves2);
 
-        return aplicacao.toString();
+        return aplicacao;
+
 
     }
 
+    private StringBuilder gerarFormulaResultadoFinal(HashMap<String,Integer> hashMap,Long resultadoFinal,int tamanhoPalavra){
+
+        StringBuilder aplicacao = new StringBuilder(inicio1);
+        aplicacao.append(tamanhoPalavra).append(potencia);
+
+        for(Map.Entry<String,Integer> entry : hashMap.entrySet()){
+
+            aplicacao.append(entry.getValue()).append(separador1);
+
+        }
+
+        //remover , do final
+        aplicacao = aplicacao.replace(aplicacao.length()-4,aplicacao.length()-1,"");
+
+        aplicacao.append(igualdadaFinal);
+
+        aplicacao.append(resultadoFinal).append(fechamentoFinal);
+
+        return aplicacao;
+
+    }
+
+    public String gerarResultadoFinal(HashMap<String,Integer> hashMap,Long resultadoFinal,int tamanhoPalavra){
+
+        StringBuilder aplicacao = gerarFormulaResultadoFinal(hashMap,resultadoFinal,tamanhoPalavra);
+
+        return aplicacao.toString();
+
+    }
 }
