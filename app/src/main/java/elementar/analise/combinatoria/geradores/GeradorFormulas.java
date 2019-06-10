@@ -5,14 +5,11 @@ import elementar.analise.combinatoria.Calculadora;
 
 public abstract class GeradorFormulas {
 
-    private static int elementosMenosPosicoes;
-    private static String fatorialElementos;
-
     private static Calculadora calculadora = Calculadora.getInstance();
 
 
     // Gera o desenvolvimento do fatorial
-    public static String gerarDesenvolvimentoFatorial(int valorElementos, int valorPosicoes, String valorNumerador) {
+    public static String gerarDesenvolvimentoFatorial(int valorElementos, int valorPosicoes, String valorNumerador, int elementosMenosPosicoes) {
         String desenvolvimento = "$$A(" + valorElementos + ", " + valorPosicoes + ") = \\frac{" + valorNumerador + "!} " +
                 "{" + elementosMenosPosicoes + "!}$$";
 

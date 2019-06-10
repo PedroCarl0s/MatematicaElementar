@@ -99,7 +99,7 @@ public class GeradorArranjo extends GeradorFormulas {
             resultadoFinal = 1;
         }
 
-        return gerarAplicacaoArranjo(valorElementos, valorPosicoes) + mensagemDesenvolvimento + gerarDesenvolvimentoFatorial(valorElementos, valorPosicoes, numeradorDesenvolvimento) +
+        return gerarAplicacaoArranjo(valorElementos, valorPosicoes) + mensagemDesenvolvimento + gerarDesenvolvimentoFatorial(valorElementos, valorPosicoes, numeradorDesenvolvimento, elementosMenosPosicoes) +
                 mensagemSimplificacao + gerarSimplificacaoFatorial(valorElementos, valorPosicoes) + calculadora.gerarResultadoFinal("A", valorElementos, valorPosicoes, resultadoFinal);
     }
 
