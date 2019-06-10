@@ -21,8 +21,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.HashMap;
-import java.util.Map;
-
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.geradores.GeradorAnagrama;
 import elementar.lottie.LottieController;
@@ -45,7 +43,7 @@ public class Anagrama extends Fragment {
 
     private final int ID_WRITE = R.id.animation_write, ID_SWIPE = R.id.animation_swipe;
     private boolean jaCalculou = false;
-    private String palavraDigitada;
+    private String palavraGuardada = "";
 
     private MathView formulaAnagrama, resultadoAnagrama;
     private Calculadora calculadora = Calculadora.getInstance();
@@ -185,20 +183,28 @@ public class Anagrama extends Fragment {
 
                 long resultadoFinal = calcularResultadoAnagrama(getTamanhodaPalavra(), novoArrayQuantPalavras);
                 // Verifica se tem letras repetidas
-                if (verificarTemQuantPalavrasMaiorUm(novoArrayQuantPalavras)) {
 
-                    setResultado(novoArrayQuantPalavras);
+                if(!isJaCalculou(getEntradaAnagrama(),palavraGuardada,null)){
 
-                } else {
-                    String mensagem = "$$\\bold{\\text{Passo a Passo}}$$" +
-                            "Como nenhuma letra se repetiu, isso equivale a fazer um Arranjo onde: nº elementos e de posições serão iguais ao tamanho da palavra, que é " + getTamanhodaPalavra();
+                    if (verificarTemQuantPalavrasMaiorUm(novoArrayQuantPalavras)) {
 
-                    resultadoAnagrama.setText(mensagem + gerarTrechoInicial(getTamanhodaPalavra()) + gerador.gerarResultadoPermutacaoLatex("", getTamanhodaPalavra()));
+                        setResultado(novoArrayQuantPalavras);
 
+                    } else {
+                        String mensagem = "$$\\bold{\\text{Passo a Passo}}$$" +
+                                "Como nenhuma letra se repetiu, isso equivale a fazer um Arranjo onde: nº elementos e de posições serão iguais ao tamanho da palavra, que é " + getTamanhodaPalavra();
+
+                        resultadoAnagrama.setText(mensagem + gerarTrechoInicial(getTamanhodaPalavra()) + gerador.gerarResultadoPermutacaoLatex("", getTamanhodaPalavra()));
+
+                    }
+
+                    palavraGuardada = getEntradaAnagrama();
                 }
 
             } else {
+
                 inputAnagrama.setError("Insira apenas letras sem acento");
+
             }
 
         }else {
@@ -273,6 +279,7 @@ public class Anagrama extends Fragment {
 
         outState.putString("palavra",getEntradaAnagrama());
         outState.putString("latex",resultadoAnagrama.getText());
+        outState.putString("palavraGuardade",palavraGuardada);
     }
 
 
@@ -284,10 +291,24 @@ public class Anagrama extends Fragment {
             MainActivity.hideKeyboard(getActivity());
 
             this.txtAnagrama.setText(savedInstanceState.getString("palavra"));
+            this.palavraGuardada = savedInstanceState.getString("palavraGuardade");
             MathView calculoRecuperado = view.findViewById(R.id.resultado_anagrama);
             calculoRecuperado.setText(savedInstanceState.getString("latex"));
 
         }
+    }
+
+    private boolean isJaCalculou(String palavra,String palavraGuardade,TextInputLayout input){
+
+        if(palavra.equals(palavraGuardade)){
+
+            showToastMessage("O valor já foi calculado!");
+            return true;
+
+        }
+
+        return false;
+
     }
 
 }
