@@ -1,6 +1,8 @@
 package elementar.analise.combinatoria.fragments;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -68,6 +70,7 @@ public class Anagrama extends Fragment {
 
         init();
         TextInputController.setLabelTextInput(inputAnagrama, txtAnagrama, "Anagrama de", "Insira uma palavra");
+        animationSwipe.setVisibility(View.GONE);
 
         // Ação do botão para calcular
         btnCalcular.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +123,9 @@ public class Anagrama extends Fragment {
         this.resultadoAnagrama = (MathView) view.findViewById(R.id.resultado_anagrama);
 
         this.btnCalcular = (Button) view.findViewById(R.id.btn_calcular);
+
+        this.animationWrite = view.findViewById(R.id.animation_write);
+        this.animationSwipe = view.findViewById(R.id.animation_swipe);
     }
 
 
@@ -136,8 +142,6 @@ public class Anagrama extends Fragment {
     }
 
     private void setResultado(final HashMap<String,Integer> hashLetraEQuant) {
-        animationWrite = view.findViewById(R.id.animation_write);
-        animationSwipe = view.findViewById(R.id.animation_swipe);
 
         animationWrite.setVisibility(View.VISIBLE);
         animationSwipe.setVisibility(View.VISIBLE);
@@ -261,6 +265,29 @@ public class Anagrama extends Fragment {
 
     private void showToastMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("palavra",getEntradaAnagrama());
+        outState.putString("latex",resultadoAnagrama.getText());
+    }
+
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            MainActivity.hideKeyboard(getActivity());
+
+            this.txtAnagrama.setText(savedInstanceState.getString("palavra"));
+            MathView calculoRecuperado = view.findViewById(R.id.resultado_anagrama);
+            calculoRecuperado.setText(savedInstanceState.getString("latex"));
+
+        }
     }
 
 }
