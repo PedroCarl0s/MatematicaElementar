@@ -140,4 +140,22 @@ public class GeradorAnagrama extends GeradorFormulas {
         return aplicacao.toString();
 
     }
+
+    private StringBuilder pegarValoresIqualUm(HashMap<String,Integer> hashMap){
+
+        StringBuilder letrasRepetidas = new StringBuilder();
+
+        for(Map.Entry<String,Integer> map : hashMap.entrySet()){
+
+            if(map.getValue() == 1){
+
+                letrasRepetidas.append(map.getKey()).append(", ");
+
+            }
+        }
+
+        letrasRepetidas = letrasRepetidas.delete(letrasRepetidas.length()-2,letrasRepetidas.length());
+
+        return letrasRepetidas;
+    }
 }
