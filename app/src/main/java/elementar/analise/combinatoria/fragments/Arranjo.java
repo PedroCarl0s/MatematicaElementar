@@ -233,6 +233,8 @@ public class Arranjo extends Fragment {
 
         outState.putString("elementos", Integer.toString(Arranjo.getNumeroElementos()));
         outState.putString("posicoes", Integer.toString(Arranjo.getNumeroPosicoes()));
+
+        outState.putBoolean("jaCalculou",jaCalculou);
         outState.putString("latex", resultadoArranjo.getText());
     }
 
@@ -245,7 +247,7 @@ public class Arranjo extends Fragment {
 
             this.txtElementos.setText(savedInstanceState.getString("elementos"));
             this.txtPosicoes.setText(savedInstanceState.getString("posicoes"));
-
+            this.jaCalculou = savedInstanceState.getBoolean("jaCalculou");
             MathView calculoRecuperado = view.findViewById(R.id.resultado_arranjo);
             calculoRecuperado.setText(savedInstanceState.getString("latex"));
         }

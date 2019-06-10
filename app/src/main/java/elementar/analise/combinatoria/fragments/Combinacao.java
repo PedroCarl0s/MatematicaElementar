@@ -134,6 +134,7 @@ public class Combinacao extends Fragment {
 
         outState.putString("elementos", Integer.toString(Combinacao.getNumeroElementos()));
         outState.putString("posicoes", Integer.toString(Combinacao.getNumeroPosicoes()));
+        outState.putBoolean("jaCalculou",jaCalculou);
         outState.putString("latex", resultadoCombinacao.getText());
 
     }
@@ -147,7 +148,7 @@ public class Combinacao extends Fragment {
 
             this.txtElementos.setText(savedInstanceState.getString("elementos"));
             this.txtPosicoes.setText(savedInstanceState.getString("posicoes"));
-
+            this.jaCalculou = savedInstanceState.getBoolean("jaCalculou");
             MathView calculoRecuperado = view.findViewById(R.id.resultado_combinacao);
             calculoRecuperado.setText(savedInstanceState.getString("latex"));
         }

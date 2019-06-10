@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,7 +118,7 @@ public class Permutacao extends Fragment {
     }
 
     private void calcularPermutacao() {
-
+        Log.i("bomba"," ja "+jaCalculou);
         if (calculadora.validarEntradaPermutacao(inputPermutacao)) {
             MainActivity.hideKeyboard(getActivity());
 
@@ -206,6 +207,8 @@ public class Permutacao extends Fragment {
 
         outState.putString("entrada_permutacao", getEntradaPermutacao());
         outState.putString("resultado_permutacao", getResultadoLatex());
+        outState.putBoolean("jaCalculou",jaCalculou);
+        outState.putString("valorEntrada",valorEntrada);
     }
 
     // Recupera e modifica o campo da entrada + MathView do resultado
@@ -216,7 +219,9 @@ public class Permutacao extends Fragment {
         if (savedInstanceState != null) {
             MainActivity.hideKeyboard((getActivity()));
 
-            txtPermutacao.setText(savedInstanceState.getString("entrada_permutacao"));
+            this.txtPermutacao.setText(savedInstanceState.getString("entrada_permutacao"));
+            this.jaCalculou = savedInstanceState.getBoolean("jaCalculou");
+            this.valorEntrada = savedInstanceState.getString("valorEntrada");
 
             MathView calculoRecuperado = view.findViewById(R.id.resultado_permutacao);
             calculoRecuperado.setText(savedInstanceState.getString("resultado_permutacao"));
