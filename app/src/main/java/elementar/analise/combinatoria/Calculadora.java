@@ -11,6 +11,7 @@ public final class Calculadora extends GeradorFormulas{
 
     private static Calculadora INSTANCE = null;
     private static int elementos, posicoes;
+    private static String RETICENCIAS = " \\ ... \\ ";
 
     private Calculadora() {
 
@@ -205,17 +206,30 @@ public final class Calculadora extends GeradorFormulas{
         if (valorPermutacao > 0) {
 
             StringBuilder valores = new StringBuilder();
-            for (long atual = valorPermutacao; atual >= 1; atual--) {
-                valores.append(atual);
-                valores.append(".");
-            }
 
-            // Remove o último caracter em excesso (um ponto final)
-            valores.delete(valores.length()-1, valores.length());
+            if(valorPermutacao < 16){
+
+                for (long atual = valorPermutacao; atual >= 1; atual--) {
+                    valores.append(atual);
+                    valores.append(".");
+                }
+
+                // Remove o último caracter em excesso (um ponto final)
+                valores.delete(valores.length()-1, valores.length());
+
+            }else{
+
+                StringBuilder novoTexto = gerarValorAntesDoSeparador(valorPermutacao);
+
+                valores.append(gerarValorDepoisDoSeparador(novoTexto));
+
+            }
 
             return valores.toString();
 
+
         } else if (valorPermutacao == 0) {
+
             return "1";
 
         } else {
@@ -236,4 +250,36 @@ public final class Calculadora extends GeradorFormulas{
         return resultado;
     }
 
+    private static StringBuilder gerarValorAntesDoSeparador(Long valorPermutacao){
+
+        StringBuilder textoParcial = new StringBuilder();
+
+        for (long atual = valorPermutacao; atual >= (valorPermutacao - 5); atual--) {
+            textoParcial.append(atual);
+            textoParcial.append(".");
+        }
+
+        textoParcial.delete(textoParcial.length()-1,textoParcial.length());
+
+        textoParcial.append(RETICENCIAS);
+
+        return textoParcial;
+
+    }
+
+    private static StringBuilder gerarValorDepoisDoSeparador(StringBuilder textoParcial){
+
+        for (long atual = 3; atual > 0; atual--) {
+
+            textoParcial.append(atual);
+            textoParcial.append(".");
+        }
+
+        textoParcial.delete(textoParcial.length()-1,textoParcial.length());
+
+
+        return textoParcial;
+
+
+    }
 }

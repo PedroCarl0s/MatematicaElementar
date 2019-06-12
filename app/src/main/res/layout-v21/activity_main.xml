@@ -45,8 +45,10 @@
         <TextView
             android:id="@+id/textGrid"
             android:layout_width="297dp"
-            android:layout_height="81dp"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="Matemática Elementar"
             android:textColor="@android:color/white"

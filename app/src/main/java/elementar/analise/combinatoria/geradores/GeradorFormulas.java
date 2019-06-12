@@ -58,6 +58,9 @@ public abstract class GeradorFormulas {
         }
 
     }
+    public String gerarStringFatorial (long valorEntrada) {
+        return valorEntrada + "!";
+    }
 
     public String gerarStringFatorial (long valorEntrada) {
         return valorEntrada + "!";
@@ -75,16 +78,16 @@ public abstract class GeradorFormulas {
         if (valorEntrada  > 1 && valorEntrada <= 10) {
             resultado += "$$" + gerarStringFatorial(valorEntrada) +  " = " + resultadoParcial + " = " + textoResultado + "$$";
 
-        // Valor da entrada maior que 10 fatorial, quebro o resultado em duas linhas
+            // Valor da entrada maior que 10 fatorial, quebro o resultado em duas linhas
         } else if (valorEntrada > 10) {
             resultado += "$$"+ gerarStringFatorial(valorEntrada) +  " = " + resultadoParcial + "$$";
             resultado += "$$" + gerarStringFatorial(valorEntrada) + " = " + textoResultado + "$$";
 
-        // 0 ou 1 fatorial, apenas repito o valor com sinal de fatorial, sendo igual a ele mesmo. Ex.: 0! = 0 ou 1! = 1
+            // 0 ou 1 fatorial, apenas repito o valor com sinal de fatorial, sendo igual a ele mesmo. Ex.: 0! = 0 ou 1! = 1
         } else if (valorEntrada == 0 || valorEntrada == 1) {
             resultado += "$$" + valorEntrada + "!" + " = " + textoResultado + "$$";
 
-        // Os valores devem ser maiores ou iguais a zero
+            // Os valores devem ser maiores ou iguais a zero
         } else {
             return "Apenas valores inteiros positivos";
         }
