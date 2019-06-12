@@ -64,7 +64,6 @@
         android:columnOrderPreserved="false"
         android:padding="14dp"
         android:rowCount="3">
-
         <!-- Row 1 -->
         <!-- Column 1 -->
 
