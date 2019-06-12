@@ -77,10 +77,15 @@
             app:layout_constraintTop_toBottomOf="@+id/input_anagrama" />
 
         <ScrollView
+
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
             android:layout_toRightOf="@id/formula_permutacao"
             android:foregroundGravity="center"
             android:padding="8dp"
@@ -88,16 +93,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_calcular">
+            app:layout_constraintStart_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
+            app:layout_constraintTop_toTopOf="parent">
 
             <io.github.kexanie.library.MathView
                 android:id="@+id/resultado_permutacao"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="16dp"
-                android:layout_toRightOf="@id/formula_permutacao"
-                android:foregroundGravity="left"
+                android:layout_margin="8dp"
+                android:foregroundGravity="center"
                 android:padding="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -113,8 +118,18 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_write"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="241dp"
+            android:layout_height="224dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="29dp"
+            android:layout_marginLeft="29dp"
+            android:layout_marginTop="77dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginBottom="52dp"
             android:layout_toEndOf="@id/formula_permutacao"
             android:layout_toRightOf="@id/formula_permutacao"
             android:foregroundGravity="left"
