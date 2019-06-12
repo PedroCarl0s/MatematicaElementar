@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#101010</color>
     <color name="errorTextInput">#E65353</color>
+    <color name="corBackGround">#FFFFFF</color>
+    <color name="corTabBar">#22A7F0</color>
 </resources>
