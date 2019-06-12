@@ -59,6 +59,10 @@ public abstract class GeradorFormulas {
 
     }
 
+    public String gerarStringFatorial (long valorEntrada) {
+        return valorEntrada + "!";
+    }
+
     // Gera o resultado final, contendo o passo a passo construído
     public String gerarResultadoPermutacaoLatex(String titulo, long valorEntrada) {
 
@@ -69,12 +73,12 @@ public abstract class GeradorFormulas {
 
         // Para questões de quebrar a visualização do passo a passo (2 até 10 fatorial, imprimo em uma única linha)
         if (valorEntrada  > 1 && valorEntrada <= 10) {
-            resultado += "$$" + valorEntrada +  "!" +  " = " + resultadoParcial + " = " + textoResultado + "$$";
+            resultado += "$$" + gerarStringFatorial(valorEntrada) +  " = " + resultadoParcial + " = " + textoResultado + "$$";
 
         // Valor da entrada maior que 10 fatorial, quebro o resultado em duas linhas
         } else if (valorEntrada > 10) {
-            resultado += "$$" + valorEntrada +  "!" +  " = " + resultadoParcial + "$$";
-            resultado += "$$" + valorEntrada + "!" + " = " + textoResultado + "$$";
+            resultado += "$$"+ gerarStringFatorial(valorEntrada) +  " = " + resultadoParcial + "$$";
+            resultado += "$$" + gerarStringFatorial(valorEntrada) + " = " + textoResultado + "$$";
 
         // 0 ou 1 fatorial, apenas repito o valor com sinal de fatorial, sendo igual a ele mesmo. Ex.: 0! = 0 ou 1! = 1
         } else if (valorEntrada == 0 || valorEntrada == 1) {
