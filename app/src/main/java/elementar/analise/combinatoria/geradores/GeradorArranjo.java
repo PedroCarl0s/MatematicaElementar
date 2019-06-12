@@ -14,15 +14,18 @@ public class GeradorArranjo extends GeradorFormulas {
 
     }
 
+    private static String gerarCabecalho(int elementos, int posicoes) {
+        return "A(" + elementos + ", " + posicoes + ")";
+    }
 
     //Gera a primeira equação, após aplicar os valores N e P
     private static String gerarAplicacaoArranjo(int elementos, int posicoes) {
-        String resultado = null;
+        String resultado;
 
         String mensagem = "$$\\bold{\\text{Passo a Passo}}$$" +
                 "Após a aplicação dos valores, obtemos:";
 
-        resultado = "$$A(" + elementos + ", " + posicoes + ") = \\frac{" + elementos + "!} " +
+        resultado = "$$" + gerarCabecalho(elementos, posicoes) + " = " +"\\frac{" + elementos + "!} " +
                 "{(" + calculadora.gerarElementosMenosPosicoes(elementos, posicoes) + ")!}$$";
 
 
@@ -50,7 +53,7 @@ public class GeradorArranjo extends GeradorFormulas {
     }
 
     //Gera todo o cálculo no formato LaTeX
-    public static String gerarResultadoArranjo(int valorElementos, int valorPosicoes) {
+    public static String gerarPassoAPasso(int valorElementos, int valorPosicoes) {
 
         elementosMenosPosicoes = calculadora.resultadoElementosMenosPosicoes(valorElementos, valorPosicoes);
 
@@ -71,7 +74,6 @@ public class GeradorArranjo extends GeradorFormulas {
             numeradorDesenvolvimento = Integer.toString(valorElementos);
 
             resultadoFinal = calculadora.gerarResultadoCalculoPermutacao(valorElementos, valorPosicoes);
-
         }
 
         // Valores distintos, é necessário desenvolver o fatorial (no Arranjo Simples)
@@ -99,9 +101,17 @@ public class GeradorArranjo extends GeradorFormulas {
             resultadoFinal = 1;
         }
 
-        return gerarAplicacaoArranjo(valorElementos, valorPosicoes) + mensagemDesenvolvimento + gerarDesenvolvimentoFatorial(valorElementos, valorPosicoes, numeradorDesenvolvimento, elementosMenosPosicoes) +
-                mensagemSimplificacao + gerarSimplificacaoFatorial(valorElementos, valorPosicoes) + calculadora.gerarResultadoFinal("A", valorElementos, valorPosicoes, resultadoFinal);
+        String desenvolvimentoLatex = gerarDesenvolvimentoFatorial(valorElementos, valorPosicoes, numeradorDesenvolvimento, elementosMenosPosicoes);
+        String simplificacaoLatex = gerarSimplificacaoFatorial(valorElementos, valorPosicoes);
+        String resultadoFinalLatex = calculadora.gerarResultadoFinal("A", valorElementos, valorPosicoes, resultadoFinal);
+
+        return  mensagemDesenvolvimento + desenvolvimentoLatex +
+                mensagemSimplificacao + simplificacaoLatex + resultadoFinalLatex;
     }
 
+    public static String gerarResultadoArranjo(int valorElementos, int valorPosicoes) {
+        return gerarAplicacaoArranjo(valorElementos, valorPosicoes) + gerarPassoAPasso(valorElementos, valorPosicoes);
+    }
+    
 
 }
