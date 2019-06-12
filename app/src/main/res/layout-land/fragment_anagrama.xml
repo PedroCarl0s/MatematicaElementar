@@ -85,7 +85,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="0dp"
             android:layout_toRightOf="@id/formula_anagrama"
             android:foregroundGravity="center"
             android:padding="8dp"
