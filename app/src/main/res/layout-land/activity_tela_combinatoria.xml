@@ -29,12 +29,13 @@
         android:id="@+id/tab_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/corTabBar"
         android:paddingRight="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorColor="@android:color/holo_blue_light"
+        app:tabIndicatorColor="@color/corBackGround"
         app:tabIndicatorFullWidth="false"
         app:tabInlineLabel="false">
 
@@ -67,6 +68,7 @@
         android:id="@+id/viewAnalise"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/corBackGround"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
