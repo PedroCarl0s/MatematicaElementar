@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#22A7F0"
+    android:background="@android:color/transparent"
     tools:context="elementar.analise.combinatoria.fragments.Anagrama">
 
     <RelativeLayout
@@ -85,12 +85,13 @@
             android:layout_toRightOf="@id/formula_anagrama"
             android:foregroundGravity="center"
             android:padding="8dp"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
-            android:text="">
+            app:layout_constraintTop_toBottomOf="@+id/btn_calcular">
+
             <io.github.kexanie.library.MathView
                 android:id="@+id/resultado_anagrama"
                 android:layout_width="match_parent"
@@ -117,20 +118,20 @@
             android:layout_height="157dp"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="231dp"
+            android:layout_marginLeft="231dp"
             android:layout_toEndOf="@id/formula_anagrama"
             android:layout_toRightOf="@id/formula_anagrama"
             app:lottie_autoPlay="false"
-            app:lottie_loop="false"
-            android:layout_marginLeft="231dp" />
+            app:lottie_loop="false" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_write"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/formula_anagrama"
             android:layout_toEndOf="@id/formula_anagrama"
+            android:layout_toRightOf="@id/formula_anagrama"
             app:lottie_autoPlay="false"
-            app:lottie_loop="false"/>
+            app:lottie_loop="false" />
     </RelativeLayout>
 
 </FrameLayout>
