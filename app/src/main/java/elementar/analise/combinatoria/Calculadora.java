@@ -1,5 +1,7 @@
 package elementar.analise.combinatoria;
 
+import android.util.Log;
+
 import com.google.android.material.textfield.TextInputLayout;
 
 import elementar.analise.combinatoria.fragments.Permutacao;
@@ -44,7 +46,7 @@ public final class Calculadora extends GeradorFormulas{
                 elementos = elementosEntrada;
 
             } catch (Exception error) {
-                inputElementos.setError("O valor digitado é muito grande!");
+                inputElementos.setError("Valor muito grande!");
 
                 return false;
             }
@@ -53,7 +55,7 @@ public final class Calculadora extends GeradorFormulas{
                 posicoes = posicoesEntrada;
 
             } catch (Exception error) {
-                inputPosicoes.setError("O valor digitado é muito grande!");
+                inputPosicoes.setError("Valor muito grande!");
 
                 return false;
             }
@@ -64,20 +66,21 @@ public final class Calculadora extends GeradorFormulas{
 
                 return true;
             }
-            inputElementos.setError("O número de elementos deve ser ≥ posições");
+
+            inputElementos.setError("elementos ≥ posições");
             inputElementos.requestFocus();
 
             return false;
 
         } else if (!elementosVazio && posicoesVazio){
-            inputPosicoes.setError("O número de posições não pode ser vazio!");
+            inputPosicoes.setError("Não pode ser vazio!");
             inputPosicoes.requestFocus();
             inputElementos.setError(null);
 
             return false;
 
         } else {
-           inputElementos.setError("O número de elementos não pode ser vazio!");
+           inputElementos.setError("Não pode ser vazio!");
            inputElementos.requestFocus();
            inputPosicoes.setError(null);
 
