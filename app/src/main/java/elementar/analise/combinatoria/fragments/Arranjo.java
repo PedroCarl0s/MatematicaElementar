@@ -1,5 +1,6 @@
 package elementar.analise.combinatoria.fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,8 @@ public class Arranjo extends Fragment {
     private Handler handler;
     private Calculadora calculadora = Calculadora.getInstance();
     private GeradorArranjo gerador = new GeradorArranjo();
+
+    private Boolean bottomSheetUse = false;
 
     private BottomSheetBehavior mBottomSheetBehavior;
     private View bottomSheet;
@@ -89,11 +92,8 @@ public class Arranjo extends Fragment {
             public void onClick(View v) {
                 calcularArranjo(Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes());
 
-                //faz o bottom sheet expandir e recuar
-                if(mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                }else{
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                if(bottomSheetUse){
+                    usarBottomSheet();
                 }
 
             }
@@ -121,11 +121,6 @@ public class Arranjo extends Fragment {
 
     // Inicializa componentes de Input, MathView e Button
     public void init() {
-
-
-        this.bottomSheet = view.findViewById(R.id.bottomsheet);
-
-        this.mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
         this.inputElementos = view.findViewById(R.id.elementos_arranjo);
         this.inputPosicoes = view.findViewById(R.id.posicoes_arranjo);
@@ -244,7 +239,24 @@ public class Arranjo extends Fragment {
 
         return posicoes;
     }
+//////////////////////////////////////////////////////////////////////////////////////
+    private void usarBottomSheet(){
+        //faz o bottom sheet expandir e recuar
+        if(mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }else{
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+    }
 
+    private void instanciarBottomSheet(){
+
+        this.bottomSheet = view.findViewById(R.id.bottomsheet);
+
+        this.mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+
+    }
+    //////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -270,6 +282,18 @@ public class Arranjo extends Fragment {
             calculoRecuperado.setText(savedInstanceState.getString("latex"));
         }
 
+    }
+
+    //verificar horientação
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // verifica a orientação da tela
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            instanciarBottomSheet();
+            bottomSheetUse = true;
+        }
     }
 
 }
