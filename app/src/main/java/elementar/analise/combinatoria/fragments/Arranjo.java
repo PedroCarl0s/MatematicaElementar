@@ -5,11 +5,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +36,9 @@ public class Arranjo extends Fragment {
     private Handler handler;
     private Calculadora calculadora = Calculadora.getInstance();
     private GeradorArranjo gerador = new GeradorArranjo();
+
+    private BottomSheetBehavior mBottomSheetBehavior;
+    private View bottomSheet;
 
     private static TextInputLayout inputElementos, inputPosicoes;
     private static TextInputEditText txtElementos, txtPosicoes;
@@ -83,6 +88,14 @@ public class Arranjo extends Fragment {
             @Override
             public void onClick(View v) {
                 calcularArranjo(Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes());
+
+                //faz o bottom sheet expandir e recuar
+                if(mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }else{
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+
             }
         });
 
@@ -108,6 +121,12 @@ public class Arranjo extends Fragment {
 
     // Inicializa componentes de Input, MathView e Button
     public void init() {
+
+
+        this.bottomSheet = view.findViewById(R.id.bottomsheet);
+
+        this.mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+
         this.inputElementos = view.findViewById(R.id.elementos_arranjo);
         this.inputPosicoes = view.findViewById(R.id.posicoes_arranjo);
 
