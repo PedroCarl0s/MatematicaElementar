@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.geradores.GeradorArranjo;
-import elementar.analise.combinatoria.geradores.GeradorFormulas;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
@@ -141,7 +140,7 @@ public class Arranjo extends Fragment {
 
                     showToastMessage("O valor já foi calculado!");
 
-                // Uma ou as duas entradas distintas, é necessário calcular
+                    // Uma ou as duas entradas distintas, é necessário calcular
                 } else {
                     setResultado(valorElementos, valorPosicoes);
 
@@ -149,7 +148,7 @@ public class Arranjo extends Fragment {
                     this.valorPosicoes = Arranjo.getNumeroPosicoes();
                 }
 
-            // Muda estado da variável jaCalculou e calcula (apenas no primeiro cálculo)
+                // Muda estado da variável jaCalculou e calcula (apenas no primeiro cálculo)
             } else {
                 setResultado(valorElementos, valorPosicoes);
 
