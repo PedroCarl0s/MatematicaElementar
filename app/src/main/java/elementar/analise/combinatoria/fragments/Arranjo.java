@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.geradores.GeradorArranjo;
+import elementar.analise.combinatoria.myBottomSheet;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
@@ -38,11 +39,6 @@ public class Arranjo extends Fragment {
     private Calculadora calculadora = Calculadora.getInstance();
     private GeradorArranjo gerador = new GeradorArranjo();
 
-    private Boolean bottomSheetUse = false;
-
-    private BottomSheetBehavior mBottomSheetBehavior;
-    private View bottomSheet;
-
     private static TextInputLayout inputElementos, inputPosicoes;
     private static TextInputEditText txtElementos, txtPosicoes;
 
@@ -56,8 +52,10 @@ public class Arranjo extends Fragment {
     private final int DELAY_TIME = 750;
     private static final int ERRO_CONVERSAO = -10000;
 
+    private myBottomSheet bottomSheet;
     public Arranjo() {
         // Required empty public constructor
+
     }
 
     @Override
@@ -90,11 +88,10 @@ public class Arranjo extends Fragment {
 
             @Override
             public void onClick(View v) {
+
                 calcularArranjo(Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes());
 
-                if(bottomSheetUse){
-                    usarBottomSheet();
-                }
+                bottomSheet.usarBottomSheet(getResources().getConfiguration().orientation);
 
             }
         });
@@ -121,6 +118,8 @@ public class Arranjo extends Fragment {
 
     // Inicializa componentes de Input, MathView e Button
     public void init() {
+
+        this.bottomSheet = new myBottomSheet(view,getResources().getConfiguration().orientation,R.id.bottomsheet);
 
         this.inputElementos = view.findViewById(R.id.elementos_arranjo);
         this.inputPosicoes = view.findViewById(R.id.posicoes_arranjo);
@@ -153,7 +152,6 @@ public class Arranjo extends Fragment {
                     inputPosicoes.setHint("Posições a arranjar");
 
                     showToastMessage("O valor já foi calculado!");
-
                     // Uma ou as duas entradas distintas, é necessário calcular
                 } else {
                     setResultado(valorElementos, valorPosicoes);
@@ -239,24 +237,7 @@ public class Arranjo extends Fragment {
 
         return posicoes;
     }
-//////////////////////////////////////////////////////////////////////////////////////
-    private void usarBottomSheet(){
-        //faz o bottom sheet expandir e recuar
-        if(mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
-            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        }else{
-            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        }
-    }
 
-    private void instanciarBottomSheet(){
-
-        this.bottomSheet = view.findViewById(R.id.bottomsheet);
-
-        this.mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-
-    }
-    //////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -284,16 +265,12 @@ public class Arranjo extends Fragment {
 
     }
 
-    //verificar horientação
+    //verificar orientação
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+//        bottomSheet.instanciarBottomSheet(view,newConfig.orientation,R.id.bottomsheet);
 
-        // verifica a orientação da tela
-        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            instanciarBottomSheet();
-            bottomSheetUse = true;
-        }
     }
 
 }
