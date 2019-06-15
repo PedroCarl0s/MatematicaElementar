@@ -14,126 +14,139 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <io.github.kexanie.library.MathView
-            android:id="@+id/formula_arranjo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:text="">
-
-        </io.github.kexanie.library.MathView>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/elementos_arranjo"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="246dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-
-            app:errorTextAppearance="@style/ErrorAppearance"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/formula_arranjo">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_elementos"
-                style="@style/Widget.AppCompat.EditText"
-                android:layout_width="245dp"
+            <io.github.kexanie.library.MathView
+                android:id="@+id/formula_arranjo"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Elementos a arranjar"
-                android:inputType="number"
-                android:textColorHint="@android:color/black"
-                android:textSize="20sp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:text="">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/posicoes_arranjo"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="246dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            </io.github.kexanie.library.MathView>
 
-            app:errorTextAppearance="@style/ErrorAppearance"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Menu"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/elementos_arranjo">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_posicoes"
-                android:layout_width="245dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/elementos_arranjo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="246dp"
                 android:layout_height="wrap_content"
-                android:hint="Posições a arranjar"
-                android:inputType="number"
-                android:textSize="20sp" />
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
 
-        </com.google.android.material.textfield.TextInputLayout>
+                app:errorTextAppearance="@style/ErrorAppearance"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/formula_arranjo">
 
-        <Button
-            android:id="@+id/btn_calcular"
-            android:layout_width="159dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:drawableLeft="@drawable/calc"
-            android:text="calcular"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/posicoes_arranjo" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_elementos"
+                    style="@style/Widget.AppCompat.EditText"
+                    android:layout_width="245dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Elementos a arranjar"
+                    android:inputType="number"
+                    android:textColorHint="@android:color/black"
+                    android:textSize="20sp" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_write"
-            android:layout_width="250dp"
-            android:layout_height="198dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.48"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
-            app:layout_constraintVertical_bias="1.0"
-            app:lottie_autoPlay="false"
-            app:lottie_loop="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/posicoes_arranjo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="246dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+
+                app:errorTextAppearance="@style/ErrorAppearance"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/elementos_arranjo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_posicoes"
+                    android:layout_width="245dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Posições a arranjar"
+                    android:inputType="number"
+                    android:textSize="20sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_calcular"
+                android:layout_width="159dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:drawableLeft="@drawable/calc"
+                android:text="calcular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/posicoes_arranjo" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_write"
+                android:layout_width="250dp"
+                android:layout_height="198dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.48"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="false" />
 
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_swipe"
-            android:layout_width="125dp"
-            android:layout_height="104dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
-            app:layout_constraintVertical_bias="0.0"
-            app:lottie_autoPlay="false"
-            app:lottie_loop="false" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_swipe"
+                android:layout_width="125dp"
+                android:layout_height="104dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
+                app:layout_constraintVertical_bias="0.0"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="false" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <io.github.kexanie.library.MathView
+                android:id="@+id/resultado_arranjoFinal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/animation_write"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
+                app:layout_constraintVertical_bias="0.0"
+                app:text="" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.core.widget.NestedScrollView>
 
 
