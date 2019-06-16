@@ -155,9 +155,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/corTabBar"
+        android:visibility="invisible"
         app:behavior_hideable="true"
-        app:elevation="5dp"
         app:behavior_peekHeight="55dp"
+        app:elevation="5dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <TextView
