@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.geradores.GeradorArranjo;
-import elementar.analise.combinatoria.geradores.GeradorFormulas;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
@@ -71,7 +70,6 @@ public class Arranjo extends Fragment {
     }
 
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -108,7 +106,7 @@ public class Arranjo extends Fragment {
     }
 
     // Inicializa componentes de Input, MathView e Button
-    public void init() {
+    private void init() {
         this.inputElementos = view.findViewById(R.id.elementos_arranjo);
         this.inputPosicoes = view.findViewById(R.id.posicoes_arranjo);
 
@@ -197,7 +195,7 @@ public class Arranjo extends Fragment {
         LottieController.cancelLottieAnimation(animationSwipe);
     }
 
-    public static int getNumeroElementos() {
+    private static int getNumeroElementos() {
         int elementos;
 
         try {
@@ -212,7 +210,7 @@ public class Arranjo extends Fragment {
         return elementos;
     }
 
-    public static int getNumeroPosicoes() {
+    private static int getNumeroPosicoes() {
         int posicoes;
 
         try {
