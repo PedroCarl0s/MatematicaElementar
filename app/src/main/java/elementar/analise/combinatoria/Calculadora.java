@@ -1,6 +1,6 @@
 package elementar.analise.combinatoria;
 
-import android.util.Log;
+
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -25,13 +25,13 @@ public final class Calculadora extends GeradorFormulas{
     }
 
     // Verifica se a entrada está vazia
-    public static boolean verificarCampoVazio(TextInputLayout inputText) {
+    public boolean verificarCampoVazio(TextInputLayout inputText) {
         String testeInput = inputText.getEditText().getText().toString();
         return testeInput.isEmpty();
     }
 
     // Verifica a entrada, para saber se alguma condição está violada
-    public static boolean validarElementosEPosicoes(int elementosEntrada, int posicoesEntrada, TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
+    public boolean validarElementosEPosicoes(int elementosEntrada, int posicoesEntrada, TextInputLayout inputElementos, TextInputLayout inputPosicoes) {
 
         boolean elementosVazio = verificarCampoVazio(inputElementos);
         boolean posicoesVazio = verificarCampoVazio(inputPosicoes);
@@ -61,7 +61,7 @@ public final class Calculadora extends GeradorFormulas{
                 return false;
             }
 
-            // Condição necessária para realizar cálculo de arranjo A(n, p), onde n >= p
+            // Condição necessária para realizar cálculo de arranjo A(n, p) e combinação C(n, p), onde n >= p
             if (elementos >= posicoes) {
                 inputElementos.setError(null);
 
@@ -92,7 +92,7 @@ public final class Calculadora extends GeradorFormulas{
     }
 
     // Verifica se o campo da Permutação é válido
-    public static boolean validarEntradaPermutacao(TextInputLayout inputPermutacao) {
+    public boolean validarEntradaPermutacao(TextInputLayout inputPermutacao) {
         boolean entradaVazia = verificarCampoVazio(inputPermutacao);
         int teste;
 
@@ -118,13 +118,15 @@ public final class Calculadora extends GeradorFormulas{
 
     }
 
-    public static long gerarResultadoCalculoPermutacao(int elementos, int posicoes) {
+    public long gerarResultadoCalculoPermutacao(int elementos, int posicoes) {
 
-        String valoresFinais = Calculadora.gerarFatorialElementos(elementos, posicoes);
+        String valoresFinais = gerarFatorialElementos(elementos, posicoes);
         valoresFinais = GeradorFormulas.removerUltimoValor(valoresFinais);
 
 
         if (!valoresFinais.equals("0") && !valoresFinais.equals("1") && !valoresFinais.equals("2")) {
+
+            // Troca o ponto finais por ponto e vírgula, para depois separar com .split
             valoresFinais = valoresFinais.replace(".", ";");
 
             long resultado = 1;
@@ -136,30 +138,26 @@ public final class Calculadora extends GeradorFormulas{
 
             return resultado;
 
-        } else if (valoresFinais.equals("0")){
+        } else if (valoresFinais.equals("0")) {
             return 1;
 
         } else {
-            return Integer.parseInt(valoresFinais);
+            return Long.parseLong(valoresFinais);
         }
 
     }
 
 
     // Gera o fatorial dos elementos a Arranjar, para ser usado no MathView. Exemplo: 4! = 4.3.2.1
-    public static String gerarFatorialElementos(int elementos, int posicoes) {
+    public String gerarFatorialElementos(int elementos, int posicoes) {
 
         // Número de elementos a arranjar maior que zero, é necessário desenvolver o fatorial
         if (elementos > 0) {
 
             int fim;
 
-            // Nº de elementos igual ao nº de posições, o resultado será um
-            if (elementos == posicoes) {
-                fim = 1;
-
-            // nº de posições sendo zero, um ou dois temos que desenvolver até o valor um
-            } else if (posicoes == 0 || elementos == 1 || elementos == 2){
+            // Nas condições abaixo, é necessário desenvolver até 1
+            if (elementos == posicoes || posicoes == 0 || elementos <= 2) {
                 fim = 1;
 
             // O fatorial do nº de elementos irá até o "valor normal" da fórmula (n-p)
@@ -191,17 +189,17 @@ public final class Calculadora extends GeradorFormulas{
     }
 
     // Gera (n-p) da fórmula para ser usado na String do LaTeX
-    public static String gerarElementosMenosPosicoes(int numeroElementos, int numeroPosicoes) {
+    public String gerarElementosMenosPosicoes(int numeroElementos, int numeroPosicoes) {
         return numeroElementos + "-" + numeroPosicoes;
     }
 
     // Gera o resultado da subtração de (n-p) para ser usado na String do LaTeX
-    public static int resultadoElementosMenosPosicoes(int valorElementos, int valorPosicoes) {
+    public int resultadoElementosMenosPosicoes(int valorElementos, int valorPosicoes) {
        return valorElementos - valorPosicoes;
     }
 
     // Gera o resultado da Permutação
-    public static String gerarDesenvolvimentoPermutacao(long valorPermutacao) {
+    public String gerarDesenvolvimentoPermutacao(long valorPermutacao) {
 
         if (valorPermutacao > 0) {
 
@@ -217,12 +215,11 @@ public final class Calculadora extends GeradorFormulas{
                 // Remove o último caracter em excesso (um ponto final)
                 valores.delete(valores.length()-1, valores.length());
 
-            }else{
+            } else {
 
                 StringBuilder novoTexto = gerarValorAntesDoSeparador(valorPermutacao);
 
                 valores.append(gerarValorDepoisDoSeparador(novoTexto));
-
             }
 
             return valores.toString();
@@ -237,7 +234,7 @@ public final class Calculadora extends GeradorFormulas{
         }
     }
 
-    public static long gerarResultadoPermutacao(long valorEntrada) {
+    public long gerarResultadoPermutacao(long valorEntrada) {
 
         // O fatorial vai até o valor 1
         long resultado = 1;
@@ -250,7 +247,7 @@ public final class Calculadora extends GeradorFormulas{
         return resultado;
     }
 
-    private static StringBuilder gerarValorAntesDoSeparador(Long valorPermutacao){
+    private StringBuilder gerarValorAntesDoSeparador(Long valorPermutacao){
 
         StringBuilder textoParcial = new StringBuilder();
 
@@ -267,7 +264,7 @@ public final class Calculadora extends GeradorFormulas{
 
     }
 
-    private static StringBuilder gerarValorDepoisDoSeparador(StringBuilder textoParcial){
+    private StringBuilder gerarValorDepoisDoSeparador(StringBuilder textoParcial){
 
         for (long atual = 3; atual > 0; atual--) {
 
@@ -277,9 +274,7 @@ public final class Calculadora extends GeradorFormulas{
 
         textoParcial.delete(textoParcial.length()-1,textoParcial.length());
 
-
         return textoParcial;
-
-
     }
+
 }
