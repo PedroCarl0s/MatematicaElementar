@@ -1,5 +1,6 @@
 package elementar.analise.combinatoria.geradores;
 
+
 import elementar.analise.combinatoria.Calculadora;
 
 public class GeradorArranjo extends GeradorFormulas {
@@ -33,7 +34,7 @@ public class GeradorArranjo extends GeradorFormulas {
     }
 
     // Gera a simplificação do fatorial (numerador e denominador)
-    public static String gerarSimplificacaoFatorial(int valorElementos, int valorPosicoes) {
+    private String gerarSimplificacaoFatorial(int valorElementos, int valorPosicoes) {
         String ultimoValorNumerador = fatorialElementos;
         String simplificacao;
 
@@ -47,15 +48,22 @@ public class GeradorArranjo extends GeradorFormulas {
             ultimoValorNumerador = "1";
         }
 
-        simplificacao = "$$A(" + valorElementos + ", " + valorPosicoes + ") = " + ultimoValorNumerador + "$$";
+        simplificacao = "$$" + gerarCabecalho(valorElementos, valorPosicoes) + " = " + ultimoValorNumerador + "$$";
 
         return simplificacao;
     }
 
-    //Gera todo o cálculo no formato LaTeX
-    public static String gerarPassoAPasso(int valorElementos, int valorPosicoes) {
+    // Gera o desenvolvimento do Arranjo
+    private  String gerarDesenvolvimento(int valorElementos, int valorPosicoes, String valorNumerador, int elementosMenosPosicoes) {
+        String desenvolvimento = "$$" + gerarCabecalho(valorElementos, valorPosicoes) + " = " + gerarFracaoCifrao(valorNumerador, elementosMenosPosicoes) + "$$";
 
-        elementosMenosPosicoes = calculadora.resultadoElementosMenosPosicoes(valorElementos, valorPosicoes);
+        return desenvolvimento;
+    }
+
+    //Gera todo o cálculo no formato LaTeX
+    private String gerarPassoAPasso(int valorElementos, int valorPosicoes) {
+
+        elementosMenosPosicoes = valorElementos - valorPosicoes;
 
         fatorialElementos = calculadora.gerarFatorialElementos(valorElementos, valorPosicoes);
 
@@ -63,21 +71,21 @@ public class GeradorArranjo extends GeradorFormulas {
         String numeradorDesenvolvimento;
         long resultadoFinal;
 
+
         // Elementos = Posições, o valor do denominador será zero. Basta fazer o cálculo do numerador (no Arranjo Simples)
         if (valorElementos == valorPosicoes) {
             mensagemDesenvolvimento = "Desenvolvendo o fatorial do denominador, obtemos " + valorElementos + "!" + " do numerador " +
                     "com " + elementosMenosPosicoes + "!" + " do denominador, resultando em:";
 
-            mensagemSimplificacao = "Como o valor do denominador é 0!, e 0! = 1, basta resolver o " +
-                    valorElementos + "!" + " do numerador";
+            mensagemSimplificacao = gerarMensagemSimplificacao(valorElementos, valorPosicoes);
 
             numeradorDesenvolvimento = Integer.toString(valorElementos);
 
             resultadoFinal = calculadora.gerarResultadoCalculoPermutacao(valorElementos, valorPosicoes);
-        }
+
 
         // Valores distintos, é necessário desenvolver o fatorial (no Arranjo Simples)
-        else if (valorElementos != elementosMenosPosicoes) {
+        } else if (valorElementos != elementosMenosPosicoes) {
             mensagemDesenvolvimento = "Desenvolvendo até o valor do fatorial do denominador para simplificar, obtemos:";
 
             mensagemSimplificacao = "Simplificando o " + elementosMenosPosicoes +
@@ -101,7 +109,7 @@ public class GeradorArranjo extends GeradorFormulas {
             resultadoFinal = 1;
         }
 
-        String desenvolvimentoLatex = gerarDesenvolvimentoFatorial(valorElementos, valorPosicoes, numeradorDesenvolvimento, elementosMenosPosicoes);
+        String desenvolvimentoLatex = gerarDesenvolvimento(valorElementos, valorPosicoes, numeradorDesenvolvimento, elementosMenosPosicoes);
         String simplificacaoLatex = gerarSimplificacaoFatorial(valorElementos, valorPosicoes);
         String resultadoFinalLatex = calculadora.gerarResultadoFinal("A", valorElementos, valorPosicoes, resultadoFinal);
 
@@ -109,9 +117,25 @@ public class GeradorArranjo extends GeradorFormulas {
                 mensagemSimplificacao + simplificacaoLatex + resultadoFinalLatex;
     }
 
-    public static String gerarResultadoArranjo(int valorElementos, int valorPosicoes) {
+    // Gera a mensagem de simplicação a depender dos valores da entrada serem iguais
+    private String gerarMensagemSimplificacao(int valorElementos, int valorPosicoes) {
+        String mensagem;
+
+        if (valorElementos == valorPosicoes && valorElementos != 0) {
+            mensagem = "Como o valor do numerador e denominador é 0!, e 0! = 1, basta resolver o " +
+                    valorElementos + "!" + " do numerador";
+
+        } else {
+            mensagem = "Como o valor do numerador e denominador são iguais a 0!, e 0! = 1. Isso resulta em " +
+                    gerarFracaoInline(valorElementos, valorPosicoes, "");
+        }
+
+        return  mensagem;
+    }
+
+    public String gerarResultadoArranjo(int valorElementos, int valorPosicoes) {
         return gerarAplicacaoArranjo(valorElementos, valorPosicoes) + gerarPassoAPasso(valorElementos, valorPosicoes);
     }
-    
+
 
 }
