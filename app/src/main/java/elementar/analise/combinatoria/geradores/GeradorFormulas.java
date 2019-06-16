@@ -8,13 +8,6 @@ public abstract class GeradorFormulas {
     private static Calculadora calculadora = Calculadora.getInstance();
 
 
-    // Gera o desenvolvimento do fatorial
-    public static String gerarDesenvolvimentoFatorial(int valorElementos, int valorPosicoes, String valorNumerador, int elementosMenosPosicoes) {
-        String desenvolvimento = "$$A(" + valorElementos + ", " + valorPosicoes + ") = \\frac{" + valorNumerador + "!} " +
-                "{" + elementosMenosPosicoes + "!}$$";
-
-        return desenvolvimento;
-    }
 
     // Gera o resultado final, contendo a inicial (Arranjo = A e Combinação = C)
     public String gerarResultadoFinal(String tipo, int valorElementos, int valorPosicoes, long resultadoFinal) {
@@ -47,6 +40,7 @@ public abstract class GeradorFormulas {
              o 10 é removido, mas o ponto final ainda fica. Para remover o ponto final,
              decrementa-se +1 índice da String. RESULTADO = 11
              */
+
             fatorialNumerador = fatorialNumerador.substring(0, (tamanhoFatorial - tamanhoUltimo)-1);
 
             return fatorialNumerador;
@@ -58,18 +52,16 @@ public abstract class GeradorFormulas {
         }
 
     }
-    public String gerarStringFatorial (long valorEntrada) {
+
+    public String gerarStringFatorial (int valorEntrada) {
         return valorEntrada + "!";
     }
 
-    public String gerarStringFatorial (long valorEntrada) {
-        return valorEntrada + "!";
-    }
 
     // Gera o resultado final, contendo o passo a passo construído
-    public String gerarResultadoPermutacaoLatex(String titulo, long valorEntrada) {
+    public String gerarResultadoPermutacaoLatex(String titulo, int valorEntrada) {
 
-        String resultadoParcial = Calculadora.gerarDesenvolvimentoPermutacao(valorEntrada);
+        String resultadoParcial = calculadora.gerarDesenvolvimentoPermutacao(valorEntrada);
         String textoResultado = Long.toString(calculadora.gerarResultadoPermutacao(valorEntrada));
 
         String resultado = adicionarTitulo(titulo);
@@ -100,6 +92,15 @@ public abstract class GeradorFormulas {
             return "";
         }
         return "$$\\bold{Resultado}$$";
+    }
+
+
+    public String gerarFracaoCifrao(String valorNumerador, int elementosMenosPosicoes) {
+       return "\\frac{" + valorNumerador + "!" + "}" + "{" + elementosMenosPosicoes + "!" + "}";
+    }
+
+    public static String gerarFracaoInline(int valorElementos, int valorPosicoes, String exclamacao) {
+        return "\\(" + "\\frac{" + valorElementos + exclamacao + "}" +  "{" + valorPosicoes + exclamacao + "}\\) = 1";
     }
 
 }
