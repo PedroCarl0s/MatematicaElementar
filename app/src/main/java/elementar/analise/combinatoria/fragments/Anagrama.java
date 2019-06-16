@@ -127,14 +127,14 @@ public class Anagrama extends Fragment {
 
 
     // Retorna a palavra que foi digitada
-    public static String getEntradaAnagrama() {
+    private static String getEntradaAnagrama() {
         String entrada = inputAnagrama.getEditText().getText().toString().toLowerCase().replaceAll("[^a-zA-Z]","");
         inputAnagrama.getEditText().setText(entrada);
         return entrada;
 
     }
 
-    public static int getTamanhodaPalavra(){
+    private int getTamanhodaPalavra() {
         return inputAnagrama.getEditText().getText().toString().toUpperCase().length();
     }
 
@@ -151,7 +151,7 @@ public class Anagrama extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoAnagrama.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerador.gerarAplicacaoValores(hashLetraEQuant,getTamanhodaPalavra()) + gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal,getTamanhodaPalavra()));
+                resultadoAnagrama.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerador.gerarAplicacaoValores(hashLetraEQuant, getTamanhodaPalavra()) + gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal, getTamanhodaPalavra()));
                 LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
             }
 
