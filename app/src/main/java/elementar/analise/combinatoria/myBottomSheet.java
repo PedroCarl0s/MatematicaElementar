@@ -24,7 +24,7 @@ public class myBottomSheet {
             //faz o bottom sheet expandir e recuar
             if (myBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                 myBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            } else {
+            } else if(myBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN){
                 myBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
         }
@@ -38,9 +38,10 @@ public class myBottomSheet {
             //faz o bottom sheet expandir e recuar
             if (myBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                 myBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            } else {
+            }else{
                 myBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
+
         }
 
     }
@@ -61,15 +62,13 @@ public class myBottomSheet {
         return orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
-    public boolean isExpanded() {
-            Log.i("bomba","expandindo");
-            myBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+    public void bottomSheetCallback(final BottomSheetBehavior bottomSheetBehavior) {
+
+            bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
                 @Override
                 public void onStateChanged(View bottomSheet, int newState) {
-                    if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                        expanded = true;
-                    }else{
-                        expanded = false;
+                    if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     }
                 }
 
@@ -78,7 +77,6 @@ public class myBottomSheet {
                 }
             });
 
-            return expanded;
 
     }
 
