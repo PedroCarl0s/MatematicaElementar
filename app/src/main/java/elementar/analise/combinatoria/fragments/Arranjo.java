@@ -62,6 +62,8 @@ public class Arranjo extends Fragment implements TextWatcher {
     private boolean liberarCalculo = false;
     private boolean calculoLandScape = false;
 
+    private String valorAnterior = "";
+
 
     public Arranjo() {
         // Required empty public constructor
@@ -124,6 +126,9 @@ public class Arranjo extends Fragment implements TextWatcher {
                 return false;
             }
         });
+
+        //metodo que não deixa o bottomSheetBehavior ficar no modo STATA_HIDEN
+        bottomSheet.bottomSheetCallback(behavior);
 
     }
 
@@ -285,9 +290,7 @@ public class Arranjo extends Fragment implements TextWatcher {
 
         try {
             elementos =  Integer.parseInt(inputElementos.getEditText().getText().toString());
-
             inputElementos.getEditText().setText(Integer.toString(elementos));
-
         } catch (Exception e) {
             return ERRO_CONVERSAO;
         }
@@ -403,12 +406,15 @@ public class Arranjo extends Fragment implements TextWatcher {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-
+        valorAnterior = s.toString();
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        if(!valorAnterior.equalsIgnoreCase(s.toString())){
+            verificarInput(inputElementos,inputPosicoes);
+        }
 
     }
 
@@ -419,9 +425,9 @@ public class Arranjo extends Fragment implements TextWatcher {
 
     }
 
-    private boolean verificarTrocaDeValores(String valor,String valorAnterior){
+    private void verificarInput(TextInputLayout inputLayout,TextInputLayout inputLayout2){
 
-        return (!valorAnterior.equalsIgnoreCase(valor));
+        calculadora.validarElementosEPosicoes(getNumeroElementos(),getNumeroPosicoes(),inputLayout,inputLayout2);
 
     }
 
