@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_weight="1"
     android:background="@android:color/transparent"
     tools:context="elementar.analise.combinatoria.fragments.Arranjo">
 
 
-
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,6 +55,7 @@
                     style="@style/Widget.AppCompat.EditText"
                     android:layout_width="245dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:hint="Elementos a arranjar"
                     android:inputType="number"
                     android:textColorHint="@android:color/black"
@@ -81,6 +84,7 @@
                     android:id="@+id/txt_posicoes"
                     android:layout_width="245dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:hint="Posições a arranjar"
                     android:inputType="number"
                     android:textSize="20sp" />
@@ -121,17 +125,6 @@
                 app:lottie_loop="false" />
 
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animation_swipe"
-                android:layout_width="125dp"
-                android:layout_height="104dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
-                app:layout_constraintVertical_bias="0.0"
-                app:lottie_autoPlay="false"
-                app:lottie_loop="false" />
-
             <io.github.kexanie.library.MathView
                 android:id="@+id/resultado_arranjoFinal"
                 android:layout_width="0dp"
@@ -154,8 +147,8 @@
         android:id="@+id/bottomsheet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/corTabBar"
-        android:visibility="invisible"
+        android:background="@color/corbackGroundbottomSheet"
+        android:paddingLeft="12dp"
         app:behavior_hideable="true"
         app:behavior_peekHeight="55dp"
         app:elevation="5dp"
@@ -165,23 +158,40 @@
             android:id="@+id/textBottomSheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="14dp"
             android:gravity="center"
-            android:text="Resultado"
+            android:text="Passo a Passo"
             android:textColor="@color/colorAccent"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:typeface="sans" />
 
         <io.github.kexanie.library.MathView
-            android:id="@+id/resultado_arranjo"
+            android:id="@+id/resultado_arranjoPasso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textBottomSheet"
             android:layout_marginTop="0dp"
             android:foregroundGravity="center"
-            app:text="" />
+            android:padding="8dp"
+            app:text="">
+
+        </io.github.kexanie.library.MathView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_swipe"
+            android:layout_width="59dp"
+            android:layout_height="54dp"
+            android:layout_gravity="left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false" />
 
     </RelativeLayout>
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
