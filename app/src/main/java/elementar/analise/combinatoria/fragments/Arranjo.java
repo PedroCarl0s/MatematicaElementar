@@ -11,7 +11,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
+
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -19,11 +21,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.geradores.GeradorArranjo;
+import elementar.analise.combinatoria.geradores.GeradorFormulas;
 import elementar.analise.combinatoria.myBottomSheet;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
@@ -32,19 +36,18 @@ import elementar.analise.combinatoria.controller.TextInputController;
 import io.github.kexanie.library.MathView;
 
 
-public class Arranjo extends Fragment {
+public class Arranjo extends Fragment implements TextWatcher {
 
     private View view;
-    private Handler handler;
     private Calculadora calculadora = Calculadora.getInstance();
     private GeradorArranjo gerador = new GeradorArranjo();
 
     private static TextInputLayout inputElementos, inputPosicoes;
     private static TextInputEditText txtElementos, txtPosicoes;
 
-    private static MathView formulaArranjo, resultadoArranjo;
+    private static MathView formulaArranjo, resultadoArranjo, resultadoFinalSimples;
     private static int valorElementos, valorPosicoes;
-    private Button btnCalcular;
+    private static Button btnCalcular;
     private boolean jaCalculou = false;
 
     private LottieAnimationView animationWrite, animationSwipe;
@@ -52,7 +55,14 @@ public class Arranjo extends Fragment {
     private final int DELAY_TIME = 750;
     private static final int ERRO_CONVERSAO = -10000;
 
-    private myBottomSheet bottomSheet;
+    private static myBottomSheet bottomSheet;
+    private static BottomSheetBehavior behavior;
+    private static RelativeLayout relativeLayout;
+    private String calculoFinal = "";
+    private boolean liberarCalculo = false;
+    private boolean calculoLandScape = false;
+
+
     public Arranjo() {
         // Required empty public constructor
 
@@ -83,6 +93,9 @@ public class Arranjo extends Fragment {
 
         init();
 
+        txtElementos.addTextChangedListener(this);
+        txtPosicoes.addTextChangedListener(this);
+
         // Método onClick do botão para calcular o Arranjo
         btnCalcular.setOnClickListener(new View.OnClickListener() {
 
@@ -90,8 +103,6 @@ public class Arranjo extends Fragment {
             public void onClick(View v) {
 
                 calcularArranjo(Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes());
-
-                bottomSheet.usarBottomSheet(getResources().getConfiguration().orientation);
 
             }
         });
@@ -119,7 +130,13 @@ public class Arranjo extends Fragment {
     // Inicializa componentes de Input, MathView e Button
     public void init() {
 
-        this.bottomSheet = new myBottomSheet(view,getResources().getConfiguration().orientation,R.id.bottomsheet);
+        bottomSheet = new myBottomSheet(view,getResources().getConfiguration().orientation,R.id.bottomsheet);
+        if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+            behavior = bottomSheet.getMyBottomSheetBehavior();
+            relativeLayout = view.findViewById(R.id.bottomsheet);
+            resultadoFinalSimples = view.findViewById(R.id.resultado_arranjoFinal);
+
+        }
 
         this.inputElementos = view.findViewById(R.id.elementos_arranjo);
         this.inputPosicoes = view.findViewById(R.id.posicoes_arranjo);
@@ -129,7 +146,7 @@ public class Arranjo extends Fragment {
 
 
         this.formulaArranjo = view.findViewById(R.id.formula_arranjo);
-        this.resultadoArranjo = view.findViewById(R.id.resultado_arranjo);
+        this.resultadoArranjo = view.findViewById(R.id.resultado_arranjoPasso);
 
         this.btnCalcular = view.findViewById(R.id.btn_calcular);
 
@@ -147,22 +164,25 @@ public class Arranjo extends Fragment {
             if (jaCalculou) {
 
                 // Campos de entrada com os mesmos valores, não é necessário recalcular
-                if ((Arranjo.getNumeroElementos() == this.valorElementos) && Arranjo.getNumeroPosicoes() == this.valorPosicoes) {
+                if ((Arranjo.getNumeroElementos() == this.valorElementos) && Arranjo.getNumeroPosicoes() == this.valorPosicoes && verificarTextButton("calcular",btnCalcular)) {
                     inputElementos.setHint("Elementos a arranjar");
                     inputPosicoes.setHint("Posições a arranjar");
 
                     showToastMessage("O valor já foi calculado!");
                     // Uma ou as duas entradas distintas, é necessário calcular
                 } else {
-                    setResultado(valorElementos, valorPosicoes);
 
+                    mostrarResultado(valorElementos,valorPosicoes);
+                    jaCalculou = true;
                     this.valorElementos = Arranjo.getNumeroElementos();
                     this.valorPosicoes = Arranjo.getNumeroPosicoes();
+
                 }
 
                 // Muda estado da variável jaCalculou e calcula (apenas no primeiro cálculo)
             } else {
-                setResultado(valorElementos, valorPosicoes);
+
+                mostrarResultado(valorElementos,valorPosicoes);
 
                 jaCalculou = true;
                 this.valorElementos = Arranjo.getNumeroElementos();
@@ -174,38 +194,90 @@ public class Arranjo extends Fragment {
         }
     }
 
+    private void mostrarResultado(int valorElementos, int valorPosicoes){
+
+        if(!bottomSheet.verificarOrientacaoVertical(getOrientation())) {
+
+            setResultado(valorElementos, valorPosicoes, null,resultadoArranjo);
+
+        }else{
+
+            setResultado(valorElementos, valorPosicoes,resultadoFinalSimples,resultadoArranjo);
+
+        }
+
+    }
+
+
+
     private void showToastMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void setResultado(final int valorElementos, final int valorPosicoes) {
+    private void setResultado(final int valorElementos, final int valorPosicoes, final MathView resultado,final MathView resultadoPasso) {
+
         inputElementos.setHint("Elementos a arranjar");
         inputPosicoes.setHint("Posições a arranjar");
 
-        animationWrite = view.findViewById(R.id.animation_write);
-        animationSwipe = view.findViewById(R.id.animation_swipe);
+        if(verificarTextButton("calcular",btnCalcular)){
 
-        animationWrite.setVisibility(View.VISIBLE);
-        animationSwipe.setVisibility(View.VISIBLE);
-
-        // Inicia a animação de escrita
-        LottieController.startLottieAnimation(view, animationWrite, ID_WRITE, "write.json", 1.7f, 0);
-
-        // Delay para mostrar animação + resultado
-        handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                resultadoArranjo.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
-                LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
-
+            if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+                if(relativeLayout.getVisibility() == View.INVISIBLE){
+                    relativeLayout.setVisibility(View.VISIBLE);
+                }
             }
 
-        }, DELAY_TIME);
 
-        // Cancela as animações
-        LottieController.cancelLottieAnimation(animationWrite);
-        LottieController.cancelLottieAnimation(animationSwipe);
+            animationWrite = view.findViewById(R.id.animation_write);
+            animationSwipe = view.findViewById(R.id.animation_swipe);
+
+            animationWrite.setVisibility(View.VISIBLE);
+            animationSwipe.setVisibility(View.VISIBLE);
+
+            // Inicia a animação de escrita
+            LottieController.startLottieAnimation(view, animationWrite, ID_WRITE, "write.json", 1.7f, 0);
+
+
+            // Delay para mostrar animação + resultado
+//            handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+
+                    liberarCalculo = true;
+
+                    if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+
+                        resultado.setText(GeradorFormulas.gerarResultadoFinal("A",valorElementos,valorPosicoes,Calculadora.gerarResultadoCalculoPermutacao(valorElementos,valorPosicoes)));
+                        if(resultadoPasso != null) {
+
+                            resultadoPasso.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
+
+                        }
+                    }else{
+
+                        calculoLandScape = true;
+                        resultadoPasso.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
+
+
+                    }
+                    LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
+
+//                }
+//
+//            }, DELAY_TIME);
+
+            // Cancela as animações
+            LottieController.cancelLottieAnimation(animationWrite);
+            LottieController.cancelLottieAnimation(animationSwipe);
+
+        }else{
+
+            resultado.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
+            bottomSheet.usarBottomSheet(getActivity().getResources().getConfiguration().orientation,behavior);
+
+        }
+
     }
 
     public static int getNumeroElementos() {
@@ -238,15 +310,33 @@ public class Arranjo extends Fragment {
         return posicoes;
     }
 
+    //guardando as informações
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putString("elementos", Integer.toString(Arranjo.getNumeroElementos()));
         outState.putString("posicoes", Integer.toString(Arranjo.getNumeroPosicoes()));
-
         outState.putBoolean("jaCalculou",jaCalculou);
-        outState.putString("latex", resultadoArranjo.getText());
+        outState.putString("calculoFinal",this.calculoFinal);
+        outState.putBoolean("liberarCalculo",this.liberarCalculo);
+
+        //verificar se ja foi calculado
+        if(liberarCalculo) {
+
+            if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+
+                this.calculoFinal = resultadoFinalSimples.getText();
+                outState.putString("calculoFinal",resultadoFinalSimples.getText());
+                outState.putString("latexPasso",resultadoArranjo.getText());
+
+            }else{
+                outState.putBoolean("calculoLandScape",this.calculoLandScape);
+                outState.putString("latexPasso",resultadoArranjo.getText());
+
+            }
+
+        }
     }
 
     @Override
@@ -259,8 +349,43 @@ public class Arranjo extends Fragment {
             this.txtElementos.setText(savedInstanceState.getString("elementos"));
             this.txtPosicoes.setText(savedInstanceState.getString("posicoes"));
             this.jaCalculou = savedInstanceState.getBoolean("jaCalculou");
-            MathView calculoRecuperado = view.findViewById(R.id.resultado_arranjo);
-            calculoRecuperado.setText(savedInstanceState.getString("latex"));
+            this.calculoFinal = savedInstanceState.getString("calculoFinal");
+            this.liberarCalculo = savedInstanceState.getBoolean("liberarCalculo");
+            this.calculoLandScape = savedInstanceState.getBoolean("calculoLandScape");
+
+            resultadoArranjo = view.findViewById(R.id.resultado_arranjoPasso);
+
+            bottomSheet = new myBottomSheet(view,getOrientation(),R.id.bottomsheet);
+            if(bottomSheet.verificarOrientacaoVertical(getOrientation())) {
+                behavior = bottomSheet.getMyBottomSheetBehavior();
+                resultadoFinalSimples = view.findViewById(R.id.resultado_arranjoFinal);
+            }
+
+            //verificar se ja foi calculado para guardar
+            if(this.liberarCalculo){
+
+                if(!bottomSheet.verificarOrientacaoVertical(getOrientation())){
+
+                    resultadoArranjo.setText(savedInstanceState.getString("latexPasso"));
+
+                }else{
+
+                    if(this.calculoLandScape){
+
+                        setResultado(Integer.parseInt(txtElementos.getText().toString()),Integer.parseInt(txtPosicoes.getText().toString()),resultadoFinalSimples,null);
+
+                    }else{
+
+                        resultadoFinalSimples.setText(this.calculoFinal);
+
+                    }
+
+                    resultadoArranjo.setText(savedInstanceState.getString("latexPasso"));
+
+                    bottomSheet.usarBottomSheet(getOrientation(),behavior);
+
+                }
+            }
         }
 
     }
@@ -269,8 +394,39 @@ public class Arranjo extends Fragment {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-//        bottomSheet.instanciarBottomSheet(view,newConfig.orientation,R.id.bottomsheet);
 
+    }
+
+    private boolean verificarTextButton(String text,Button button){
+        return button.getText().equals(text);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+
+
+    }
+
+    private boolean verificarTrocaDeValores(String valor,String valorAnterior){
+
+        return (!valorAnterior.equalsIgnoreCase(valor));
+
+    }
+
+    private int getOrientation(){
+        return getResources().getConfiguration().orientation;
     }
 
 }
