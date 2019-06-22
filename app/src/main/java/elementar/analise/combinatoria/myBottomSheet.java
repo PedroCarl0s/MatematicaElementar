@@ -6,8 +6,6 @@ import android.view.View;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-import elementar.matematica.pedrock.matemticaelementar.R;
-
 public class myBottomSheet {
 
     private View myViewBottomSheet;
@@ -22,7 +20,7 @@ public class myBottomSheet {
 
     public void usarBottomSheet(int myOrientation){
 
-        if(verificarOrientacao(myOrientation)) {
+        if(verificarOrientacaoVertical(myOrientation)) {
             //faz o bottom sheet expandir e recuar
             if (myBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                 myBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -36,7 +34,7 @@ public class myBottomSheet {
 
     public void usarBottomSheet(int myOrientation,BottomSheetBehavior myBehavior){
 
-        if(verificarOrientacao(myOrientation)) {
+        if(verificarOrientacaoVertical(myOrientation)) {
             //faz o bottom sheet expandir e recuar
             if (myBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                 myBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -49,7 +47,7 @@ public class myBottomSheet {
 
     private void instanciarBottomSheet(View view,int orientation, int idBootom){
 
-        if(verificarOrientacao(orientation)){
+        if(verificarOrientacaoVertical(orientation)){
 
             this.myViewBottomSheet = view.findViewById(idBootom);
             this.myBottomSheetBehavior = BottomSheetBehavior.from(myViewBottomSheet);
@@ -59,7 +57,7 @@ public class myBottomSheet {
     }
 
     // verifica a orientação da tela
-    public boolean verificarOrientacao(int orientation){
+    public boolean verificarOrientacaoVertical(int orientation){
         return orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
