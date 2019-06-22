@@ -36,7 +36,7 @@ import elementar.analise.combinatoria.controller.TextInputController;
 import io.github.kexanie.library.MathView;
 
 
-public class Arranjo extends Fragment implements TextWatcher {
+public class Arranjo extends Fragment {
 
     private View view;
     private Calculadora calculadora = Calculadora.getInstance();
@@ -94,9 +94,6 @@ public class Arranjo extends Fragment implements TextWatcher {
         super.onResume();
 
         init();
-
-        txtElementos.addTextChangedListener(this);
-        txtPosicoes.addTextChangedListener(this);
 
         // Método onClick do botão para calcular o Arranjo
         btnCalcular.setOnClickListener(new View.OnClickListener() {
@@ -242,35 +239,24 @@ public class Arranjo extends Fragment implements TextWatcher {
             // Inicia a animação de escrita
             LottieController.startLottieAnimation(view, animationWrite, ID_WRITE, "write.json", 1.7f, 0);
 
+            liberarCalculo = true;
 
-            // Delay para mostrar animação + resultado
-//            handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
+            if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
 
-                    liberarCalculo = true;
+                resultado.setText(GeradorFormulas.gerarResultadoFinal("A",valorElementos,valorPosicoes,Calculadora.gerarResultadoCalculoPermutacao(valorElementos,valorPosicoes)));
+                if(resultadoPasso != null) {
 
-                    if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+                    resultadoPasso.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
 
-                        resultado.setText(GeradorFormulas.gerarResultadoFinal("A",valorElementos,valorPosicoes,Calculadora.gerarResultadoCalculoPermutacao(valorElementos,valorPosicoes)));
-                        if(resultadoPasso != null) {
+                }
+            }else{
 
-                            resultadoPasso.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
-
-                        }
-                    }else{
-
-                        calculoLandScape = true;
-                        resultadoPasso.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
+                calculoLandScape = true;
+                resultadoPasso.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
 
 
-                    }
-                    LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
-
-//                }
-//
-//            }, DELAY_TIME);
+            }
+            LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
 
             // Cancela as animações
             LottieController.cancelLottieAnimation(animationWrite);
@@ -289,8 +275,10 @@ public class Arranjo extends Fragment implements TextWatcher {
         int elementos;
 
         try {
+
             elementos =  Integer.parseInt(inputElementos.getEditText().getText().toString());
             inputElementos.getEditText().setText(Integer.toString(elementos));
+
         } catch (Exception e) {
             return ERRO_CONVERSAO;
         }
@@ -302,8 +290,8 @@ public class Arranjo extends Fragment implements TextWatcher {
         int posicoes;
 
         try {
-            posicoes = Integer.parseInt(inputPosicoes.getEditText().getText().toString());
 
+            posicoes = Integer.parseInt(inputPosicoes.getEditText().getText().toString());
             inputPosicoes.getEditText().setText(Integer.toString(posicoes));
 
         } catch (Exception error) {
@@ -402,33 +390,6 @@ public class Arranjo extends Fragment implements TextWatcher {
 
     private boolean verificarTextButton(String text,Button button){
         return button.getText().equals(text);
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        valorAnterior = s.toString();
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        if(!valorAnterior.equalsIgnoreCase(s.toString())){
-            verificarInput(inputElementos,inputPosicoes);
-        }
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
-
-
-    }
-
-    private void verificarInput(TextInputLayout inputLayout,TextInputLayout inputLayout2){
-
-        calculadora.validarElementosEPosicoes(getNumeroElementos(),getNumeroPosicoes(),inputLayout,inputLayout2);
-
     }
 
     private int getOrientation(){
