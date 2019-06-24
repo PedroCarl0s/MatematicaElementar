@@ -124,8 +124,12 @@ public class Arranjo extends Fragment {
             }
         });
 
-        //metodo que não deixa o bottomSheetBehavior ficar no modo STATA_HIDEN
-        bottomSheet.bottomSheetCallback(behavior);
+        if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+
+            //metodo que não deixa o bottomSheetBehavior ficar no modo STATA_HIDEN
+            bottomSheet.bottomSheetCallback(behavior);
+
+        }
 
     }
 
