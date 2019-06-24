@@ -181,22 +181,39 @@ public class Anagrama extends Fragment {
 
             resultado.setText(gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal,getTamanhodaPalavra()));
 
-        }
+            if(!verificarTemQuantPalavrasMaiorUm(hashLetraEQuant)) {
 
-        if(!verificarTemQuantPalavrasMaiorUm(hashLetraEQuant)){
+                resultado.setText(gerador.gerarResultadoPermutacaoLatex("", getTamanhodaPalavra()));
 
-            resultado.setText(gerador.gerarResultadoPermutacaoLatex("", getTamanhodaPalavra()));
+                String mensagem = "Como nenhuma letra se repetiu, isso equivale a fazer um Arranjo onde: nº elementos e de posições serão iguais ao tamanho da palavra, que é " + getTamanhodaPalavra();
 
-            String mensagem = "Como nenhuma letra se repetiu, isso equivale a fazer um Arranjo onde: nº elementos e de posições serão iguais ao tamanho da palavra, que é " + getTamanhodaPalavra();
+                resultadoPasso.setText(mensagem + gerarTrechoInicial(getTamanhodaPalavra()) + gerador.gerarResultadoPermutacaoLatex("", getTamanhodaPalavra()));
 
-            resultadoPasso.setText(mensagem + gerarTrechoInicial(getTamanhodaPalavra()) + gerador.gerarResultadoPermutacaoLatex("", getTamanhodaPalavra()));
+            }else{
+
+                resultadoPasso.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerador.gerarAplicacaoValores(hashLetraEQuant,getTamanhodaPalavra()) + gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal,getTamanhodaPalavra()));
+
+            }
 
         }else{
 
-            calculoLandScape = true;
-            resultadoPasso.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerador.gerarAplicacaoValores(hashLetraEQuant,getTamanhodaPalavra()) + gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal,getTamanhodaPalavra()));
+            if(!verificarTemQuantPalavrasMaiorUm(hashLetraEQuant)){
+
+                calculoLandScape = true;
+                String mensagem = "Como nenhuma letra se repetiu, isso equivale a fazer um Arranjo onde: nº elementos e de posições serão iguais ao tamanho da palavra, que é " + getTamanhodaPalavra();
+
+                resultadoPasso.setText(mensagem + gerarTrechoInicial(getTamanhodaPalavra()) + gerador.gerarResultadoPermutacaoLatex("", getTamanhodaPalavra()));
+
+            }else{
+
+                calculoLandScape = true;
+                resultadoPasso.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerador.gerarAplicacaoValores(hashLetraEQuant,getTamanhodaPalavra()) + gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal,getTamanhodaPalavra()));
+
+            }
+
         }
 
+        //inicia as animações
         LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
 
         // Cancela as animações
