@@ -147,21 +147,19 @@
         android:id="@+id/bottomsheet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/corbackGroundbottomSheet"
-        android:paddingLeft="12dp"
+        android:background="@color/corBackGround"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="55dp"
-        app:elevation="5dp"
+        app:behavior_peekHeight="70dp"
+        app:elevation="32dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <TextView
             android:id="@+id/textBottomSheet"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="14dp"
+            android:layout_height="74dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:background="@color/corBackGround"
             android:gravity="center"
             android:text="Passo a Passo"
             android:textColor="@color/colorAccent"
@@ -174,17 +172,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textBottomSheet"
+            android:layout_margin="12dp"
             android:layout_marginTop="0dp"
             android:foregroundGravity="center"
-            android:padding="8dp"
             app:text="">
 
         </io.github.kexanie.library.MathView>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_swipe"
-            android:layout_width="59dp"
-            android:layout_height="54dp"
+            android:layout_width="66dp"
+            android:layout_height="69dp"
             android:layout_gravity="left"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1"
@@ -18,43 +19,49 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
             <io.github.kexanie.library.MathView
                 android:id="@+id/formula_anagrama"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
 
+                app:layout_constraintBottom_toTopOf="@+id/guideline23"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:text="">
 
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
             </io.github.kexanie.library.MathView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_anagrama"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="246dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
 
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 app:errorTextAppearance="@style/ErrorAppearance"
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formula_anagrama">
+                app:layout_constraintBottom_toTopOf="@+id/guideline21"
+                app:layout_constraintEnd_toStartOf="@+id/guideline19"
+                app:layout_constraintStart_toStartOf="@+id/guideline20"
+                app:layout_constraintTop_toTopOf="@+id/guideline22"
+                app:layout_constraintVertical_bias="0.74">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_anagrama"
                     style="@style/Widget.AppCompat.EditText"
-                    android:layout_width="245dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:hint="Insira uma palavra"
                     android:inputType="text"
@@ -65,34 +72,26 @@
 
             <Button
                 android:id="@+id/btn_calcular"
-                android:layout_width="159dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:drawableLeft="@drawable/calc"
                 android:text="calcular"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.502"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_anagrama" />
+                app:layout_constraintBottom_toTopOf="@+id/guideline16"
+                app:layout_constraintEnd_toStartOf="@+id/guideline17"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline18"
+                app:layout_constraintTop_toTopOf="@+id/guideline15"
+                app:layout_constraintVertical_bias="0.551" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_write"
-                android:layout_width="250dp"
-                android:layout_height="198dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
+                android:layout_width="0dp"
+                android:layout_height="142dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.48"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
+                app:layout_constraintEnd_toStartOf="@+id/guideline19"
+                app:layout_constraintStart_toStartOf="@+id/guideline20"
+                app:layout_constraintTop_toTopOf="@+id/guideline16"
                 app:lottie_autoPlay="false"
                 app:lottie_loop="false" />
 
@@ -107,8 +106,82 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
-                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_bias="0.111"
                 app:text="" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="242dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="328dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="268dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="126dp"
+                android:layout_marginLeft="126dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="94dp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_begin="304dp"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="60dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="225dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="149dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="111dp" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -119,44 +192,48 @@
         android:id="@+id/bottomsheet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/corbackGroundbottomSheet"
-        android:paddingLeft="12dp"
+        android:background="@color/corBackGround"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="55dp"
+        app:behavior_peekHeight="70dp"
         app:elevation="5dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <TextView
             android:id="@+id/textBottomSheet"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="14dp"
+            android:layout_height="74dp"
+            android:background="@color/corBackGround"
             android:gravity="center"
             android:text="Passo a Passo"
             android:textColor="@color/colorAccent"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:typeface="sans" />
+            android:typeface="sans"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            />
+
 
         <io.github.kexanie.library.MathView
             android:id="@+id/resultado_anagrama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textBottomSheet"
-            android:layout_marginTop="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="12dp"
             android:foregroundGravity="center"
-            android:padding="8dp"
             app:text="">
 
         </io.github.kexanie.library.MathView>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_swipe"
-            android:layout_width="59dp"
-            android:layout_height="54dp"
+            android:layout_width="66dp"
+            android:layout_height="69dp"
             android:layout_gravity="left"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
