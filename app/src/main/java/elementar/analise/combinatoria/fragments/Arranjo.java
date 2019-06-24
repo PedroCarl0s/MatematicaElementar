@@ -350,9 +350,10 @@ public class Arranjo extends Fragment {
 
             resultadoArranjo = view.findViewById(R.id.resultado_arranjoPasso);
 
+            //iniciar o bottomSheet
             bottomSheet = new myBottomSheet(view,getOrientation(),R.id.bottomsheet);
             if(bottomSheet.verificarOrientacaoVertical(getOrientation())) {
-                behavior = bottomSheet.getMyBottomSheetBehavior();
+
                 resultadoFinalSimples = view.findViewById(R.id.resultado_arranjoFinal);
             }
 
