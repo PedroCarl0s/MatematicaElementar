@@ -6,5 +6,5 @@
     <color name="errorTextInput">#E65353</color>
     <color name="corBackGround">#FFFFFF</color>
     <color name="corTabBar">#22A7F0</color>
-    <color name="corbackGroundbottomSheet">#0078bd</color>
+    <color name="corbackGroundbottomSheet">#0078BD</color>
 </resources>
