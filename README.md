@@ -11,8 +11,7 @@ Percebemos que para cada conteúdo de *Matemática Elementar*, casos quiséssemo
 
 
 # Tela de Menu
-![
-](http://i.imgur.com/8Skxcf9.png)
+![](http://i.imgur.com/8Skxcf9.png)
 > Na interface, utilizamos um [template de CardView
 ](https://github.com/eddydn/AndroidGridLayout)
 
@@ -29,7 +28,6 @@ Percebemos que para cada conteúdo de *Matemática Elementar*, casos quiséssemo
 
 
 ## 1.2 Aba de Arranjo com passo a passo
-![
-](http://i.imgur.com/ce6MqOE.png)
+![](http://i.imgur.com/ce6MqOE.png)
 
 > Para voltar a tela de Arranjo, o usuário deverá arrastar a área branca para baixo (utilizamos também uma [Lottie Animation](https://airbnb.design/lottie/) para facilitar a compreensão)
