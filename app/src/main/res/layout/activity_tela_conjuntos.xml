@@ -1,101 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#22A7F0"
-    tools:context="elementar.teoria.dos.conjuntos.TelaConjuntos"
-    tools:layout_editor_absoluteY="25dp">
+    android:background="@drawable/bg"
+    tools:context="elementar.analise.combinatoria.fragments.TelaConjuntos">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="220dp"
-        android:layout_height="132dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/img_menu"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitulo3" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/txtTitulo3"
-        android:layout_width="0dp"
-        android:layout_height="112dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="8dp"
-        android:background="#F4D03F"
-        android:gravity="center"
-        android:lineSpacingExtra="8sp"
-        android:text="Operações entre Conjuntos"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:fontFamily="casual"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        <Spinner
+            android:id="@+id/mySpinner"
+            android:layout_width="245dp"
+            android:layout_height="63dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/backgroundspinner"
+            android:drawableLeft="@drawable/left"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/guideline14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline27" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="358dp"
-        android:layout_height="288dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.94">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/conjuntoA"
+            style='style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"'
+            android:layout_width="246dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:errorTextAppearance="@style/ErrorAppearance"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline26">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_conjuntoA"
+                style='style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"'
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/left"
+                android:drawableRight="@drawable/rigth"
+                android:gravity="center_vertical"
+                android:hint="@string/conjunto_a"
+                android:inputType="number"
+                android:textColorHint="@android:color/black"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/conjuntoB"
+            style='style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"'
+            android:layout_width="246dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+
+            app:errorTextAppearance="@style/ErrorAppearance"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/conjuntoA">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_conjuntoB"
+                android:layout_width="245dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/left"
+                android:drawableRight="@drawable/rigth"
+                android:hint="@string/conjunto_b"
+                android:inputType="number"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/conjuntoC"
+            style='style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"'
+            android:layout_width="246dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+
+            android:visibility="gone"
+            app:errorTextAppearance="@style/ErrorAppearance"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/conjuntoB">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_conjuntoC"
+                android:layout_width="245dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/left"
+                android:drawableRight="@drawable/rigth"
+                android:hint="@string/conjunto_c"
+                android:inputType="number"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/btnCalcular"
+            android:layout_width="245dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Calcular"
+            app:layout_constraintBottom_toTopOf="@+id/resultado_arranjoFinal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/conjuntoC" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_write3"
+            android:layout_width="229dp"
+            android:layout_height="135dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnCalcular"
+            app:layout_constraintVertical_bias="0.0"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false" />
+
+        <io.github.kexanie.library.MathView
+            android:id="@+id/resultado_arranjoFinal"
+            android:layout_width="261dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:foregroundGravity="center"
+            android:orientation="horizontal"
+            android:scrollbars="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnCalcular"
+            app:text="" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.18" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.32" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.09" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottomsheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/corBackGround"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="70dp"
+        app:elevation="32dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <TextView
+            android:id="@+id/textBottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:background="@color/corBackGround"
+            android:gravity="center"
+            android:text="Passo a Passo"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <io.github.kexanie.library.MathView
+            android:id="@+id/resultado_arranjoPasso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="União" />
+            android:layout_below="@+id/textBottomSheet"
+            android:layout_margin="12dp"
+            android:layout_marginTop="0dp"
+            android:foregroundGravity="center"
+            app:text="">
 
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Interseção" />
+        </io.github.kexanie.library.MathView>
 
-        <Button
-            android:id="@+id/button10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Diferença" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_swipe"
+            android:layout_width="66dp"
+            android:layout_height="69dp"
+            android:layout_gravity="left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false" />
 
-        <Button
-            android:id="@+id/button11"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Complementar" />
+    </RelativeLayout>
 
-        <Button
-            android:id="@+id/button12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Diferença Simétrica" />
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
+        <!--android:id="@+id/botao_info"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:clickable="true"-->
+        <!--android:src="@android:drawable/ic_dialog_info"-->
+        <!--android:tint="@color/corTabBar"-->
+        <!--app:backgroundTint="@color/corBackGround"-->
+        <!--app:elevation="8dp"-->
+        <!--app:fabSize="normal"-->
+        <!--app:layout_anchor="@+id/nestedScrollView"-->
+        <!--app:layout_anchorGravity="end|bottom"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="1.0"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
 
-        <Button
-            android:id="@+id/button13"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Conjunto das Partes" />
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
