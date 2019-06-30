@@ -24,7 +24,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name="elementar.teoria.dos.conjuntos.TelaConjuntos" />
+        <activity android:name="elementar.analise.combinatoria.fragments.TelaConjuntos"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="elementar.analise.combinatoria.TelaCombinatoria"
             android:windowSoftInputMode="adjustPan">
