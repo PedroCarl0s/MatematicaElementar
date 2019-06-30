@@ -8,9 +8,11 @@
     tools:context="elementar.analise.combinatoria.fragments.TelaConjuntos">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_gravity="center">
 
         <Spinner
@@ -246,26 +248,22 @@
 
     </RelativeLayout>
 
-    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
-        <!--android:id="@+id/botao_info"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginLeft="8dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginRight="8dp"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:clickable="true"-->
-        <!--android:src="@android:drawable/ic_dialog_info"-->
-        <!--android:tint="@color/corTabBar"-->
-        <!--app:backgroundTint="@color/corBackGround"-->
-        <!--app:elevation="8dp"-->
-        <!--app:fabSize="normal"-->
-        <!--app:layout_anchor="@+id/nestedScrollView"-->
-        <!--app:layout_anchorGravity="end|bottom"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="1.0"-->
-        <!--app:layout_constraintStart_toStartOf="parent" />-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/botao_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_dialog_info"
+        android:tint="@color/corTabBar"
+        app:backgroundTint="@color/corBackGround"
+        app:elevation="8dp"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/constraintLayout"
+        app:layout_anchorGravity="end|bottom" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
