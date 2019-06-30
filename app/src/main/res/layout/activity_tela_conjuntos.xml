@@ -18,7 +18,7 @@
         <Spinner
             android:id="@+id/mySpinner"
             android:layout_width="245dp"
-            android:layout_height="63dp"
+            android:layout_height="58dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="8dp"
@@ -27,6 +27,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/backgroundspinner"
             android:drawableLeft="@drawable/left"
+            android:foregroundGravity="center"
             android:gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/guideline14"
             app:layout_constraintEnd_toEndOf="parent"
@@ -181,7 +182,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.18" />
+            app:layout_constraintGuide_percent="0.17" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline26"
