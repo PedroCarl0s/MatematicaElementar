@@ -1,5 +1,7 @@
 package elementar.analise.combinatoria.fragments;
 
+import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,7 +9,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -138,6 +142,7 @@ public class Anagrama extends Fragment {
             behavior = bottomSheet.getMyBottomSheetBehavior();
             relativeLayout = view.findViewById(R.id.bottomsheet);
             resultadoFinalSimples = view.findViewById(R.id.resultado_AnagramaFinal);
+
 
         }
 
@@ -354,7 +359,6 @@ public class Anagrama extends Fragment {
 
         outState.putString("inputAnagrama", Anagrama.getEntradaAnagrama());
         outState.putString("palavraGuardada",palavraGuardada);
-        outState.putString("calculoFinal",this.calculoFinal);
         outState.putBoolean("liberarCalculo",this.liberarCalculo);
 
         //verificar se ja foi calculado
@@ -362,7 +366,6 @@ public class Anagrama extends Fragment {
 
             if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
 
-                this.calculoFinal = resultadoFinalSimples.getText();
                 outState.putString("calculoFinal",resultadoFinalSimples.getText());
                 outState.putString("latexPasso",resultadoAnagrama.getText());
 
