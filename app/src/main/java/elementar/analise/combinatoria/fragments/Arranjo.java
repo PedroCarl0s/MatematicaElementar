@@ -170,7 +170,7 @@ public class Arranjo extends Fragment {
             if (jaCalculou) {
 
                 // Campos de entrada com os mesmos valores, não é necessário recalcular
-                if ((Arranjo.getNumeroElementos() == this.valorElementos) && Arranjo.getNumeroPosicoes() == this.valorPosicoes && verificarTextButton("calcular",btnCalcular)) {
+                if ((Arranjo.getNumeroElementos() == this.valorElementos) && Arranjo.getNumeroPosicoes() == this.valorPosicoes) {
                     inputElementos.setHint("Elementos a arranjar");
                     inputPosicoes.setHint("Posições a arranjar");
 
@@ -222,56 +222,49 @@ public class Arranjo extends Fragment {
 
     private void setResultado(final int valorElementos, final int valorPosicoes, final MathView resultado,final MathView resultadoPasso) {
 
+        MainActivity.hideKeyboard(getActivity());
+
         inputElementos.setHint("Elementos a arranjar");
         inputPosicoes.setHint("Posições a arranjar");
 
-        if(verificarTextButton("calcular",btnCalcular)){
-
-            if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
-                if(relativeLayout.getVisibility() == View.INVISIBLE){
-                    relativeLayout.setVisibility(View.VISIBLE);
-                }
+        if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+            if(relativeLayout.getVisibility() == View.INVISIBLE){
+                relativeLayout.setVisibility(View.VISIBLE);
             }
+        }
 
 
-            animationWrite = view.findViewById(R.id.animation_write);
-            animationSwipe = view.findViewById(R.id.animation_swipe);
+        animationWrite = view.findViewById(R.id.animation_write);
+        animationSwipe = view.findViewById(R.id.animation_swipe);
 
-            animationWrite.setVisibility(View.VISIBLE);
-            animationSwipe.setVisibility(View.VISIBLE);
+        animationWrite.setVisibility(View.VISIBLE);
+        animationSwipe.setVisibility(View.VISIBLE);
 
-            // Inicia a animação de escrita
-            LottieController.startLottieAnimation(view, animationWrite, ID_WRITE, "write.json", 1.7f, 0);
+        // Inicia a animação de escrita
+        LottieController.startLottieAnimation(view, animationWrite, ID_WRITE, "write.json", 1.7f, 0);
 
-            liberarCalculo = true;
+        liberarCalculo = true;
 
-            if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+        if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
 
-                resultado.setText(GeradorFormulas.gerarResultadoFinal("A",valorElementos,valorPosicoes,Calculadora.gerarResultadoCalculoPermutacao(valorElementos,valorPosicoes)));
-                if(resultadoPasso != null) {
+            resultado.setText(GeradorFormulas.gerarResultadoFinal("A",valorElementos,valorPosicoes,Calculadora.gerarResultadoCalculoPermutacao(valorElementos,valorPosicoes)));
+            if(resultadoPasso != null) {
 
-                    resultadoPasso.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
-
-                }
-            }else{
-
-                calculoLandScape = true;
                 resultadoPasso.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
 
-
             }
-            LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
-
-            // Cancela as animações
-            LottieController.cancelLottieAnimation(animationWrite);
-            LottieController.cancelLottieAnimation(animationSwipe);
-
         }else{
 
-            resultado.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
-            bottomSheet.usarBottomSheet(getActivity().getResources().getConfiguration().orientation,behavior);
+            calculoLandScape = true;
+            resultadoPasso.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
+
 
         }
+        LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
+
+        // Cancela as animações
+        LottieController.cancelLottieAnimation(animationWrite);
+        LottieController.cancelLottieAnimation(animationSwipe);
 
     }
 
@@ -393,9 +386,9 @@ public class Arranjo extends Fragment {
 
     }
 
-    private boolean verificarTextButton(String text,Button button){
-        return button.getText().equals(text);
-    }
+//    private boolean verificarTextButton(String text,Button button){
+//        return button.getText().equals(text);
+//    }
 
     private int getOrientation(){
         return getResources().getConfiguration().orientation;
