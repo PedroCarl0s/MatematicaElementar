@@ -1,5 +1,6 @@
 package elementar.analise.combinatoria.fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,10 +134,10 @@ public class Anagrama extends Fragment {
 
     private void init () {
 
-        bottomSheet = new myBottomSheet(view,getResources().getConfiguration().orientation,R.id.bottomsheet);
+        bottomSheet = new myBottomSheet(view,getResources().getConfiguration().orientation,R.id.bottomsheetAnagrama);
         if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
             behavior = bottomSheet.getMyBottomSheetBehavior();
-            relativeLayout = view.findViewById(R.id.bottomsheet);
+            relativeLayout = view.findViewById(R.id.bottomsheetAnagrama);
             resultadoFinalSimples = view.findViewById(R.id.resultado_AnagramaFinal);
 
 
@@ -391,7 +393,7 @@ public class Anagrama extends Fragment {
             resultadoAnagrama = view.findViewById(R.id.resultado_anagrama);
 
             //iniciar o bottomSheet
-            bottomSheet = new myBottomSheet(view,getOrientation(),R.id.bottomsheet);
+            bottomSheet = new myBottomSheet(view,getOrientation(),R.id.bottomsheetAnagrama);
             if(bottomSheet.verificarOrientacaoVertical(getOrientation())) {
 
                 resultadoFinalSimples = view.findViewById(R.id.resultado_AnagramaFinal);
@@ -432,7 +434,7 @@ public class Anagrama extends Fragment {
     }
 
     private int getOrientation(){
-        return getResources().getConfiguration().orientation;
+        return getActivity().getResources().getConfiguration().orientation;
     }
 
 }
