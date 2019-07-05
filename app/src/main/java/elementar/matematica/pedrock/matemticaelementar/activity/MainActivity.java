@@ -18,7 +18,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import elementar.analise.combinatoria.TelaCombinatoria;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.R;
-import elementar.teoria.dos.conjuntos.TelaConjuntos;
+import elementar.analise.combinatoria.fragments.TelaConjuntos;
 
 public class MainActivity extends AppCompatActivity {
 
