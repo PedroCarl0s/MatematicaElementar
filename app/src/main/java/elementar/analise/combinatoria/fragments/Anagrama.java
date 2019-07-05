@@ -1,7 +1,5 @@
 package elementar.analise.combinatoria.fragments;
 
-import android.content.res.Configuration;
-import android.graphics.Point;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,9 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -359,6 +354,7 @@ public class Anagrama extends Fragment {
 
         outState.putString("inputAnagrama", Anagrama.getEntradaAnagrama());
         outState.putString("palavraGuardada",palavraGuardada);
+        outState.putString("calculoFinal",this.calculoFinal);
         outState.putBoolean("liberarCalculo",this.liberarCalculo);
 
         //verificar se ja foi calculado
@@ -417,6 +413,7 @@ public class Anagrama extends Fragment {
                         long resultadoFinal = calcularResultadoAnagrama(getTamanhodaPalavra(), novoArrayQuantPalavras);
 
                         setResultado(novoArrayQuantPalavras,resultadoFinal,resultadoFinalSimples,resultadoAnagrama);
+
 
                     }else{
 
