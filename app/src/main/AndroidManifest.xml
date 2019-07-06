@@ -26,11 +26,11 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name="elementar.analise.combinatoria.fragments.TelaConjuntos"
+        <activity android:name="elementar.analise.combinatoria.Activitys.TelaConjuntos"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name="elementar.analise.combinatoria.TelaCombinatoria"
+            android:name="elementar.analise.combinatoria.Activitys.TelaCombinatoria"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
 
