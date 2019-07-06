@@ -133,9 +133,18 @@ public class Arranjo extends Fragment {
     public void init() {
 
         bottomSheet = new myBottomSheet(view,getResources().getConfiguration().orientation,R.id.bottomsheet);
+
         if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+
             behavior = bottomSheet.getMyBottomSheetBehavior();
             relativeLayout = view.findViewById(R.id.bottomsheet);
+
+            if(relativeLayout.getVisibility() == View.VISIBLE && !liberarCalculo){
+
+                relativeLayout.setVisibility(View.INVISIBLE);
+
+            }
+
             resultadoFinalSimples = view.findViewById(R.id.resultado_arranjoFinal);
 
         }
@@ -217,6 +226,10 @@ public class Arranjo extends Fragment {
     }
 
     private void setResultado(final int valorElementos, final int valorPosicoes, final MathView resultado,final MathView resultadoPasso) {
+
+        if(relativeLayout.getVisibility() == View.INVISIBLE){
+            relativeLayout.setVisibility(View.VISIBLE);
+        }
 
         MainActivity.hideKeyboard(getActivity());
 

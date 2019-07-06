@@ -79,6 +79,7 @@ public class Anagrama extends Fragment {
         super.onResume();
 
         init();
+
         TextInputController.setLabelTextInput(inputAnagrama, txtAnagrama, "Anagrama de", "Insira uma palavra");
         animationSwipe.setVisibility(View.GONE);
 
@@ -151,13 +152,13 @@ public class Anagrama extends Fragment {
 
         }
 
-        this.inputAnagrama = (TextInputLayout) view.findViewById(R.id.input_anagrama);
-        this.txtAnagrama = (TextInputEditText) view.findViewById(R.id.txt_anagrama);
+        this.inputAnagrama = view.findViewById(R.id.input_anagrama);
+        this.txtAnagrama = view.findViewById(R.id.txt_anagrama);
+        this.formulaAnagrama = view.findViewById(R.id.formula_anagrama);
 
-        this.formulaAnagrama = (MathView) view.findViewById(R.id.formula_anagrama);
-        this.resultadoAnagrama = (MathView) view.findViewById(R.id.resultado_anagrama);
+        this.resultadoAnagrama = view.findViewById(R.id.resultado_anagrama);
 
-        this.btnCalcular = (Button) view.findViewById(R.id.btn_calcular);
+        this.btnCalcular = view.findViewById(R.id.btn_calcular);
 
         this.animationWrite = view.findViewById(R.id.animation_write);
         this.animationSwipe = view.findViewById(R.id.animation_swipe);
