@@ -12,6 +12,7 @@
     <string name="oper">Operações entre conjuntos</string>
     <string name="conjunto_a">Conjunto A</string>
     <string name="conjunto_b">Conjunto B</string>
+    <string name="conjunto_c">Conjunto U</string>
     <string name="uniao">União</string>
     <string name="inter">Interseção</string>
     <string name="comp">Complementar</string>
