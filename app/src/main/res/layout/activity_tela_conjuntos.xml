@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context="elementar.analise.combinatoria.fragments.TelaConjuntos">
+    tools:context="elementar.analise.combinatoria.Activitys.TelaConjuntos">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -367,7 +367,7 @@
             app:lottie_loop="false" />
 
         <io.github.kexanie.library.MathView
-            android:id="@+id/resultado_arranjoFinal"
+            android:id="@+id/resultado_combinacaoFinal"
             android:layout_width="261dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -424,7 +424,7 @@
             android:typeface="sans" />
 
         <io.github.kexanie.library.MathView
-            android:id="@+id/resultado_arranjoPasso"
+            android:id="@+id/resultado_combinacaoPasso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textBottomSheet"

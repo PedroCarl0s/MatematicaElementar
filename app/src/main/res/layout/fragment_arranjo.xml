@@ -174,7 +174,7 @@
             android:typeface="sans" />
 
         <io.github.kexanie.library.MathView
-            android:id="@+id/resultado_arranjoPasso"
+            android:id="@+id/resultado_combinacaoPasso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textBottomSheet"
