@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-import elementar.analise.combinatoria.TelaCombinatoria;
+import elementar.analise.combinatoria.fragments.TelaCombinatoria;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import elementar.analise.combinatoria.fragments.TelaConjuntos;
