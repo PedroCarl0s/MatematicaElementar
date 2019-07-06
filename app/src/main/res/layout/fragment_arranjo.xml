@@ -40,10 +40,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
 
+                android:textColorHint="@color/corTabBar"
+                app:boxStrokeColor="@color/colorPrimaryDark"
                 app:errorTextAppearance="@style/ErrorAppearance"
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +60,7 @@
                     android:layout_weight="1"
                     android:hint="Elementos a arranjar"
                     android:inputType="number"
-                    android:textColorHint="@android:color/black"
+                    android:textColor="@color/corTabBar"
                     android:textSize="20sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -74,6 +76,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
 
+                android:textColorHint="@color/corTabBar"
+                app:boxStrokeColor="@color/colorPrimaryDark"
                 app:errorTextAppearance="@style/ErrorAppearance"
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Menu"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -87,6 +91,7 @@
                     android:layout_weight="1"
                     android:hint="Posições a arranjar"
                     android:inputType="number"
+                    android:textColor="@color/corTabBar"
                     android:textSize="20sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -100,10 +105,10 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:drawableLeft="@drawable/calc"
+                android:background="@color/corBackGround"
                 android:text="calcular"
+                android:textColor="@color/corTabBar"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/posicoes_arranjo" />
 
@@ -162,7 +167,7 @@
             android:background="@color/corBackGround"
             android:gravity="center"
             android:text="Passo a Passo"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/corTabBar"
             android:textSize="20dp"
             android:textStyle="bold"
             android:typeface="sans" />
