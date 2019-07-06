@@ -61,6 +61,7 @@
                     android:hint="Elementos a arranjar"
                     android:inputType="number"
                     android:textColor="@color/corTabBar"
+                    android:textColorLink="@color/corTabBar"
                     android:textSize="20sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
