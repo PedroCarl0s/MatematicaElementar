@@ -135,9 +135,17 @@ public class Anagrama extends Fragment {
     private void init () {
 
         bottomSheet = new myBottomSheet(view,getResources().getConfiguration().orientation,R.id.bottomsheetAnagrama);
+
         if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+
             behavior = bottomSheet.getMyBottomSheetBehavior();
             relativeLayout = view.findViewById(R.id.bottomsheetAnagrama);
+
+            if(relativeLayout.getVisibility() == View.VISIBLE && !liberarCalculo){
+
+                relativeLayout.setVisibility(View.INVISIBLE);
+
+            }
             resultadoFinalSimples = view.findViewById(R.id.resultado_AnagramaFinal);
 
 
@@ -170,10 +178,15 @@ public class Anagrama extends Fragment {
 
     private void setResultado(final HashMap<String,Integer> hashLetraEQuant, final Long resultadoFinal,MathView resultado,MathView resultadoPasso) {
 
+        if(relativeLayout.getVisibility() == View.INVISIBLE){
+            relativeLayout.setVisibility(View.VISIBLE);
+        }
+
+        MainActivity.hideKeyboard(getActivity());
+
         animationWrite.setVisibility(View.VISIBLE);
         animationSwipe.setVisibility(View.VISIBLE);
 
-        MainActivity.hideKeyboard(getActivity());
 
         LottieController.startLottieAnimation(view, animationWrite, ID_WRITE, "write.json", 1.5f, 0);
 
