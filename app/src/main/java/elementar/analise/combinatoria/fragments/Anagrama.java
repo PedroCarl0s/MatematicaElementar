@@ -148,6 +148,7 @@ public class Anagrama extends Fragment {
 
             }
             resultadoFinalSimples = view.findViewById(R.id.resultado_AnagramaFinal);
+            resultadoFinalSimples.setText("$$\\bold{Resultado}$$");
 
 
         }

@@ -146,6 +146,7 @@ public class Arranjo extends Fragment {
             }
 
             resultadoFinalSimples = view.findViewById(R.id.resultado_arranjoFinal);
+            resultadoFinalSimples.setText("$$\\bold{Resultado}$$");
 
         }
 
