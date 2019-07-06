@@ -1,4 +1,4 @@
-package elementar.analise.combinatoria.fragments;
+package elementar.analise.combinatoria.Activitys;
 
 import android.content.Intent;
 import com.google.android.material.tabs.TabLayout;
