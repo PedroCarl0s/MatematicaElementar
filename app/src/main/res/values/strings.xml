@@ -13,10 +13,6 @@
     <string name="conjunto_a">Conjunto A</string>
     <string name="conjunto_b">Conjunto B</string>
     <string name="conjunto_c">Conjunto U</string>
-    <string name="uniao">União</string>
-    <string name="inter">Interseção</string>
-    <string name="comp">Complementar</string>
-    <string name="diferen">Diferença</string>
     <string name="matematica">MATEMÁTICA ELEMENTAR</string>
     <string name="rel">RELAÇÕES ENTRE CONJUNTOS</string>
     <string name="analise">ANÁLISE COMBINATÓRIA</string>
@@ -26,4 +22,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="elementos_a_arranjar">Elementos a arranjar</string>
+    <string name="uniao">União</string>
+    <string name="complementar">Complementar</string>
+    <string name="conjunto_das_partes">Conj.Partes</string>
+    <string name="diferenca_b_a">Diferença(B-A)</string>
+    <string name="diferenca_a_b">Diferença(A-B)</string>
+    <string name="intersecao">Interseção</string>
+    <string name="btn_calcular">Calcular</string>
 </resources>
