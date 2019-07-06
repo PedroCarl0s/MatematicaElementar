@@ -44,6 +44,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:textColorHint="@color/corTabBar"
+                app:boxStrokeColor="@color/colorPrimaryDark"
                 app:errorTextAppearance="@style/ErrorAppearance"
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintEnd_toEndOf="parent"
