@@ -120,7 +120,7 @@ public final class Calculadora extends GeradorFormulas{
 
     public static long gerarResultadoCalculoPermutacao(int elementos, int posicoes) {
 
-        String valoresFinais = gerarFatorialElementos(elementos, posicoes);
+        String valoresFinais = Calculadora.gerarFatorialElementos(elementos, posicoes);
         valoresFinais = GeradorFormulas.removerUltimoValor(valoresFinais);
 
 
@@ -149,7 +149,7 @@ public final class Calculadora extends GeradorFormulas{
 
 
     // Gera o fatorial dos elementos a Arranjar, para ser usado no MathView. Exemplo: 4! = 4.3.2.1
-    public String gerarFatorialElementos(int elementos, int posicoes) {
+    public static String gerarFatorialElementos(int elementos, int posicoes) {
 
         // Número de elementos a arranjar maior que zero, é necessário desenvolver o fatorial
         if (elementos > 0) {
