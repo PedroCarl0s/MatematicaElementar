@@ -16,13 +16,46 @@
         android:layout_gravity="center"
         tools:ignore="RtlHardcoded">
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_historico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="80dp"
+            android:clickable="true"
+            android:src="@drawable/history"
+            android:tint="@color/corTabBar"
+            app:backgroundTint="@color/corBackGround"
+            app:elevation="8dp"
+            app:fabSize="mini"
+            app:layout_anchorGravity="end|bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_removeAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:src="@drawable/ic_delete_sweep_black_24dp"
+            android:tint="@color/corTabBar"
+            app:backgroundTint="@color/corBackGround"
+            app:elevation="8dp"
+            app:fabSize="mini"
+            app:layout_anchorGravity="end|bottom"
+            app:layout_constraintBottom_toTopOf="@+id/fab_historico"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <GridLayout
             android:id="@+id/gridLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:layout_marginTop="8dp"
-            android:background="@drawable/backgroundbord"
             android:columnCount="3"
             android:columnOrderPreserved="false"
             android:padding="4dp"
@@ -260,7 +293,7 @@
                 android:drawableRight="@drawable/rigth"
                 android:gravity="center_vertical"
                 android:hint="@string/conjunto_a"
-                android:inputType="number"
+                android:inputType="textShortMessage"
                 android:textColor="@color/corTabBar"
                 android:textColorLink="@color/corTabBar"
                 android:textSize="20sp" />
@@ -292,7 +325,7 @@
                 android:drawableLeft="@drawable/left"
                 android:drawableRight="@drawable/rigth"
                 android:hint="@string/conjunto_b"
-                android:inputType="number"
+                android:inputType="textShortMessage"
                 android:textColor="@color/corTabBar"
                 android:textColorLink="@color/corTabBar"
                 android:textSize="20sp" />
@@ -326,7 +359,7 @@
                 android:drawableLeft="@drawable/left"
                 android:drawableRight="@drawable/rigth"
                 android:hint="@string/conjunto_c"
-                android:inputType="number"
+                android:inputType="textShortMessage"
                 android:textColor="@color/corTabBar"
                 android:textColorLink="@color/corTabBar"
                 android:textSize="20sp" />
