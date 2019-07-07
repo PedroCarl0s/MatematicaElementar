@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="elementar.analise.combinatoria.TelaCombinatoria">
+    tools:context="elementar.analise.combinatoria.Activitys.TelaCombinatoria">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/botao_info3"
@@ -18,8 +18,9 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:src="@android:drawable/ic_dialog_info"
-        android:tint="@android:color/background_light"
-        app:backgroundTint="@android:color/holo_green_light"
+        android:tint="@color/corTabBar"
+        app:backgroundTint="@color/corBackGround"
+        app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

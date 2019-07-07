@@ -23,8 +23,7 @@ public class GeradorArranjo extends GeradorFormulas {
     private static String gerarAplicacaoArranjo(int elementos, int posicoes) {
         String resultado;
 
-        String mensagem = "$$\\bold{\\text{Passo a Passo}}$$" +
-                "Após a aplicação dos valores, obtemos:";
+        String mensagem = "Após a aplicação dos valores, obtemos:";
 
         resultado = "$$" + gerarCabecalho(elementos, posicoes) + " = " +"\\frac{" + elementos + "!} " +
                 "{(" + calculadora.gerarElementosMenosPosicoes(elementos, posicoes) + ")!}$$";

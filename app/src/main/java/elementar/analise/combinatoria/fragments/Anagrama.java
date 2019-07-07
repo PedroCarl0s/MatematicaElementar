@@ -6,23 +6,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.HashMap;
 import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.geradores.GeradorAnagrama;
+import elementar.analise.combinatoria.myBottomSheet;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
@@ -33,9 +35,6 @@ import io.github.kexanie.library.MathView;
 public class Anagrama extends Fragment {
 
     private View view;
-    private Handler handler;
-
-    private final int DELAY_TIME = 750;
 
     private static TextInputLayout inputAnagrama;
     private static TextInputEditText txtAnagrama;
@@ -44,12 +43,20 @@ public class Anagrama extends Fragment {
     private final int ID_WRITE = R.id.animation_write, ID_SWIPE = R.id.animation_swipe;
     private String palavraGuardada = "";
 
-    private MathView formulaAnagrama, resultadoAnagrama;
+    private MathView formulaAnagrama, resultadoAnagrama, resultadoFinalSimples;
+
     private Calculadora calculadora = Calculadora.getInstance();
 
     private GeradorAnagrama gerador = new GeradorAnagrama();
 
     private Button btnCalcular;
+
+    private static myBottomSheet bottomSheet;
+    private static BottomSheetBehavior behavior;
+    private static RelativeLayout relativeLayout;
+    private String calculoFinal = "";
+    private boolean liberarCalculo = false;
+    private boolean calculoLandScape = false;
 
     public Anagrama() {
         // Required empty public constructor
@@ -66,6 +73,7 @@ public class Anagrama extends Fragment {
         super.onResume();
 
         init();
+
         TextInputController.setLabelTextInput(inputAnagrama, txtAnagrama, "Anagrama de", "Insira uma palavra");
         animationSwipe.setVisibility(View.GONE);
 
@@ -101,6 +109,13 @@ public class Anagrama extends Fragment {
         });
 
         this.formulaAnagrama.setText(gerador.gerarFormula());
+
+        if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+
+            //metodo que não deixa o bottomSheetBehavior ficar no modo STATA_HIDEN
+            bottomSheet.bottomSheetCallback(behavior);
+
+        }
     }
 
     @Override
@@ -113,13 +128,32 @@ public class Anagrama extends Fragment {
     }
 
     private void init () {
-        this.inputAnagrama = (TextInputLayout) view.findViewById(R.id.input_anagrama);
-        this.txtAnagrama = (TextInputEditText) view.findViewById(R.id.txt_anagrama);
 
-        this.formulaAnagrama = (MathView) view.findViewById(R.id.formula_anagrama);
-        this.resultadoAnagrama = (MathView) view.findViewById(R.id.resultado_anagrama);
+        bottomSheet = new myBottomSheet(view,getResources().getConfiguration().orientation,R.id.bottomsheetAnagrama);
 
-        this.btnCalcular = (Button) view.findViewById(R.id.btn_calcular);
+        if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+
+            behavior = bottomSheet.getMyBottomSheetBehavior();
+            relativeLayout = view.findViewById(R.id.bottomsheetAnagrama);
+
+            if(relativeLayout.getVisibility() == View.VISIBLE && !liberarCalculo){
+
+                relativeLayout.setVisibility(View.INVISIBLE);
+
+            }
+            resultadoFinalSimples = view.findViewById(R.id.resultado_AnagramaFinal);
+            resultadoFinalSimples.setText("$$\\bold{Resultado}$$");
+
+
+        }
+
+        this.inputAnagrama = view.findViewById(R.id.input_anagrama);
+        this.txtAnagrama = view.findViewById(R.id.txt_anagrama);
+        this.formulaAnagrama = view.findViewById(R.id.formula_anagrama);
+
+        this.resultadoAnagrama = view.findViewById(R.id.resultado_anagrama);
+
+        this.btnCalcular = view.findViewById(R.id.btn_calcular);
 
         this.animationWrite = view.findViewById(R.id.animation_write);
         this.animationSwipe = view.findViewById(R.id.animation_swipe);
@@ -138,24 +172,40 @@ public class Anagrama extends Fragment {
         return inputAnagrama.getEditText().getText().toString().toUpperCase().length();
     }
 
-    private void setResultado(final HashMap<String,Integer> hashLetraEQuant, final Long resultadoFinal) {
+    private void setResultado(final HashMap<String,Integer> hashLetraEQuant, final Long resultadoFinal,MathView resultado,MathView resultadoPasso) {
+
+        if (relativeLayout.getVisibility() == View.INVISIBLE){
+            relativeLayout.setVisibility(View.VISIBLE);
+        }
+
+        MainActivity.hideKeyboard(getActivity());
 
         animationWrite.setVisibility(View.VISIBLE);
         animationSwipe.setVisibility(View.VISIBLE);
 
-        MainActivity.hideKeyboard(getActivity());
 
         LottieController.startLottieAnimation(view, animationWrite, ID_WRITE, "write.json", 1.5f, 0);
 
-        handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                resultadoAnagrama.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerador.gerarAplicacaoValores(hashLetraEQuant, getTamanhodaPalavra()) + gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal, getTamanhodaPalavra()));
-                LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
-            }
 
-        }, DELAY_TIME);
+        liberarCalculo = true;
+
+        if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
+
+            resultado.setText(gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal,getTamanhodaPalavra()));
+
+            resultadoPasso.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerador.gerarAplicacaoValores(hashLetraEQuant,getTamanhodaPalavra()) + gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal,getTamanhodaPalavra()));
+
+
+        } else {
+
+            calculoLandScape = true;
+            resultadoPasso.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerador.gerarAplicacaoValores(hashLetraEQuant,getTamanhodaPalavra()) + gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal,getTamanhodaPalavra()));
+
+
+        }
+
+        //inicia as animações
+        LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
 
         // Cancela as animações
         LottieController.cancelLottieAnimation(animationWrite);
@@ -172,6 +222,7 @@ public class Anagrama extends Fragment {
 
         // Campo não vazio
         if (!calculadora.verificarCampoVazio(inputAnagrama)) {
+
             inputAnagrama.setError(null);
             MainActivity.hideKeyboard(getActivity());
 
@@ -186,15 +237,13 @@ public class Anagrama extends Fragment {
 
                 if(!isJaCalculou(getEntradaAnagrama(),palavraGuardada,null)){
 
-                    if (verificarTemQuantPalavrasMaiorUm(novoArrayQuantPalavras)) {
+                    if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
 
-                        setResultado(novoArrayQuantPalavras,resultadoFinal);
+                        setResultado(novoArrayQuantPalavras,resultadoFinal,resultadoFinalSimples,resultadoAnagrama);
 
                     } else {
-                        String mensagem = "$$\\bold{\\text{Passo a Passo}}$$" +
-                                "Como nenhuma letra se repetiu, isso equivale a fazer um Arranjo onde: nº elementos e de posições serão iguais ao tamanho da palavra, que é " + getTamanhodaPalavra();
 
-                        resultadoAnagrama.setText(mensagem + gerarTrechoInicial(getTamanhodaPalavra()) + gerador.gerarResultadoPermutacaoLatex("", getTamanhodaPalavra()));
+                        setResultado(novoArrayQuantPalavras,resultadoFinal,null,resultadoAnagrama);
 
                     }
 
@@ -208,8 +257,10 @@ public class Anagrama extends Fragment {
             }
 
         }else {
+
             inputAnagrama.setError("O campo está vazio!");
             MainActivity.hideKeyboard(getActivity());
+
         }
     }
 
@@ -274,31 +325,6 @@ public class Anagrama extends Fragment {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putString("palavra",getEntradaAnagrama());
-        outState.putString("latex",resultadoAnagrama.getText());
-        outState.putString("palavraGuardade",palavraGuardada);
-    }
-
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            MainActivity.hideKeyboard(getActivity());
-
-            this.txtAnagrama.setText(savedInstanceState.getString("palavra"));
-            this.palavraGuardada = savedInstanceState.getString("palavraGuardade");
-            MathView calculoRecuperado = view.findViewById(R.id.resultado_anagrama);
-            calculoRecuperado.setText(savedInstanceState.getString("latex"));
-
-        }
-    }
-
     private boolean isJaCalculou(String palavra,String palavraGuardade,TextInputLayout input){
 
         if(palavra.equals(palavraGuardade)){
@@ -311,5 +337,94 @@ public class Anagrama extends Fragment {
         return false;
 
     }
+
+    //guardando as informações
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("inputAnagrama", Anagrama.getEntradaAnagrama());
+        outState.putString("palavraGuardada",palavraGuardada);
+        outState.putString("calculoFinal",this.calculoFinal);
+        outState.putBoolean("liberarCalculo",this.liberarCalculo);
+
+        //verificar se ja foi calculado
+        if(liberarCalculo) {
+
+            if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+
+                outState.putString("calculoFinal",resultadoFinalSimples.getText());
+                outState.putString("latexPasso",resultadoAnagrama.getText());
+
+            }else{
+                outState.putBoolean("calculoLandScape",this.calculoLandScape);
+                outState.putString("latexPasso",resultadoAnagrama.getText());
+
+            }
+
+        }
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            MainActivity.hideKeyboard(getActivity());
+
+            inputAnagrama.getEditText().setText(savedInstanceState.getString("inputAnagrama"));
+            this.palavraGuardada = savedInstanceState.getString("palavraGuardada");
+            this.calculoFinal = savedInstanceState.getString("calculoFinal");
+            this.liberarCalculo = savedInstanceState.getBoolean("liberarCalculo");
+            this.calculoLandScape = savedInstanceState.getBoolean("calculoLandScape");
+
+
+            resultadoAnagrama = view.findViewById(R.id.resultado_anagrama);
+
+            //iniciar o bottomSheet
+            bottomSheet = new myBottomSheet(view,getOrientation(),R.id.bottomsheetAnagrama);
+            if(bottomSheet.verificarOrientacaoVertical(getOrientation())) {
+
+                resultadoFinalSimples = view.findViewById(R.id.resultado_AnagramaFinal);
+            }
+
+            //verificar se ja foi calculado para guardar
+
+            if(this.liberarCalculo){
+
+                if(!bottomSheet.verificarOrientacaoVertical(getOrientation())){
+
+                    resultadoAnagrama.setText(savedInstanceState.getString("latexPasso"));
+
+                }else{
+
+                    if(this.calculoLandScape){
+
+                        HashMap<String, Integer> novoArrayQuantPalavras = contarPalavrasIguais(getEntradaAnagrama());
+                        long resultadoFinal = calcularResultadoAnagrama(getTamanhodaPalavra(), novoArrayQuantPalavras);
+
+                        setResultado(novoArrayQuantPalavras,resultadoFinal,resultadoFinalSimples,resultadoAnagrama);
+
+
+                    }else{
+
+                        resultadoFinalSimples.setText(this.calculoFinal);
+
+                    }
+
+                    resultadoAnagrama.setText(savedInstanceState.getString("latexPasso"));
+
+                    bottomSheet.usarBottomSheet(getOrientation(),behavior);
+
+                }
+            }
+        }
+
+    }
+
+    private int getOrientation(){
+        return getContext().getResources().getConfiguration().orientation;
+    }
+
 
 }

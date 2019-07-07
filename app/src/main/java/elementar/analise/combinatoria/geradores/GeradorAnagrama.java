@@ -39,12 +39,12 @@ public class GeradorAnagrama extends GeradorFormulas {
 
         for (Map.Entry<String,Integer> entry : mapPalavras.entrySet()) {
 
-           if (entry.getValue() > 1) {
+//           if (entry.getValue() > 1) {
 
                descricao.append(entry.getKey()).append(EqualEcomInit).append(entry.getValue());
                descricao.append(fimTextS);
 
-            }
+//            }
 
         }
 
@@ -74,11 +74,11 @@ public class GeradorAnagrama extends GeradorFormulas {
 
         for(Map.Entry<String,Integer> entry : hashMapLetras.entrySet()){
 
-            if(entry.getValue() > 1){
+//            if(entry.getValue() > 1){
 
                 aplicacao.append(entry.getValue()).append(separador1);
 
-            }
+//            }
 
         }
 
@@ -100,11 +100,11 @@ public class GeradorAnagrama extends GeradorFormulas {
 
         for(Map.Entry<String,Integer> entry : hashMap.entrySet()){
 
-            if(entry.getValue() > 1){
+//            if(entry.getValue() > 1){
 
                 aplicacao.append(entry.getValue()).append("! ").append(separador2);
 
-            }
+//            }
 
         }
 
@@ -126,11 +126,11 @@ public class GeradorAnagrama extends GeradorFormulas {
         for(Map.Entry<String,Integer> entry : hashMap.entrySet()){
 
 
-            if(entry.getValue() > 1){
+//            if(entry.getValue() > 1){
 
                 aplicacao.append(entry.getValue()).append(separador1);
 
-            }
+//            }
 
         }
 
