@@ -10,57 +10,94 @@ public class GeradorOperacoesConjuntos {
 
     //calculor individuais
 
-    private StringBuilder calcularUniao(TextInputLayout inputA, TextInputLayout inputB, TextInputLayout inputC){
+    public StringBuilder calcularUniao(TextInputLayout inputA, TextInputLayout inputB){
         return new StringBuilder();
     }
 
-    private StringBuilder calcularIntersecao(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularIntersecao(TextInputLayout inputA, TextInputLayout inputB){
         return new StringBuilder();
     }
 
-    private StringBuilder calcularComplementar(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularComplementar(TextInputLayout inputA, TextInputLayout inputB, TextInputLayout inputC){
         return new StringBuilder();
     }
 
-    private StringBuilder calcularDiferencaAB(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularDiferencaAB(TextInputLayout inputA, TextInputLayout inputB){
         return new StringBuilder();
     }
 
-    private StringBuilder calcularDiferencaBA(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularDiferencaBA(TextInputLayout inputA, TextInputLayout inputB){
         return new StringBuilder();
     }
 
-    private StringBuilder calcularConjuntoPartes(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularConjuntoPartes(TextInputLayout inputA, TextInputLayout inputB){
         return new StringBuilder();
     }
 
-    //calcular pares
+//    calcular pares
 
-    private StringBuilder calcularUniaoComplementar(TextInputLayout inputA, TextInputLayout inputB, TextInputLayout inputC){
+    //Uniao
+    public StringBuilder calcularUniaoComplementar(TextInputLayout inputA, TextInputLayout inputB, TextInputLayout inputC){
         return new StringBuilder();
     }
 
-    private StringBuilder calcularIntersecaoConjPartes(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularUniaoIntersecao(TextInputLayout inputA, TextInputLayout inputB){
         return new StringBuilder();
     }
 
-    private StringBuilder calcularDifABDifBA(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularUniaoConjPartes(TextInputLayout inputA, TextInputLayout inputB){
         return new StringBuilder();
     }
 
-    private StringBuilder calcularUniaoIntersecao(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularUniaoDifAB(TextInputLayout inputA, TextInputLayout inputB){
         return new StringBuilder();
     }
 
-    private StringBuilder calcularIntersecaoDifAB(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularUniaoDifBAo(TextInputLayout inputA, TextInputLayout inputB){
         return new StringBuilder();
     }
 
-    private StringBuilder calcularComplementarConjPartes(TextInputLayout inputA, TextInputLayout inputB){
+    //Interseção
+    public StringBuilder calcularIntersecaoConjPartes(TextInputLayout inputA, TextInputLayout inputB){
         return new StringBuilder();
     }
 
-    private StringBuilder calcularConjPartesDifBA(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularIntersecaoDifAB(TextInputLayout inputA, TextInputLayout inputB){
+        return new StringBuilder();
+    }
+
+    public StringBuilder calcularIntersecaoComplementar(TextInputLayout inputA, TextInputLayout inputB, TextInputLayout inputU){
+        return new StringBuilder();
+    }
+
+    public StringBuilder calcularIntersecaoDifBA(TextInputLayout inputA, TextInputLayout inputB){
+        return new StringBuilder();
+    }
+
+    //Diferença A-B
+    public StringBuilder calcularDifABDifBA(TextInputLayout inputA, TextInputLayout inputB){
+        return new StringBuilder();
+    }
+
+    public StringBuilder calcularDifABComplementar(TextInputLayout inputA, TextInputLayout inputB, TextInputLayout inputU){
+        return new StringBuilder();
+    }
+
+    public StringBuilder calcularDifABConjPartes(TextInputLayout inputA, TextInputLayout inputB){
+        return new StringBuilder();
+    }
+
+    //Complementar
+    public StringBuilder calcularComplementarConjPartes(TextInputLayout inputA, TextInputLayout inputB){
+        return new StringBuilder();
+    }
+
+    public StringBuilder calcularComplementarDifBA(TextInputLayout inputA, TextInputLayout inputB){
+        return new StringBuilder();
+    }
+
+    //Conjunto das Partes
+    public StringBuilder calcularConjPartesDifBA(TextInputLayout inputA, TextInputLayout inputB){
         return new StringBuilder();
     }
 
