@@ -58,6 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Insira uma palavra"
+                    android:imeOptions="actionDone"
                     android:inputType="text"
                     android:textColor="@color/corTabBar"
                     android:textSize="20sp" />
