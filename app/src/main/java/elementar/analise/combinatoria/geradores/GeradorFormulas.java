@@ -17,7 +17,7 @@ public abstract class GeradorFormulas {
     }
 
     // Gera o resultado final, contendo a inicial (Arranjo = A e Combinação = C)
-    public String gerarResultadoFinal(String tipo, int valorElementos, int valorPosicoes, long resultadoFinal) {
+    public static String gerarResultadoFinal(String tipo, int valorElementos, int valorPosicoes, long resultadoFinal) {
 
         String resultado = "$$\\bold{Resultado}$$" + "$$" + tipo + "(" + valorElementos + ", " + valorPosicoes + ") = " + resultadoFinal + "$$";
 

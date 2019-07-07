@@ -1,4 +1,4 @@
-package elementar.analise.combinatoria;
+package elementar.analise.combinatoria.Activitys;
 
 import android.content.Intent;
 import com.google.android.material.tabs.TabLayout;
@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import elementar.analise.combinatoria.PagerAdapter;
 import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 

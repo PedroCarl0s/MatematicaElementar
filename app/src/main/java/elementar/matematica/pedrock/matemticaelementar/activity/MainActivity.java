@@ -15,10 +15,10 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-import elementar.analise.combinatoria.TelaCombinatoria;
+import elementar.analise.combinatoria.Activitys.TelaCombinatoria;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.R;
-import elementar.teoria.dos.conjuntos.TelaConjuntos;
+import elementar.analise.combinatoria.Activitys.TelaConjuntos;
 
 public class MainActivity extends AppCompatActivity {
 
