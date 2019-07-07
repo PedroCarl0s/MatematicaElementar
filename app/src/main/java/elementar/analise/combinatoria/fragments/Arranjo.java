@@ -261,7 +261,7 @@ public class Arranjo extends Fragment {
 
         if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
 
-            resultado.setText(GeradorFormulas.gerarResultadoFinal("A",valorElementos,valorPosicoes,Calculadora.gerarResultadoCalculoPermutacao(valorElementos,valorPosicoes)));
+            resultado.setText(GeradorFormulas.gerarResultadoFinal("A",valorElementos,valorPosicoes,Calculadora.gerarResultadoCalculoFatorial(valorElementos,valorPosicoes)));
             if(resultadoPasso != null) {
 
                 resultadoPasso.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));

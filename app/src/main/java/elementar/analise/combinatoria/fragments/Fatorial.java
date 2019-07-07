@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import elementar.analise.combinatoria.Calculadora;
-import elementar.analise.combinatoria.geradores.GeradorPermutacao;
+import elementar.analise.combinatoria.geradores.GeradorFatorial;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
@@ -31,15 +30,15 @@ import elementar.analise.combinatoria.controller.TextInputController;
 import io.github.kexanie.library.MathView;
 
 
-public class Permutacao extends Fragment {
+public class Fatorial extends Fragment {
 
     private View view;
 
-    private static MathView formulaPermutacao;
-    private static MathView resultadoPermutacao;
+    private static MathView formulaFatorial;
+    private static MathView resultadoFatorial;
 
-    private static TextInputLayout inputPermutacao;
-    private static TextInputEditText txtPermutacao;
+    private static TextInputLayout inputFatorial;
+    private static TextInputEditText txtFatorial;
 
     private Button btnCalcular;
     private Handler handler;
@@ -52,10 +51,10 @@ public class Permutacao extends Fragment {
     private String valorEntrada;
 
     private Calculadora calculadora = Calculadora.getInstance();
-    private GeradorPermutacao gerador = new GeradorPermutacao();
+    private GeradorFatorial gerador = new GeradorFatorial();
 
 
-    public Permutacao() {
+    public Fatorial() {
         // Required empty public constructor
     }
 
@@ -68,17 +67,17 @@ public class Permutacao extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        this.view = inflater.inflate(R.layout.fragment_permutacao, container, false);
+        this.view = inflater.inflate(R.layout.fragment_fatorial, container, false);
 
         return view;
     }
 
     private void init() {
-        this.formulaPermutacao = (MathView) view.findViewById(R.id.formula_permutacao);
-        this.resultadoPermutacao = (MathView) view.findViewById(R.id.resultado_permutacao);
+        this.formulaFatorial = (MathView) view.findViewById(R.id.formula_fatorial);
+        this.resultadoFatorial = (MathView) view.findViewById(R.id.resultado_fatorial);
 
-        this.inputPermutacao = (TextInputLayout) view.findViewById(R.id.input_permutacao);
-        this.txtPermutacao = (TextInputEditText) view.findViewById(R.id.txt_permutacao);
+        this.inputFatorial = (TextInputLayout) view.findViewById(R.id.input_fatorial);
+        this.txtFatorial = (TextInputEditText) view.findViewById(R.id.txt_fatorial);
 
         this.btnCalcular = (Button) view.findViewById(R.id.btn_calcular);
         this.animationWrite = (LottieAnimationView) view.findViewById(R.id.animation_write);
@@ -86,7 +85,7 @@ public class Permutacao extends Fragment {
         String formula = "$$\\normalsize \\bold{Formula}$$"
                 + "$$ n! = n.(n-1).(n-2) \\ ... \\ 2.1$$";
 
-        formulaPermutacao.setText(formula);
+        formulaFatorial.setText(formula);
     }
 
     @Override
@@ -94,20 +93,20 @@ public class Permutacao extends Fragment {
         super.onResume();
 
         init();
-        TextInputController.setLabelTextInput(this.inputPermutacao, this.txtPermutacao, "Fatorial de", "Valor de n");
+        TextInputController.setLabelTextInput(this.inputFatorial, this.txtFatorial, "Fatorial de", "Valor de n");
 
         btnCalcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calcularPermutacao();
+                calcularFatorial();
             }
         });
 
-        txtPermutacao.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        txtFatorial.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
-                    calcularPermutacao();
+                    calcularFatorial();
 
                     return true;
                 }
@@ -117,23 +116,24 @@ public class Permutacao extends Fragment {
 
     }
 
-    private void calcularPermutacao() {
-        Log.i("bomba"," ja "+jaCalculou);
-        if (calculadora.validarEntradaPermutacao(inputPermutacao)) {
+    private void calcularFatorial() {
+
+        if (calculadora.validarEntradaFatorial(inputFatorial)) {
+
             MainActivity.hideKeyboard(getActivity());
 
             if (jaCalculou) {
 
-                if (Permutacao.getEntradaPermutacao().equals(valorEntrada)) {
+                if (Fatorial.getEntradaFatorial().equals(valorEntrada)) {
                     MainActivity.hideKeyboard(getActivity());
 
-                    inputPermutacao.setHint("Fatorial de");
-                    showToastMessage("A permutação já foi calculada!");
+                    inputFatorial.setHint("Fatorial de");
+                    showToastMessage("O fatorial já foi calculado!");
 
                 } else {
                     setResultado();
 
-                    valorEntrada = Permutacao.getEntradaPermutacao();
+                    valorEntrada = Fatorial.getEntradaFatorial();
                     jaCalculou = true;
                 }
 
@@ -141,7 +141,7 @@ public class Permutacao extends Fragment {
                 setResultado();
 
                 jaCalculou = true;
-                valorEntrada = Permutacao.getEntradaPermutacao();
+                valorEntrada = Fatorial.getEntradaFatorial();
             }
 
         } else {
@@ -154,18 +154,19 @@ public class Permutacao extends Fragment {
     }
 
     private void setResultado() {
-        inputPermutacao.setHint("Fatorial de");
+
+        inputFatorial.setHint("Fatorial de");
         animationWrite.setVisibility(View.VISIBLE);
 
         startAnimation(view, animationWrite, ID_WRITE, "write.json", 2f, 0);
 
-        final int entradaPermutacao = Integer.parseInt(Permutacao.getEntradaPermutacao());
+        final int entradaFatorial = Integer.parseInt(Fatorial.getEntradaFatorial());
 
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                resultadoPermutacao.setText(gerador.gerarResultadoPermutacaoLatex("Resultado", entradaPermutacao));
+                resultadoFatorial.setText(gerador.gerarResultadoFatorialLatex("Resultado", entradaFatorial));
             }
 
         }, DELAY_TIME);
@@ -173,23 +174,23 @@ public class Permutacao extends Fragment {
         LottieController.cancelLottieAnimation(animationWrite);
     }
 
-    public static String getEntradaPermutacao() {
-        int permutacao;
+    public static String getEntradaFatorial() {
+        int fatorial;
 
         try {
-            permutacao = Integer.parseInt(inputPermutacao.getEditText().getText().toString());
+            fatorial = Integer.parseInt(inputFatorial.getEditText().getText().toString());
 
-            inputPermutacao.getEditText().setText(Integer.toString(permutacao));
+            inputFatorial.getEditText().setText(Integer.toString(fatorial));
 
         } catch (Exception e) {
             return "";
         }
 
-        return Integer.toString(permutacao);
+        return Integer.toString(fatorial);
     }
 
     private static String getResultadoLatex() {
-        return resultadoPermutacao.getText();
+        return resultadoFatorial.getText();
     }
 
     private void startAnimation(View view, LottieAnimationView animationView, int id, String jsonFile, float speed, int loops) {
@@ -200,13 +201,13 @@ public class Permutacao extends Fragment {
         animationView.playAnimation();
     }
 
-    // Salva a entrada da permutação + resultado
+    // Salva a entrada do fatorial + resultado
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString("entrada_permutacao", getEntradaPermutacao());
-        outState.putString("resultado_permutacao", getResultadoLatex());
+        outState.putString("entrada_fatorial", getEntradaFatorial());
+        outState.putString("resultado_fatorial", getResultadoLatex());
         outState.putBoolean("jaCalculou",jaCalculou);
         outState.putString("valorEntrada",valorEntrada);
     }
@@ -219,12 +220,12 @@ public class Permutacao extends Fragment {
         if (savedInstanceState != null) {
             MainActivity.hideKeyboard((getActivity()));
 
-            this.txtPermutacao.setText(savedInstanceState.getString("entrada_permutacao"));
+            this.txtFatorial.setText(savedInstanceState.getString("entrada_fatorial"));
             this.jaCalculou = savedInstanceState.getBoolean("jaCalculou");
             this.valorEntrada = savedInstanceState.getString("valorEntrada");
 
-            MathView calculoRecuperado = view.findViewById(R.id.resultado_permutacao);
-            calculoRecuperado.setText(savedInstanceState.getString("resultado_permutacao"));
+            MathView calculoRecuperado = view.findViewById(R.id.resultado_fatorial);
+            calculoRecuperado.setText(savedInstanceState.getString("resultado_fatorial"));
 
         }
     }

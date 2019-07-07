@@ -120,7 +120,7 @@ public class CalculadoraCombinacao {
             // Verifica se P é igual a (N-P), pois é necessário fazer o fatorial do denominador
             if (getIgualdade(posicoes, elementosMenosPosicoes)) {
                 aux = getMaiorDenominador(posicoes, elementosMenosPosicoes);
-                fatorialAux = calculadoraGeral.gerarResultadoPermutacao(aux);
+                fatorialAux = calculadoraGeral.gerarResultadoFatorial(aux);
 
             } else {
                 boolean existeZero = getExisteValorZero(posicoes, elementosMenosPosicoes);
@@ -133,7 +133,7 @@ public class CalculadoraCombinacao {
                 // Sem zeros no denominador, é necessário fazer o fatorial do menor valor do denominador
                 } else {
                     aux = getMenorDenominador(posicoes, elementosMenosPosicoes);
-                    fatorialAux = calculadoraGeral.gerarResultadoPermutacao(aux);
+                    fatorialAux = calculadoraGeral.gerarResultadoFatorial(aux);
                 }
             }
 

@@ -80,7 +80,7 @@ public class GeradorArranjo extends GeradorFormulas {
 
             numeradorDesenvolvimento = Integer.toString(valorElementos);
 
-            resultadoFinal = calculadora.gerarResultadoCalculoPermutacao(valorElementos, valorPosicoes);
+            resultadoFinal = calculadora.gerarResultadoCalculoFatorial(valorElementos, valorPosicoes);
 
 
         // Valores distintos, é necessário desenvolver o fatorial (no Arranjo Simples)
@@ -92,7 +92,7 @@ public class GeradorArranjo extends GeradorFormulas {
 
             numeradorDesenvolvimento = fatorialElementos;
 
-            resultadoFinal = calculadora.gerarResultadoCalculoPermutacao(valorElementos, valorPosicoes);
+            resultadoFinal = calculadora.gerarResultadoCalculoFatorial(valorElementos, valorPosicoes);
 
         // Nº de elementos igual ao resultado de (n-p)!, sempre resultará 1 (no Arranjo Simples)
         } else {

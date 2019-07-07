@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    tools:context="elementar.analise.combinatoria.fragments.Anagrama">
+    tools:context="elementar.analise.combinatoria.fragments.Fatorial">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <io.github.kexanie.library.MathView
-            android:id="@+id/formula_permutacao"
+            android:id="@+id/formula_fatorial"
             android:layout_width="283dp"
             android:layout_height="98dp"
             android:layout_gravity="center"
@@ -27,11 +27,11 @@
         </io.github.kexanie.library.MathView>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_permutacao"
+            android:id="@+id/input_fatorial"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="265dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/formula_permutacao"
+            android:layout_below="@id/formula_fatorial"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="10dp"
@@ -42,10 +42,10 @@
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/formula_anagrama">
+            app:layout_constraintTop_toBottomOf="@+id/formula_fatorial">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_permutacao"
+                android:id="@+id/txt_fatorial"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -64,7 +64,7 @@
             android:id="@+id/btn_calcular"
             android:layout_width="200dp"
             android:layout_height="48dp"
-            android:layout_below="@id/input_permutacao"
+            android:layout_below="@id/input_fatorial"
             android:layout_marginTop="20dp"
             android:layout_marginRight="47dp"
             android:layout_toLeftOf="@id/scrollView"
@@ -74,7 +74,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_anagrama" />
+            app:layout_constraintTop_toBottomOf="@+id/input_fatorial" />
 
         <ScrollView
 
@@ -86,7 +86,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="0dp"
-            android:layout_toRightOf="@id/formula_permutacao"
+            android:layout_toRightOf="@id/formula_fatorial"
             android:foregroundGravity="center"
             android:padding="8dp"
             android:text=""
@@ -98,7 +98,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <io.github.kexanie.library.MathView
-                android:id="@+id/resultado_permutacao"
+                android:id="@+id/resultado_fatorial"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
@@ -130,8 +130,8 @@
             android:layout_marginEnd="37dp"
             android:layout_marginRight="37dp"
             android:layout_marginBottom="52dp"
-            android:layout_toEndOf="@id/formula_permutacao"
-            android:layout_toRightOf="@id/formula_permutacao"
+            android:layout_toEndOf="@id/formula_fatorial"
+            android:layout_toRightOf="@id/formula_fatorial"
             android:foregroundGravity="left"
             app:lottie_autoPlay="false"
             app:lottie_loop="false" />

@@ -4,7 +4,7 @@ package elementar.analise.combinatoria;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import elementar.analise.combinatoria.fragments.Permutacao;
+import elementar.analise.combinatoria.fragments.Fatorial;
 import elementar.analise.combinatoria.geradores.GeradorFormulas;
 
 public final class Calculadora extends GeradorFormulas{
@@ -91,34 +91,34 @@ public final class Calculadora extends GeradorFormulas{
 
     }
 
-    // Verifica se o campo da Permutação é válido
-    public boolean validarEntradaPermutacao(TextInputLayout inputPermutacao) {
-        boolean entradaVazia = verificarCampoVazio(inputPermutacao);
+    // Verifica se o campo do Fatorial é válido
+    public boolean validarEntradaFatorial(TextInputLayout inputFatorial) {
+        boolean entradaVazia = verificarCampoVazio(inputFatorial);
         int teste;
 
         if (!entradaVazia) {
-            inputPermutacao.setError(null);
+            inputFatorial.setError(null);
 
             try {
-                teste = Integer.parseInt(Permutacao.getEntradaPermutacao());
+                teste = Integer.parseInt(Fatorial.getEntradaFatorial());
 
                 return true;
 
             } catch (Exception e) {
-                inputPermutacao.setError("O valor digitado é muito grande!");
+                inputFatorial.setError("O valor digitado é muito grande!");
 
                 return false;
             }
 
         } else {
-            inputPermutacao.setError("O valor de N não pode ser vazio!");
+            inputFatorial.setError("O valor de N não pode ser vazio!");
 
              return false;
         }
 
     }
 
-    public static long gerarResultadoCalculoPermutacao(int elementos, int posicoes) {
+    public static long gerarResultadoCalculoFatorial(int elementos, int posicoes) {
 
         String valoresFinais = Calculadora.gerarFatorialElementos(elementos, posicoes);
         valoresFinais = GeradorFormulas.removerUltimoValor(valoresFinais);
@@ -198,16 +198,16 @@ public final class Calculadora extends GeradorFormulas{
        return valorElementos - valorPosicoes;
     }
 
-    // Gera o resultado da Permutação
-    public String gerarDesenvolvimentoPermutacao(long valorPermutacao) {
+    // Gera o resultado da
+    public String gerarDesenvolvimentoFatorial(long valorFatorial) {
 
-        if (valorPermutacao > 0) {
+        if (valorFatorial > 0) {
 
             StringBuilder valores = new StringBuilder();
 
-            if(valorPermutacao < 16){
+            if(valorFatorial < 16){
 
-                for (long atual = valorPermutacao; atual >= 1; atual--) {
+                for (long atual = valorFatorial; atual >= 1; atual--) {
                     valores.append(atual);
                     valores.append(".");
                 }
@@ -217,7 +217,7 @@ public final class Calculadora extends GeradorFormulas{
 
             } else {
 
-                StringBuilder novoTexto = gerarValorAntesDoSeparador(valorPermutacao);
+                StringBuilder novoTexto = gerarValorAntesDoSeparador(valorFatorial);
 
                 valores.append(gerarValorDepoisDoSeparador(novoTexto));
             }
@@ -225,7 +225,7 @@ public final class Calculadora extends GeradorFormulas{
             return valores.toString();
 
 
-        } else if (valorPermutacao == 0) {
+        } else if (valorFatorial == 0) {
 
             return "1";
 
@@ -234,7 +234,7 @@ public final class Calculadora extends GeradorFormulas{
         }
     }
 
-    public long gerarResultadoPermutacao(long valorEntrada) {
+    public long gerarResultadoFatorial(long valorEntrada) {
 
         // O fatorial vai até o valor 1
         long resultado = 1;
@@ -247,11 +247,11 @@ public final class Calculadora extends GeradorFormulas{
         return resultado;
     }
 
-    private StringBuilder gerarValorAntesDoSeparador(Long valorPermutacao){
+    private StringBuilder gerarValorAntesDoSeparador(Long valorFatorial){
 
         StringBuilder textoParcial = new StringBuilder();
 
-        for (long atual = valorPermutacao; atual >= (valorPermutacao - 5); atual--) {
+        for (long atual = valorFatorial; atual >= (valorFatorial - 5); atual--) {
             textoParcial.append(atual);
             textoParcial.append(".");
         }

@@ -266,11 +266,11 @@ public class Anagrama extends Fragment {
 
     private long calcularResultadoAnagrama(long tamanhoPalavra,HashMap<String,Integer> arrayNumeroDeLetras) {
 
-        long valorPalavra = calculadora.gerarResultadoPermutacao(tamanhoPalavra);
+        long valorPalavra = calculadora.gerarResultadoFatorial(tamanhoPalavra);
         long somaValorLetras = 1;
 
         for(long quantidadeRepet: arrayNumeroDeLetras.values()){
-            somaValorLetras *= calculadora.gerarResultadoPermutacao(quantidadeRepet);
+            somaValorLetras *= calculadora.gerarResultadoFatorial(quantidadeRepet);
         }
 
         return valorPalavra / somaValorLetras;

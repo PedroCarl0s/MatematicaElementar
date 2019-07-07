@@ -59,10 +59,10 @@ public abstract class GeradorFormulas {
 
 
     // Gera o resultado final, contendo o passo a passo construído
-    public String gerarResultadoPermutacaoLatex(String titulo, int valorEntrada) {
+    public String gerarResultadoFatorialLatex(String titulo, int valorEntrada) {
 
-        String resultadoParcial = calculadora.gerarDesenvolvimentoPermutacao(valorEntrada);
-        String textoResultado = Long.toString(calculadora.gerarResultadoPermutacao(valorEntrada));
+        String resultadoParcial = calculadora.gerarDesenvolvimentoFatorial(valorEntrada);
+        String textoResultado = Long.toString(calculadora.gerarResultadoFatorial(valorEntrada));
 
         String resultado = adicionarTitulo(titulo);
 

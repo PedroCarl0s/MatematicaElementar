@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    tools:context="elementar.analise.combinatoria.fragments.Permutacao">
+    tools:context="elementar.analise.combinatoria.fragments.Fatorial">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <io.github.kexanie.library.MathView
-            android:id="@+id/formula_permutacao"
+            android:id="@+id/formula_fatorial"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
@@ -25,7 +25,7 @@
         </io.github.kexanie.library.MathView>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_permutacao"
+            android:id="@+id/input_fatorial"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,10 +38,10 @@
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/formula_permutacao">
+            app:layout_constraintTop_toBottomOf="@+id/formula_fatorial">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_permutacao"
+                android:id="@+id/txt_fatorial"
                 android:layout_width="289dp"
                 android:layout_height="52dp"
                 android:gravity="center_vertical"
@@ -65,7 +65,7 @@
             android:text="calcular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_permutacao" />
+            app:layout_constraintTop_toBottomOf="@id/input_fatorial" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -81,7 +81,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btn_calcular">
 
             <io.github.kexanie.library.MathView
-                android:id="@+id/resultado_permutacao"
+                android:id="@+id/resultado_fatorial"
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
