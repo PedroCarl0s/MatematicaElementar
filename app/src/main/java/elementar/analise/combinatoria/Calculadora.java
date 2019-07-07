@@ -68,7 +68,7 @@ public final class Calculadora extends GeradorFormulas{
                 return true;
             }
 
-            inputElementos.setError("elementos ≥ posições");
+            inputElementos.setError("Valor de n ≥ Valor de p");
             inputElementos.requestFocus();
 
             return false;

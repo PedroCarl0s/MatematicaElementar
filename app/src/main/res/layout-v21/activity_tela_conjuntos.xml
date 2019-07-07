@@ -13,7 +13,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        tools:ignore="RtlHardcoded">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_historico"
@@ -93,7 +94,6 @@
                         android:layout_gravity="center"
                         android:drawableTop="@drawable/book20"
                         android:gravity="center"
-                        android:inputType="textCapWords"
                         android:text="@string/uniao"
                         android:textAlignment="center"
                         android:textColor="@color/colorText"
@@ -375,9 +375,10 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@color/corBackGround"
-            android:text="Calcular"
+            android:text="@string/btn_calcular"
             android:textColor="@color/corTabBar"
             android:textSize="18sp"
+            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/conjuntoC" />
@@ -388,7 +389,7 @@
             android:layout_height="135dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -435,7 +436,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/corBackGround"
-        android:visibility="visible"
         app:behavior_hideable="true"
         app:behavior_peekHeight="70dp"
         app:elevation="32dp"
@@ -475,7 +475,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="false"
-            app:lottie_loop="false" />
+            app:lottie_loop="false"
+            tools:ignore="RtlHardcoded" />
 
     </RelativeLayout>
 
@@ -495,6 +496,7 @@
         app:elevation="8dp"
         app:fabSize="normal"
         app:layout_anchor="@+id/constraintLayout"
-        app:layout_anchorGravity="end|bottom" />
+        app:layout_anchorGravity="end|bottom"
+        android:focusable="true" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
