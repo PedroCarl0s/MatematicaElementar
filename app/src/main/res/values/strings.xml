@@ -24,9 +24,11 @@
     <string name="elementos_a_arranjar">Elementos a arranjar</string>
     <string name="uniao">União</string>
     <string name="complementar">Complementar</string>
-    <string name="conjunto_das_partes">Conj.Partes</string>
+    <string name="conjunto_das_partes">Conjunto das Partes</string>
     <string name="diferenca_b_a">Diferença(B-A)</string>
     <string name="diferenca_a_b">Diferença(A-B)</string>
     <string name="intersecao">Interseção</string>
+    <string name="produtoCartesianoAxB">Cartesiano(AxB)</string>
+    <string name="produtoCartesianoBxA">Cartesiano(BxA)</string>
     <string name="btn_calcular">Calcular</string>
 </resources>
