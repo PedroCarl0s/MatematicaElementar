@@ -1,4 +1,4 @@
-package elementar.analise.combinatoria;
+package elementar.analise.combinatoria.adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
