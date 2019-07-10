@@ -1,14 +1,18 @@
-package elementar.analise.combinatoria.Activitys;
+package elementar.analise.combinatoria.activitys;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.gridlayout.widget.GridLayout;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -16,6 +20,8 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import elementar.analise.combinatoria.floatingbutton.MenuFloatingButton;
+import elementar.analise.combinatoria.fragments.HistoricoFragment;
 import elementar.analise.combinatoria.geradores.GeradorOperacoesConjuntos;
 import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
@@ -33,7 +39,9 @@ public class TelaConjuntos extends AppCompatActivity {
 
     private MathView resultadoFinal, resultadoPasso;
 
-    private FloatingActionButton fab,fabHistorico,fabRemoveAll;
+    public static FloatingActionButton fab;
+    private static FloatingActionButton fabHistorico;
+    private static FloatingActionButton fabRemoveAll;
 
     private GridLayout grupoGrid;
 
@@ -41,15 +49,17 @@ public class TelaConjuntos extends AppCompatActivity {
 
     private boolean liberarCalculo = false;
 
-    private int[] arraySelect = new int[]{-1,-1,-1,-1,-1,-1};
+    private int[] arraySelect = new int[]{-1,-1,-1,-1,-1,-1,-1,-1,-1};
 
-    private final int VALOR_COMPLEMENTAR = 3;
+    private final int VALOR_COMPLEMENTAR = 2;
 
-    private final int INDEX_COMPLEMENTAR = 3;
+    private final int INDEX_COMPLEMENTAR = 2;
 
     private int posicaoArray = 0;
 
     private GeradorOperacoesConjuntos operacoesConjuntos;
+
+    private MenuFloatingButton menuFloatingButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +80,8 @@ public class TelaConjuntos extends AppCompatActivity {
     @SuppressLint("RestrictedApi")
     private void instanceComponentes(){
 
+        menuFloatingButton = new MenuFloatingButton(this);
+
         operacoesConjuntos = new GeradorOperacoesConjuntos();
 
         conjuntoA = findViewById(R.id.conjuntoA);
@@ -78,11 +90,8 @@ public class TelaConjuntos extends AppCompatActivity {
 
         btn_calc = findViewById(R.id.btnCalcular);
 
-        animationWhite = findViewById(R.id.animation_write3);
         animetionSwipe = findViewById(R.id.animation_swipe);
 
-        resultadoFinal = findViewById(R.id.resultado_conjuntosFinal);
-        resultadoFinal.setText("$$\\bold{Resultado}$$");
         resultadoPasso = findViewById(R.id.resultado_conjutosPasso);
         resultadoPasso.setVisibility(View.GONE);
 
@@ -97,12 +106,15 @@ public class TelaConjuntos extends AppCompatActivity {
         fab = findViewById(R.id.botao_info);
         fabHistorico = findViewById(R.id.fab_historico);
         fabRemoveAll = findViewById(R.id.fab_removeAll);
-        fabHistorico.setVisibility(View.GONE);
-        fabRemoveAll.setVisibility(View.GONE);
 
-        grupoGrid = findViewById(R.id.gridLayout);
+        menuFloatingButton.addFloating(fabHistorico);
+        menuFloatingButton.addFloating(fabRemoveAll);
+
+        grupoGrid = findViewById(R.id.menuconjunto);
 
         initBackGroundCards(grupoGrid);
+
+        menuFloatingButton.controleMenuFab(fab);
 
     }
 
@@ -112,6 +124,26 @@ public class TelaConjuntos extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                menuFloatingButton.controleMenuFab(fab);
+
+            }
+        });
+
+        fabHistorico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuFloatingButton.hideFloating(fab);
+                openFragments(new HistoricoFragment());
+                fab.hide();
+
+            }
+        });
+
+        fabRemoveAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuFloatingButton.hideFloating(fab);
+                removerAllValueInput(conjuntoA,conjuntoB,conjuntoU);
             }
         });
 
@@ -125,7 +157,14 @@ public class TelaConjuntos extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    private void openFragments(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.add(R.id.contentConjuntos,fragment);
+        fragmentTransaction.commit();
     }
 
     private void initBackGroundCards(GridLayout gridLayout){
@@ -161,23 +200,23 @@ public class TelaConjuntos extends AppCompatActivity {
         }
     }
 
-    private void addArray(CardView card, int valor){
+    private void addArray(CardView cardView, int valor){
 
         if(arraySelect[valor] == -1){
 
             arraySelect[valor] = valor;
-            changeBackGround(card, R.drawable.backgroundbordselected);
+            changeBackGround(cardView, R.drawable.backgroundbordselected);
 
         }else if(arraySelect[valor] == valor){
 
             arraySelect[valor] = -1;
-            changeBackGround(card, R.drawable.backgroundbord);
+            changeBackGround(cardView, R.drawable.backgroundbord);
 
         }
     }
 
-    private void changeBackGround(CardView card, int drawable){
-        card.setBackgroundResource(drawable);
+    private void changeBackGround(CardView cardView, int drawable){
+        cardView.setBackgroundResource(drawable);
     }
 
     private StringBuilder makeCalc(int[] arraySelected,TextInputLayout inputA,TextInputLayout inputB,TextInputLayout inputU) {
@@ -251,4 +290,26 @@ public class TelaConjuntos extends AppCompatActivity {
         finish();
     }
 
+    public void removerAllValueInput(TextInputLayout conjuntoA, TextInputLayout conjuntoB, TextInputLayout conjuntoU){
+
+        if(empty(conjuntoA) && empty(conjuntoB)) {
+
+            Toast.makeText(getApplicationContext(),"Preencha pelo menos um dos campo",Toast.LENGTH_SHORT).show();
+
+        } else if(!empty(conjuntoU) && conjuntoU.getVisibility() == View.VISIBLE) {
+
+            conjuntoU.getEditText().setText(" ");
+
+        }else {
+
+            conjuntoA.getEditText().setText(" ");
+            conjuntoB.getEditText().setText(" ");
+        }
+    }
+
+    public boolean empty(TextInputLayout conjunto){
+
+        return conjunto.getEditText().getText().toString().equalsIgnoreCase("");
+
+    }
 }
