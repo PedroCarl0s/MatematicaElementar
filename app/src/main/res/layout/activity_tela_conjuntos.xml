@@ -157,7 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:textColorHint="@color/corTabBar"
@@ -189,6 +189,7 @@
             android:layout_height="41dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@color/corBackGround"
@@ -198,37 +199,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/conjuntoC" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_write3"
-            android:layout_width="229dp"
-            android:layout_height="135dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCalcular"
-            app:layout_constraintVertical_bias="0.0"
-            app:lottie_autoPlay="false"
-            app:lottie_loop="false" />
-
-        <io.github.kexanie.library.MathView
-            android:id="@+id/resultado_conjuntosFinal"
-            android:layout_width="261dp"
-            android:layout_height="wrap_content"
-            android:foregroundGravity="center"
-            android:orientation="horizontal"
-            android:scrollbars="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/animation_write3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/animation_write3"
-            app:layout_constraintVertical_bias="0.0"
-            app:text="" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline15"
@@ -306,7 +276,7 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/botao_info"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="92dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
