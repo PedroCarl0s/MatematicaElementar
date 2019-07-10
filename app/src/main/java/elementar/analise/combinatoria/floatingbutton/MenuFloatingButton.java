@@ -72,7 +72,9 @@ public class MenuFloatingButton {
     }
 
     public void hideFloating(FloatingActionButton fab){
-        fab.animate().scaleX(0);
+
+        controleMenuFab(fab);
+
     }
 
 
