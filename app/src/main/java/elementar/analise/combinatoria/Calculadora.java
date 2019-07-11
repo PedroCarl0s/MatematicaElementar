@@ -61,7 +61,7 @@ public final class Calculadora extends GeradorFormulas{
                 return false;
             }
 
-            // Condição necessária para realizar cálculo de arranjo A(n, p) e combinação C(n, p), onde n >= p
+            // Condição necessária para realizar cálculo de Permutacao P(n, p) e combinação C(n, p), onde n >= p
             if (elementos >= posicoes) {
                 inputElementos.setError(null);
 
@@ -148,10 +148,10 @@ public final class Calculadora extends GeradorFormulas{
     }
 
 
-    // Gera o fatorial dos elementos a Arranjar, para ser usado no MathView. Exemplo: 4! = 4.3.2.1
+    // Gera o fatorial dos elementos a Permutar, para ser usado no MathView. Exemplo: 4! = 4.3.2.1
     public static String gerarFatorialElementos(int elementos, int posicoes) {
 
-        // Número de elementos a arranjar maior que zero, é necessário desenvolver o fatorial
+        // Número de elementos a permutar maior que zero, é necessário desenvolver o fatorial
         if (elementos > 0) {
 
             int fim;

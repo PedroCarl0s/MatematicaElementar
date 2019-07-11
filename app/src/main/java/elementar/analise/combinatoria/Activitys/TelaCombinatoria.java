@@ -18,7 +18,7 @@ public class TelaCombinatoria extends AppCompatActivity {
         setContentView(R.layout.activity_tela_combinatoria);
 
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        //tabLayout.addTab(tabLayout.newTab().setText("Arranjo"));
+        //tabLayout.addTab(tabLayout.newTab().setText("Permutacao"));
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewAnalise);
         final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());

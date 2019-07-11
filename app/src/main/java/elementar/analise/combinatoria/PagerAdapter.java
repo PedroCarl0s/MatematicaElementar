@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import elementar.analise.combinatoria.fragments.Anagrama;
-import elementar.analise.combinatoria.fragments.Arranjo;
+import elementar.analise.combinatoria.fragments.Permutacao;
 import elementar.analise.combinatoria.fragments.Combinacao;
 import elementar.analise.combinatoria.fragments.Fatorial;
 
@@ -25,7 +25,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
 
             case 0:
-                return new Arranjo();
+                return new Permutacao();
 
             case 1:
                 return new Combinacao();

@@ -3,7 +3,7 @@ package elementar.analise.combinatoria.geradores;
 
 import elementar.analise.combinatoria.Calculadora;
 
-public class GeradorArranjo extends GeradorFormulas {
+public class GeradorPermutacao extends GeradorFormulas {
 
     private static int elementosMenosPosicoes;
     private static String fatorialElementos;
@@ -11,16 +11,16 @@ public class GeradorArranjo extends GeradorFormulas {
     private static Calculadora calculadora = Calculadora.getInstance();
 
 
-    public GeradorArranjo() {
+    public GeradorPermutacao() {
 
     }
 
     private static String gerarCabecalho(int elementos, int posicoes) {
-        return "A(" + elementos + ", " + posicoes + ")";
+        return "P(" + elementos + ", " + posicoes + ")";
     }
 
     //Gera a primeira equação, após aplicar os valores N e P
-    private static String gerarAplicacaoArranjo(int elementos, int posicoes) {
+    private static String gerarAplicacaoPermutacao(int elementos, int posicoes) {
         String resultado;
 
         String mensagem = "Após a aplicação dos valores, obtemos:";
@@ -52,7 +52,7 @@ public class GeradorArranjo extends GeradorFormulas {
         return simplificacao;
     }
 
-    // Gera o desenvolvimento do Arranjo
+    // Gera o desenvolvimento do Permutacao
     private  String gerarDesenvolvimento(int valorElementos, int valorPosicoes, String valorNumerador, int elementosMenosPosicoes) {
         String desenvolvimento = "$$" + gerarCabecalho(valorElementos, valorPosicoes) + " = " + gerarFracaoCifrao(valorNumerador, elementosMenosPosicoes) + "$$";
 
@@ -71,7 +71,7 @@ public class GeradorArranjo extends GeradorFormulas {
         long resultadoFinal;
 
 
-        // Elementos = Posições, o valor do denominador será zero. Basta fazer o cálculo do numerador (no Arranjo Simples)
+        // Elementos = Posições, o valor do denominador será zero. Basta fazer o cálculo do numerador (no Permutacao Simples)
         if (valorElementos == valorPosicoes) {
             mensagemDesenvolvimento = "Desenvolvendo o fatorial do denominador, obtemos " + valorElementos + "!" + " do numerador " +
                     "com " + elementosMenosPosicoes + "!" + " do denominador, resultando em:";
@@ -83,7 +83,7 @@ public class GeradorArranjo extends GeradorFormulas {
             resultadoFinal = calculadora.gerarResultadoCalculoFatorial(valorElementos, valorPosicoes);
 
 
-        // Valores distintos, é necessário desenvolver o fatorial (no Arranjo Simples)
+        // Valores distintos, é necessário desenvolver o fatorial (no Permutacao Simples)
         } else if (valorElementos != elementosMenosPosicoes) {
             mensagemDesenvolvimento = "Desenvolvendo até o valor do fatorial do denominador para simplificar, obtemos:";
 
@@ -94,7 +94,7 @@ public class GeradorArranjo extends GeradorFormulas {
 
             resultadoFinal = calculadora.gerarResultadoCalculoFatorial(valorElementos, valorPosicoes);
 
-        // Nº de elementos igual ao resultado de (n-p)!, sempre resultará 1 (no Arranjo Simples)
+        // Nº de elementos igual ao resultado de (n-p)!, sempre resultará 1 (no Permutacao Simples)
         } else {
             mensagemDesenvolvimento = "Desenvolvendo o fatorial do denominador, obtemos " + valorElementos + "!" + " do numerador " +
                     "com " + elementosMenosPosicoes + "!" + " do denominador, resultando em:";
@@ -110,7 +110,7 @@ public class GeradorArranjo extends GeradorFormulas {
 
         String desenvolvimentoLatex = gerarDesenvolvimento(valorElementos, valorPosicoes, numeradorDesenvolvimento, elementosMenosPosicoes);
         String simplificacaoLatex = gerarSimplificacaoFatorial(valorElementos, valorPosicoes);
-        String resultadoFinalLatex = calculadora.gerarResultadoFinal("A", valorElementos, valorPosicoes, resultadoFinal);
+        String resultadoFinalLatex = calculadora.gerarResultadoFinal("P", valorElementos, valorPosicoes, resultadoFinal);
 
         return  mensagemDesenvolvimento + desenvolvimentoLatex +
                 mensagemSimplificacao + simplificacaoLatex + resultadoFinalLatex;
@@ -132,8 +132,8 @@ public class GeradorArranjo extends GeradorFormulas {
         return  mensagem;
     }
 
-    public String gerarResultadoArranjo(int valorElementos, int valorPosicoes) {
-        return gerarAplicacaoArranjo(valorElementos, valorPosicoes) + gerarPassoAPasso(valorElementos, valorPosicoes);
+    public String gerarResultadoPermutacao(int valorElementos, int valorPosicoes) {
+        return gerarAplicacaoPermutacao(valorElementos, valorPosicoes) + gerarPassoAPasso(valorElementos, valorPosicoes);
     }
 
 

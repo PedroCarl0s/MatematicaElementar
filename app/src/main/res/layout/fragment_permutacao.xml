@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_weight="1"
     android:background="@android:color/transparent"
-    tools:context="elementar.analise.combinatoria.fragments.Arranjo">
+    tools:context="elementar.analise.combinatoria.fragments.Permutacao">
 
 
     <androidx.core.widget.NestedScrollView
@@ -21,7 +21,7 @@
             android:layout_height="match_parent">
 
             <io.github.kexanie.library.MathView
-                android:id="@+id/formula_arranjo"
+                android:id="@+id/formula_permutacao"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
@@ -34,7 +34,7 @@
             </io.github.kexanie.library.MathView>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/elementos_arranjo"
+                android:id="@+id/elementos_permutacao"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="246dp"
                 android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formula_arranjo">
+                app:layout_constraintTop_toBottomOf="@+id/formula_permutacao">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_elementos"
@@ -58,7 +58,7 @@
                     android:layout_width="245dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Elementos a arranjar"
+                    android:hint="Elementos a permutar"
                     android:inputType="number"
                     android:textColor="@color/corTabBar"
                     android:textColorLink="@color/corTabBar"
@@ -67,7 +67,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/posicoes_arranjo"
+                android:id="@+id/posicoes_permutacao"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="246dp"
                 android:layout_height="wrap_content"
@@ -83,14 +83,14 @@
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/elementos_arranjo">
+                app:layout_constraintTop_toBottomOf="@+id/elementos_permutacao">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_posicoes"
                     android:layout_width="245dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Posições a arranjar"
+                    android:hint="Posições a permutar"
                     android:imeOptions="actionDone"
                     android:inputType="number"
                     android:textColor="@color/corTabBar"
@@ -112,7 +112,7 @@
                 android:textColor="@color/corTabBar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/posicoes_arranjo" />
+                app:layout_constraintTop_toBottomOf="@+id/posicoes_permutacao" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_write"
@@ -133,7 +133,7 @@
 
 
             <io.github.kexanie.library.MathView
-                android:id="@+id/resultado_arranjoFinal"
+                android:id="@+id/resultado_permutacaoFinal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -175,7 +175,7 @@
             android:typeface="sans" />
 
         <io.github.kexanie.library.MathView
-            android:id="@+id/resultado_arranjoPasso"
+            android:id="@+id/resultado_permutacaoPasso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textBottomSheet"

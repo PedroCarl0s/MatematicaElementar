@@ -22,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import elementar.analise.combinatoria.Calculadora;
-import elementar.analise.combinatoria.geradores.GeradorArranjo;
+import elementar.analise.combinatoria.geradores.GeradorPermutacao;
 import elementar.analise.combinatoria.geradores.GeradorFormulas;
 import elementar.analise.combinatoria.myBottomSheet;
 import elementar.lottie.LottieController;
@@ -35,16 +35,16 @@ import elementar.analise.combinatoria.controller.TextInputController;
 import io.github.kexanie.library.MathView;
 
 
-public class Arranjo extends Fragment {
+public class Permutacao extends Fragment {
 
     private View view;
     private Calculadora calculadora = Calculadora.getInstance();
-    private GeradorArranjo gerador = new GeradorArranjo();
+    private GeradorPermutacao gerador = new GeradorPermutacao();
 
     private static TextInputLayout inputElementos, inputPosicoes;
     private static TextInputEditText txtElementos, txtPosicoes;
 
-    private static MathView formulaArranjo, resultadoArranjo, resultadoFinalSimples;
+    private static MathView formulaPermutacao, resultadoPermutacao, resultadoFinalSimples;
     private static int valorElementos, valorPosicoes;
     private static Button btnCalcular;
     private boolean jaCalculou = false;
@@ -64,7 +64,7 @@ public class Arranjo extends Fragment {
     private String valorAnterior = "";
 
 
-    public Arranjo() {
+    public Permutacao() {
         // Required empty public constructor
 
     }
@@ -78,7 +78,7 @@ public class Arranjo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        this.view = inflater.inflate(R.layout.fragment_arranjo, container, false);
+        this.view = inflater.inflate(R.layout.fragment_permutacao, container, false);
 
         int currentOrientation = getResources().getConfiguration().orientation;
         LottieController.changeAnimationVisibility(view, animationSwipe, ID_SWIPE, currentOrientation);
@@ -93,28 +93,28 @@ public class Arranjo extends Fragment {
 
         init();
 
-        // Método onClick do botão para calcular o Arranjo
+        // Método onClick do botão para calcular o Permutacao
         btnCalcular.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                calcularArranjo(Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes());
+                calcularPermutacao(Permutacao.getNumeroElementos(), Permutacao.getNumeroPosicoes());
 
             }
         });
 
         // Troca o título do TextInput ao clicar
-        TextInputController.setLabelTextInput(this.inputElementos, this.txtElementos, "Valor de n", "Elementos a arranjar");
+        TextInputController.setLabelTextInput(this.inputElementos, this.txtElementos, "Valor de n", "Elementos a permutar");
 
         // Troca o título do TextInput ao clicar
-        TextInputController.setLabelTextInput(this.inputPosicoes, this.txtPosicoes, "Valor de p", "Posições a arranjar");
+        TextInputController.setLabelTextInput(this.inputPosicoes, this.txtPosicoes, "Valor de p", "Posições a permutar");
 
         txtPosicoes.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
-                    calcularArranjo(Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes());
+                    calcularPermutacao(Permutacao.getNumeroElementos(), Permutacao.getNumeroPosicoes());
 
                     return true;
                 }
@@ -148,41 +148,41 @@ public class Arranjo extends Fragment {
 
             }
 
-            resultadoFinalSimples = view.findViewById(R.id.resultado_arranjoFinal);
+            resultadoFinalSimples = view.findViewById(R.id.resultado_permutacaoFinal);
             resultadoFinalSimples.setText("$$\\bold{Resultado}$$");
 
         }
 
 
-        this.inputElementos = view.findViewById(R.id.elementos_arranjo);
-        this.inputPosicoes = view.findViewById(R.id.posicoes_arranjo);
+        this.inputElementos = view.findViewById(R.id.elementos_permutacao);
+        this.inputPosicoes = view.findViewById(R.id.posicoes_permutacao);
 
         this.txtElementos = view.findViewById(R.id.txt_elementos);
         this.txtPosicoes = view.findViewById(R.id.txt_posicoes);
 
 
-        this.formulaArranjo = view.findViewById(R.id.formula_arranjo);
-        this.resultadoArranjo = view.findViewById(R.id.resultado_arranjoPasso);
+        this.formulaPermutacao = view.findViewById(R.id.formula_permutacao);
+        this.resultadoPermutacao = view.findViewById(R.id.resultado_permutacaoPasso);
 
         this.btnCalcular = view.findViewById(R.id.btn_calcular);
 
-        String formulaArranjo = "$$\\normalsize \\bold{Formula}$$" + " $${A(n, p)} = \\frac{n!} {(n-p)!}, n \\geqslant p$$";
+        String formulaPermutacao = "$$\\normalsize \\bold{Formula}$$" + " $${P(n, p)} = \\frac{n!} {(n-p)!}, n \\geqslant p$$";
 
-        this.formulaArranjo.setText(formulaArranjo);
+        this.formulaPermutacao.setText(formulaPermutacao);
     }
 
     // Responsável por solicitar o cálculo e impressão no formato LaTeX
-    public void calcularArranjo(int valorElementos, int valorPosicoes) {
+    public void calcularPermutacao(int valorElementos, int valorPosicoes) {
 
-        if (calculadora.validarElementosEPosicoes(Arranjo.getNumeroElementos(), Arranjo.getNumeroPosicoes() ,inputElementos, inputPosicoes)) {
+        if (calculadora.validarElementosEPosicoes(Permutacao.getNumeroElementos(), Permutacao.getNumeroPosicoes() ,inputElementos, inputPosicoes)) {
             MainActivity.hideKeyboard(getActivity());
 
             if (jaCalculou) {
 
                 // Campos de entrada com os mesmos valores, não é necessário recalcular
-                if ((Arranjo.getNumeroElementos() == this.valorElementos) && Arranjo.getNumeroPosicoes() == this.valorPosicoes) {
-                    inputElementos.setHint("Elementos a arranjar");
-                    inputPosicoes.setHint("Posições a arranjar");
+                if ((Permutacao.getNumeroElementos() == this.valorElementos) && Permutacao.getNumeroPosicoes() == this.valorPosicoes) {
+                    inputElementos.setHint("Elementos a permutar");
+                    inputPosicoes.setHint("Posições a permutar");
 
                     showToastMessage("O valor já foi calculado!");
                     // Uma ou as duas entradas distintas, é necessário calcular
@@ -190,8 +190,8 @@ public class Arranjo extends Fragment {
 
                     mostrarResultado(valorElementos,valorPosicoes);
                     jaCalculou = true;
-                    this.valorElementos = Arranjo.getNumeroElementos();
-                    this.valorPosicoes = Arranjo.getNumeroPosicoes();
+                    this.valorElementos = Permutacao.getNumeroElementos();
+                    this.valorPosicoes = Permutacao.getNumeroPosicoes();
 
                 }
 
@@ -201,8 +201,8 @@ public class Arranjo extends Fragment {
                 mostrarResultado(valorElementos,valorPosicoes);
 
                 jaCalculou = true;
-                this.valorElementos = Arranjo.getNumeroElementos();
-                this.valorPosicoes = Arranjo.getNumeroPosicoes();
+                this.valorElementos = Permutacao.getNumeroElementos();
+                this.valorPosicoes = Permutacao.getNumeroPosicoes();
             }
 
         } else {
@@ -214,11 +214,11 @@ public class Arranjo extends Fragment {
 
         if(!bottomSheet.verificarOrientacaoVertical(getOrientation())) {
 
-            setResultado(valorElementos, valorPosicoes, null,resultadoArranjo);
+            setResultado(valorElementos, valorPosicoes, null, resultadoPermutacao);
 
         }else{
 
-            setResultado(valorElementos, valorPosicoes,resultadoFinalSimples,resultadoArranjo);
+            setResultado(valorElementos, valorPosicoes,resultadoFinalSimples, resultadoPermutacao);
 
         }
 
@@ -238,8 +238,8 @@ public class Arranjo extends Fragment {
 
         MainActivity.hideKeyboard(getActivity());
 
-        inputElementos.setHint("Elementos a arranjar");
-        inputPosicoes.setHint("Posições a arranjar");
+        inputElementos.setHint("Elementos a permutar");
+        inputPosicoes.setHint("Posições a permutar");
 
         if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
             if(relativeLayout.getVisibility() == View.INVISIBLE){
@@ -261,16 +261,16 @@ public class Arranjo extends Fragment {
 
         if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
 
-            resultado.setText(GeradorFormulas.gerarResultadoFinal("A",valorElementos,valorPosicoes,Calculadora.gerarResultadoCalculoFatorial(valorElementos,valorPosicoes)));
+            resultado.setText(GeradorFormulas.gerarResultadoFinal("P",valorElementos,valorPosicoes,Calculadora.gerarResultadoCalculoFatorial(valorElementos,valorPosicoes)));
             if(resultadoPasso != null) {
 
-                resultadoPasso.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
+                resultadoPasso.setText(gerador.gerarResultadoPermutacao(valorElementos, valorPosicoes));
 
             }
         }else{
 
             calculoLandScape = true;
-            resultadoPasso.setText(gerador.gerarResultadoArranjo(valorElementos, valorPosicoes));
+            resultadoPasso.setText(gerador.gerarResultadoPermutacao(valorElementos, valorPosicoes));
 
 
         }
@@ -317,8 +317,8 @@ public class Arranjo extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString("elementos", Integer.toString(Arranjo.getNumeroElementos()));
-        outState.putString("posicoes", Integer.toString(Arranjo.getNumeroPosicoes()));
+        outState.putString("elementos", Integer.toString(Permutacao.getNumeroElementos()));
+        outState.putString("posicoes", Integer.toString(Permutacao.getNumeroPosicoes()));
         outState.putBoolean("jaCalculou",jaCalculou);
         outState.putString("calculoFinal",this.calculoFinal);
         outState.putBoolean("liberarCalculo",this.liberarCalculo);
@@ -330,11 +330,11 @@ public class Arranjo extends Fragment {
 
                 this.calculoFinal = resultadoFinalSimples.getText();
                 outState.putString("calculoFinal",resultadoFinalSimples.getText());
-                outState.putString("latexPasso",resultadoArranjo.getText());
+                outState.putString("latexPasso", resultadoPermutacao.getText());
 
             }else{
                 outState.putBoolean("calculoLandScape",this.calculoLandScape);
-                outState.putString("latexPasso",resultadoArranjo.getText());
+                outState.putString("latexPasso", resultadoPermutacao.getText());
 
             }
 
@@ -355,13 +355,13 @@ public class Arranjo extends Fragment {
             this.liberarCalculo = savedInstanceState.getBoolean("liberarCalculo");
             this.calculoLandScape = savedInstanceState.getBoolean("calculoLandScape");
 
-            resultadoArranjo = view.findViewById(R.id.resultado_arranjoPasso);
+            resultadoPermutacao = view.findViewById(R.id.resultado_permutacaoPasso);
 
             //iniciar o bottomSheet
             bottomSheet = new myBottomSheet(view,getOrientation(),R.id.bottomsheet);
             if(bottomSheet.verificarOrientacaoVertical(getOrientation())) {
 
-                resultadoFinalSimples = view.findViewById(R.id.resultado_arranjoFinal);
+                resultadoFinalSimples = view.findViewById(R.id.resultado_permutacaoFinal);
             }
 
             //verificar se ja foi calculado para guardar
@@ -369,7 +369,7 @@ public class Arranjo extends Fragment {
 
                 if(!bottomSheet.verificarOrientacaoVertical(getOrientation())){
 
-                    resultadoArranjo.setText(savedInstanceState.getString("latexPasso"));
+                    resultadoPermutacao.setText(savedInstanceState.getString("latexPasso"));
 
                 }else{
 
@@ -383,7 +383,7 @@ public class Arranjo extends Fragment {
 
                     }
 
-                    resultadoArranjo.setText(savedInstanceState.getString("latexPasso"));
+                    resultadoPermutacao.setText(savedInstanceState.getString("latexPasso"));
 
                     bottomSheet.usarBottomSheet(getOrientation(),behavior);
 
