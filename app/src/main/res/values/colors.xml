@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#4d829f</color>
-    <color name="colorPrimaryDark">#64FD0000</color>
+    <color name="colorPrimaryDark">#64000000</color>
     <color name="colorAccent">#22A7F0</color>
     <color name="errorTextInput">#E65353</color>
     <color name="corBackGround">#FFFFFF</color>
@@ -10,5 +10,6 @@
     <color name="colorBordGreen">#00FF00</color>
     <color name="corbackGroundbottomSheet">#0078BD</color>
     <color name="list">#C4000000</color>
-    <color name="background">#70252525</color>
+    <color name="background">#D2000000</color>
+    <color name="colorPrimarytoobar">#007ECC</color>
 </resources>
