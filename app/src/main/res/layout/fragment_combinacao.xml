@@ -91,6 +91,7 @@
                     android:layout_width="245dp"
                     android:layout_height="wrap_content"
                     android:hint="Posições a combinar"
+                    android:imeOptions="actionDone|actionUnspecified"
                     android:inputType="number"
                     android:textColor="@color/corTabBar"
                     android:textColorLink="@color/corTabBar"
