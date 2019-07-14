@@ -26,6 +26,7 @@ import java.util.List;
 import elementar.analise.combinatoria.ItemClick.ItemClickListener;
 import elementar.analise.combinatoria.activitys.TelaConjuntos;
 import elementar.analise.combinatoria.adapter.AdapterHistorico;
+import elementar.analise.combinatoria.animationrecyclerview.MyAnimationRecyclerView;
 import elementar.analise.combinatoria.model.OpConjuntos;
 import elementar.matematica.pedrock.matemticaelementar.R;
 
@@ -68,6 +69,8 @@ public class HistoricoFragment extends Fragment {
         myRecycler.setAdapter(recyclerAdapter);
         @SuppressLint("WrongConstant") RecyclerView.LayoutManager layout = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false);
         myRecycler.setLayoutManager(layout);
+        MyAnimationRecyclerView myAnimationRecyclerView = new MyAnimationRecyclerView(myRecycler);
+        myAnimationRecyclerView.runAnimation(1);
         back = view.findViewById(R.id.back);
 
     }
