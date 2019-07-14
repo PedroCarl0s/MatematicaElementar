@@ -1,7 +1,6 @@
 package elementar.analise.combinatoria;
 
 
-
 import com.google.android.material.textfield.TextInputLayout;
 
 import elementar.analise.combinatoria.fragments.Fatorial;
@@ -126,7 +125,7 @@ public final class Calculadora extends GeradorFormulas{
 
         if (!valoresFinais.equals("0") && !valoresFinais.equals("1") && !valoresFinais.equals("2")) {
 
-            // Troca o ponto finais por ponto e vírgula, para depois separar com .split
+            // Troca o ponto final por ponto e vírgula, para depois separar usando .split
             valoresFinais = valoresFinais.replace(".", ";");
 
             long resultado = 1;
