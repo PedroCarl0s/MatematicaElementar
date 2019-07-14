@@ -286,8 +286,21 @@ public class TelaConjuntos extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+        if(fab.getVisibility() == View.VISIBLE) {
+
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+
+        }else{
+
+            fab.show();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.addToBackStack(null);
+            fragmentManager.popBackStack();
+
+        }
+
     }
 
     public void removerAllValueInput(TextInputLayout conjuntoA, TextInputLayout conjuntoB, TextInputLayout conjuntoU){
