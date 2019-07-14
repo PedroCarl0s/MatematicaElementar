@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.gridlayout.widget.GridLayout;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -20,14 +19,9 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import elementar.analise.combinatoria.floatingbutton.MenuFloatingButton;
 import elementar.analise.combinatoria.fragments.HistoricoFragment;
 import elementar.analise.combinatoria.geradores.GeradorOperacoesConjuntos;
-import elementar.analise.combinatoria.model.OpConjuntos;
 import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import io.github.kexanie.library.MathView;
@@ -81,7 +75,7 @@ public class TelaConjuntos extends AppCompatActivity {
         instanceComponentes();
         setSingleEvent(grupoGrid);
         onClicks();
-        takeIntentFragments();
+        takeDataIntentFragments();
 
     }
 
@@ -169,13 +163,16 @@ public class TelaConjuntos extends AppCompatActivity {
         });
     }
 
-    private void takeIntentFragments(){
+    private void takeDataIntentFragments(){
 
         if(intent.hasExtra("conjA")){
             conjuntoA.getEditText().setText(intent.getStringExtra("conjA"));
             conjuntoB.getEditText().setText(intent.getStringExtra("conjB"));
-            if(intent.hasExtra("conjU")){
+            if(intent.getStringExtra("conjU") != null && !intent.getStringExtra("conjU").isEmpty()){
                 conjuntoU.getEditText().setText(intent.getStringExtra("conjU"));
+                conjuntoU.setVisibility(View.VISIBLE);
+            }else if(intent.getStringExtra("conjU") != null && intent.getStringExtra("conjU").isEmpty()){
+                conjuntoU.setVisibility(View.GONE);
             }
         }
 
