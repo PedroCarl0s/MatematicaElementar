@@ -1,11 +1,11 @@
 package elementar.analise.combinatoria.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -98,7 +98,8 @@ public class AdapterHistorico extends RecyclerView.Adapter<AdapterHistorico.MyVi
         public void onClick(View v) {
             if(itemClickListener != null){
                 itemClickListener.onItemClickListiner(getAdapterPosition());
-
+                Animation animation = AnimationUtils.loadAnimation(itemView.getContext(),R.anim.layout_effect_click);
+                constraintLayout.setAnimation(animation);
             }
         }
     }
