@@ -95,10 +95,6 @@ public abstract class GeradorFormulas {
     }
 
 
-    public String gerarFracaoCifrao(String valorNumerador, int elementosMenosPosicoes) {
-       return "\\frac{" + valorNumerador + "!" + "}" + "{" + elementosMenosPosicoes + "!" + "}";
-    }
-
     public static String gerarFracaoInline(int valorElementos, int valorPosicoes, String exclamacao) {
         return "\\(" + "\\frac{" + valorElementos + exclamacao + "}" +  "{" + valorPosicoes + exclamacao + "}\\) = 1";
     }
