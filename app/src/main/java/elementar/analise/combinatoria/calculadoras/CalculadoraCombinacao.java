@@ -1,13 +1,14 @@
 package elementar.analise.combinatoria.calculadoras;
 
 
-import elementar.analise.combinatoria.Calculadora;
 import elementar.analise.combinatoria.geradores.GeradorCombinacao;
 
 public class CalculadoraCombinacao {
 
     private static CalculadoraCombinacao INSTANCE = null;
     private Calculadora calculadoraGeral = Calculadora.getInstance();
+    private GeradorCombinacao gerador = new GeradorCombinacao();
+
 
     private CalculadoraCombinacao() {
 

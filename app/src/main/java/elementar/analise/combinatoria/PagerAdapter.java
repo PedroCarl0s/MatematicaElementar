@@ -4,10 +4,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import elementar.analise.combinatoria.fragments.Anagrama;
-import elementar.analise.combinatoria.fragments.Permutacao;
-import elementar.analise.combinatoria.fragments.Combinacao;
-import elementar.analise.combinatoria.fragments.Fatorial;
+import elementar.analise.combinatoria.anagrama.Anagrama;
+import elementar.analise.combinatoria.combinacao.Combinacao;
+import elementar.analise.combinatoria.fatorial.Fatorial;
+import elementar.analise.combinatoria.permutacao.Permutacao;
+
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 

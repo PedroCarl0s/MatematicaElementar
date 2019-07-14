@@ -1,9 +1,11 @@
-package elementar.analise.combinatoria.geradores;
+package elementar.analise.combinatoria.anagrama;
 
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import elementar.analise.combinatoria.geradores.GeradorFormulas;
 
 public class GeradorAnagrama extends GeradorFormulas {
 

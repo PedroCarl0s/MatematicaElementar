@@ -1,4 +1,4 @@
-package elementar.analise.combinatoria.Activitys;
+package elementar.analise.combinatoria.activitys;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -17,7 +17,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import elementar.analise.combinatoria.geradores.GeradorOperacoesConjuntos;
-import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import io.github.kexanie.library.MathView;
 

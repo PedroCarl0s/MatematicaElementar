@@ -1,4 +1,4 @@
-package elementar.analise.combinatoria.fragments;
+package elementar.analise.combinatoria.fatorial;
 
 
 import android.os.Bundle;
@@ -21,10 +21,10 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import elementar.analise.combinatoria.Calculadora;
+import elementar.analise.combinatoria.calculadoras.Calculadora;
 import elementar.analise.combinatoria.geradores.GeradorFatorial;
 import elementar.lottie.LottieController;
-import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
+import elementar.analise.combinatoria.activitys.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import elementar.analise.combinatoria.controller.TextInputController;
 import io.github.kexanie.library.MathView;

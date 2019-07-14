@@ -1,4 +1,4 @@
-package elementar.analise.combinatoria.fragments;
+package elementar.analise.combinatoria.anagrama;
 
 import android.os.Bundle;
 
@@ -22,11 +22,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.HashMap;
-import elementar.analise.combinatoria.Calculadora;
-import elementar.analise.combinatoria.geradores.GeradorAnagrama;
+import elementar.analise.combinatoria.calculadoras.Calculadora;
 import elementar.analise.combinatoria.myBottomSheet;
 import elementar.lottie.LottieController;
-import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
+import elementar.analise.combinatoria.activitys.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import elementar.analise.combinatoria.controller.TextInputController;
 import io.github.kexanie.library.MathView;
@@ -205,7 +204,7 @@ public class Anagrama extends Fragment {
         }
 
         //inicia as animações
-        LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
+        LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 4);
 
         // Cancela as animações
         LottieController.cancelLottieAnimation(animationWrite);

@@ -1,9 +1,8 @@
-package elementar.analise.combinatoria.geradores;
+package elementar.analise.combinatoria.permutacao;
 
 
-import android.util.Log;
-
-import elementar.analise.combinatoria.Calculadora;
+import elementar.analise.combinatoria.calculadoras.Calculadora;
+import elementar.analise.combinatoria.geradores.GeradorFormulas;
 
 public class GeradorPermutacao extends GeradorFormulas {
 

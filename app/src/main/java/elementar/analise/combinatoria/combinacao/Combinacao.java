@@ -1,4 +1,4 @@
-package elementar.analise.combinatoria.fragments;
+package elementar.analise.combinatoria.combinacao;
 
 import android.os.Bundle;
 
@@ -20,12 +20,12 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import elementar.analise.combinatoria.Calculadora;
+import elementar.analise.combinatoria.calculadoras.Calculadora;
 import elementar.analise.combinatoria.calculadoras.CalculadoraCombinacao;
 import elementar.analise.combinatoria.controller.TextInputController;
 import elementar.analise.combinatoria.geradores.GeradorCombinacao;
 import elementar.lottie.LottieController;
-import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
+import elementar.analise.combinatoria.activitys.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import io.github.kexanie.library.MathView;
 
@@ -100,7 +100,7 @@ public class Combinacao extends Fragment {
         txtPosicoes.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
                     calcularCombinacao(Combinacao.getNumeroElementos(), Combinacao.getNumeroPosicoes());
 
                     return true;

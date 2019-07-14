@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".activity.MainActivity"
+            android:name="elementar.analise.combinatoria.activitys.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,11 +26,11 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name="elementar.analise.combinatoria.Activitys.TelaConjuntos"
+        <activity android:name="elementar.analise.combinatoria.activitys.TelaConjuntos"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name="elementar.analise.combinatoria.Activitys.TelaCombinatoria"
+            android:name="elementar.analise.combinatoria.activitys.TelaCombinatoria"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
 

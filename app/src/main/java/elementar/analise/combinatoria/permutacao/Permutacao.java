@@ -1,4 +1,4 @@
-package elementar.analise.combinatoria.fragments;
+package elementar.analise.combinatoria.permutacao;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -21,13 +21,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import elementar.analise.combinatoria.Calculadora;
-import elementar.analise.combinatoria.geradores.GeradorPermutacao;
+import elementar.analise.combinatoria.calculadoras.Calculadora;
 import elementar.analise.combinatoria.geradores.GeradorFormulas;
 import elementar.analise.combinatoria.myBottomSheet;
 import elementar.lottie.LottieController;
 
-import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
+import elementar.analise.combinatoria.activitys.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 
 import elementar.analise.combinatoria.controller.TextInputController;
@@ -267,7 +266,7 @@ public class Permutacao extends Fragment {
         }
 
         // Inicia a animação de deslizar
-        LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
+        LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 4);
 
         // Cancela as animações
         LottieController.cancelLottieAnimation(animationWrite);

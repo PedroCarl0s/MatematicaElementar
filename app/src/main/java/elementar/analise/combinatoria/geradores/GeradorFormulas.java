@@ -1,7 +1,7 @@
 package elementar.analise.combinatoria.geradores;
 
 
-import elementar.analise.combinatoria.Calculadora;
+import elementar.analise.combinatoria.calculadoras.Calculadora;
 
 public abstract class GeradorFormulas {
 

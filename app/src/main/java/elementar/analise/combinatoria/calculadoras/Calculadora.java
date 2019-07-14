@@ -1,9 +1,9 @@
-package elementar.analise.combinatoria;
+package elementar.analise.combinatoria.calculadoras;
 
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import elementar.analise.combinatoria.fragments.Fatorial;
+import elementar.analise.combinatoria.fatorial.Fatorial;
 import elementar.analise.combinatoria.geradores.GeradorFormulas;
 
 public final class Calculadora extends GeradorFormulas{

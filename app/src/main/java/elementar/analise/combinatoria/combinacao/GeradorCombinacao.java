@@ -2,7 +2,7 @@ package elementar.analise.combinatoria.geradores;
 
 import android.util.Log;
 
-import elementar.analise.combinatoria.Calculadora;
+import elementar.analise.combinatoria.calculadoras.Calculadora;
 import elementar.analise.combinatoria.calculadoras.CalculadoraCombinacao;
 
 public class GeradorCombinacao extends GeradorFormulas {
@@ -22,6 +22,7 @@ public class GeradorCombinacao extends GeradorFormulas {
         return "C(" + elementos + ", " + posicoes + ")";
     }
 
+    // Retorna uma String LaTeX, aplicando os valores de entrada na fórmula
     public String gerarAplicacaoValoresCombinacao(int elementos, int posicoes) {
         String mensagem = "$$\\bold{\\text{Passo a Passo}}$$" +
                 "Após a aplicação dos valores, obtemos:";
@@ -103,7 +104,7 @@ public class GeradorCombinacao extends GeradorFormulas {
 
 
     private static String gerarDesenvolvimento(int valorElementos, int valorPosicoes, String numeradorDesenvolvimento, String posicoesDesenvolvimento, String elementosMenosPosicoesDesenvolvimento) {
-//        String desenvolvimento = "$$" + gerarCabecalho(valorElementos, valorPosicoes) + " = "
+        String desenvolvimento = "$$" + gerarCabecalho(valorElementos, valorPosicoes) + " = " + gerarFracaoCifrao(valorElementos, valorPosicoes, "!");
 
         return "DESENVOLVIMENTO AQUI";
     }
@@ -125,6 +126,7 @@ public class GeradorCombinacao extends GeradorFormulas {
 //    }
 
 
+    // Remove o último valor do numerador para plotar o valor após a simplificação com o denominador
     public static String removerUltimoValor(String fatorialNumerador) {
 
         String[] valores = fatorialNumerador.replace(".", ";").split(";");
@@ -163,6 +165,7 @@ public class GeradorCombinacao extends GeradorFormulas {
     }
 
 
+    // Gera o resultado passo a passo em LaTeX
     public String gerarResultadoCombinacao(int valorElementos, int valorPosicoes) {
         return gerarAplicacaoValoresCombinacao(valorElementos, valorPosicoes);
     }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="elementar.analise.combinatoria.Activitys.TelaCombinatoria">
+    tools:context="elementar.analise.combinatoria.activitys.TelaCombinatoria">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/botao_info3"

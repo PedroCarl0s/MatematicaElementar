@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_weight="1"
     android:background="@android:color/transparent"
-    tools:context="elementar.analise.combinatoria.fragments.Permutacao">
+    tools:context="elementar.analise.combinatoria.permutacao.Permutacao">
 
 
     <androidx.core.widget.NestedScrollView

@@ -1,4 +1,4 @@
-package elementar.analise.combinatoria.Activitys;
+package elementar.analise.combinatoria.activitys;
 
 import android.content.Intent;
 import com.google.android.material.tabs.TabLayout;
@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import elementar.analise.combinatoria.PagerAdapter;
-import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 
 public class TelaCombinatoria extends AppCompatActivity {
