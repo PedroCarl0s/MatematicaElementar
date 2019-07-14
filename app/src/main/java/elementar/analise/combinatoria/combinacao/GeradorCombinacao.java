@@ -1,9 +1,11 @@
-package elementar.analise.combinatoria.geradores;
+package elementar.analise.combinatoria.combinacao;
+
 
 import android.util.Log;
 
 import elementar.analise.combinatoria.calculadoras.Calculadora;
 import elementar.analise.combinatoria.calculadoras.CalculadoraCombinacao;
+import elementar.analise.combinatoria.geradores.GeradorFormulas;
 
 public class GeradorCombinacao extends GeradorFormulas {
 
