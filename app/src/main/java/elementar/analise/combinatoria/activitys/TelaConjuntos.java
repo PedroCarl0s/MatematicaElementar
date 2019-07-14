@@ -20,9 +20,14 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import elementar.analise.combinatoria.floatingbutton.MenuFloatingButton;
 import elementar.analise.combinatoria.fragments.HistoricoFragment;
 import elementar.analise.combinatoria.geradores.GeradorOperacoesConjuntos;
+import elementar.analise.combinatoria.model.OpConjuntos;
 import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import io.github.kexanie.library.MathView;
@@ -61,6 +66,8 @@ public class TelaConjuntos extends AppCompatActivity {
 
     private MenuFloatingButton menuFloatingButton;
 
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,11 +81,14 @@ public class TelaConjuntos extends AppCompatActivity {
         instanceComponentes();
         setSingleEvent(grupoGrid);
         onClicks();
+        takeIntentFragments();
 
     }
 
     @SuppressLint("RestrictedApi")
     private void instanceComponentes(){
+
+        intent = getIntent();
 
         menuFloatingButton = new MenuFloatingButton(this);
 
@@ -157,6 +167,18 @@ public class TelaConjuntos extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void takeIntentFragments(){
+
+        if(intent.hasExtra("conjA")){
+            conjuntoA.getEditText().setText(intent.getStringExtra("conjA"));
+            conjuntoB.getEditText().setText(intent.getStringExtra("conjB"));
+            if(intent.hasExtra("conjU")){
+                conjuntoU.getEditText().setText(intent.getStringExtra("conjU"));
+            }
+        }
+
     }
 
     private void openFragments(Fragment fragment){
@@ -286,7 +308,7 @@ public class TelaConjuntos extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        if(fab.getVisibility() == View.VISIBLE) {
+        if(checkVisibiliteFab()) {
 
             startActivity(new Intent(this, MainActivity.class));
             finish();
@@ -300,6 +322,12 @@ public class TelaConjuntos extends AppCompatActivity {
             fragmentManager.popBackStack();
 
         }
+
+    }
+
+    public boolean checkVisibiliteFab(){
+
+        return fab.getVisibility() == View.VISIBLE;
 
     }
 
@@ -325,4 +353,5 @@ public class TelaConjuntos extends AppCompatActivity {
         return conjunto.getEditText().getText().toString().equalsIgnoreCase("");
 
     }
+
 }
