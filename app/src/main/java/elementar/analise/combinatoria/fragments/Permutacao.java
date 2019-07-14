@@ -122,11 +122,10 @@ public class Permutacao extends Fragment {
             }
         });
 
-        if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+        if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
 
-            //metodo que não deixa o bottomSheetBehavior ficar no modo STATA_HIDEN
+            //Método que impede o bottomSheetBehavior ficar no modo STATUS_HIDEN
             bottomSheet.bottomSheetCallback(behavior);
-
         }
 
     }
@@ -137,15 +136,13 @@ public class Permutacao extends Fragment {
 
         bottomSheet = new myBottomSheet(view,getResources().getConfiguration().orientation,R.id.bottomsheet);
 
-        if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+        if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
 
             behavior = bottomSheet.getMyBottomSheetBehavior();
             relativeLayout = view.findViewById(R.id.bottomsheet);
 
-            if(relativeLayout.getVisibility() == View.VISIBLE && !liberarCalculo){
-
+            if (relativeLayout.getVisibility() == View.VISIBLE && !liberarCalculo) {
                 relativeLayout.setVisibility(View.INVISIBLE);
-
             }
 
             resultadoFinalSimples = view.findViewById(R.id.resultado_permutacaoFinal);
@@ -185,14 +182,14 @@ public class Permutacao extends Fragment {
                     inputPosicoes.setHint("Posições a permutar");
 
                     showToastMessage("O valor já foi calculado!");
-                    // Uma ou as duas entradas distintas, é necessário calcular
+
+                // Uma ou as duas entradas distintas, é necessário calcular
                 } else {
 
                     mostrarResultado(valorElementos,valorPosicoes);
                     jaCalculou = true;
                     this.valorElementos = Permutacao.getNumeroElementos();
                     this.valorPosicoes = Permutacao.getNumeroPosicoes();
-
                 }
 
                 // Muda estado da variável jaCalculou e calcula (apenas no primeiro cálculo)
@@ -212,27 +209,23 @@ public class Permutacao extends Fragment {
 
     private void mostrarResultado(int valorElementos, int valorPosicoes){
 
-        if(!bottomSheet.verificarOrientacaoVertical(getOrientation())) {
-
+        if (!bottomSheet.verificarOrientacaoVertical(getOrientation())) {
             setResultado(valorElementos, valorPosicoes, null, resultadoPermutacao);
 
-        }else{
-
-            setResultado(valorElementos, valorPosicoes,resultadoFinalSimples, resultadoPermutacao);
+        } else {
+            setResultado(valorElementos, valorPosicoes, resultadoFinalSimples, resultadoPermutacao);
 
         }
-
     }
-
 
 
     private void showToastMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void setResultado(final int valorElementos, final int valorPosicoes, final MathView resultado,final MathView resultadoPasso) {
+    private void setResultado(final int valorElementos, final int valorPosicoes, final MathView resultado, final MathView resultadoPasso) {
 
-        if(relativeLayout.getVisibility() == View.INVISIBLE){
+        if (relativeLayout.getVisibility() == View.INVISIBLE) {
             relativeLayout.setVisibility(View.VISIBLE);
         }
 
@@ -241,8 +234,8 @@ public class Permutacao extends Fragment {
         inputElementos.setHint("Elementos a permutar");
         inputPosicoes.setHint("Posições a permutar");
 
-        if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
-            if(relativeLayout.getVisibility() == View.INVISIBLE){
+        if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
+            if (relativeLayout.getVisibility() == View.INVISIBLE) {
                 relativeLayout.setVisibility(View.VISIBLE);
             }
         }
@@ -259,21 +252,21 @@ public class Permutacao extends Fragment {
 
         liberarCalculo = true;
 
-        if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+        if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
+            resultado.setText(GeradorFormulas.gerarResultadoFinal("P", valorElementos, valorPosicoes, gerador.getResultadoFinalPermutacao(valorElementos, valorPosicoes)));
 
-            resultado.setText(GeradorFormulas.gerarResultadoFinal("P",valorElementos,valorPosicoes,Calculadora.gerarResultadoCalculoFatorial(valorElementos,valorPosicoes)));
-            if(resultadoPasso != null) {
-
+            if (resultadoPasso != null) {
                 resultadoPasso.setText(gerador.gerarResultadoPermutacao(valorElementos, valorPosicoes));
-
             }
-        }else{
+
+        } else {
 
             calculoLandScape = true;
+
             resultadoPasso.setText(gerador.gerarResultadoPermutacao(valorElementos, valorPosicoes));
-
-
         }
+
+        // Inicia a animação de deslizar
         LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
 
         // Cancela as animações
@@ -324,18 +317,17 @@ public class Permutacao extends Fragment {
         outState.putBoolean("liberarCalculo",this.liberarCalculo);
 
         //verificar se ja foi calculado
-        if(liberarCalculo) {
+        if (liberarCalculo) {
 
-            if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+            if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
 
                 this.calculoFinal = resultadoFinalSimples.getText();
                 outState.putString("calculoFinal",resultadoFinalSimples.getText());
                 outState.putString("latexPasso", resultadoPermutacao.getText());
 
-            }else{
+            } else {
                 outState.putBoolean("calculoLandScape",this.calculoLandScape);
                 outState.putString("latexPasso", resultadoPermutacao.getText());
-
             }
 
         }
@@ -359,26 +351,23 @@ public class Permutacao extends Fragment {
 
             //iniciar o bottomSheet
             bottomSheet = new myBottomSheet(view,getOrientation(),R.id.bottomsheet);
-            if(bottomSheet.verificarOrientacaoVertical(getOrientation())) {
 
+            if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
                 resultadoFinalSimples = view.findViewById(R.id.resultado_permutacaoFinal);
             }
 
-            //verificar se ja foi calculado para guardar
-            if(this.liberarCalculo){
+            //verificar se já foi calculado para armazenar
+            if (this.liberarCalculo) {
 
-                if(!bottomSheet.verificarOrientacaoVertical(getOrientation())){
-
+                if (!bottomSheet.verificarOrientacaoVertical(getOrientation())) {
                     resultadoPermutacao.setText(savedInstanceState.getString("latexPasso"));
 
-                }else{
+                } else {
 
-                    if(this.calculoLandScape){
+                    if (this.calculoLandScape) {
+                        setResultado(Integer.parseInt(txtElementos.getText().toString()), Integer.parseInt(txtPosicoes.getText().toString()), resultadoFinalSimples,null);
 
-                        setResultado(Integer.parseInt(txtElementos.getText().toString()),Integer.parseInt(txtPosicoes.getText().toString()),resultadoFinalSimples,null);
-
-                    }else{
-
+                    } else {
                         resultadoFinalSimples.setText(this.calculoFinal);
 
                     }
@@ -386,20 +375,16 @@ public class Permutacao extends Fragment {
                     resultadoPermutacao.setText(savedInstanceState.getString("latexPasso"));
 
                     bottomSheet.usarBottomSheet(getOrientation(),behavior);
-
                 }
             }
         }
-
     }
 
     //verificar orientação
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
     }
-
 
     private int getOrientation(){
         return getResources().getConfiguration().orientation;
