@@ -14,4 +14,13 @@
     </style>
 
 
+    <style name="mySpinner" parent="Widget.AppCompat.Spinner.Underlined">
+        <item name="android:background">@drawable/backgroundbord</item>
+        //ao clicar em um os itens
+        <!--<item name="android:dropDownSelector">@color/colorFlash</item>-->
+        //fundo do dropdown
+        <item name="android:popupBackground">@color/corBackGround</item>
+        <item name="android:gravity">start|center_vertical</item>
+    </style>
+
 </resources>
