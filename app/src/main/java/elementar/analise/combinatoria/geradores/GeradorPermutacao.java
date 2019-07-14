@@ -1,6 +1,8 @@
 package elementar.analise.combinatoria.geradores;
 
 
+import android.util.Log;
+
 import elementar.analise.combinatoria.Calculadora;
 
 public class GeradorPermutacao extends GeradorFormulas {
@@ -52,6 +54,11 @@ public class GeradorPermutacao extends GeradorFormulas {
         return simplificacao;
     }
 
+
+    private String gerarFracaoCifrao(String valorNumerador, int elementosMenosPosicoes) {
+        return "\\frac{" + valorNumerador + "!" + "}" + "{" + elementosMenosPosicoes + "!" + "}";
+    }
+
     // Gera o desenvolvimento do Permutacao
     private  String gerarDesenvolvimento(int valorElementos, int valorPosicoes, String valorNumerador, int elementosMenosPosicoes) {
         String desenvolvimento = "$$" + gerarCabecalho(valorElementos, valorPosicoes) + " = " + gerarFracaoCifrao(valorNumerador, elementosMenosPosicoes) + "$$";
@@ -59,17 +66,37 @@ public class GeradorPermutacao extends GeradorFormulas {
         return desenvolvimento;
     }
 
-    //Gera todo o cálculo no formato LaTeX
-    private String gerarPassoAPasso(int valorElementos, int valorPosicoes) {
+
+    // Gera o resultado final da permutação
+    public long getResultadoFinalPermutacao(int valorElementos, int valorPosicoes) {
 
         elementosMenosPosicoes = valorElementos - valorPosicoes;
+        long resultadoFinal;
 
-        fatorialElementos = calculadora.gerarFatorialElementos(valorElementos, valorPosicoes);
+        // Elementos = Posições, o valor do denominador será zero. Basta gerar o fatorial do numerador
+        if (valorElementos == valorPosicoes) {
+            return resultadoFinal = calculadora.gerarResultadoCalculoFatorial(valorElementos, valorPosicoes);
+
+        // Valores distintos, é necessário desenvolver os fatoriais
+        } else if (valorElementos != elementosMenosPosicoes) {
+            return resultadoFinal = calculadora.gerarResultadoCalculoFatorial(valorElementos, valorPosicoes);
+
+        }
+
+        // Nº de elementos igual ao resultado de (n-p)!, sempre resultará 1
+        return 1;
+    }
+    
+    //Gera todo o cálculo no formato LaTeX
+    private String gerarPassoAPasso(int valorElementos, int valorPosicoes) {
 
         String mensagemDesenvolvimento, mensagemSimplificacao;
         String numeradorDesenvolvimento;
         long resultadoFinal;
 
+        resultadoFinal = getResultadoFinalPermutacao(valorElementos, valorPosicoes);
+
+        fatorialElementos = calculadora.gerarFatorialElementos(valorElementos, valorPosicoes);
 
         // Elementos = Posições, o valor do denominador será zero. Basta fazer o cálculo do numerador (no Permutacao Simples)
         if (valorElementos == valorPosicoes) {
@@ -79,8 +106,6 @@ public class GeradorPermutacao extends GeradorFormulas {
             mensagemSimplificacao = gerarMensagemSimplificacao(valorElementos, valorPosicoes);
 
             numeradorDesenvolvimento = Integer.toString(valorElementos);
-
-            resultadoFinal = calculadora.gerarResultadoCalculoFatorial(valorElementos, valorPosicoes);
 
 
         // Valores distintos, é necessário desenvolver o fatorial (no Permutacao Simples)
@@ -92,7 +117,6 @@ public class GeradorPermutacao extends GeradorFormulas {
 
             numeradorDesenvolvimento = fatorialElementos;
 
-            resultadoFinal = calculadora.gerarResultadoCalculoFatorial(valorElementos, valorPosicoes);
 
         // Nº de elementos igual ao resultado de (n-p)!, sempre resultará 1 (no Permutacao Simples)
         } else {
@@ -104,13 +128,12 @@ public class GeradorPermutacao extends GeradorFormulas {
 
             numeradorDesenvolvimento = Integer.toString(valorElementos);
 
-            // a! sobre b!, sendo a = b, resultará sempre em 1
-            resultadoFinal = 1;
         }
 
         String desenvolvimentoLatex = gerarDesenvolvimento(valorElementos, valorPosicoes, numeradorDesenvolvimento, elementosMenosPosicoes);
         String simplificacaoLatex = gerarSimplificacaoFatorial(valorElementos, valorPosicoes);
         String resultadoFinalLatex = calculadora.gerarResultadoFinal("P", valorElementos, valorPosicoes, resultadoFinal);
+
 
         return  mensagemDesenvolvimento + desenvolvimentoLatex +
                 mensagemSimplificacao + simplificacaoLatex + resultadoFinalLatex;
