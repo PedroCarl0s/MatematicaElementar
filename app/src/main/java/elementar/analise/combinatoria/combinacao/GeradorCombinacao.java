@@ -7,6 +7,8 @@ import elementar.analise.combinatoria.calculadoras.Calculadora;
 import elementar.analise.combinatoria.calculadoras.CalculadoraCombinacao;
 import elementar.analise.combinatoria.geradores.GeradorFormulas;
 
+
+
 public class GeradorCombinacao extends GeradorFormulas {
 
     private static int elementosMenosPosicoes;
@@ -66,7 +68,7 @@ public class GeradorCombinacao extends GeradorFormulas {
 //    private static String gerarDesenvolvimento(int valorElementos, int valorPosicoes, String valorNumerador, int elementosMenosPosicoes) {
 //        String desenvolvimento = "$$" + gerarCabecalho(valorElementos, valorPosicoes) + " = " +
 //    }
-//
+
 //    private static String gerarFatorialElementos(int elementos, int posicoes) {
 //
 //        // Número de elementos a arranjar maior que zero, é necessário desenvolver o fatorial
@@ -90,18 +92,78 @@ public class GeradorCombinacao extends GeradorFormulas {
         String numeradorDesenvolvimento, denominadorDesenvolvimento, elementosMenosPosicoesDesenvolvimento;
         long resultadoFinal;
 
+        // Elementos igual ao número de posições: n == p
         if (valorElementos == valorPosicoes) {
-            mensagemDesenvolvimento = "Como o nº de elementos = nº de posições, o valor de (n-p) será igual a zero";
+
+            if (valorElementos == 0) {
+
+                numeradorDesenvolvimento = "0";
+
+                mensagemDesenvolvimento = "Como o nº de elementos e de posições foram zero, e 0! = 1, o resultado final será um";
+
+            } else {
+
+                numeradorDesenvolvimento = Integer.toString(valorElementos);
+
+                mensagemDesenvolvimento = "Como o nº de elementos = nº de posições, o valor de (n-p) será igual a zero";
+
+            }
+
 
             mensagemSimplificacao = gerarMensagemSimplificacao(valorElementos, valorPosicoes);
 
+
+            numeradorDesenvolvimento = Integer.toString(valorElementos);
+
+        // Elementos diferentes de posições: n != p
+        } else {
+
+            // Posições igual a elementosMenosPosicoes: p == (n-p)
+            if (valorPosicoes == elementosMenosPosicoes) {
+
+                mensagemDesenvolvimento = "Como o nº de posições foi igual a nº de elementos menos posições (n-p), ";
+
+                // Posições igual a elementosMenosPosicoes, com posicoes igual a zero ou um:  p == 0 || p == 1
+                if (valorPosicoes == 0 || valorPosicoes == 1) {
+
+                    mensagemDesenvolvimento += "e nº de posições é igual a " + valorPosicoes + "!" + ", então basta resolver o fatorial do numerador porque " + valorPosicoes + "!" + " = " + "1";
+
+
+                // Posições igual a elementosMenosPosicoes, com posicoes diferente de zero ou um: p != 0 || p != 1
+                } else {
+
+                    mensagemDesenvolvimento += "então podemos desenvolver o " + valorElementos + "!" + " do numerador até qualquer qualquer valor do denominador";
+
+                }
+
+            // Posições diferente de elementosMenosPosições: p != (n-p)
+            } else {
+
+                // Posições sendo ou zero! ou um!, resulta em um e basta desenvolver o fatorial do numerador até (n-p)!
+                if (valorPosicoes == 0 || valorPosicoes == 1) {
+
+                    mensagemDesenvolvimento = "Como o nº de posições foi " + valorPosicoes + "!" + " e " + valorPosicoes + "!" + " = 1" + ", basta desenvolver o fatorial do numerador até (n-p)!";
+
+
+                } else {
+
+                    mensagemDesenvolvimento = "Como o nº de posições foi diferente de (n-p), temos que desenvolver o fatorial do numerador até o maior valor do denominador que é " +
+                            calculadora.getMaiorDenominador(valorPosicoes, elementosMenosPosicoes) + "!";
+
+
+                }
+
+            }
 
         }
 
 //        String desenvolvimentoLatex = gerarDesenvolvimento(valorElementos, valorPosicoes, numeradorDesenvolvimento, denominadorDesenvolvimento, elementosMenosPosicoesDesenvolvimento);
 
 
-        return "PASSO A PASSO AQUI";
+//        String desenvolvimentoLatex = gerarDesenvolvimento(valorElementos, valorPosicoes, numeradorDesenvolvimento, po)
+
+
+        return mensagemDesenvolvimento;
     }
 
 
@@ -169,6 +231,6 @@ public class GeradorCombinacao extends GeradorFormulas {
 
     // Gera o resultado passo a passo em LaTeX
     public String gerarResultadoCombinacao(int valorElementos, int valorPosicoes) {
-        return gerarAplicacaoValoresCombinacao(valorElementos, valorPosicoes);
+        return gerarAplicacaoValoresCombinacao(valorElementos, valorPosicoes) + gerarPassoAPasso(valorElementos, valorPosicoes);
     }
 }
