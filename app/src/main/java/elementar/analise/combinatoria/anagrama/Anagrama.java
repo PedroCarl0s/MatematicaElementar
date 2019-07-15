@@ -22,12 +22,17 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.HashMap;
+
 import elementar.analise.combinatoria.calculadoras.Calculadora;
 import elementar.analise.combinatoria.myBottomSheet;
-import elementar.lottie.LottieController;
+
 import elementar.analise.combinatoria.activitys.MainActivity;
-import elementar.matematica.pedrock.matemticaelementar.R;
 import elementar.analise.combinatoria.controller.TextInputController;
+
+import elementar.matematica.pedrock.matemticaelementar.R;
+
+import elementar.lottie.LottieController;
+
 import io.github.kexanie.library.MathView;
 
 
@@ -46,7 +51,7 @@ public class Anagrama extends Fragment {
 
     private Calculadora calculadora = Calculadora.getInstance();
 
-    private GeradorAnagrama gerador = new GeradorAnagrama();
+    private static GeradorAnagrama gerador = new GeradorAnagrama();
 
     private Button btnCalcular;
 
@@ -92,15 +97,20 @@ public class Anagrama extends Fragment {
 
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
 
-                    if (Anagrama.getEntradaAnagrama().matches("[a-zA-Z ]*")) {
+                    if (!Anagrama.getEntradaAnagrama().isEmpty()) {
                         inputAnagrama.setError(null);
                         calcularAnagrama();
 
                         return true;
+
+                    } else {
+
+                        inputAnagrama.setError("Insira apenas letras!");
+                        MainActivity.hideKeyboard(getActivity());
+
+                        return false;
                     }
                 }
-                inputAnagrama.setError("Insira apenas letras!");
-                MainActivity.hideKeyboard(getActivity());
 
                 return false;
 
@@ -130,12 +140,12 @@ public class Anagrama extends Fragment {
 
         bottomSheet = new myBottomSheet(view,getResources().getConfiguration().orientation,R.id.bottomsheetAnagrama);
 
-        if(bottomSheet.verificarOrientacaoVertical(getOrientation())){
+        if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
 
             behavior = bottomSheet.getMyBottomSheetBehavior();
             relativeLayout = view.findViewById(R.id.bottomsheetAnagrama);
 
-            if(relativeLayout.getVisibility() == View.VISIBLE && !liberarCalculo){
+            if (relativeLayout.getVisibility() == View.VISIBLE && !liberarCalculo) {
 
                 relativeLayout.setVisibility(View.INVISIBLE);
 
@@ -161,10 +171,14 @@ public class Anagrama extends Fragment {
 
     // Retorna a palavra que foi digitada
     private static String getEntradaAnagrama() {
-        String entrada = inputAnagrama.getEditText().getText().toString().toLowerCase().replaceAll("[^a-zA-Z]","");
-        inputAnagrama.getEditText().setText(entrada);
-        return entrada;
 
+        String palavraDigitada = inputAnagrama.getEditText().getText().toString().toLowerCase();
+
+        palavraDigitada = gerador.removerAcentosESimbolos(palavraDigitada);
+
+        inputAnagrama.getEditText().setText(palavraDigitada);
+
+        return palavraDigitada;
     }
 
     private int getTamanhodaPalavra() {
@@ -211,6 +225,7 @@ public class Anagrama extends Fragment {
         LottieController.cancelLottieAnimation(animationSwipe);
     }
 
+
     private String gerarTrechoInicial(int tamanhoPalavra) {
         String trecho = "$$A(" + tamanhoPalavra + ", " + tamanhoPalavra + ") = P_{" + tamanhoPalavra + "}$$";
 
@@ -225,42 +240,35 @@ public class Anagrama extends Fragment {
             inputAnagrama.setError(null);
             MainActivity.hideKeyboard(getActivity());
 
-            // Verifica se tem apenas letras
-            if (Anagrama.getEntradaAnagrama().matches("[a-zA-z]*")) {
 
-                // Retorna um HashMap de letra e valor
-                HashMap<String, Integer> novoArrayQuantPalavras = contarPalavrasIguais(getEntradaAnagrama());
+            // Retorna um HashMap de letra e valor
+            HashMap<String, Integer> novoArrayQuantPalavras = contarPalavrasIguais(getEntradaAnagrama());
 
-                long resultadoFinal = calcularResultadoAnagrama(getTamanhodaPalavra(), novoArrayQuantPalavras);
-                // Verifica se tem letras repetidas
+            long resultadoFinal = calcularResultadoAnagrama(getTamanhodaPalavra(), novoArrayQuantPalavras);
+            // Verifica se tem letras repetidas
 
-                if(!isJaCalculou(getEntradaAnagrama(),palavraGuardada,null)){
+            if(!isJaCalculou(getEntradaAnagrama(),palavraGuardada,null)){
 
-                    if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
+                if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
 
-                        setResultado(novoArrayQuantPalavras,resultadoFinal,resultadoFinalSimples,resultadoAnagrama);
+                    setResultado(novoArrayQuantPalavras,resultadoFinal,resultadoFinalSimples,resultadoAnagrama);
 
-                    } else {
+                } else {
 
-                        setResultado(novoArrayQuantPalavras,resultadoFinal,null,resultadoAnagrama);
+                    setResultado(novoArrayQuantPalavras,resultadoFinal,null,resultadoAnagrama);
 
-                    }
-
-                    palavraGuardada = getEntradaAnagrama();
                 }
 
-            } else {
-
-                inputAnagrama.setError("Insira apenas letras sem acento");
-
+                palavraGuardada = getEntradaAnagrama();
             }
 
-        }else {
+
+        } else {
 
             inputAnagrama.setError("O campo está vazio!");
             MainActivity.hideKeyboard(getActivity());
-
         }
+
     }
 
     private long calcularResultadoAnagrama(long tamanhoPalavra,HashMap<String,Integer> arrayNumeroDeLetras) {
