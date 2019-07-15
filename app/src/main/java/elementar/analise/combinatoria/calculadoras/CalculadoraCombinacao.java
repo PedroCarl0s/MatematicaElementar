@@ -1,7 +1,7 @@
 package elementar.analise.combinatoria.calculadoras;
 
 
-import elementar.analise.combinatoria.geradores.GeradorCombinacao;
+import elementar.analise.combinatoria.combinacao.GeradorCombinacao;
 
 public class CalculadoraCombinacao {
 
