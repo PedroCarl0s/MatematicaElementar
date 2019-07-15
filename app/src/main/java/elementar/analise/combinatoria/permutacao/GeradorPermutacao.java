@@ -74,7 +74,7 @@ public class GeradorPermutacao extends GeradorFormulas {
 
         // Elementos = Posições, o valor do denominador será zero. Basta gerar o fatorial do numerador
         if (valorElementos == valorPosicoes) {
-            return resultadoFinal = calculadora.gerarResultadoCalculoFatorial(valorElementos, valorPosicoes);
+            return resultadoFinal = Calculadora.gerarResultadoCalculoFatorial(valorElementos, valorPosicoes);
 
         // Valores distintos, é necessário desenvolver os fatoriais
         } else if (valorElementos != elementosMenosPosicoes) {
@@ -85,61 +85,36 @@ public class GeradorPermutacao extends GeradorFormulas {
         // Nº de elementos igual ao resultado de (n-p)!, sempre resultará 1
         return 1;
     }
-    
-    //Gera todo o cálculo no formato LaTeX
-    private String gerarPassoAPasso(int valorElementos, int valorPosicoes) {
-
-        String mensagemDesenvolvimento, mensagemSimplificacao;
-        String numeradorDesenvolvimento;
-        long resultadoFinal;
-
-        resultadoFinal = getResultadoFinalPermutacao(valorElementos, valorPosicoes);
-
-        fatorialElementos = calculadora.gerarFatorialElementos(valorElementos, valorPosicoes);
-
-        // Elementos = Posições, o valor do denominador será zero. Basta fazer o cálculo do numerador (no Permutacao Simples)
-        if (valorElementos == valorPosicoes) {
-            mensagemDesenvolvimento = "Desenvolvendo o fatorial do denominador, obtemos " + valorElementos + "!" + " do numerador " +
-                    "com " + elementosMenosPosicoes + "!" + " do denominador, resultando em:";
-
-            mensagemSimplificacao = gerarMensagemSimplificacao(valorElementos, valorPosicoes);
-
-            numeradorDesenvolvimento = Integer.toString(valorElementos);
 
 
-        // Valores distintos, é necessário desenvolver o fatorial (no Permutacao Simples)
-        } else if (valorElementos != elementosMenosPosicoes) {
-            mensagemDesenvolvimento = "Desenvolvendo até o valor do fatorial do denominador para simplificar, obtemos:";
 
-            mensagemSimplificacao = "Simplificando o " + elementosMenosPosicoes +
-                    "! do numerador, com o " + elementosMenosPosicoes + "! ficamos com:";
+    /*
+    Seção de métodos para imprimir mensagens de desenvolvimento
+    */
 
-            numeradorDesenvolvimento = fatorialElementos;
-
-
-        // Nº de elementos igual ao resultado de (n-p)!, sempre resultará 1 (no Permutacao Simples)
-        } else {
-            mensagemDesenvolvimento = "Desenvolvendo o fatorial do denominador, obtemos " + valorElementos + "!" + " do numerador " +
-                    "com " + elementosMenosPosicoes + "!" + " do denominador, resultando em:";
-
-            mensagemSimplificacao = "Simplificando " + valorElementos + "!" + " do numerador com " +
-                    elementosMenosPosicoes + "!" + " do denominador, resulta-se em 1";
-
-            numeradorDesenvolvimento = Integer.toString(valorElementos);
-
-        }
-
-        String desenvolvimentoLatex = gerarDesenvolvimento(valorElementos, valorPosicoes, numeradorDesenvolvimento, elementosMenosPosicoes);
-        String simplificacaoLatex = gerarSimplificacaoFatorial(valorElementos, valorPosicoes);
-        String resultadoFinalLatex = calculadora.gerarResultadoFinal("P", valorElementos, valorPosicoes, resultadoFinal);
-
-
-        return  mensagemDesenvolvimento + desenvolvimentoLatex +
-                mensagemSimplificacao + simplificacaoLatex + resultadoFinalLatex;
+    // Primeira mensagem na condição (elementos == posições)
+    private String gerarMensagemDesenvolvimento1(int valorElementos, int elementosMenosPosicoes) {
+        return "Desenvolvendo o fatorial do denominador, obtemos " + valorElementos + "!" + " do numerador " +
+                "com " + elementosMenosPosicoes + "!" + " do denominador, resultando em:";
     }
 
-    // Gera a mensagem de simplicação a depender dos valores da entrada serem iguais
-    private String gerarMensagemSimplificacao(int valorElementos, int valorPosicoes) {
+    // Segunda mensagem na condição (elementos != elementosMenosPosicoes)
+    private String gerarMensagemDesenvolvimento2() {
+        return "Desenvolvendo até o valor do fatorial do denominador para simplificar, obtemos:";
+    }
+
+    private String gerarMensagemDesenvolvimento3(int valorElementos, int elementosMenosPosicoes) {
+        return "Desenvolvendo o fatorial do denominador, obtemos " + valorElementos + "!" + " do numerador " +
+                "com " + elementosMenosPosicoes + "!" + " do denominador, resultando em:";
+    }
+
+
+    /*
+    Seção de métodos para imprimir mensagens de simplificação
+    */
+
+    // Primeira mensagem de simplicação a depender dos valores da entrada serem iguais
+    private String gerarMensagemSimplificacao1(int valorElementos, int valorPosicoes) {
         String mensagem;
 
         if (valorElementos == valorPosicoes && valorElementos != 0) {
@@ -153,6 +128,68 @@ public class GeradorPermutacao extends GeradorFormulas {
 
         return  mensagem;
     }
+
+    // Segunda mensagem de simplificação para nº de elementos diferente de (n-p)
+    private String gerarMensagemSimplificacao2(int elementosMenosPosicoes) {
+        return "Simplificando o " + elementosMenosPosicoes +
+                "! do numerador, com o " + elementosMenosPosicoes + "! ficamos com:";
+    }
+
+    // Terceira a mensagem de simplificação para nº de elementos igual a (n-p)!
+    private String gerarMensagemSimplificacao3(int valorElementos, int elementosMenosPosicoes) {
+        return "Simplificando " + valorElementos + "!" + " do numerador com " +
+                elementosMenosPosicoes + "!" + " do denominador, resulta-se em 1";
+    }
+
+
+    //Gera todo o cálculo no formato LaTeX
+    private String gerarPassoAPasso(int valorElementos, int valorPosicoes) {
+
+        String mensagemDesenvolvimento, mensagemSimplificacao;
+        String numeradorDesenvolvimento;
+        long resultadoFinal;
+
+        resultadoFinal = getResultadoFinalPermutacao(valorElementos, valorPosicoes);
+
+        fatorialElementos = calculadora.gerarFatorialElementos(valorElementos, valorPosicoes);
+
+        // Elementos = Posições, o valor do denominador será zero. Basta fazer o cálculo do numerador (no Permutacao Simples)
+        if (valorElementos == valorPosicoes) {
+            mensagemDesenvolvimento = gerarMensagemDesenvolvimento1(valorElementos, elementosMenosPosicoes);
+
+            mensagemSimplificacao = gerarMensagemSimplificacao1(valorElementos, valorPosicoes);
+
+            numeradorDesenvolvimento = Integer.toString(valorElementos);
+
+
+        // Valores distintos, é necessário desenvolver o fatorial (no Permutacao Simples)
+        } else if (valorElementos != elementosMenosPosicoes) {
+            mensagemDesenvolvimento = gerarMensagemDesenvolvimento2();
+
+            mensagemSimplificacao = gerarMensagemSimplificacao2(elementosMenosPosicoes);
+
+            numeradorDesenvolvimento = fatorialElementos;
+
+
+        // Nº de elementos igual ao resultado de (n-p)!, sempre resultará 1 (no Permutacao Simples)
+        } else {
+            mensagemDesenvolvimento = gerarMensagemDesenvolvimento3(valorElementos, elementosMenosPosicoes);
+
+            mensagemSimplificacao = gerarMensagemSimplificacao3(valorElementos, elementosMenosPosicoes);
+
+            numeradorDesenvolvimento = Integer.toString(valorElementos);
+        }
+
+        String desenvolvimentoLatex = gerarDesenvolvimento(valorElementos, valorPosicoes, numeradorDesenvolvimento, elementosMenosPosicoes);
+        String simplificacaoLatex = gerarSimplificacaoFatorial(valorElementos, valorPosicoes);
+        String resultadoFinalLatex = calculadora.gerarResultadoFinal("P", valorElementos, valorPosicoes, resultadoFinal);
+
+
+        return  mensagemDesenvolvimento + desenvolvimentoLatex +
+                mensagemSimplificacao + simplificacaoLatex + resultadoFinalLatex;
+    }
+
+
 
     public String gerarResultadoPermutacao(int valorElementos, int valorPosicoes) {
         return gerarAplicacaoPermutacao(valorElementos, valorPosicoes) + gerarPassoAPasso(valorElementos, valorPosicoes);

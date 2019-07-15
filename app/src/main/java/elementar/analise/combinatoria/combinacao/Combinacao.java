@@ -23,7 +23,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import elementar.analise.combinatoria.calculadoras.Calculadora;
 import elementar.analise.combinatoria.calculadoras.CalculadoraCombinacao;
 import elementar.analise.combinatoria.controller.TextInputController;
-import elementar.analise.combinatoria.geradores.GeradorCombinacao;
 import elementar.lottie.LottieController;
 import elementar.analise.combinatoria.activitys.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;

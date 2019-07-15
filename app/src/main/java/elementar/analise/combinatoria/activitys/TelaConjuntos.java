@@ -16,7 +16,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
-import elementar.analise.combinatoria.geradores.GeradorOperacoesConjuntos;
+import elementar.operacoes.conjuntos.GeradorOperacoesConjuntos;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import io.github.kexanie.library.MathView;
 

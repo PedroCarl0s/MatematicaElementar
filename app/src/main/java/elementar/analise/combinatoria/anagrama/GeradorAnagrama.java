@@ -1,11 +1,13 @@
 package elementar.analise.combinatoria.anagrama;
 
-import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import elementar.analise.combinatoria.geradores.GeradorFormulas;
+
+import java.text.Normalizer;
+
 
 public class GeradorAnagrama extends GeradorFormulas {
 
@@ -41,13 +43,8 @@ public class GeradorAnagrama extends GeradorFormulas {
 
         for (Map.Entry<String,Integer> entry : mapPalavras.entrySet()) {
 
-//           if (entry.getValue() > 1) {
-
-               descricao.append(entry.getKey()).append(EqualEcomInit).append(entry.getValue());
-               descricao.append(fimTextS);
-
-//            }
-
+           descricao.append(entry.getKey()).append(EqualEcomInit).append(entry.getValue());
+           descricao.append(fimTextS);
         }
 
         // Removendo os 4 últimos índices (os quatro \\\\ excedentes)
@@ -76,12 +73,7 @@ public class GeradorAnagrama extends GeradorFormulas {
 
         for(Map.Entry<String,Integer> entry : hashMapLetras.entrySet()){
 
-//            if(entry.getValue() > 1){
-
-                aplicacao.append(entry.getValue()).append(separador1);
-
-//            }
-
+            aplicacao.append(entry.getValue()).append(separador1);
         }
 
         //remover os \\ sobrando
@@ -102,15 +94,10 @@ public class GeradorAnagrama extends GeradorFormulas {
 
         for(Map.Entry<String,Integer> entry : hashMap.entrySet()){
 
-//            if(entry.getValue() > 1){
-
-                aplicacao.append(entry.getValue()).append("! ").append(separador2);
-
-//            }
-
+            aplicacao.append(entry.getValue()).append("! ").append(separador2);
         }
 
-//        //remover os \\ sobrando
+        //remover os \\ sobrando
         aplicacao = aplicacao.replace(aplicacao.length()-2,aplicacao.length()-1,"");
 
         aplicacao.append(fechaChaves2);
@@ -120,20 +107,32 @@ public class GeradorAnagrama extends GeradorFormulas {
 
     }
 
+
+    public String removerEspacos(String entrada) {
+        return entrada.replaceAll("\\s", "");
+    }
+
+    // Remove tudo que não seja letra e número
+    private String removerCaracteresEspeciais(String entrada) {
+        return entrada.replaceAll("[^a-zA-Z0-9]", "");
+    }
+
+    // Deixa a palavra sem espaços, acentos e símbolos
+    public String removerAcentosESimbolos(String entrada) {
+        String novaPalavra = removerEspacos(entrada);
+
+        novaPalavra = Normalizer.normalize(novaPalavra, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+
+        return removerCaracteresEspeciais(novaPalavra);
+    }
+
     private StringBuilder gerarFormulaResultadoFinal(HashMap<String,Integer> hashMap,Long resultadoFinal,int tamanhoPalavra){
 
         StringBuilder aplicacao = new StringBuilder(inicio1);
         aplicacao.append(tamanhoPalavra).append(potencia);
 
         for(Map.Entry<String,Integer> entry : hashMap.entrySet()){
-
-
-//            if(entry.getValue() > 1){
-
-                aplicacao.append(entry.getValue()).append(separador1);
-
-//            }
-
+            aplicacao.append(entry.getValue()).append(separador1);
         }
 
         //remover , do final
