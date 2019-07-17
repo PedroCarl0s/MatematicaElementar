@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.gridlayout.widget.GridLayout;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -62,6 +63,11 @@ public class TelaConjuntos extends AppCompatActivity {
 
     private Intent intent;
 
+    private FragmentManager fragmentManager;
+
+    private FragmentTransaction fragmentTransaction;
+
+    private final int EFFECT_WAIT = 289;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,9 +142,19 @@ public class TelaConjuntos extends AppCompatActivity {
         fabHistorico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 menuFloatingButton.hideFloating(fab);
-                openFragments(new HistoricoFragment());
-                fab.hide();
+
+                //esperar o efeirot do button
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        openFragments(new HistoricoFragment());
+                        fab.hide();
+                    }
+                }, EFFECT_WAIT);
+
 
             }
         });
@@ -179,11 +195,15 @@ public class TelaConjuntos extends AppCompatActivity {
     }
 
     private void openFragments(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.add(R.id.contentConjuntos,fragment);
         fragmentTransaction.commit();
+    }
+
+    private void popFragments(){
+        fragmentManager.popBackStack();
     }
 
     private void initBackGroundCards(GridLayout gridLayout){
@@ -313,10 +333,7 @@ public class TelaConjuntos extends AppCompatActivity {
         }else{
 
             fab.show();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.addToBackStack(null);
-            fragmentManager.popBackStack();
+            popFragments();
 
         }
 
