@@ -1,11 +1,13 @@
 package elementar.analise.combinatoria.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,6 +23,7 @@ public class AdapterHistorico extends RecyclerView.Adapter<AdapterHistorico.MyVi
     private static AdapterHistorico instance = null;
     private List<OpConjuntos> listHistorico;
     private ItemClickListener itemClickListener;
+    private int cont = 0;
 
     public static AdapterHistorico getInstance(List<OpConjuntos> list){
         if(instance == null){
@@ -64,6 +67,7 @@ public class AdapterHistorico extends RecyclerView.Adapter<AdapterHistorico.MyVi
         holder.conjuntoB.setText("B = { "+conjuntos.getConjuntoB()+" }");
         holder.listResultado.setText(conjuntos.getRespostaConjuntos().toString());
 
+
     }
 
     @Override
@@ -96,10 +100,9 @@ public class AdapterHistorico extends RecyclerView.Adapter<AdapterHistorico.MyVi
 
         @Override
         public void onClick(View v) {
+
             if(itemClickListener != null){
                 itemClickListener.onItemClickListiner(getAdapterPosition());
-                Animation animation = AnimationUtils.loadAnimation(itemView.getContext(),R.anim.layout_effect_click);
-                constraintLayout.setAnimation(animation);
             }
         }
     }
