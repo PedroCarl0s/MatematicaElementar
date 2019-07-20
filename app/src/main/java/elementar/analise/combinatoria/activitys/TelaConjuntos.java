@@ -67,7 +67,6 @@ public class TelaConjuntos extends AppCompatActivity {
 
     private FragmentTransaction fragmentTransaction;
 
-    private final int EFFECT_WAIT = 289;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,11 +106,11 @@ public class TelaConjuntos extends AppCompatActivity {
 
         relativeLayout = findViewById(R.id.bottomsheetConjunto);
 
-        if(relativeLayout.getVisibility() == View.VISIBLE && !liberarCalculo){
-
-            relativeLayout.setVisibility(View.GONE);
-
-        }
+//        if(relativeLayout.getVisibility() == View.VISIBLE && !liberarCalculo){
+//
+//            relativeLayout.setVisibility(View.GONE);
+//
+//        }
 
         fab = findViewById(R.id.botao_info);
         fabHistorico = findViewById(R.id.fab_historico);
@@ -144,16 +143,8 @@ public class TelaConjuntos extends AppCompatActivity {
             public void onClick(View v) {
 
                 menuFloatingButton.hideFloating(fab);
-
-                //esperar o efeirot do button
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        openFragments(new HistoricoFragment());
-                        fab.hide();
-                    }
-                }, EFFECT_WAIT);
+                openFragments(new HistoricoFragment());
+                fab.hide();
 
 
             }
