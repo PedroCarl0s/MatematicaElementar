@@ -2,8 +2,11 @@ package elementar.analise.combinatoria.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,9 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.melnykov.fab.FloatingActionButton;
+import com.melnykov.fab.ScrollDirectionListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,12 +37,13 @@ import elementar.analise.combinatoria.animationrecyclerview.MyAnimationRecyclerV
 import elementar.analise.combinatoria.model.OpConjuntos;
 import elementar.matematica.pedrock.matemticaelementar.R;
 
-public class HistoricoFragment extends Fragment {
+public class HistoricoFragment extends Fragment implements View.OnClickListener {
 
     private View view;
     private ImageButton back;
     private RecyclerView myRecycler;
     private AdapterHistorico recyclerAdapter;
+    private FloatingActionButton fab;
 
 //    temporaria
     List<OpConjuntos> listTemporaria = new ArrayList<>();
@@ -56,16 +64,38 @@ public class HistoricoFragment extends Fragment {
     public void init(){
 
         myRecycler = view.findViewById(R.id.recyclerViewId);
+        myRecycler.setHasFixedSize(true);
+        myRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
 
-        listTemporaria.add(new OpConjuntos("2","3,4", null,Arrays.asList("A U B = {3,2,}")));
-        listTemporaria.add(new OpConjuntos("2","3,4", null,Arrays.asList("A U B = {3,2,}")));
-        listTemporaria.add(new OpConjuntos("2","3,4", "9,8,7",Arrays.asList("A U B = { 2,3,4}, A = {2}, B = {3,4}, A U B = { 2,3,4}, A = {2}, B = {3,4}, A U B = { 2,3,4}")));
-        listTemporaria.add(new OpConjuntos("2","3,4", null,Arrays.asList("A U B = {3,2,}")));
-        listTemporaria.add(new OpConjuntos("2","3,4", null,Arrays.asList("A U B = {3,2,}")));
-        listTemporaria.add(new OpConjuntos("2","3,4", null,Arrays.asList("A U B = {3,2,}")));
-        listTemporaria.add(new OpConjuntos("2","3,4", "9,8,7",Arrays.asList("A U B = { 2,3,4}, A = {2}, B = {3,4}, A U B = { 2,3,4}, A = {2}, B = {3,4}, A U B = { 2,3,4}")));
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) myRecycler.getLayoutManager();
+
+                AdapterHistorico adapterHistorico = (AdapterHistorico) myRecycler.getAdapter();
+
+                if(listTemporaria.size() == linearLayoutManager.findLastCompletelyVisibleItemPosition() + 1){
+
+                    List<OpConjuntos> listAux = getSetOpConjuntosList(10);
+
+                    for(int i = 0;i < listAux.size(); i++){
+                        adapterHistorico.addListItem(listAux.get(i),listTemporaria.size());
+                    }
+                }
+
+            }
+        });
+
+
+        listTemporaria = getSetOpConjuntosList(10);
 
         recyclerAdapter = AdapterHistorico.getInstance(listTemporaria);
+
         myRecycler.setAdapter(recyclerAdapter);
         @SuppressLint("WrongConstant") RecyclerView.LayoutManager layout = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false);
         myRecycler.setLayoutManager(layout);
@@ -73,6 +103,61 @@ public class HistoricoFragment extends Fragment {
         myAnimationRecyclerView.runAnimation(1);
         back = view.findViewById(R.id.back);
 
+        fab = view.findViewById(R.id.fab);
+
+        //faz o fab sumir ao rolar o recycler view
+//        fab 01
+        fab.attachToRecyclerView(myRecycler, new ScrollDirectionListener() {
+            //saber qual a direção do scroll
+            @Override
+            public void onScrollDown() {
+
+            }
+
+            @Override
+            public void onScrollUp() {
+
+            }
+        },new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+//                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) myRecycler.getLayoutManager();
+//
+//                AdapterHistorico adapterHistorico = (AdapterHistorico) myRecycler.getAdapter();
+//
+//                if(listTemporaria.size() == linearLayoutManager.findLastCompletelyVisibleItemPosition() + 1){
+//
+//                    List<OpConjuntos> listAux = getSetOpConjuntosList(10);
+//
+//                    for(int i = 0;i < listAux.size(); i++){
+//                        adapterHistorico.addListItem(listAux.get(i),listTemporaria.size());
+//                    }
+//                }
+
+            }
+        });
+
+        fab.setOnClickListener(this);
+
+    }
+
+    public List<OpConjuntos> getSetOpConjuntosList(int qtd){
+        String[] conjuntosA = new String[]{"1,2,3,4,5,6,7,8"};
+        String[] conjuntosB = new String[]{"9,10,11,12,13,14,15,16"};
+        List<OpConjuntos> listAux = new ArrayList<>();
+
+        for(int i = 0; i < qtd; i++){
+            OpConjuntos c = new OpConjuntos( conjuntosA[i % conjuntosA.length], conjuntosB[ i % conjuntosB.length ], null, Arrays.asList("A U B = { conjuntoA + Conjunto B}"));
+            listAux.add(c);
+        }
+        return(listAux);
     }
 
     public void actionWidgets(){
@@ -117,4 +202,8 @@ public class HistoricoFragment extends Fragment {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(getContext(),"Fab Pressed",Toast.LENGTH_LONG).show();
+    }
 }

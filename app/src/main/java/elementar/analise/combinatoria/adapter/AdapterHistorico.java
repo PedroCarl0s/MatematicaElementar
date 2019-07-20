@@ -79,6 +79,10 @@ public class AdapterHistorico extends RecyclerView.Adapter<AdapterHistorico.MyVi
         this.itemClickListener = itemClickListener;
     }
 
+    public void addListItem(OpConjuntos opConjuntos, int position){
+        this.listHistorico.add(opConjuntos);
+        notifyItemInserted(position);
+    }
 
     //inicio os componentes do xml do adpater
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -102,7 +106,7 @@ public class AdapterHistorico extends RecyclerView.Adapter<AdapterHistorico.MyVi
         public void onClick(View v) {
 
             if(itemClickListener != null){
-                itemClickListener.onItemClickListiner(getAdapterPosition());
+//                itemClickListener.onItemClickListiner(getAdapterPosition());
             }
         }
     }
