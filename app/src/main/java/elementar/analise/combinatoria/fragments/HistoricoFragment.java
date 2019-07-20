@@ -65,31 +65,31 @@ public class HistoricoFragment extends Fragment implements View.OnClickListener 
 
         myRecycler = view.findViewById(R.id.recyclerViewId);
         myRecycler.setHasFixedSize(true);
-        myRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) myRecycler.getLayoutManager();
-
-                AdapterHistorico adapterHistorico = (AdapterHistorico) myRecycler.getAdapter();
-
-                if(listTemporaria.size() == linearLayoutManager.findLastCompletelyVisibleItemPosition() + 1){
-
-                    List<OpConjuntos> listAux = getSetOpConjuntosList(10);
-
-                    for(int i = 0;i < listAux.size(); i++){
-                        adapterHistorico.addListItem(listAux.get(i),listTemporaria.size());
-                    }
-                }
-
-            }
-        });
+//        myRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//            }
+//
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//
+////                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) myRecycler.getLayoutManager();
+////
+////                AdapterHistorico adapterHistorico = (AdapterHistorico) myRecycler.getAdapter();
+////
+////                if(listTemporaria.size() == linearLayoutManager.findLastCompletelyVisibleItemPosition() + 1){
+////
+////                    List<OpConjuntos> listAux = getSetOpConjuntosList(10);
+////
+////                    for(int i = 0;i < listAux.size(); i++){
+////                        adapterHistorico.addListItem(listAux.get(i),listTemporaria.size());
+////                    }
+////                }
+//
+//            }
+//        });
 
 
         listTemporaria = getSetOpConjuntosList(10);
@@ -149,12 +149,12 @@ public class HistoricoFragment extends Fragment implements View.OnClickListener 
     }
 
     public List<OpConjuntos> getSetOpConjuntosList(int qtd){
-        String[] conjuntosA = new String[]{"1,2,3,4,5,6,7,8"};
-        String[] conjuntosB = new String[]{"9,10,11,12,13,14,15,16"};
+        String[] conjuntosA = new String[]{"1","2","3","4","5","6","7","8"};
+        String[] conjuntosB = new String[]{"9","10","11","12","13","14","15","16"};
         List<OpConjuntos> listAux = new ArrayList<>();
 
         for(int i = 0; i < qtd; i++){
-            OpConjuntos c = new OpConjuntos( conjuntosA[i % conjuntosA.length], conjuntosB[ i % conjuntosB.length ], null, Arrays.asList("A U B = { conjuntoA + Conjunto B}"));
+            OpConjuntos c = new OpConjuntos( conjuntosA[i % conjuntosA.length], conjuntosB[ i % conjuntosB.length ], null, Arrays.asList("A U B = { conjuntoA + Conjunto B}sdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf"));
             listAux.add(c);
         }
         return(listAux);

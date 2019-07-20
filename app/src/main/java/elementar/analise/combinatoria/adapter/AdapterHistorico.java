@@ -4,13 +4,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
@@ -23,7 +20,6 @@ public class AdapterHistorico extends RecyclerView.Adapter<AdapterHistorico.MyVi
     private static AdapterHistorico instance = null;
     private List<OpConjuntos> listHistorico;
     private ItemClickListener itemClickListener;
-    private int cont = 0;
 
     public static AdapterHistorico getInstance(List<OpConjuntos> list){
         if(instance == null){
@@ -89,24 +85,24 @@ public class AdapterHistorico extends RecyclerView.Adapter<AdapterHistorico.MyVi
 
         TextView conjuntoA, conjuntoB, conjuntoU;
         TextView listResultado;
-        ConstraintLayout constraintLayout;
+        LinearLayout linearLayout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            constraintLayout = itemView.findViewById(R.id.adapterHistorico);
+            linearLayout = itemView.findViewById(R.id.adapterHistorico);
             conjuntoA = itemView.findViewById(R.id.textConjA);
             conjuntoB = itemView.findViewById(R.id.textConjB);
             conjuntoU = itemView.findViewById(R.id.textConjU);
             listResultado = itemView.findViewById(R.id.ResultadoHistorico);
-            constraintLayout.setOnClickListener(this);
+            linearLayout.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
 
             if(itemClickListener != null){
-//                itemClickListener.onItemClickListiner(getAdapterPosition());
+                itemClickListener.onItemClickListiner(getAdapterPosition());
             }
         }
     }
