@@ -10,4 +10,7 @@
     <color name="colorBordGreen">#00FF00</color>
     <color name="corbackGroundbottomSheet">#0078BD</color>
     <color name="list">#C4000000</color>
+    <color name="background">#D2000000</color>
+    <color name="colorPrimarytoobar">#007ECC</color>
+    <color name="colorFlash">#64000000</color>
 </resources>
