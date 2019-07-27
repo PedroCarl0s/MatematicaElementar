@@ -1,6 +1,8 @@
 package elementar.analise.combinatoria.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -65,32 +67,6 @@ public class HistoricoFragment extends Fragment implements View.OnClickListener 
 
         myRecycler = view.findViewById(R.id.recyclerViewId);
         myRecycler.setHasFixedSize(true);
-//        myRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//
-////                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) myRecycler.getLayoutManager();
-////
-////                AdapterHistorico adapterHistorico = (AdapterHistorico) myRecycler.getAdapter();
-////
-////                if(listTemporaria.size() == linearLayoutManager.findLastCompletelyVisibleItemPosition() + 1){
-////
-////                    List<OpConjuntos> listAux = getSetOpConjuntosList(10);
-////
-////                    for(int i = 0;i < listAux.size(); i++){
-////                        adapterHistorico.addListItem(listAux.get(i),listTemporaria.size());
-////                    }
-////                }
-//
-//            }
-//        });
-
 
         listTemporaria = getSetOpConjuntosList(10);
 
@@ -106,7 +82,6 @@ public class HistoricoFragment extends Fragment implements View.OnClickListener 
         fab = view.findViewById(R.id.fab);
 
         //faz o fab sumir ao rolar o recycler view
-//        fab 01
         fab.attachToRecyclerView(myRecycler, new ScrollDirectionListener() {
             //saber qual a direção do scroll
             @Override
@@ -204,6 +179,28 @@ public class HistoricoFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(getContext(),"Fab Pressed",Toast.LENGTH_LONG).show();
+
+        //instancia um AlertDialog.Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setMessage("Deseja remover todo o histórico")
+                .setTitle("Apagar");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getContext(),"futuramente ira remover a lista",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.show();
+
     }
 }
