@@ -40,22 +40,26 @@ public class Permutacao extends Fragment {
     private Calculadora calculadora = Calculadora.getInstance();
     private GeradorPermutacao gerador = new GeradorPermutacao();
 
-    private static TextInputLayout inputElementos, inputPosicoes;
-    private static TextInputEditText txtElementos, txtPosicoes;
+    private TextInputLayout inputElementos, inputPosicoes;
+    private TextInputEditText txtElementos, txtPosicoes;
 
-    private static MathView formulaPermutacao, resultadoPermutacao, resultadoFinalSimples;
-    private static int valorElementos, valorPosicoes;
-    private static Button btnCalcular;
+    private MathView formulaPermutacao, resultadoPermutacao, resultadoFinalSimples;
+    private int valorElementos, valorPosicoes;
+    private Button btnCalcular;
     private boolean jaCalculou = false;
 
     private LottieAnimationView animationWrite, animationSwipe;
     private final int ID_WRITE = R.id.animation_write, ID_SWIPE = R.id.animation_swipe;
     private final int DELAY_TIME = 750;
-    private static final int ERRO_CONVERSAO = -10000;
+    private final int ERRO_CONVERSAO = -10000;
 
-    private static myBottomSheet bottomSheet;
-    private static BottomSheetBehavior behavior;
-    private static RelativeLayout relativeLayout;
+    private myBottomSheet bottomSheet;
+    private BottomSheetBehavior behavior;
+    private RelativeLayout relativeLayout;
+
+    private Toast toastMessage;
+
+
     private String calculoFinal = "";
     private boolean liberarCalculo = false;
     private boolean calculoLandScape = false;
@@ -82,6 +86,7 @@ public class Permutacao extends Fragment {
         int currentOrientation = getResources().getConfiguration().orientation;
         LottieController.changeAnimationVisibility(view, animationSwipe, ID_SWIPE, currentOrientation);
 
+
         return view;
     }
 
@@ -98,7 +103,7 @@ public class Permutacao extends Fragment {
             @Override
             public void onClick(View v) {
 
-                calcularPermutacao(Permutacao.getNumeroElementos(), Permutacao.getNumeroPosicoes());
+                calcularPermutacao(getNumeroElementos(), getNumeroPosicoes());
 
             }
         });
@@ -113,7 +118,7 @@ public class Permutacao extends Fragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
-                    calcularPermutacao(Permutacao.getNumeroElementos(), Permutacao.getNumeroPosicoes());
+                    calcularPermutacao(getNumeroElementos(), getNumeroPosicoes());
 
                     return true;
                 }
@@ -129,7 +134,7 @@ public class Permutacao extends Fragment {
 
     }
 
-    // Inicializa componentes de Input, MathView e Button
+    // Inicializa componentes de Input, MathView,Button e Toast
 
     private void init() {
 
@@ -145,7 +150,11 @@ public class Permutacao extends Fragment {
             }
 
             resultadoFinalSimples = view.findViewById(R.id.resultado_permutacaoFinal);
-            resultadoFinalSimples.setText("$$\\bold{Resultado}$$");
+
+
+            if (!jaCalculou){
+                resultadoFinalSimples.setText("$$\\bold{Resultado}$$");
+            }
 
         }
 
@@ -160,6 +169,8 @@ public class Permutacao extends Fragment {
         this.formulaPermutacao = view.findViewById(R.id.formula_permutacao);
         this.resultadoPermutacao = view.findViewById(R.id.resultado_permutacaoPasso);
 
+        this.toastMessage = Toast.makeText(getContext(), null, Toast.LENGTH_SHORT);
+
         this.btnCalcular = view.findViewById(R.id.btn_calcular);
 
         String formulaPermutacao = "$$\\normalsize \\bold{Formula}$$" + " $${P(n, p)} = \\frac{n!} {(n-p)!}, n \\geqslant p$$";
@@ -168,15 +179,15 @@ public class Permutacao extends Fragment {
     }
 
     // Responsável por solicitar o cálculo e impressão no formato LaTeX
-    public void calcularPermutacao(int valorElementos, int valorPosicoes) {
+    private void calcularPermutacao(int valorElementos, int valorPosicoes) {
 
-        if (calculadora.validarElementosEPosicoes(Permutacao.getNumeroElementos(), Permutacao.getNumeroPosicoes() ,inputElementos, inputPosicoes)) {
+        if (calculadora.validarElementosEPosicoes(getNumeroElementos(), getNumeroPosicoes() ,inputElementos, inputPosicoes)) {
             MainActivity.hideKeyboard(getActivity());
 
             if (jaCalculou) {
 
                 // Campos de entrada com os mesmos valores, não é necessário recalcular
-                if ((Permutacao.getNumeroElementos() == this.valorElementos) && Permutacao.getNumeroPosicoes() == this.valorPosicoes) {
+                if ((getNumeroElementos() == this.valorElementos) && getNumeroPosicoes() == this.valorPosicoes) {
                     inputElementos.setHint("Elementos a permutar");
                     inputPosicoes.setHint("Posições a permutar");
 
@@ -187,8 +198,8 @@ public class Permutacao extends Fragment {
 
                     mostrarResultado(valorElementos,valorPosicoes);
                     jaCalculou = true;
-                    this.valorElementos = Permutacao.getNumeroElementos();
-                    this.valorPosicoes = Permutacao.getNumeroPosicoes();
+                    this.valorElementos = getNumeroElementos();
+                    this.valorPosicoes = getNumeroPosicoes();
                 }
 
                 // Muda estado da variável jaCalculou e calcula (apenas no primeiro cálculo)
@@ -197,8 +208,8 @@ public class Permutacao extends Fragment {
                 mostrarResultado(valorElementos,valorPosicoes);
 
                 jaCalculou = true;
-                this.valorElementos = Permutacao.getNumeroElementos();
-                this.valorPosicoes = Permutacao.getNumeroPosicoes();
+                this.valorElementos = getNumeroElementos();
+                this.valorPosicoes = getNumeroPosicoes();
             }
 
         } else {
@@ -219,7 +230,8 @@ public class Permutacao extends Fragment {
 
 
     private void showToastMessage(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        this.toastMessage.setText(message);
+        this.toastMessage.show();
     }
 
     private void setResultado(final int valorElementos, final int valorPosicoes, final MathView resultado, final MathView resultadoPasso) {
@@ -274,7 +286,7 @@ public class Permutacao extends Fragment {
 
     }
 
-    private static int getNumeroElementos() {
+    private int getNumeroElementos() {
         int elementos;
 
         try {
@@ -289,7 +301,7 @@ public class Permutacao extends Fragment {
         return elementos;
     }
 
-    private static int getNumeroPosicoes() {
+    private int getNumeroPosicoes() {
         int posicoes;
 
         try {
@@ -309,8 +321,8 @@ public class Permutacao extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString("elementos", Integer.toString(Permutacao.getNumeroElementos()));
-        outState.putString("posicoes", Integer.toString(Permutacao.getNumeroPosicoes()));
+        outState.putString("elementos", Integer.toString(getNumeroElementos()));
+        outState.putString("posicoes", Integer.toString(getNumeroPosicoes()));
         outState.putBoolean("jaCalculou",jaCalculou);
         outState.putString("calculoFinal",this.calculoFinal);
         outState.putBoolean("liberarCalculo",this.liberarCalculo);
