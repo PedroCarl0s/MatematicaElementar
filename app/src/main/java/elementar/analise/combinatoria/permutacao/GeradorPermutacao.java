@@ -6,8 +6,8 @@ import elementar.analise.combinatoria.geradores.GeradorFormulas;
 
 public class GeradorPermutacao extends GeradorFormulas {
 
-    private static int elementosMenosPosicoes;
-    private static String fatorialElementos;
+    private int elementosMenosPosicoes;
+    private String fatorialElementos;
 
     private static Calculadora calculadora = Calculadora.getInstance();
 
@@ -16,12 +16,12 @@ public class GeradorPermutacao extends GeradorFormulas {
 
     }
 
-    private static String gerarCabecalho(int elementos, int posicoes) {
+    private String gerarCabecalho(int elementos, int posicoes) {
         return "P(" + elementos + ", " + posicoes + ")";
     }
 
     //Gera a primeira equação, após aplicar os valores N e P
-    private static String gerarAplicacaoPermutacao(int elementos, int posicoes) {
+    private String gerarAplicacaoPermutacao(int elementos, int posicoes) {
         String resultado;
 
         String mensagem = "Após a aplicação dos valores, obtemos:";
@@ -58,27 +58,19 @@ public class GeradorPermutacao extends GeradorFormulas {
         return "\\frac{" + valorNumerador + "!" + "}" + "{" + elementosMenosPosicoes + "!" + "}";
     }
 
-    // Gera o desenvolvimento do Permutacao
+    // Gera o desenvolvimento da Permutacao
     private  String gerarDesenvolvimento(int valorElementos, int valorPosicoes, String valorNumerador, int elementosMenosPosicoes) {
-        String desenvolvimento = "$$" + gerarCabecalho(valorElementos, valorPosicoes) + " = " + gerarFracaoCifrao(valorNumerador, elementosMenosPosicoes) + "$$";
-
-        return desenvolvimento;
+        return "$$" + gerarCabecalho(valorElementos, valorPosicoes) + " = " + gerarFracaoCifrao(valorNumerador, elementosMenosPosicoes) + "$$";
     }
-
 
     // Gera o resultado final da permutação
     public long getResultadoFinalPermutacao(int valorElementos, int valorPosicoes) {
 
         elementosMenosPosicoes = valorElementos - valorPosicoes;
-        long resultadoFinal;
 
-        // Elementos = Posições, o valor do denominador será zero. Basta gerar o fatorial do numerador
-        if (valorElementos == valorPosicoes) {
-            return resultadoFinal = Calculadora.gerarResultadoCalculoFatorial(valorElementos, valorPosicoes);
-
-        // Valores distintos, é necessário desenvolver os fatoriais
-        } else if (valorElementos != elementosMenosPosicoes) {
-            return resultadoFinal = calculadora.gerarResultadoCalculoFatorial(valorElementos, valorPosicoes);
+        // Nas condições abaixo, é necessário realizar cálculos
+        if ((valorElementos == valorPosicoes) || (valorElementos != elementosMenosPosicoes)) {
+            return Calculadora.gerarResultadoCalculoFatorial(valorElementos, valorPosicoes);
 
         }
 
@@ -123,7 +115,7 @@ public class GeradorPermutacao extends GeradorFormulas {
 
         } else {
             mensagem = "Como o valor do numerador e denominador são iguais a 0!, e 0! = 1. Isso resulta em " +
-                    gerarFracaoInline(valorElementos, valorPosicoes, "");
+                    gerarFracaoInline(valorElementos, valorPosicoes, "") + " = 1";
         }
 
         return  mensagem;
@@ -145,11 +137,10 @@ public class GeradorPermutacao extends GeradorFormulas {
     //Gera todo o cálculo no formato LaTeX
     private String gerarPassoAPasso(int valorElementos, int valorPosicoes) {
 
+        elementosMenosPosicoes = valorElementos - valorPosicoes;
+
         String mensagemDesenvolvimento, mensagemSimplificacao;
         String numeradorDesenvolvimento;
-        long resultadoFinal;
-
-        resultadoFinal = getResultadoFinalPermutacao(valorElementos, valorPosicoes);
 
         fatorialElementos = calculadora.gerarFatorialElementos(valorElementos, valorPosicoes);
 
@@ -180,15 +171,19 @@ public class GeradorPermutacao extends GeradorFormulas {
             numeradorDesenvolvimento = Integer.toString(valorElementos);
         }
 
+
         String desenvolvimentoLatex = gerarDesenvolvimento(valorElementos, valorPosicoes, numeradorDesenvolvimento, elementosMenosPosicoes);
+
         String simplificacaoLatex = gerarSimplificacaoFatorial(valorElementos, valorPosicoes);
+
+        long resultadoFinal = getResultadoFinalPermutacao(valorElementos, valorPosicoes);
+
         String resultadoFinalLatex = calculadora.gerarResultadoFinal("P", valorElementos, valorPosicoes, resultadoFinal);
 
 
         return  mensagemDesenvolvimento + desenvolvimentoLatex +
                 mensagemSimplificacao + simplificacaoLatex + resultadoFinalLatex;
     }
-
 
 
     public String gerarResultadoPermutacao(int valorElementos, int valorPosicoes) {
