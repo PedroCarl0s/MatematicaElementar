@@ -1,6 +1,7 @@
 package elementar.analise.combinatoria.floatingbutton;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
@@ -37,15 +38,17 @@ public class MenuFloatingButton {
 
         if(!isFABOpen){
             showFABMenu();
-            showMenu = true;
+            showMenu = false;
         }else{
             closeFABMenu();
-            showMenu = false;
+            showMenu = true;
+
         }
 
     }
     
     public boolean isShowMenu(){
+        Log.i("showmenu","showmenu "+showMenu);
         return showMenu;
     }
 

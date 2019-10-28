@@ -110,6 +110,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
         setSingleEvent(grupoGrid);
         onClicks();
+        takeFocusTextInputLayout();
         takeDataIntentFragments();
 
 
@@ -195,6 +196,8 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     private void visibilityKeyboard(ConstraintLayout constraintLayoutAlpha,ConstraintLayout constraintLayoutNumber, int idKeyboard){
 
+        desabiliteFabMenu();
+
         if(initKeyboard){
 
             constraintLayoutAlpha.setVisibility(View.VISIBLE);
@@ -223,24 +226,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     private void takeFocusTextInputLayout(){
 
-        conjuntoA.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-
-                Log.i("edit","focus");
-
-            }
-        });
-
-        conjuntoA.getEditText().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-                Log.i("edit","key");
-
-                return false;
-            }
-        });
+     ;
 
     }
 
@@ -257,6 +243,15 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
             }
         }
 
+    }
+
+    private boolean desabiliteFabMenu(){
+
+        if(menuFloatingButton.isShowMenu()){
+            menuFloatingButton.controleMenuFab(fab);
+            return true;
+        }
+        return false;
     }
 
     private void openFragments(Fragment fragment){
@@ -390,26 +385,30 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     public void onBackPressed() {
 
-        if(keyboardAlphaNumber.getVisibility() == View.VISIBLE || keyboardNumber.getVisibility() == View.VISIBLE){
+        if(!desabiliteFabMenu()){
 
-            keyboardAlphaNumber.setVisibility(View.INVISIBLE);
-            keyboardNumber.setVisibility(View.INVISIBLE);
-            initKeyboard = true;
+            if(keyboardAlphaNumber.getVisibility() == View.VISIBLE || keyboardNumber.getVisibility() == View.VISIBLE){
 
-        }else{
-
-            if(checkVisibiliteFab()) {
-
-                startActivity(new Intent(this, MainActivity.class));
-                finish();
+                keyboardAlphaNumber.setVisibility(View.INVISIBLE);
+                keyboardNumber.setVisibility(View.INVISIBLE);
+                initKeyboard = true;
 
             }else{
 
-                fab.show();
-                popFragments();
+                if(checkVisibiliteFab()) {
+
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
+
+                }else{
+
+                    fab.show();
+                    popFragments();
+
+                }
+
 
             }
-
 
         }
 
