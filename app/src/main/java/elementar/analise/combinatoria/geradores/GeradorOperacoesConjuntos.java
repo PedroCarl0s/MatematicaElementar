@@ -10,27 +10,30 @@ public class GeradorOperacoesConjuntos {
 
     //calculor individuais
 
-    public StringBuilder calcularUniao(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularUniao(String inputA, String inputB){
+
+        String resultado = inputA +","+ inputB;
+
+        return new StringBuilder(resultado);
+    }
+
+    public StringBuilder calcularIntersecao(String inputA, String inputB){
         return new StringBuilder();
     }
 
-    public StringBuilder calcularIntersecao(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularComplementar(String inputA, String inputB, String inputC){
         return new StringBuilder();
     }
 
-    public StringBuilder calcularComplementar(TextInputLayout inputA, TextInputLayout inputB, TextInputLayout inputC){
+    public StringBuilder calcularDiferencaAB(String inputA, String inputB){
         return new StringBuilder();
     }
 
-    public StringBuilder calcularDiferencaAB(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularDiferencaBA(String inputA, String inputB){
         return new StringBuilder();
     }
 
-    public StringBuilder calcularDiferencaBA(TextInputLayout inputA, TextInputLayout inputB){
-        return new StringBuilder();
-    }
-
-    public StringBuilder calcularConjuntoPartes(TextInputLayout inputA, TextInputLayout inputB){
+    public StringBuilder calcularConjuntoPartes(String inputA, String inputB){
         return new StringBuilder();
     }
 

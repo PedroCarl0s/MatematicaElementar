@@ -17,6 +17,7 @@ public class MenuFloatingButton {
     private List<FloatingActionButton> arrayFloating;
     private int[] standards = new int[]{R.dimen.standard_55,R.dimen.standard_105,R.dimen.standard_155};
     private boolean isFABOpen = false;
+    private boolean showMenu = false;
     private Context myContext;
 
     public MenuFloatingButton(Context context){
@@ -36,10 +37,16 @@ public class MenuFloatingButton {
 
         if(!isFABOpen){
             showFABMenu();
+            showMenu = true;
         }else{
             closeFABMenu();
+            showMenu = false;
         }
 
+    }
+    
+    public boolean isShowMenu(){
+        return showMenu;
     }
 
     private void showFABMenu(){
@@ -68,14 +75,27 @@ public class MenuFloatingButton {
                     .start();
         }
 
-
     }
 
-    public void hideFloating(FloatingActionButton fab){
+    public void showAndHide(FloatingActionButton fab){
 
-        controleMenuFab(fab);
+        if(fab.isShown()){
+
+            fab.hide();
+
+        }else{
+
+            fab.show();
+
+        }
 
     }
+//
+//    public void hideFloating(FloatingActionButton fab){
+//
+//        controleMenuFab(fab);
+//
+//    }
 
 
 }

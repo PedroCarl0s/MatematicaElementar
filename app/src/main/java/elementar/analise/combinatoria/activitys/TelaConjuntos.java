@@ -1,22 +1,33 @@
 package elementar.analise.combinatoria.activitys;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.gridlayout.widget.GridLayout;
 
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
+import android.text.InputType;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -27,7 +38,7 @@ import elementar.matematica.pedrock.matemticaelementar.activity.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import io.github.kexanie.library.MathView;
 
-public class TelaConjuntos extends AppCompatActivity {
+public class TelaConjuntos extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener{
 
     private TextInputLayout conjuntoA;
     private TextInputLayout conjuntoB;
@@ -67,6 +78,14 @@ public class TelaConjuntos extends AppCompatActivity {
 
     private FragmentTransaction fragmentTransaction;
 
+    private BottomSheetBehavior bottomSheetBehavior;
+
+    private ConstraintLayout keyboardNumber, keyboardAlphaNumber;
+
+    private int idAtual = 0;
+
+    private boolean initKeyboard = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,17 +96,37 @@ public class TelaConjuntos extends AppCompatActivity {
 
     private void init(){
 
-        instanceComponentes();
+        findViewAll();
+        disableInputKeyboard(conjuntoA);
+        disableInputKeyboard(conjuntoB);
+        disableInputKeyboard(conjuntoU);
+
+//        visibilityKeyboard(keyboardAlphaNumber,keyboardNumber,idAtual);
+        if(relativeLayout.getVisibility() == View.VISIBLE && !liberarCalculo){
+
+            relativeLayout.setVisibility(View.GONE);
+
+        }
+
         setSingleEvent(grupoGrid);
         onClicks();
         takeDataIntentFragments();
 
+
     }
 
-    @SuppressLint("RestrictedApi")
-    private void instanceComponentes(){
+    @SuppressLint("ClickableViewAccessibility")
+    public void disableInputKeyboard(TextInputLayout textInputLayout){
+        textInputLayout.getEditText().setOnTouchListener(this);
+    }
+
+    @SuppressLint({"RestrictedApi", "ClickableViewAccessibility"})
+    private void findViewAll(){
 
         intent = getIntent();
+
+        keyboardAlphaNumber = findViewById(R.id.keyboaralphanumeric);
+        keyboardNumber = findViewById(R.id.keyboarnumeric);
 
         menuFloatingButton = new MenuFloatingButton(this);
 
@@ -106,12 +145,6 @@ public class TelaConjuntos extends AppCompatActivity {
 
         relativeLayout = findViewById(R.id.bottomsheetConjunto);
 
-//        if(relativeLayout.getVisibility() == View.VISIBLE && !liberarCalculo){
-//
-//            relativeLayout.setVisibility(View.GONE);
-//
-//        }
-
         fab = findViewById(R.id.botao_info);
         fabHistorico = findViewById(R.id.fab_historico);
         fabRemoveAll = findViewById(R.id.fab_removeAll);
@@ -125,49 +158,90 @@ public class TelaConjuntos extends AppCompatActivity {
 
         menuFloatingButton.controleMenuFab(fab);
 
+        bottomSheetBehavior = BottomSheetBehavior.from(relativeLayout);
+
     }
 
     private void onClicks(){
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(this);
+
+        fabHistorico.setOnClickListener(this);
+
+        fabRemoveAll.setOnClickListener(this);
+
+        btn_calc.setOnClickListener(this);
+
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
-            public void onClick(View v) {
+            public void onStateChanged(@NonNull View view, int i) {
 
-                menuFloatingButton.controleMenuFab(fab);
-
-            }
-        });
-
-        fabHistorico.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                menuFloatingButton.hideFloating(fab);
-                openFragments(new HistoricoFragment());
-                fab.hide();
-
-
-            }
-        });
-
-        fabRemoveAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menuFloatingButton.hideFloating(fab);
-                removerAllValueInput(conjuntoA,conjuntoB,conjuntoU);
-            }
-        });
-
-        btn_calc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isValidoCalcular(arraySelect)){
-                    Toast.makeText(getApplicationContext(),"Calculor Feito",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getApplicationContext(),"selecione um card para fazer o Calculor",Toast.LENGTH_SHORT).show();
+                switch (i){
+                    case BottomSheetBehavior.STATE_EXPANDED:
+                        fab.hide();
+                        break;
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+                        fab.show();
                 }
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View view, float v) {
+
             }
         });
+    }
+
+    private void visibilityKeyboard(ConstraintLayout constraintLayoutAlpha,ConstraintLayout constraintLayoutNumber, int idKeyboard){
+
+        if(initKeyboard){
+
+            constraintLayoutAlpha.setVisibility(View.VISIBLE);
+            initKeyboard = false;
+
+        }else if(idAtual != idKeyboard || idAtual == 0){
+
+
+            idAtual = idKeyboard;
+
+            if(constraintLayoutAlpha.getVisibility() == View.VISIBLE && constraintLayoutNumber.getVisibility() == View.GONE && idAtual != idKeyboard){
+
+                constraintLayoutAlpha.setVisibility(View.GONE);
+                constraintLayoutNumber.setVisibility(View.VISIBLE);
+
+            }else if(constraintLayoutAlpha.getVisibility() == View.GONE && constraintLayoutNumber.getVisibility() == View.VISIBLE && idAtual != idKeyboard){
+
+                constraintLayoutAlpha.setVisibility(View.VISIBLE);
+                constraintLayoutNumber.setVisibility(View.GONE);
+
+            }
+
+        }
+
+    }
+
+    private void takeFocusTextInputLayout(){
+
+        conjuntoA.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                Log.i("edit","focus");
+
+            }
+        });
+
+        conjuntoA.getEditText().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                Log.i("edit","key");
+
+                return false;
+            }
+        });
+
     }
 
     private void takeDataIntentFragments(){
@@ -223,7 +297,6 @@ public class TelaConjuntos extends AppCompatActivity {
 
                     addArray(cardView, choice);
                     verificarComplementar(conjuntoU,arraySelect);
-                    makeCalc(arraySelect,conjuntoA,conjuntoB,conjuntoU);
                 }
             });
 
@@ -249,7 +322,7 @@ public class TelaConjuntos extends AppCompatActivity {
         cardView.setBackgroundResource(drawable);
     }
 
-    private StringBuilder makeCalc(int[] arraySelected,TextInputLayout inputA,TextInputLayout inputB,TextInputLayout inputU) {
+    private StringBuilder makeCalc(int[] arraySelected,String inputA,String inputB,String inputU) {
 
         if(isValorUnicoArray(arraySelected)){
 
@@ -273,14 +346,14 @@ public class TelaConjuntos extends AppCompatActivity {
 
         }else{
 //            Uniao
-            if(arraySelected[0] == 0){
-                if(arraySelected[1] == 1){
-                    operacoesConjuntos.calcularUniaoIntersecao(inputA,inputB);
-                }else if(arraySelected[3] == 3){
-                    operacoesConjuntos.calcularUniaoComplementar(inputA,inputB,inputU);
-                }
-
-            }
+//            if(arraySelected[0] == 0){
+//                if(arraySelected[1] == 1){
+//                    operacoesConjuntos.calcularUniaoIntersecao(inputA,inputB);
+//                }else if(arraySelected[3] == 3){
+//                    operacoesConjuntos.calcularUniaoComplementar(inputA,inputB,inputU);
+//                }
+//
+//            }
         }
         return null;
     }
@@ -316,15 +389,27 @@ public class TelaConjuntos extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        if(checkVisibiliteFab()) {
 
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+        if(keyboardAlphaNumber.getVisibility() == View.VISIBLE || keyboardNumber.getVisibility() == View.VISIBLE){
+
+            keyboardAlphaNumber.setVisibility(View.INVISIBLE);
+            keyboardNumber.setVisibility(View.INVISIBLE);
+            initKeyboard = true;
 
         }else{
 
-            fab.show();
-            popFragments();
+            if(checkVisibiliteFab()) {
+
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+
+            }else{
+
+                fab.show();
+                popFragments();
+
+            }
+
 
         }
 
@@ -359,4 +444,54 @@ public class TelaConjuntos extends AppCompatActivity {
 
     }
 
+    private String convert(TextInputLayout textInputLayout){
+        return textInputLayout.getEditText().getText().toString();
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch(v.getId()){
+
+            case R.id.botao_info:
+                menuFloatingButton.controleMenuFab(fab);
+                break;
+            case R.id.fab_historico:
+                menuFloatingButton.controleMenuFab(fab);
+                openFragments(new HistoricoFragment());
+                menuFloatingButton.showAndHide(fab);
+                break;
+            case R.id.fab_removeAll:
+                menuFloatingButton.controleMenuFab(fab);
+                removerAllValueInput(conjuntoA,conjuntoB,conjuntoU);
+                break;
+            case R.id.btnCalcular:
+                if(isValidoCalcular(arraySelect)){
+                    Toast.makeText(getApplicationContext(),"Calculor Feito = "+makeCalc(arraySelect,convert(conjuntoA),convert(conjuntoB),convert(conjuntoU)),Toast.LENGTH_SHORT).show();
+                    if(relativeLayout.getVisibility() == View.GONE){
+
+                        relativeLayout.setVisibility(View.VISIBLE);
+
+                    }
+
+                }else{
+                    Toast.makeText(getApplicationContext(),"selecione um card para fazer o Calculor",Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+        }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        visibilityKeyboard(keyboardAlphaNumber,keyboardNumber,v.getId());
+
+        EditText editText = findViewById(v.getId());
+        int inType = editText.getInputType(); // backup the input type
+        editText.setInputType(InputType.TYPE_NULL); // disable soft input
+        editText.onTouchEvent(event); // call native handler
+        editText.setInputType(inType); // restore input type
+        return true; // consume touch even
+    }
 }
