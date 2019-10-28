@@ -48,7 +48,6 @@ public class MenuFloatingButton {
     }
     
     public boolean isShowMenu(){
-        Log.i("showmenu","showmenu "+showMenu);
         return showMenu;
     }
 
@@ -93,12 +92,5 @@ public class MenuFloatingButton {
         }
 
     }
-//
-//    public void hideFloating(FloatingActionButton fab){
-//
-//        controleMenuFab(fab);
-//
-//    }
-
 
 }
