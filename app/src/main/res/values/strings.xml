@@ -42,7 +42,7 @@
     <string name="t">t</string>
     <string name="y">y</string>
     <string name="u">u</string>
-    <string name="i">i</string>
+    <string name="I">i</string>
     <string name="o">o</string>
     <string name="p">p</string>
     <!-- row 2-->
@@ -54,7 +54,7 @@
     <string name="h">h</string>
     <string name="j">j</string>
     <string name="k">k</string>
-    <string name="l">l</string>
+    <string name="L">l</string>
     <!-- row 3-->
     <string name="infinity">Ø</string>
     <string name="z">z</string>
@@ -64,15 +64,16 @@
     <string name="b">b</string>
     <string name="n">n</string>
     <string name="m">m</string>
-    <string name="delete">de</string>
+    <string name="delete">delete</string>
     <!-- row 4-->
     <string name="change">123</string>
     <string name="comma">,</string>
-    <string name="space">space</string>
+    <string name="space">" "</string>
     <string name="enter">enter</string>
 
     <!--Strings do keyboard de numerico-->
     <!-- row 1-->
+    <string name="num0">0</string>
     <string name="num1">1</string>
     <string name="num2">2</string>
     <string name="num3">3</string>
