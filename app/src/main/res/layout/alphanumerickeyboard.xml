@@ -129,7 +129,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/backgroundradio"
                 android:paddingTop="1dp"
-                android:text="@string/l" />
+                android:text="@string/I" />
 
             <Button
                 android:id="@+id/btnO"
@@ -284,7 +284,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/backgroundradio"
                 android:paddingTop="1dp"
-                android:text="@string/l" />
+                android:text="@string/L" />
         </LinearLayout>
 
         <LinearLayout
@@ -472,7 +472,7 @@
                 android:paddingTop="1dp" />
 
             <Button
-                android:id="@+id/imageButton2"
+                android:id="@+id/btnGo"
                 android:layout_width="@dimen/standard_55"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
