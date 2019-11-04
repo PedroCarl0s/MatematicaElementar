@@ -1,5 +1,8 @@
 package elementar.analise.combinatoria.geradores;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.google.android.material.textfield.TextInputLayout;
 
 public class GeradorOperacoesConjuntos {
@@ -8,16 +11,61 @@ public class GeradorOperacoesConjuntos {
 
     }
 
+    private String removeCommaFirsLast(String value){
+
+        String[] arrayValueA = value.split("");
+
+        StringBuffer newValue = new StringBuffer();
+
+        if(arrayValueA[1].equals(",")){
+            for(int i = 2   ; i < arrayValueA.length;i++){
+                newValue.append(arrayValueA[i]);
+            }
+        }
+
+        if(newValue.length() == 0) {
+
+            newValue.append(value);
+
+        }
+
+        String[] newArray = newValue.toString().split("");
+
+        if(newArray[newArray.length - 1].equals(",")){
+
+            newValue.delete(0,newValue.length());
+
+            for(int i = 0; i < newArray.length - 1;i++){
+
+                newValue.append(newArray[i]);
+
+            }
+        }
+
+        return newValue.toString().trim();
+
+    }
+
     //calculor individuais
 
     public StringBuilder calcularUniao(String inputA, String inputB){
 
-        String resultado = inputA +","+ inputB;
+        String resultado = removeCommaFirsLast(inputA) +","+ removeCommaFirsLast(inputB);
 
         return new StringBuilder(resultado);
     }
 
     public StringBuilder calcularIntersecao(String inputA, String inputB){
+
+        StringBuffer newCalculo = new StringBuffer();
+
+        inputA  = inputA.trim();
+        inputB = inputB.trim();
+        String[] array = inputA.split("");
+        if(array[array.length - 1].equals(","))Log.i("texot","valor "+array[array.length-1]);
+        for(String s : array){
+            Log.i("texot","valor "+s);
+        }
         return new StringBuilder();
     }
 
