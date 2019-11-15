@@ -1,45 +1,94 @@
 package elementar.analise.combinatoria.geradores;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Arrays;
+
 public class GeradorOperacoesConjuntos {
+
+    private final String comma = ",";
 
     public GeradorOperacoesConjuntos(){
 
     }
 
-    private String removeCommaFirsLast(String value){
+    private String ordenar(String value){
 
-        String[] arrayValueA = value.split("");
+        String[] arrayValue = value.split(",");
+
+        for (int i = 0;i < arrayValue.length; i++){
+
+            for(int j = i;j < arrayValue.length;j++){
+
+                if(Integer.parseInt(arrayValue[i]) > Integer.parseInt(arrayValue[j])){
+
+                    String aux = arrayValue[i];
+                    arrayValue[i] = arrayValue[j];
+                    arrayValue[j] = aux;
+
+                }
+
+            }
+        }
+
+        return Arrays.toString(arrayValue);
+
+    }
+
+    private int findArray(String value, String[] arrayValues){
+
+        for(int i = 0; i < arrayValues.length;i++){
+            if(value.equals(arrayValues[i])) return i;
+        }
+        return -1;
+    }
+
+    private String removeEquals(String oldString) {
+
+        StringBuilder newValue = new StringBuilder();
+        String[] arrayNumber =  oldString.split(comma);
+
+        for (int i = 0; i < arrayNumber.length; i++) {
+
+            String compare = arrayNumber[i];
+
+            String[] auxArray = newValue.toString().split(comma);
+
+            int index = findArray(compare,auxArray);
+
+            if(index == -1 || newValue.length() == 0){
+
+                newValue.append(arrayNumber[i]);
+
+                if(i < arrayNumber.length -1) newValue.append(comma);
+
+            }
+
+        }
+
+        return ordenar(newValue.toString());
+
+    }
+
+    public String checkComma(String value){
+
+        value = value.replaceAll("\\s+","");
+
+        String[] arrayValueA = value.split(comma);
 
         StringBuffer newValue = new StringBuffer();
 
-        if(arrayValueA[1].equals(",")){
-            for(int i = 2   ; i < arrayValueA.length;i++){
+        for(int i = 0; i < arrayValueA.length; i++){
+
+            if(!arrayValueA[i].equals("")){
+
                 newValue.append(arrayValueA[i]);
-            }
-        }
-
-        if(newValue.length() == 0) {
-
-            newValue.append(value);
-
-        }
-
-        String[] newArray = newValue.toString().split("");
-
-        if(newArray[newArray.length - 1].equals(",")){
-
-            newValue.delete(0,newValue.length());
-
-            for(int i = 0; i < newArray.length - 1;i++){
-
-                newValue.append(newArray[i]);
+                if(i < arrayValueA.length -1) newValue.append(comma);
 
             }
+
         }
 
         return newValue.toString().trim();
@@ -50,9 +99,9 @@ public class GeradorOperacoesConjuntos {
 
     public StringBuilder calcularUniao(String inputA, String inputB){
 
-        String resultado = removeCommaFirsLast(inputA) +","+ removeCommaFirsLast(inputB);
+        String resultado = checkComma(inputA) +","+ checkComma(inputB);
 
-        return new StringBuilder(resultado);
+        return new StringBuilder(removeEquals(resultado));
     }
 
     public StringBuilder calcularIntersecao(String inputA, String inputB){
@@ -63,9 +112,7 @@ public class GeradorOperacoesConjuntos {
         inputB = inputB.trim();
         String[] array = inputA.split("");
         if(array[array.length - 1].equals(","))Log.i("texot","valor "+array[array.length-1]);
-        for(String s : array){
-            Log.i("texot","valor "+s);
-        }
+
         return new StringBuilder();
     }
 
