@@ -280,6 +280,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
                 conjuntoU.setVisibility(View.VISIBLE);
             }else if(intent.getStringExtra("conjU") != null && intent.getStringExtra("conjU").isEmpty()){
                 conjuntoU.setVisibility(View.GONE);
+                conjuntoU.getEditText().setText("");
             }
         }
 
@@ -303,7 +304,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
     }
 
     private void popFragments(){
-        fragmentManager.popBackStack();
+        if(fragmentManager !=  null) fragmentManager.popBackStack();
     }
 
     private void initBackGroundCards(GridLayout gridLayout){
@@ -316,6 +317,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     private void verificarComplementar(TextInputLayout conjunto,int[] array){
         conjunto.setVisibility(array[INDEX_COMPLEMENTAR] == VALOR_COMPLEMENTAR ? View.VISIBLE : View.GONE);
+        if(conjunto.getVisibility() == View.GONE) conjunto.getEditText().setText("");
     }
 
     private void setSingleEvent(GridLayout mainGrid) {
@@ -368,13 +370,13 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
                 case 1:
                     return operacoesConjuntos.calcularIntersecao(inputA,inputB);
                 case 2:
-                    return operacoesConjuntos.calcularDiferencaAB(inputA,inputB);
-                case 3:
                     return operacoesConjuntos.calcularComplementar(inputA,inputB,inputU);
+                case 3:
+                    return operacoesConjuntos.calcularDiferencaAB(inputA,inputB);
                 case 4:
-                    return operacoesConjuntos.calcularConjuntoPartes(inputA,inputB);
+                    return operacoesConjuntos.calcularDiferencaBA(inputB,inputA);
                 case 5:
-                    return operacoesConjuntos.calcularDiferencaBA(inputA,inputB);
+                    return operacoesConjuntos.calcularConjuntoPartes(inputA,inputB);
                 default:
                     break;
             }
@@ -553,9 +555,17 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
             if ( resultadoPasso.getVisibility() == View.GONE ) resultadoPasso.setVisibility(View.VISIBLE);
 
-            final String calculoResultadoFinal =  makeCalc(arraySelect,convert(conjuntoA),convert(conjuntoB),convert(conjuntoU)).toString();
+            String inputA = convert(conjuntoA);
+            String inputB = convert(conjuntoB);
+            String inputU = convert(conjuntoU);
 
-            resultadoPasso.setText(calculoResultadoFinal);
+            if(!inputA.isEmpty() && !inputB.isEmpty() && (!inputU.isEmpty() && conjuntoU.getVisibility() == View.VISIBLE || inputU.isEmpty() && conjuntoU.getVisibility() == View.GONE)){
+
+                final String calculoResultadoFinal =  makeCalc(arraySelect,convert(conjuntoA),convert(conjuntoB),convert(conjuntoU)).toString();
+                resultadoPasso.setText("Calculado = "+calculoResultadoFinal);
+            }else{
+                Toast.makeText(getApplicationContext(),"preencha todos os campos",Toast.LENGTH_SHORT).show();
+            }
 
         }else{
             Toast.makeText(getApplicationContext(),"selecione um card para fazer o Calculor",Toast.LENGTH_SHORT).show();
@@ -685,6 +695,10 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
         visibilityKeyboard(keyboardNumber);
 
         editTextDefault = findViewById(v.getId());
+
+        final String correction = operacoesConjuntos.checkComma(editTextDefault.getText().toString());
+
+        if(!correction.equals(""))editTextDefault.setText(correction);
 
         positionEditTextAtual = positionEdtiText(event);
 
