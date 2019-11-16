@@ -1,10 +1,6 @@
 package elementar.analise.combinatoria.geradores;
 
-import android.util.Log;
-
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.Arrays;
 
 public class GeradorOperacoesConjuntos {
 
@@ -33,8 +29,19 @@ public class GeradorOperacoesConjuntos {
             }
         }
 
-        return Arrays.toString(arrayValue);
+        return toArrayString(arrayValue);
 
+    }
+
+    private String toArrayString(String[] values){
+
+        StringBuilder value = new StringBuilder();
+        for(int i = 0;i < values.length;i++){
+            value.append(values[i]);
+            if(i < values.length-1) value.append(comma);
+        }
+
+        return value.toString();
     }
 
     private int findArray(String value, String[] arrayValues){
@@ -95,6 +102,30 @@ public class GeradorOperacoesConjuntos {
 
     }
 
+    private String findEquals(String inputA, String inputB){
+
+        StringBuilder newValue = new StringBuilder();
+
+        inputA = removeEquals(inputA);
+
+        inputB = removeEquals(inputB);
+
+        String[] arrayInputA = inputA.split(comma);
+        String[] arrayInputB = inputB.split(comma);
+
+        for(int i = 0;i < arrayInputA.length;i++){
+            for(int j = i;j < arrayInputB.length;j++){
+                if(Integer.parseInt(arrayInputA[i]) == Integer.parseInt(arrayInputB[j])){
+                    newValue.append(arrayInputA[i]);
+                    if(i < arrayInputA.length -1) newValue.append(comma);
+                    break;
+                }
+            }
+        }
+
+        return newValue.toString();
+    }
+
     //calculor individuais
 
     public StringBuilder calcularUniao(String inputA, String inputB){
@@ -106,14 +137,14 @@ public class GeradorOperacoesConjuntos {
 
     public StringBuilder calcularIntersecao(String inputA, String inputB){
 
-        StringBuffer newCalculo = new StringBuffer();
+        StringBuilder newCalculo = new StringBuilder();
 
-        inputA  = inputA.trim();
-        inputB = inputB.trim();
-        String[] array = inputA.split("");
-        if(array[array.length - 1].equals(","))Log.i("texot","valor "+array[array.length-1]);
+        inputA = checkComma(inputA);
+        inputB = checkComma(inputB);
 
-        return new StringBuilder();
+        newCalculo.append(findEquals(inputA,inputB));
+
+        return newCalculo;
     }
 
     public StringBuilder calcularComplementar(String inputA, String inputB, String inputC){
