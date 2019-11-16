@@ -66,7 +66,7 @@ public class GeradorOperacoesConjuntos {
             String[] auxArray = newValue.toString().split(comma);
 
             int index = findArray(compare,auxArray);
-
+            Log.i("calc","arrayNumber[i]) "+arrayNumber[i]);
             if(index == -1 || newValue.length() == 0){
 
                 newValue.append(arrayNumber[i]);
@@ -76,7 +76,7 @@ public class GeradorOperacoesConjuntos {
             }
 
         }
-
+        Log.i("calc","newValue.toString() "+newValue.toString());
         return ordenar(newValue.toString());
 
     }
@@ -128,6 +128,41 @@ public class GeradorOperacoesConjuntos {
         return newValue.toString();
     }
 
+    private String conjuntoDiferença(String inputA, String inputB){
+
+        StringBuilder newValue = new StringBuilder();
+
+        inputA = removeEquals(inputA);
+        inputB = removeEquals(inputB);
+
+        String[] arrayValueA = inputA.split(",");
+        String[] arrayValueB = inputB.split(",");
+
+        for(int i = 0;i  < arrayValueA.length;i++){
+
+            String compare = arrayValueA[i];
+
+            String[] auxArray = newValue.toString().split(comma);
+
+            int index = findArray(compare,auxArray);
+
+            int indexValueB = findArray(compare,arrayValueB);
+
+            if((index == -1 && indexValueB == -1) || newValue.length() == 0 &&  indexValueB == -1){
+
+                newValue.append(compare);
+
+                if(i < arrayValueA.length - 1) newValue.append(comma);
+
+            }
+
+        }
+
+        if(String.valueOf(newValue.charAt(newValue.length()-1)).equals(comma)) newValue.deleteCharAt(newValue.length() - 1);
+
+        return newValue.toString();
+    }
+
     //calculor individuais
 
     public StringBuilder calcularUniao(String inputA, String inputB){
@@ -154,11 +189,27 @@ public class GeradorOperacoesConjuntos {
     }
 
     public StringBuilder calcularDiferencaAB(String inputA, String inputB){
-        return new StringBuilder();
+
+        StringBuilder newCalculo = new StringBuilder();
+
+        inputA = checkComma(inputA);
+        inputB = checkComma(inputB);
+
+        newCalculo.append(conjuntoDiferença(inputA,inputB));
+
+        return newCalculo;
     }
 
-    public StringBuilder calcularDiferencaBA(String inputA, String inputB){
-        return new StringBuilder();
+    public StringBuilder calcularDiferencaBA(String inputB, String inputA){
+
+        StringBuilder newCalculo = new StringBuilder();
+
+        inputA = checkComma(inputA);
+        inputB = checkComma(inputB);
+
+        newCalculo.append(conjuntoDiferença(inputB,inputA));
+
+        return newCalculo;
     }
 
     public StringBuilder calcularConjuntoPartes(String inputA, String inputB){
