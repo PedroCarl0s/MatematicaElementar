@@ -1,5 +1,7 @@
 package elementar.analise.combinatoria.geradores;
 
+import android.util.Log;
+
 import com.google.android.material.textfield.TextInputLayout;
 
 public class GeradorOperacoesConjuntos {
@@ -85,7 +87,7 @@ public class GeradorOperacoesConjuntos {
 
         String[] arrayValueA = value.split(comma);
 
-        StringBuffer newValue = new StringBuffer();
+        StringBuilder newValue = new StringBuilder();
 
         for(int i = 0; i < arrayValueA.length; i++){
 
@@ -114,10 +116,10 @@ public class GeradorOperacoesConjuntos {
         String[] arrayInputB = inputB.split(comma);
 
         for(int i = 0;i < arrayInputA.length;i++){
-            for(int j = i;j < arrayInputB.length;j++){
+            for(int j = 0;j < arrayInputB.length;j++){
                 if(Integer.parseInt(arrayInputA[i]) == Integer.parseInt(arrayInputB[j])){
                     newValue.append(arrayInputA[i]);
-                    if(i < arrayInputA.length -1) newValue.append(comma);
+                    if(i < arrayInputA.length -2) newValue.append(comma);
                     break;
                 }
             }
