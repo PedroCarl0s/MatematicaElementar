@@ -168,7 +168,6 @@ public class GeradorOperacoesConjuntos {
     public StringBuilder calcularUniao(String inputA, String inputB){
 
         String resultado = checkComma(inputA) +","+ checkComma(inputB);
-
         return new StringBuilder(removeEquals(resultado));
     }
 
@@ -181,6 +180,10 @@ public class GeradorOperacoesConjuntos {
 
         newCalculo.append(findEquals(inputA,inputB));
 
+        if(newCalculo.toString().isEmpty()){
+
+            return new StringBuilder("N/A");
+        }
         return newCalculo;
     }
 
