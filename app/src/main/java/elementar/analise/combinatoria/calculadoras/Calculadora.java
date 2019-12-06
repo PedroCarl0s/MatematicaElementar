@@ -101,6 +101,11 @@ public final class Calculadora extends GeradorFormulas{
             try {
                 teste = Integer.parseInt(Fatorial.getEntradaFatorial());
 
+                if (teste > 20) {
+                    inputFatorial.setError("O valor máximo é 20 fatorial!");
+                    return false;
+                }
+
                 return true;
 
             } catch (Exception e) {
@@ -119,7 +124,7 @@ public final class Calculadora extends GeradorFormulas{
 
     public static long gerarResultadoCalculoFatorial(int elementos, int posicoes) {
 
-        String valoresFinais = Calculadora.gerarFatorialElementos(elementos, posicoes);
+        String valoresFinais = gerarFatorialElementos(elementos, posicoes);
         valoresFinais = GeradorFormulas.removerUltimoValor(valoresFinais);
 
 
@@ -146,6 +151,28 @@ public final class Calculadora extends GeradorFormulas{
 
     }
 
+    // Gera o desenvolvimento do fatorial de um número qualquer. Exemplo: 0 = 1, 1 = 1, 2 = 2.1, 3 = 3.2.1, 4 = 4.3.2.1
+    public static String gerarFatorialQualquer(int valorInicial) {
+
+        if (valorInicial > 1) {
+            StringBuilder valores = new StringBuilder();
+            valores.append(valorInicial);
+
+            for (int atual = valorInicial-1; atual >= 1; atual--) {
+                valores.append(".");
+                valores.append(atual);
+            }
+
+            return valores.toString();
+
+        // 0! = 1! = 1
+        } else {
+
+            return "1";
+        }
+
+
+    }
 
     // Gera o fatorial dos elementos a Permutar, para ser usado no MathView. Exemplo: 4! = 4.3.2.1
     public static String gerarFatorialElementos(int elementos, int posicoes) {
@@ -165,15 +192,13 @@ public final class Calculadora extends GeradorFormulas{
             }
 
             StringBuilder numerador = new StringBuilder();
+            numerador.append(elementos);
 
             // Gera os valores do numerador até o menor valor possível para simplificar
-            for (int e = elementos; e >= fim; e--) {
-                numerador.append(e);
+            for (int e = elementos-1; e >= fim; e--) {
                 numerador.append(".");
+                numerador.append(e);
             }
-
-            // Remove o último caracter em excesso (um ponto final)
-            numerador.delete(numerador.length()-1, numerador.length());
 
             return numerador.toString();
 
@@ -197,7 +222,7 @@ public final class Calculadora extends GeradorFormulas{
        return valorElementos - valorPosicoes;
     }
 
-    // Gera o resultado da
+
     public String gerarDesenvolvimentoFatorial(long valorFatorial) {
 
         if (valorFatorial > 0) {
@@ -205,14 +230,13 @@ public final class Calculadora extends GeradorFormulas{
             StringBuilder valores = new StringBuilder();
 
             if(valorFatorial < 16){
+                valores.append(valorFatorial);
 
-                for (long atual = valorFatorial; atual >= 1; atual--) {
-                    valores.append(atual);
+                for (long atual = valorFatorial-1; atual >= 1; atual--) {
                     valores.append(".");
+                    valores.append(atual);
                 }
 
-                // Remove o último caracter em excesso (um ponto final)
-                valores.delete(valores.length()-1, valores.length());
 
             } else {
 
