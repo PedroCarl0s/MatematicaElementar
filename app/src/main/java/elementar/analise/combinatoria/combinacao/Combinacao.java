@@ -2,10 +2,7 @@ package elementar.analise.combinatoria.combinacao;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -85,7 +82,6 @@ public class Combinacao extends Fragment {
         btnCalcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 calcularCombinacao(Combinacao.getNumeroElementos(), Combinacao.getNumeroPosicoes());
             }
         });
@@ -236,33 +232,6 @@ public class Combinacao extends Fragment {
     private void cancelAnimations() {
         LottieController.cancelLottieAnimation(animationWrite);
         LottieController.cancelLottieAnimation(animationSwipe);
-    }
-
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putString("elementos", Integer.toString(Combinacao.getNumeroElementos()));
-        outState.putString("posicoes", Integer.toString(Combinacao.getNumeroPosicoes()));
-        outState.putBoolean("jaCalculou",jaCalculou);
-        outState.putString("latex", resultadoCombinacao.getText());
-
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            MainActivity.hideKeyboard(getActivity());
-
-            this.txtElementos.setText(savedInstanceState.getString("elementos"));
-            this.txtPosicoes.setText(savedInstanceState.getString("posicoes"));
-            this.jaCalculou = savedInstanceState.getBoolean("jaCalculou");
-            MathView calculoRecuperado = view.findViewById(R.id.resultado_combinacao);
-            calculoRecuperado.setText(savedInstanceState.getString("latex"));
-        }
     }
 
 }
