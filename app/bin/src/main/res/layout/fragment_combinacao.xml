@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="top"
+    android:background="@android:color/transparent"
+
+    tools:context="elementar.analise.combinatoria.fragments.Combinacao">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <io.github.kexanie.library.MathView
+                android:id="@+id/formula_combinacao"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:text="">
+
+            </io.github.kexanie.library.MathView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/elementos_combinacao"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="246dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+
+                android:layout_marginRight="8dp"
+                android:textColorHint="@color/corTabBar"
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:errorTextAppearance="@style/ErrorAppearance"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/formula_combinacao">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_elementos"
+                    style="@style/Widget.AppCompat.EditText"
+                    android:layout_width="245dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Elementos a combinar"
+                    android:inputType="number"
+                    android:textColor="@color/corTabBar"
+                    android:textColorLink="@color/corTabBar"
+                    android:textSize="20sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/posicoes_combinacao"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="246dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+
+                android:layout_marginRight="8dp"
+                android:textColorHint="@color/corTabBar"
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:errorTextAppearance="@style/ErrorAppearance"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/elementos_combinacao">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_posicoes"
+                    android:layout_width="245dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Posições a combinar"
+                    android:inputType="number"
+                    android:textColor="@color/corTabBar"
+                    android:textColorLink="@color/corTabBar"
+                    android:textSize="20sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_calcular"
+                android:layout_width="159dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/corBackGround"
+                android:text="calcular"
+                android:textColor="@color/corTabBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/posicoes_combinacao" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_write"
+                android:layout_width="250dp"
+                android:layout_height="198dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.48"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="false" />
+
+            <io.github.kexanie.library.MathView
+                android:id="@+id/resultado_combinacao"
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/animation_write"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
+                app:layout_constraintVertical_bias="0.0"
+                app:text="">
+
+            </io.github.kexanie.library.MathView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/bottomsheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/corBackGround"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="70dp"
+        app:elevation="32dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <TextView
+            android:id="@+id/textBottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:background="@color/corBackGround"
+            android:gravity="center"
+            android:text="Passo a Passo"
+            android:textColor="@color/corTabBar"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <io.github.kexanie.library.MathView
+            android:id="@+id/resultado_CombinacaoPasso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textBottomSheet"
+            android:layout_margin="12dp"
+            android:layout_marginTop="0dp"
+            android:foregroundGravity="center"
+            app:text="">
+
+        </io.github.kexanie.library.MathView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_swipe"
+            android:layout_width="66dp"
+            android:layout_height="69dp"
+            android:layout_gravity="left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false" />
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

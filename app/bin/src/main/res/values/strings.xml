@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">Matemática Elementar</string>
+    <string name="tabela">Tabela Verdade</string>
+    <string name="contagem">Análise Combinatória</string>
+    <string name="funcoes">Funções</string>
+    <string name="relacoes">Relações de Conjunto</string>
+    <string name="teoria_conjuntos">Teoria dos Conjuntos</string>
+    <string name="titulo">Matemática Elementar</string>
+    <string name="titulo_operacoes">Operações entre Conjuntos</string>
+    <string name="tbox_a">Insira os elementos</string>
+    <string name="operacoes">Operações entre Conjuntos</string>
+    <string name="oper">Operações entre conjuntos</string>
+    <string name="conjunto_a">Conjunto A</string>
+    <string name="conjunto_b">Conjunto B</string>
+    <string name="conjunto_c">Conjunto U</string>
+    <string name="matematica">MATEMÁTICA ELEMENTAR</string>
+    <string name="rel">RELAÇÕES ENTRE CONJUNTOS</string>
+    <string name="analise">ANÁLISE COMBINATÓRIA</string>
+    <string name="txt_teoria">Teoria</string>
+    <string name="opconjuntos">Operações entre Conjuntos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="elementos_a_arranjar">Elementos a arranjar</string>
+    <string name="uniao">União</string>
+    <string name="complementar">Complementar</string>
+    <string name="conjunto_das_partes">Conjunto das Partes</string>
+    <string name="diferenca_b_a">Diferença/B-A</string>
+    <string name="diferenca_a_b">Diferença/A-B</string>
+    <string name="intersecao">Interseção</string>
+    <string name="produtoCartesianoAxB">Cartesiano/AxB</string>
+    <string name="produtoCartesianoBxA">Cartesiano/BxA</string>
+    <string name="btn_calcular">Calcular</string>
+
+
+    <!--Strings do keyboard de alfa numerico-->
+    <!-- row 1-->
+    <string name="q">q</string>
+    <string name="w">w</string>
+    <string name="e">e</string>
+    <string name="r">r</string>
+    <string name="t">t</string>
+    <string name="y">y</string>
+    <string name="u">u</string>
+    <string name="I">i</string>
+    <string name="o">o</string>
+    <string name="p">p</string>
+    <!-- row 2-->
+    <string name="a">a</string>
+    <string name="s">s</string>
+    <string name="d">d</string>
+    <string name="f">f</string>
+    <string name="g">g</string>
+    <string name="h">h</string>
+    <string name="j">j</string>
+    <string name="k">k</string>
+    <string name="L">l</string>
+    <!-- row 3-->
+    <string name="infinity">Ø</string>
+    <string name="z">z</string>
+    <string name="x">x</string>
+    <string name="c">c</string>
+    <string name="v">v</string>
+    <string name="b">b</string>
+    <string name="n">n</string>
+    <string name="m">m</string>
+    <string name="delete">delete</string>
+    <!-- row 4-->
+    <string name="change">123</string>
+    <string name="comma">,</string>
+    <string name="space">" "</string>
+    <string name="enter">enter</string>
+
+    <!--Strings do keyboard de numerico-->
+    <!-- row 1-->
+    <string name="num0">0</string>
+    <string name="num1">1</string>
+    <string name="num2">2</string>
+    <string name="num3">3</string>
+    <string name="num4">4</string>
+    <string name="num5">5</string>
+    <string name="num6">6</string>
+    <string name="num7">7</string>
+    <string name="num8">8</string>
+    <string name="num9">9</string>
+</resources>
