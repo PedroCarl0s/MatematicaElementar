@@ -7,7 +7,7 @@ public class CalculadoraCombinacao {
 
     private static CalculadoraCombinacao INSTANCE = null;
     private Calculadora calculadoraGeral = Calculadora.getInstance();
-    private GeradorCombinacao gerador = new GeradorCombinacao();
+    private GeradorCombinacao geradorEspecifico = new GeradorCombinacao();
 
 
     private CalculadoraCombinacao() {
@@ -22,12 +22,12 @@ public class CalculadoraCombinacao {
     }
 
     // Verifica se o valor de P no denominador é igual a (n-p)
-    public static boolean getIgualdade(int posicoesDenominador, int elementosMenosPosicoes) {
+    public boolean getIgualdade(int posicoesDenominador, int elementosMenosPosicoes) {
         return posicoesDenominador == elementosMenosPosicoes;
     }
 
-    // Retorna o maior valor do denominador, para desenvolver o fatorial do numerador até esse maior valor para simplificar
-    public static int getMaiorDenominador(int valorPosicoes, int elementosMenosPosicoes) {
+    // Retorna o maior valor do denominador, para desenvolver o fatorial do numerador até esse maior valor para simplificarc
+    public int getMaiorDenominador(int valorPosicoes, int elementosMenosPosicoes) {
         if (valorPosicoes > elementosMenosPosicoes) {
             return valorPosicoes;
         }
@@ -35,7 +35,7 @@ public class CalculadoraCombinacao {
         return elementosMenosPosicoes;
     }
 
-    public static int getMenorDenominador(int posicoesDenominador, int elementosMenosPosicoes) {
+    public int getMenorDenominador(int posicoesDenominador, int elementosMenosPosicoes) {
         if (posicoesDenominador < elementosMenosPosicoes) {
             return posicoesDenominador;
         }
@@ -43,11 +43,27 @@ public class CalculadoraCombinacao {
         return elementosMenosPosicoes;
     }
 
-    private static boolean getExisteValorZero(int posicoesDenominador, int elementosMenosPosicoes) {
+    // Método que seta o maior valor e o secundário, para ser usado na simplificação de Combinação
+    public void setMaiorValorESecundario(int valorElementos, int valorPosicoes, int maior, int auxSecundario) {
+
+        int elementosMenosPosicoes = valorElementos - valorPosicoes;
+
+        if (geradorEspecifico.verificarIgualdade(elementosMenosPosicoes, valorPosicoes)) {
+            maior = elementosMenosPosicoes;
+            auxSecundario = valorPosicoes;
+
+        } else {
+            maior = getMaiorDenominador(valorPosicoes, elementosMenosPosicoes);
+            auxSecundario = getMenorDenominador(valorPosicoes, elementosMenosPosicoes);
+        }
+
+    }
+
+    private boolean getExisteValorZero(int posicoesDenominador, int elementosMenosPosicoes) {
         return (posicoesDenominador == 0 || elementosMenosPosicoes == 0);
     }
 
-    public static int getDiferenteDeZero(int posicoesDenominador, int elementosMenoPosicoes) {
+    public int getDiferenteDeZero(int posicoesDenominador, int elementosMenoPosicoes) {
         if (posicoesDenominador != 0) {
             return posicoesDenominador;
         }
@@ -55,7 +71,62 @@ public class CalculadoraCombinacao {
         return elementosMenoPosicoes;
     }
 
-    public static String gerarFatorialElementos(int elementos, int posicoes) {
+    private String desenvolverValorAteN(int valorElementos, int fim) {
+
+        StringBuilder valores = new StringBuilder();
+        valores.append(valorElementos);
+
+        for (int e = valorElementos-1; e >= fim; e--) {
+            valores.append(".");
+            valores.append(e);
+        }
+
+        return valores.toString();
+
+    }
+
+
+//    public String geraFatorialElementoss(int valorElementos, int valorPosicoes) {
+//
+//        int elementosMenosPosicoes = valorElementos - valorPosicoes;
+//        String fatorialGerado;
+//
+//        // n == p
+//        if (valorElementos == valorPosicoes) {
+//
+//            return "1";
+//
+//        // n != p
+//        } else {
+//
+//            // p == (n-p)
+//            if (valorPosicoes == elementosMenosPosicoes) {
+//
+//                // p == 1
+//                if (valorPosicoes == 1) {
+//                    fatorialGerado = desenvolverValorAteN(valorElementos, 1);
+//
+//                //p != 1
+//                } else {
+//                    fatorialGerado = desenvolverValorAteN(valorElementos, valorPosicoes);
+//                }
+//
+//            // p != (n-p)
+//            } else {
+//
+//                if (valorPosicoes == 0) {
+//
+//                }
+//
+//            }
+//        }
+//
+//
+//    }
+
+
+
+    public String gerarFatorialElementos(int elementos, int posicoes) {
 
         // Número de elementos a arranjar maior que zero, é necessário desenvolver o fatorial
         if (elementos > 0) {
@@ -96,12 +167,15 @@ public class CalculadoraCombinacao {
 
     }
 
+
     // Gerar o resultado final, com base no valor do numerador e denominadores
-    public long gerarResultadoCombinacao(int elementos, int posicoes, int elementosMenosPosicoes) {
+    public long gerarResultadoFinalCombinacao(int elementos, int posicoes) {
+
+        int elementosMenosPosicoes = elementos - posicoes;
 
         String valoresFinais = gerarFatorialElementos(elementos, posicoes);
 
-        valoresFinais =  GeradorCombinacao.removerUltimoValor(valoresFinais);
+        valoresFinais = geradorEspecifico.removerUltimoValor(valoresFinais);
 
         int aux;
         long fatorialAux;
