@@ -1,6 +1,5 @@
 package elementar.analise.combinatoria.geradores;
 
-
 import elementar.analise.combinatoria.calculadoras.Calculadora;
 
 public abstract class GeradorFormulas {
@@ -8,10 +7,8 @@ public abstract class GeradorFormulas {
     private static Calculadora calculadora = Calculadora.getInstance();
 
 
-
-    // Gera o resultado final, contendo a inicial (Permutacao = A e Combinação = C)
+    // Gera o resultado final, contendo a inicial (Permutacao = P ou Combinação = C)
     public static String gerarResultadoFinal(String tipo, int valorElementos, int valorPosicoes, long resultadoFinal) {
-
         String resultado = "$$\\bold{Resultado}$$" + "$$" + tipo + "(" + valorElementos + ", " + valorPosicoes + ") = " + resultadoFinal + "$$";
 
         return resultado;
@@ -96,7 +93,7 @@ public abstract class GeradorFormulas {
 
 
     public static String gerarFracaoInline(int valorElementos, int valorPosicoes, String exclamacao) {
-        return "\\(" + "\\frac{" + valorElementos + exclamacao + "}" +  "{" + valorPosicoes + exclamacao + "}\\) = 1";
+        return "\\(" + "\\frac{" + valorElementos + exclamacao + "}" +  "{" + valorPosicoes + exclamacao + "}\\)";
     }
 
 }
