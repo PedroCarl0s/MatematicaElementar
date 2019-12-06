@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle" >
+
+            //cor
+            <solid android:color="@color/colorPrimarytoobar"/>
+            //curva da borda
+            <corners android:radius="7dp"/>
+            //cor e tamanho da borda
+            <!--<stroke android:width="2dp" android:color="@color/corBackGround"/>-->
+
+
+        </shape>
+    </item>
+
+</selector>

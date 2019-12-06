@@ -6,7 +6,8 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import elementar.analise.combinatoria.PagerAdapter;
+import elementar.analise.combinatoria.Dialog.MyAlertDialog;
+import elementar.analise.combinatoria.adapter.PagerAdapter;
 import elementar.matematica.pedrock.matemticaelementar.R;
 
 public class TelaCombinatoria extends AppCompatActivity {
@@ -46,8 +47,9 @@ public class TelaCombinatoria extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+
+        MyAlertDialog myAlertDialog = new MyAlertDialog(this,"Voltar ao Home","Deseja voltar para Home?","Sim","Não");
+        myAlertDialog.backHome(this);
     }
 
 }
