@@ -2,9 +2,6 @@ package elementar.analise.combinatoria.fatorial;
 
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -201,32 +198,4 @@ public class Fatorial extends Fragment {
         animationView.playAnimation();
     }
 
-    // Salva a entrada do fatorial + resultado
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putString("entrada_fatorial", getEntradaFatorial());
-        outState.putString("resultado_fatorial", getResultadoLatex());
-        outState.putBoolean("jaCalculou",jaCalculou);
-        outState.putString("valorEntrada",valorEntrada);
-    }
-
-    // Recupera e modifica o campo da entrada + MathView do resultado
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            MainActivity.hideKeyboard((getActivity()));
-
-            this.txtFatorial.setText(savedInstanceState.getString("entrada_fatorial"));
-            this.jaCalculou = savedInstanceState.getBoolean("jaCalculou");
-            this.valorEntrada = savedInstanceState.getString("valorEntrada");
-
-            MathView calculoRecuperado = view.findViewById(R.id.resultado_fatorial);
-            calculoRecuperado.setText(savedInstanceState.getString("resultado_fatorial"));
-
-        }
-    }
 }
