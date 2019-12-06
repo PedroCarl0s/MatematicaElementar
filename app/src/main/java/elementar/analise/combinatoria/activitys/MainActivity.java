@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
+import elementar.about.ScreenAbout;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.R;
 
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
                 abrirOperacoesConjuntos();
                 break;
 
+            case 5:
+                abrirScreenAbout();
+                break;
             default:
                 break;
         }
@@ -117,6 +121,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void abrirOperacoesConjuntos() {
         startActivity(new Intent(this, TelaConjuntos.class));
+        finish();
+    }
+
+    public void abrirScreenAbout() {
+        startActivity(new Intent(this, ScreenAbout.class));
         finish();
     }
 

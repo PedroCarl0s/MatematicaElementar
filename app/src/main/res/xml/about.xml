@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<about>
+    <me.jfenn.attribouter.wedges.AppWedge repo="PedroCarl0s/MatematicaElementar">
+        <me.jfenn.attribouter.wedges.link.LinkWedge
+            name="SITE"
+            icon="^@drawable/link"
+            url="http://laudelino.dce.ufpb.br/2-projeto-gabarito" />
+        <me.jfenn.attribouter.wedges.link.LinkWedge
+            name="GITHUB"
+            icon="^@drawable/github"
+            id="github" />
+
+    </me.jfenn.attribouter.wedges.AppWedge>
+
+
+    <!-- <text> elements can be added anywhere directly within the <about> tag -->
+    <!-- they support html formatting (<p> <b> <i>) & links (<a href="">) -->
+
+    <me.jfenn.attribouter.wedges.ContributorsWedge>
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            avatar="^@drawable/laudelino"
+            name="José Laudelino"
+            bio="Professor do Departamento de Ciências Exatas, do Centro de Ciências Aplicadas e Educação (CCAE) - Campus IV da Universidade Federal da Paraíba (UFPB)."
+            email="laudelino@dcx.ufpb.br"
+            position="1"
+            task="Coordenador">
+            <me.jfenn.attribouter.wedges.link.LinkWedge
+                name="Site"
+                icon="^@drawable/link"
+                url="http://laudelino.dce.ufpb.br/" />
+        </me.jfenn.attribouter.wedges.ContributorWedge>
+        <!-- the "avatar" attribute can take either a url or a resource -->
+        <!-- setting the "position" attribute makes me appear in the center of a row of three items above the list, instead of in the list like normal -->
+        <!-- there must be position attributes for 1, 2, and 3 for this to work, otherwise setting "position=1" will just move me to the top of the list -->
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            avatar="^@drawable/pedro"
+            name="Pedro Carlos"
+            bio="Graduando em Sistemas de Informação (UFPB), Pesquisador de Iniciação Científica, ex-monitor de Matemática Elementar e possui interesse em desenvolvimento mobile e análise de dados."
+            email="pedro.carlos@dcx.ufpb.br"
+            position="2"
+            task="Desenvolvedor">
+            <me.jfenn.attribouter.wedges.link.LinkWedge
+                name="Github"
+                icon="^@drawable/github"
+                url="https://github.com/PedroCarl0s" />
+            <me.jfenn.attribouter.wedges.link.LinkWedge
+                name="Linkedin"
+                icon="^@drawable/linkedin"
+                url="https://www.linkedin.com/in/pedro-carlos" />
+        </me.jfenn.attribouter.wedges.ContributorWedge>
+        <!-- Brian's task, "Contributor", will be displayed while the app is loading the github data, or if it cannot be loaded / the device is offline -->
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            avatar="^@drawable/emanoel"
+            name="Emanoel Silva"
+            bio="Graduando em Sistemas de Informação (UFPB), desenvolvedor mobile da Empresa Júnior Eagle e possui interesse em desenvolvimento mobile."
+            email="emanoel.silva@dcx.ufpb.br"
+            position="3"
+            task="Desenvolvedor">
+            <me.jfenn.attribouter.wedges.link.LinkWedge
+                name="Github"
+                icon="^@drawable/github"
+                url="https://github.com/emanoelmlsilva" />
+            <me.jfenn.attribouter.wedges.link.LinkWedge
+                name="Linkedin"
+                icon="^@drawable/linkedin"
+                url="https://www.linkedin.com/in/emanoel-medeiros-805b4816a/" />
+        </me.jfenn.attribouter.wedges.ContributorWedge>
+
+    </me.jfenn.attribouter.wedges.ContributorsWedge>
+
+    <me.jfenn.attribouter.wedges.LicensesWedge
+        overflow="1"
+        showDefaults="false">
+        <me.jfenn.attribouter.wedges.LicenseWedge
+            description="Utilizada para as animações visuais"
+            title="Lottie Files"
+            website="https://lottiefiles.com/"/>
+
+        <me.jfenn.attribouter.wedges.LicenseWedge
+            description="Utilizado nos ícones do aplicativo"
+            title="Flaticon"
+            website="https://www.flaticon.com" />
+
+        <me.jfenn.attribouter.wedges.LicenseWedge
+            repo="eddydn/AndroidGridLayout"
+            description="Template de CardView utilizado na tela inicial"/>
+
+        <me.jfenn.attribouter.wedges.LicenseWedge
+            repo="jianzhongli/MathView"
+            description="Biblioteca para as equações em LaTeX"/>
+
+        <me.jfenn.attribouter.wedges.LicenseWedge
+            repo="fennifith/Attribouter"
+            description="Utilizada para a tela de informações do projeto"/>
+
+    </me.jfenn.attribouter.wedges.LicensesWedge>
+
+</about>
