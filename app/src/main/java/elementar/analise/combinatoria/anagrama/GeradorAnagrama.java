@@ -39,6 +39,8 @@ public class GeradorAnagrama extends GeradorFormulas {
 
         StringBuilder descricao = new StringBuilder();
 
+
+        descricao.append("Após a contagem das repetições, obtemos:");
         descricao.append(beginCases);
 
         for (Map.Entry<String,Integer> entry : mapPalavras.entrySet()) {
@@ -69,6 +71,7 @@ public class GeradorAnagrama extends GeradorFormulas {
     private StringBuilder gerarEtapa1(HashMap<String, Integer> hashMapLetras, int getTamanhodaPalavra){
 
         StringBuilder aplicacao = new StringBuilder(inicio1);
+
         aplicacao.append(getTamanhodaPalavra).append(potencia);
 
         for(Map.Entry<String,Integer> entry : hashMapLetras.entrySet()){
