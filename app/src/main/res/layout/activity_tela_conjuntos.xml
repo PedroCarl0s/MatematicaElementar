@@ -1,101 +1,500 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#22A7F0"
-    tools:context="elementar.teoria.dos.conjuntos.TelaConjuntos"
-    tools:layout_editor_absoluteY="25dp">
+    android:background="@drawable/bg"
+    tools:context="elementar.analise.combinatoria.activitys.TelaConjuntos">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="220dp"
-        android:layout_height="132dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="center">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_historico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="80dp"
+            android:clickable="true"
+            android:src="@drawable/history"
+            android:tint="@color/corTabBar"
+            app:backgroundTint="@color/corBackGround"
+            app:elevation="8dp"
+            app:fabSize="mini"
+            app:layout_anchorGravity="end|bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_removeAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:src="@drawable/ic_delete_sweep_black_24dp"
+            android:tint="@color/corTabBar"
+            app:backgroundTint="@color/corBackGround"
+            app:elevation="8dp"
+            app:fabSize="mini"
+            app:layout_anchorGravity="end|bottom"
+            app:layout_constraintBottom_toTopOf="@+id/fab_historico"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="8dp"
+            android:columnCount="3"
+            android:columnOrderPreserved="false"
+            android:padding="4dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
+            android:rowCount="2"
+            app:layout_constraintBottom_toTopOf="@+id/guideline12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="@color/corBackGround"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableTop="@drawable/book20"
+                        android:gravity="center"
+                        android:inputType="textCapWords"
+                        android:text="@string/uniao"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorText"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="@color/corBackGround"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/book20"
+                        android:text="@string/intersecao"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorText"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="@color/corBackGround"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/book20"
+                        android:text="@string/diferenca_a_b"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorText"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="@color/corBackGround"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/book20"
+                        android:text="@string/complementar"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorText"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="@color/corBackGround"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/book20"
+                        android:text="@string/conjunto_das_partes"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorText"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="@color/corBackGround"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/book20"
+                        android:text="@string/diferenca_b_a"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorText"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </GridLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/conjuntoA"
+            style='style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"'
+            android:layout_width="246dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:textColorHint="@color/corTabBar"
+            app:errorTextAppearance="@style/ErrorAppearance"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline15"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_conjuntoA"
+                style='style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"'
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/left"
+                android:drawableRight="@drawable/rigth"
+                android:gravity="center_vertical"
+                android:hint="@string/conjunto_a"
+                android:inputType="textShortMessage"
+                android:textColor="@color/corTabBar"
+                android:textColorLink="@color/corTabBar"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/conjuntoB"
+            style='style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"'
+            android:layout_width="246dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:textColorHint="@color/corTabBar"
+            app:errorTextAppearance="@style/ErrorAppearance"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/conjuntoA">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_conjuntoB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/left"
+                android:drawableRight="@drawable/rigth"
+                android:hint="@string/conjunto_b"
+                android:inputType="textShortMessage"
+                android:textColor="@color/corTabBar"
+                android:textColorLink="@color/corTabBar"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/conjuntoC"
+            style='style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"'
+            android:layout_width="246dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:textColorHint="@color/corTabBar"
+            android:visibility="gone"
+            app:errorTextAppearance="@style/ErrorAppearance"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/conjuntoB">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_conjuntoC"
+                android:layout_width="245dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/left"
+                android:drawableRight="@drawable/rigth"
+                android:hint="@string/conjunto_c"
+                android:inputType="textShortMessage"
+                android:textColor="@color/corTabBar"
+                android:textColorLink="@color/corTabBar"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnCalcular"
+            android:layout_width="248dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/corBackGround"
+            android:text="Calcular"
+            android:textColor="@color/corTabBar"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/conjuntoC" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_write3"
+            android:layout_width="229dp"
+            android:layout_height="135dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnCalcular"
+            app:layout_constraintVertical_bias="0.0"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false" />
+
+        <io.github.kexanie.library.MathView
+            android:id="@+id/resultado_conjuntosFinal"
+            android:layout_width="261dp"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            android:orientation="horizontal"
+            android:scrollbars="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/animation_write3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/animation_write3"
+            app:layout_constraintVertical_bias="0.0"
+            app:text="" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.33" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.27" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottomsheetConjunto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/corBackGround"
+        android:visibility="visible"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="70dp"
+        app:elevation="32dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <TextView
+            android:id="@+id/textBottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:background="@color/corBackGround"
+            android:gravity="center"
+            android:text="Passo a Passo"
+            android:textColor="@color/corTabBar"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <io.github.kexanie.library.MathView
+            android:id="@+id/resultado_conjutosPasso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textBottomSheet"
+            android:layout_margin="12dp"
+            android:layout_marginTop="0dp"
+            android:foregroundGravity="center"
+            app:text="">
+
+        </io.github.kexanie.library.MathView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_swipe"
+            android:layout_width="66dp"
+            android:layout_height="69dp"
+            android:layout_gravity="left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/botao_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/img_menu"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitulo3" />
+        android:clickable="true"
+        android:src="@drawable/ic_add_black_24dp"
+        android:tint="@color/corTabBar"
+        app:backgroundTint="@color/corBackGround"
+        app:elevation="8dp"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/constraintLayout"
+        app:layout_anchorGravity="end|bottom" />
 
-    <TextView
-        android:id="@+id/txtTitulo3"
-        android:layout_width="0dp"
-        android:layout_height="112dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="8dp"
-        android:background="#F4D03F"
-        android:gravity="center"
-        android:lineSpacingExtra="8sp"
-        android:text="Operações entre Conjuntos"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:fontFamily="casual"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="358dp"
-        android:layout_height="288dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.94">
-
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="União" />
-
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Interseção" />
-
-        <Button
-            android:id="@+id/button10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Diferença" />
-
-        <Button
-            android:id="@+id/button11"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Complementar" />
-
-        <Button
-            android:id="@+id/button12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Diferença Simétrica" />
-
-        <Button
-            android:id="@+id/button13"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Conjunto das Partes" />
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

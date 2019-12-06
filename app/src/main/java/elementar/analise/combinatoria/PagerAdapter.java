@@ -1,14 +1,14 @@
 package elementar.analise.combinatoria;
 
-import android.util.Log;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import elementar.analise.combinatoria.Fragments.Arranjo;
-import elementar.analise.combinatoria.Fragments.Combinacao;
-import elementar.analise.combinatoria.Fragments.Permutacao;
+import elementar.analise.combinatoria.anagrama.Anagrama;
+import elementar.analise.combinatoria.combinacao.Combinacao;
+import elementar.analise.combinatoria.fatorial.Fatorial;
+import elementar.analise.combinatoria.permutacao.Permutacao;
+
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
@@ -26,16 +26,16 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
 
             case 0:
-                return new Arranjo();
+                return new Permutacao();
 
             case 1:
                 return new Combinacao();
 
             case 2:
-                return new Permutacao();
+                return new Fatorial();
 
             case 3:
-                return new Combinacao();
+                return new Anagrama();
 
             default:
                 return null;

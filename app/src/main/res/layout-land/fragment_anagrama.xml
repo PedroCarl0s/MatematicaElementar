@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:context="elementar.analise.combinatoria.anagrama.Anagrama">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <io.github.kexanie.library.MathView
+            android:id="@+id/formula_anagrama"
+            android:layout_width="283dp"
+            android:layout_height="98dp"
+
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:text="">
+
+        </io.github.kexanie.library.MathView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_anagrama"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="265dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/formula_anagrama"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/scrollView"
+            android:layout_weight="1"
+            app:boxStrokeColor="@color/colorPrimaryDark"
+            app:errorTextAppearance="@style/ErrorAppearance"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/formula_anagrama">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_anagrama"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:hint="Insira uma palavra"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                tools:ignore="DuplicateIds" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_calcular"
+            android:layout_width="200dp"
+            android:layout_height="48dp"
+            android:layout_below="@id/input_anagrama"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="47dp"
+            android:layout_toLeftOf="@id/scrollView"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/calc"
+            android:text="calcular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_anagrama" />
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/formula_anagrama"
+            android:foregroundGravity="center"
+            android:padding="8dp"
+            android:text=""
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_calcular">
+
+            <io.github.kexanie.library.MathView
+                android:id="@+id/resultado_anagrama"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:layout_toRightOf="@id/formula_anagrama"
+                android:foregroundGravity="center"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_calcular"
+                app:text="">
+
+            </io.github.kexanie.library.MathView>
+
+        </ScrollView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_swipe"
+            android:layout_width="181dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/scrollView"
+            android:layout_alignLeft="@+id/scrollView"
+            android:layout_alignEnd="@+id/scrollView"
+            android:layout_alignRight="@+id/scrollView"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="269dp"
+            android:layout_marginLeft="269dp"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="-2dp"
+            android:layout_marginRight="-2dp"
+            android:layout_marginBottom="175dp"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_write"
+            android:layout_width="367dp"
+            android:layout_height="265dp"
+            android:layout_alignEnd="@+id/scrollView"
+            android:layout_alignRight="@+id/scrollView"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginLeft="52dp"
+            android:layout_marginTop="85dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="60dp"
+            android:layout_toEndOf="@id/formula_anagrama"
+            android:layout_toRightOf="@id/formula_anagrama"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false" />
+    </RelativeLayout>
+
+</FrameLayout>
