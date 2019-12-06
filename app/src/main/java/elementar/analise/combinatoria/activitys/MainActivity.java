@@ -17,14 +17,17 @@ import com.airbnb.lottie.LottieAnimationView;
 
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.R;
+import elementar.analise.combinatoria.activitys.TelaCombinatoria;
+import elementar.lottie.LottieController;
+import elementar.matematica.pedrock.matemticaelementar.R;
+import elementar.analise.combinatoria.activitys.TelaConjuntos;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int  DELAY_TIME = 900;
+    private final int  DELAY_TIME = 1100;
     public static LottieAnimationView animationClock;
     public final int CLOCK_ID = R.id.animation_clock;
     private GridLayout mainGrid;
-    private Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
         mainGrid = (GridLayout) findViewById(R.id.mainGrid);
         setSingleEvent(mainGrid);
     }
-
-
-
 
     private void setSingleEvent(GridLayout mainGrid) {
 
@@ -58,22 +58,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void openActivity(int choice) {
 
+
         switch (choice) {
 
             case 0:
-                abrirAnaliseCombinatoria();
-                break;
+                escolherActivity(TelaCombinatoria.class);
 
             case 1:
-                abrirOperacoesConjuntos();
-                break;
+                escolherActivity(TelaConjuntos.class);
+
+            iniciarActivity();
 
             default:
                 break;
         }
+
+
     }
 
-    public void abrirAnaliseCombinatoria() {
+    public void iniciarActivity() {
 
         TextView textView = findViewById(R.id.textGrid);
         textView.setVisibility(View.INVISIBLE);
@@ -87,39 +90,35 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-        // Inicia a Thread (delay + pré-carregamento da activity)
-        thread = new Thread(runnable);
-        thread.start();
     }
 
-    public Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
+    public void escolherActivity(final Class activity){
 
-            try {
-                Thread.sleep(DELAY_TIME );
+        new Thread() {
+            @Override
+            public void run() {
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                try {
+                    Thread.sleep(DELAY_TIME );
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                // Inicia a Activity
+                try {
+                    startActivity(new Intent(MainActivity.this, activity));
+                    finish();
+                    animationClock.cancelAnimation();
+
+                } catch (Exception e) {
+
+                }
             }
 
-            // Inicia a Activity TelaCombinatoria
-            try {
-                startActivity(new Intent(MainActivity.this, TelaCombinatoria.class));
-                finish();
+        }.start();
 
-            } catch (Exception e) {
-
-            }
-        }
-
-    };
-
-    public void abrirOperacoesConjuntos() {
-        startActivity(new Intent(this, TelaConjuntos.class));
-        finish();
     }
-
 
     // Método para esconder o teclado após clicar em calcular
     public static void hideKeyboard(Activity activity) {
