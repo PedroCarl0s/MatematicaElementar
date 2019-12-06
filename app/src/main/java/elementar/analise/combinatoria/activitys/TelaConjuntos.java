@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import elementar.analise.combinatoria.Dialog.MyAlertDialog;
 import elementar.analise.combinatoria.floatingbutton.MenuFloatingButton;
 import elementar.analise.combinatoria.fragments.HistoricoFragment;
 import elementar.analise.combinatoria.geradores.GeradorOperacoesConjuntos;
@@ -375,24 +376,12 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
                     return operacoesConjuntos.calcularDiferencaAB(inputA,inputB);
                 case 4:
                     return operacoesConjuntos.calcularDiferencaBA(inputB,inputA);
-                case 5:
-                    return operacoesConjuntos.calcularConjuntoPartes(inputA,inputB);
                 default:
                     break;
             }
 
-        }else{
-//            Uniao
-//            if(arraySelected[0] == 0){
-//                if(arraySelected[1] == 1){
-//                    operacoesConjuntos.calcularUniaoIntersecao(inputA,inputB);
-//                }else if(arraySelected[3] == 3){
-//                    operacoesConjuntos.calcularUniaoComplementar(inputA,inputB,inputU);
-//                }
-//
-//            }
         }
-        return null;
+        return new StringBuilder("N/A");
     }
 
     private boolean isValorUnicoArray(int arrayCards[]){
@@ -438,8 +427,10 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
                 if(checkVisibiliteFab()) {
 
-                    startActivity(new Intent(this, MainActivity.class));
+                    MyAlertDialog myAlertDialog = new MyAlertDialog(this,"Voltar ao Home","Deseja voltar para Home?","Sim","Não");
+                    myAlertDialog.backHome();
                     finish();
+
 
                 }else{
 
