@@ -58,17 +58,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void openActivity(int choice) {
 
+        iniciarActivity();
 
         switch (choice) {
 
             case 0:
                 escolherActivity(TelaCombinatoria.class);
-
+                break;
             case 1:
                 escolherActivity(TelaConjuntos.class);
-
-            iniciarActivity();
-
+                break;
             default:
                 break;
         }
