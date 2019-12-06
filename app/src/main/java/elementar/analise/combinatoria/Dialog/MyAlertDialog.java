@@ -1,5 +1,6 @@
 package elementar.analise.combinatoria.Dialog;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,7 +36,7 @@ public class MyAlertDialog {
 
     }
 
-    public void backHome(){
+    public void backHome(final Activity activity){
 
         builder.setTitle(this.title);
         builder.setMessage(this.message);
@@ -46,6 +47,7 @@ public class MyAlertDialog {
 
                 Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);
+                activity.finish();
 
             }
         });
@@ -57,6 +59,10 @@ public class MyAlertDialog {
             }
         });
 
+
+        alertDialog = builder.create();
+
+        alertDialog.show();
     }
 
     public void setTitle(String title){
