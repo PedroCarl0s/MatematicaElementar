@@ -95,11 +95,6 @@ public class GeradorPermutacao extends GeradorFormulas {
         return "Desenvolvendo até o valor do fatorial do denominador para simplificar, obtemos:";
     }
 
-    private String gerarMensagemDesenvolvimento3(int valorElementos, int elementosMenosPosicoes) {
-        return "Desenvolvendo o fatorial do denominador, obtemos " + valorElementos + "!" + " do numerador " +
-                "com " + elementosMenosPosicoes + "!" + " do denominador, resultando em:";
-    }
-
 
     /*
     Seção de métodos para imprimir mensagens de simplificação
@@ -110,7 +105,7 @@ public class GeradorPermutacao extends GeradorFormulas {
         String mensagem;
 
         if (valorElementos == valorPosicoes && valorElementos != 0) {
-            mensagem = "Como o valor do numerador e denominador é 0!, e 0! = 1, basta resolver o " +
+        mensagem = "Como o valor do numerador é " + valorElementos + "!" + " e o denominador é 0!, sendo 0! = 1, basta resolver o " +
                     valorElementos + "!" + " do numerador";
 
         } else {
@@ -121,10 +116,10 @@ public class GeradorPermutacao extends GeradorFormulas {
         return  mensagem;
     }
 
-    // Segunda mensagem de simplificação para nº de elementos diferente de (n-p)
+    // Segunda mensagem de simplificação para n != (n-p)
     private String gerarMensagemSimplificacao2(int elementosMenosPosicoes) {
         return "Simplificando o " + elementosMenosPosicoes +
-                "! do numerador, com o " + elementosMenosPosicoes + "! ficamos com:";
+                "! do numerador, com o " + elementosMenosPosicoes + "!" + " do denominador, ficamos com:";
     }
 
     // Terceira a mensagem de simplificação para nº de elementos igual a (n-p)!
@@ -164,7 +159,7 @@ public class GeradorPermutacao extends GeradorFormulas {
 
         // Nº de elementos igual ao resultado de (n-p)!, sempre resultará 1 (no Permutacao Simples)
         } else {
-            mensagemDesenvolvimento = gerarMensagemDesenvolvimento3(valorElementos, elementosMenosPosicoes);
+            mensagemDesenvolvimento = gerarMensagemDesenvolvimento1(valorElementos, elementosMenosPosicoes);
 
             mensagemSimplificacao = gerarMensagemSimplificacao3(valorElementos, elementosMenosPosicoes);
 

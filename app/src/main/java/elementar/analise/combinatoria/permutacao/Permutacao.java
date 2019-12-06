@@ -2,8 +2,6 @@ package elementar.analise.combinatoria.permutacao;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -109,10 +107,10 @@ public class Permutacao extends Fragment {
         });
 
         // Troca o título do TextInput ao clicar
-        TextInputController.setLabelTextInput(this.inputElementos, this.txtElementos, "Valor de n", "Elementos a permutar");
+        TextInputController.setLabelTextInput(this.inputElementos, this.txtElementos, "Valor de n", "n=Elementos a permutar");
 
         // Troca o título do TextInput ao clicar
-        TextInputController.setLabelTextInput(this.inputPosicoes, this.txtPosicoes, "Valor de p", "Posições a permutar");
+        TextInputController.setLabelTextInput(this.inputPosicoes, this.txtPosicoes, "Valor de p", "p=Posições a permutar");
 
         txtPosicoes.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -188,8 +186,8 @@ public class Permutacao extends Fragment {
 
                 // Campos de entrada com os mesmos valores, não é necessário recalcular
                 if ((getNumeroElementos() == this.valorElementos) && getNumeroPosicoes() == this.valorPosicoes) {
-                    inputElementos.setHint("Elementos a permutar");
-                    inputPosicoes.setHint("Posições a permutar");
+                    inputElementos.setHint("n=Elementos a permutar");
+                    inputPosicoes.setHint("p=Posições a permutar");
 
                     showToastMessage("O valor já foi calculado!");
 
@@ -242,8 +240,8 @@ public class Permutacao extends Fragment {
 
         MainActivity.hideKeyboard(getActivity());
 
-        inputElementos.setHint("Elementos a permutar");
-        inputPosicoes.setHint("Posições a permutar");
+        inputElementos.setHint("n=Elementos a permutar");
+        inputPosicoes.setHint("p=Posições a permutar");
 
         if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
             if (relativeLayout.getVisibility() == View.INVISIBLE) {
@@ -316,80 +314,6 @@ public class Permutacao extends Fragment {
         return posicoes;
     }
 
-    //guardando as informações
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putString("elementos", Integer.toString(getNumeroElementos()));
-        outState.putString("posicoes", Integer.toString(getNumeroPosicoes()));
-        outState.putBoolean("jaCalculou",jaCalculou);
-        outState.putString("calculoFinal",this.calculoFinal);
-        outState.putBoolean("liberarCalculo",this.liberarCalculo);
-
-        //verificar se ja foi calculado
-        if (liberarCalculo) {
-
-            if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
-
-                this.calculoFinal = resultadoFinalSimples.getText();
-                outState.putString("calculoFinal",resultadoFinalSimples.getText());
-                outState.putString("latexPasso", resultadoPermutacao.getText());
-
-            } else {
-                outState.putBoolean("calculoLandScape",this.calculoLandScape);
-                outState.putString("latexPasso", resultadoPermutacao.getText());
-            }
-
-        }
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            MainActivity.hideKeyboard(getActivity());
-
-            this.txtElementos.setText(savedInstanceState.getString("elementos"));
-            this.txtPosicoes.setText(savedInstanceState.getString("posicoes"));
-            this.jaCalculou = savedInstanceState.getBoolean("jaCalculou");
-            this.calculoFinal = savedInstanceState.getString("calculoFinal");
-            this.liberarCalculo = savedInstanceState.getBoolean("liberarCalculo");
-            this.calculoLandScape = savedInstanceState.getBoolean("calculoLandScape");
-
-            resultadoPermutacao = view.findViewById(R.id.resultado_permutacaoPasso);
-
-            //iniciar o bottomSheet
-            bottomSheet = new myBottomSheet(view,getOrientation(),R.id.bottomsheet);
-
-            if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
-                resultadoFinalSimples = view.findViewById(R.id.resultado_permutacaoFinal);
-            }
-
-            //verificar se já foi calculado para armazenar
-            if (this.liberarCalculo) {
-
-                if (!bottomSheet.verificarOrientacaoVertical(getOrientation())) {
-                    resultadoPermutacao.setText(savedInstanceState.getString("latexPasso"));
-
-                } else {
-
-                    if (this.calculoLandScape) {
-                        setResultado(Integer.parseInt(txtElementos.getText().toString()), Integer.parseInt(txtPosicoes.getText().toString()), resultadoFinalSimples,null);
-
-                    } else {
-                        resultadoFinalSimples.setText(this.calculoFinal);
-
-                    }
-
-                    resultadoPermutacao.setText(savedInstanceState.getString("latexPasso"));
-
-                    bottomSheet.usarBottomSheet(getOrientation(),behavior);
-                }
-            }
-        }
-    }
 
     //verificar orientação
     @Override
