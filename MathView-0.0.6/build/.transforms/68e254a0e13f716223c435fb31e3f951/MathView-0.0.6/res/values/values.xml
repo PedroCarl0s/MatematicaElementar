@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MathView"><attr format="string" name="text"/><attr format="enum" name="engine"><enum name="KaTeX" value="0"/><enum name="MathJax" value="1"/></attr></declare-styleable>
+    <!-- From: file:/C:/Users/Brian/workspace/MathViewTest/MathView/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="app_name">View</string>
+</resources>

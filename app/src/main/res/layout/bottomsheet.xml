@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:id="@+id/bottomsheetConjunto"
+    android:layout_height="match_parent"
+    android:background="@color/corBackGround"
+    android:visibility="visible"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="70dp"
+    app:elevation="32dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <TextView
+            android:id="@+id/textBottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:background="@color/corBackGround"
+            android:gravity="center"
+            android:text="Passo a Passo"
+            android:textColor="@color/corTabBar"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <io.github.kexanie.library.MathView
+            android:id="@+id/resultado_conjutosPasso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textBottomSheet"
+            android:layout_margin="12dp"
+            android:layout_marginTop="0dp"
+            android:foregroundGravity="center"
+            app:text="">
+
+        </io.github.kexanie.library.MathView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_swipe"
+            android:layout_width="66dp"
+            android:layout_height="69dp"
+            android:layout_gravity="left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false" />
+
+
+</RelativeLayout>
