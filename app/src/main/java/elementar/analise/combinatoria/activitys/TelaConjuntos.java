@@ -429,8 +429,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
                 if(checkVisibiliteFab()) {
 
                     MyAlertDialog myAlertDialog = new MyAlertDialog(this,"Voltar ao Home","Deseja voltar para Home?","Sim","Não");
-                    myAlertDialog.backHome();
-                    finish();
+                    myAlertDialog.backHome(this);
 
 
                 }else{
