@@ -119,12 +119,15 @@ public class GeradorOperacoesConjuntos {
             for(int j = 0;j < arrayInputB.length;j++){
                 if(Integer.parseInt(arrayInputA[i]) == Integer.parseInt(arrayInputB[j])){
                     newValue.append(arrayInputA[i]);
-                    if(i < arrayInputA.length -2) newValue.append(comma);
+                    if(i < arrayInputA.length -1) newValue.append(comma);
                     break;
                 }
             }
         }
 
+        if(newValue.charAt(newValue.length()-1) == ','){
+            newValue.deleteCharAt(newValue.length()-1);
+        }
         return newValue.toString();
     }
 
@@ -176,7 +179,9 @@ public class GeradorOperacoesConjuntos {
         StringBuilder newCalculo = new StringBuilder();
 
         inputA = checkComma(inputA);
+        Log.i("intersecao","valor inputA "+inputA);
         inputB = checkComma(inputB);
+        Log.i("intersecao","valor inputB "+inputB);
 
         newCalculo.append(findEquals(inputA,inputB));
 
@@ -184,6 +189,8 @@ public class GeradorOperacoesConjuntos {
 
             return new StringBuilder("N/A");
         }
+
+        Log.i("intersecao","valor final "+newCalculo.toString());
         return newCalculo;
     }
 
