@@ -152,18 +152,13 @@ public class Anagrama extends Fragment {
             }
             resultadoFinalSimples = view.findViewById(R.id.resultado_AnagramaFinal);
             resultadoFinalSimples.setText("$$\\bold{Resultado}$$");
-
-
         }
 
         this.inputAnagrama = view.findViewById(R.id.input_anagrama);
         this.txtAnagrama = view.findViewById(R.id.txt_anagrama);
         this.formulaAnagrama = view.findViewById(R.id.formula_anagrama);
-
         this.resultadoAnagrama = view.findViewById(R.id.resultado_anagrama);
-
         this.btnCalcular = view.findViewById(R.id.btn_calcular);
-
         this.animationWrite = view.findViewById(R.id.animation_write);
         this.animationSwipe = view.findViewById(R.id.animation_swipe);
     }
@@ -196,25 +191,17 @@ public class Anagrama extends Fragment {
         animationWrite.setVisibility(View.VISIBLE);
         animationSwipe.setVisibility(View.VISIBLE);
 
-
         LottieController.startLottieAnimation(view, animationWrite, ID_WRITE, "write.json", 1.5f, 0);
-
 
         liberarCalculo = true;
 
         if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
-
             resultado.setText(gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal,getTamanhodaPalavra()));
-
             resultadoPasso.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerador.gerarAplicacaoValores(hashLetraEQuant,getTamanhodaPalavra()) + gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal,getTamanhodaPalavra()));
-
 
         } else {
-
             calculoLandScape = true;
             resultadoPasso.setText(gerador.gerarDescricaoVariaveis(hashLetraEQuant) + gerador.gerarAplicacaoValores(hashLetraEQuant,getTamanhodaPalavra()) + gerador.gerarResultadoFinal(hashLetraEQuant,resultadoFinal,getTamanhodaPalavra()));
-
-
         }
 
         //inicia as animações
@@ -240,7 +227,6 @@ public class Anagrama extends Fragment {
             inputAnagrama.setError(null);
             MainActivity.hideKeyboard(getActivity());
 
-
             // Retorna um HashMap de letra e valor
             HashMap<String, Integer> novoArrayQuantPalavras = contarPalavrasIguais(getEntradaAnagrama());
 
@@ -250,21 +236,16 @@ public class Anagrama extends Fragment {
             if(!isJaCalculou(getEntradaAnagrama(),palavraGuardada,null)){
 
                 if (bottomSheet.verificarOrientacaoVertical(getOrientation())) {
-
                     setResultado(novoArrayQuantPalavras,resultadoFinal,resultadoFinalSimples,resultadoAnagrama);
 
                 } else {
-
                     setResultado(novoArrayQuantPalavras,resultadoFinal,null,resultadoAnagrama);
-
                 }
-
                 palavraGuardada = getEntradaAnagrama();
             }
 
 
         } else {
-
             inputAnagrama.setError("O campo está vazio!");
             MainActivity.hideKeyboard(getActivity());
         }
@@ -281,15 +262,12 @@ public class Anagrama extends Fragment {
         }
 
         return valorPalavra / somaValorLetras;
-
     }
 
     private boolean verificarTemQuantPalavrasMaiorUm(HashMap<String,Integer> listPalavras) {
 
         for(int valor : listPalavras.values()){
-
             if(valor > 1) return true;
-
         }
         return false;
     }
@@ -335,14 +313,11 @@ public class Anagrama extends Fragment {
     private boolean isJaCalculou(String palavra,String palavraGuardade,TextInputLayout input){
 
         if(palavra.equals(palavraGuardade)){
-
             showToastMessage("O valor já foi calculado!");
             return true;
-
         }
 
         return false;
-
     }
 
     //guardando as informações
@@ -432,6 +407,5 @@ public class Anagrama extends Fragment {
     private int getOrientation(){
         return getContext().getResources().getConfiguration().orientation;
     }
-
 
 }
