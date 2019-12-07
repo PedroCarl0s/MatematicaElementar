@@ -15,12 +15,10 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
+import elementar.about.ScreenAbout;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.R;
-import elementar.analise.combinatoria.activitys.TelaCombinatoria;
-import elementar.lottie.LottieController;
-import elementar.matematica.pedrock.matemticaelementar.R;
-import elementar.analise.combinatoria.activitys.TelaConjuntos;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void openActivity(int choice) {
 
-        iniciarActivity();
 
         switch (choice) {
 
@@ -68,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 escolherActivity(TelaConjuntos.class);
                 break;
+
+            case 5:
+                escolherActivity(ScreenAbout.class);
+                break;
+
             default:
                 break;
         }
@@ -92,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void escolherActivity(final Class activity){
+        iniciarActivity();
+
 
         new Thread() {
             @Override
@@ -118,6 +122,13 @@ public class MainActivity extends AppCompatActivity {
         }.start();
 
     }
+
+
+    public void abrirScreenAbout() {
+        startActivity(new Intent(this, ScreenAbout.class));
+        finish();
+    }
+
 
     // Método para esconder o teclado após clicar em calcular
     public static void hideKeyboard(Activity activity) {

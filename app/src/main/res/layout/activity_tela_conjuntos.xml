@@ -193,6 +193,7 @@
         android:id="@+id/fabs"
         android:layout_width="84dp"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_anchor="@+id/constraintLayout"
         app:layout_anchorGravity="end|bottom">
 

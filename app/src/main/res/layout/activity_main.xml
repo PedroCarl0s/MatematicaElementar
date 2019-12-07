@@ -278,7 +278,7 @@
                     android:layout_width="51dp"
                     android:layout_height="52dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/bg" />
+                    android:src="@drawable/info" />
 
                 <TextView
                     android:layout_width="wrap_content"

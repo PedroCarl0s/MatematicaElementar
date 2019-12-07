@@ -484,7 +484,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
                 if(checkVisibiliteFab()) {
 
-                    MyAlertDialog myAlertDialog = new MyAlertDialog(this,"Voltar ao Home","Deseja voltar para Home?","Sim","Não");
+                    MyAlertDialog myAlertDialog = new MyAlertDialog(this,"Voltar ao início","Deseja voltar para a tela inicial?","Sim","Não");
                     myAlertDialog.backHome(this);
 
 
@@ -611,11 +611,11 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
                 final String calculoResultadoFinal =  makeCalc(arraySelect,convert(conjuntoA),convert(conjuntoB),convert(conjuntoU)).toString();
                 resultadoPasso.setText("Calculado = "+calculoResultadoFinal);
             }else{
-                Toast.makeText(getApplicationContext(),"preencha todos os campos",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Preencha todos os campos!",Toast.LENGTH_SHORT).show();
             }
 
         }else{
-            Toast.makeText(getApplicationContext(),"selecione um card para fazer o Calculor",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Selecione um card para fazer o cálculo!",Toast.LENGTH_SHORT).show();
         }
 
     }
