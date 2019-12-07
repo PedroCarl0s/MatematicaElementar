@@ -119,12 +119,15 @@ public class GeradorOperacoesConjuntos {
             for(int j = 0;j < arrayInputB.length;j++){
                 if(Integer.parseInt(arrayInputA[i]) == Integer.parseInt(arrayInputB[j])){
                     newValue.append(arrayInputA[i]);
-                    if(i < arrayInputA.length -2) newValue.append(comma);
+                    if(i < arrayInputA.length -1) newValue.append(comma);
                     break;
                 }
             }
         }
 
+        if(newValue.charAt(newValue.length()-1) == ','){
+            newValue.deleteCharAt(newValue.length()-1);
+        }
         return newValue.toString();
     }
 
@@ -176,7 +179,9 @@ public class GeradorOperacoesConjuntos {
         StringBuilder newCalculo = new StringBuilder();
 
         inputA = checkComma(inputA);
+        Log.i("intersecao","valor inputA "+inputA);
         inputB = checkComma(inputB);
+        Log.i("intersecao","valor inputB "+inputB);
 
         newCalculo.append(findEquals(inputA,inputB));
 
@@ -184,6 +189,8 @@ public class GeradorOperacoesConjuntos {
 
             return new StringBuilder("N/A");
         }
+
+        Log.i("intersecao","valor final "+newCalculo.toString());
         return newCalculo;
     }
 
@@ -219,71 +226,5 @@ public class GeradorOperacoesConjuntos {
         return new StringBuilder();
     }
 
-//    calcular pares
-
-    //Uniao
-    public StringBuilder calcularUniaoComplementar(TextInputLayout inputA, TextInputLayout inputB, TextInputLayout inputC){
-        return new StringBuilder();
-    }
-
-    public StringBuilder calcularUniaoIntersecao(TextInputLayout inputA, TextInputLayout inputB){
-        return new StringBuilder();
-    }
-
-    public StringBuilder calcularUniaoConjPartes(TextInputLayout inputA, TextInputLayout inputB){
-        return new StringBuilder();
-    }
-
-    public StringBuilder calcularUniaoDifAB(TextInputLayout inputA, TextInputLayout inputB){
-        return new StringBuilder();
-    }
-
-    public StringBuilder calcularUniaoDifBAo(TextInputLayout inputA, TextInputLayout inputB){
-        return new StringBuilder();
-    }
-
-    //Interseção
-    public StringBuilder calcularIntersecaoConjPartes(TextInputLayout inputA, TextInputLayout inputB){
-        return new StringBuilder();
-    }
-
-    public StringBuilder calcularIntersecaoDifAB(TextInputLayout inputA, TextInputLayout inputB){
-        return new StringBuilder();
-    }
-
-    public StringBuilder calcularIntersecaoComplementar(TextInputLayout inputA, TextInputLayout inputB, TextInputLayout inputU){
-        return new StringBuilder();
-    }
-
-    public StringBuilder calcularIntersecaoDifBA(TextInputLayout inputA, TextInputLayout inputB){
-        return new StringBuilder();
-    }
-
-    //Diferença A-B
-    public StringBuilder calcularDifABDifBA(TextInputLayout inputA, TextInputLayout inputB){
-        return new StringBuilder();
-    }
-
-    public StringBuilder calcularDifABComplementar(TextInputLayout inputA, TextInputLayout inputB, TextInputLayout inputU){
-        return new StringBuilder();
-    }
-
-    public StringBuilder calcularDifABConjPartes(TextInputLayout inputA, TextInputLayout inputB){
-        return new StringBuilder();
-    }
-
-    //Complementar
-    public StringBuilder calcularComplementarConjPartes(TextInputLayout inputA, TextInputLayout inputB){
-        return new StringBuilder();
-    }
-
-    public StringBuilder calcularComplementarDifBA(TextInputLayout inputA, TextInputLayout inputB){
-        return new StringBuilder();
-    }
-
-    //Conjunto das Partes
-    public StringBuilder calcularConjPartesDifBA(TextInputLayout inputA, TextInputLayout inputB){
-        return new StringBuilder();
-    }
 
 }

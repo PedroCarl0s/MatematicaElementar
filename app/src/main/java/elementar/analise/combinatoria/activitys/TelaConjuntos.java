@@ -33,7 +33,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import elementar.analise.combinatoria.Dialog.MyAlertDialog;
@@ -64,6 +66,8 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     private RelativeLayout relativeLayout;
 
+    private final int VALUE_UNIQUE = -1;
+
     private boolean liberarCalculo = false;
 
     private int[] arraySelect = new int[]{-1,-1,-1,-1,-1,-1,-1,-1,-1};
@@ -92,6 +96,10 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     private boolean initKeyboard = true;
 
+    private Map<Integer, String> arrayIndexName = new HashMap<>();
+    private Map<String,String> arrayNameCalcule = new HashMap<>();
+    private final String[] arrayNames= { "união","interseção","complementar","diferança/a-b","diferança/b-a","conjunto das partes","cartesiano/a-b","cartesiano/b-a","análise combinatória"};
+
     private List<Button> buttonListNumber;
 
     private EditText editTextDefault;
@@ -102,7 +110,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
             R.id.btnComma2,R.id.btnSpace,R.id.btnGo};
 
     private String[] text = new String[]{""};
-    private int positionAtual = -1;
+    private int positionAtual =VALUE_UNIQUE;
 
     private int idEditText = 0;
 
@@ -116,7 +124,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     private void init(){
 
-
+        mountHashNameIndex();
 
         findViewAll();
         disableInputKeyboard(conjuntoA);
@@ -310,7 +318,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
     }
 
     private void initBackGroundCards(GridLayout gridLayout){
-        Log.i("GRID AGORA", gridLayout.toString());
+
         for(int i = 0;i < gridLayout.getChildCount(); i++){
             gridLayout.getChildAt(i).setBackgroundResource(R.drawable.backgroundbord);
         }
@@ -344,14 +352,14 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     private void addArray(CardView cardView, int valor){
 
-        if(arraySelect[valor] == -1){
+        if(arraySelect[valor] == VALUE_UNIQUE){
 
             arraySelect[valor] = valor;
             changeBackGround(cardView, R.drawable.backgroundbordselected);
 
         }else if(arraySelect[valor] == valor){
 
-            arraySelect[valor] = -1;
+            arraySelect[valor] = VALUE_UNIQUE;
             changeBackGround(cardView, R.drawable.backgroundbord);
 
         }
@@ -361,28 +369,38 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
         cardView.setBackgroundResource(drawable);
     }
 
+    private StringBuilder makeOperationSet(int position,String inputA,String inputB,String inputU){
+
+        switch(position){
+
+            case 0:
+                return operacoesConjuntos.calcularUniao(inputA,inputB);
+            case 1:
+                return operacoesConjuntos.calcularIntersecao(inputA,inputB);
+            case 2:
+                return operacoesConjuntos.calcularComplementar(inputA,inputB,inputU);
+            case 3:
+                return operacoesConjuntos.calcularDiferencaAB(inputA,inputB);
+            case 4:
+                return operacoesConjuntos.calcularDiferencaBA(inputB,inputA);
+            default:
+                return new StringBuilder("N/A");
+        }
+
+    }
     private StringBuilder makeCalc(int[] arraySelected,String inputA,String inputB,String inputU) {
 
         if(isValorUnicoArray(arraySelected)){
 
-            switch(arraySelected[posicaoArray]){
+            return makeOperationSet(arraySelected[posicaoArray],inputA,inputB,inputU);
 
-                case 0:
-                    return operacoesConjuntos.calcularUniao(inputA,inputB);
-                case 1:
-                    return operacoesConjuntos.calcularIntersecao(inputA,inputB);
-                case 2:
-                    return operacoesConjuntos.calcularComplementar(inputA,inputB,inputU);
-                case 3:
-                    return operacoesConjuntos.calcularDiferencaAB(inputA,inputB);
-                case 4:
-                    return operacoesConjuntos.calcularDiferencaBA(inputB,inputA);
-                default:
-                    break;
-            }
+        }else {
+
+            multipleValue(arraySelected,inputA,inputB,inputU,arrayNameCalcule );
+            return mountValuesMultiplesCalcules(arrayNameCalcule);
 
         }
-        return new StringBuilder("N/A");
+
     }
 
     private boolean isValorUnicoArray(int arrayCards[]){
@@ -390,7 +408,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
         int cont = 0;
         for(int i = 0;i < arrayCards.length; i++){
 
-            if(arrayCards[i] != -1){
+            if(arrayCards[i] != VALUE_UNIQUE){
                 cont++;
                 posicaoArray = i;
             }
@@ -404,17 +422,54 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     }
 
+    private StringBuilder mountValuesMultiplesCalcules(Map<String,String> mapValues){
+
+        StringBuilder valuesCalcule = new StringBuilder();
+
+        for(Map.Entry<String,String> entry: mapValues.entrySet()){
+
+            valuesCalcule.append(entry.getKey()+" = {");
+            valuesCalcule.append(entry.getValue());
+            valuesCalcule.append("}\n\n");
+
+        }
+
+        if(valuesCalcule.length() == 0) return new StringBuilder("N/A");
+
+        return valuesCalcule;
+
+    }
+
+    private void multipleValue(int values[],String inputA,String inputB,String inputU,Map<String,String> valuesNames){
+
+        String calule = "";
+        for(int i = 0; i < values.length; i++){
+            if(arraySelect[i] != VALUE_UNIQUE){
+                calule = makeOperationSet(i,inputA,inputB,inputU).toString();
+                valuesNames.put(arrayIndexName.get(i),calule);
+            }
+        }
+
+    }
+
     private boolean isValidoCalcular(int[] array){
 
         for(int valor:array){
 
-            if(valor != -1) return true;
+            if(valor != VALUE_UNIQUE) return true;
 
         }
 
         return false;
     }
 
+    private void mountHashNameIndex(){
+        for(int i = 0; i < arraySelect.length; i++){
+
+            arrayIndexName.put(i,arrayNames[i]);
+
+        }
+    }
     @Override
     public void onBackPressed() {
 
@@ -597,7 +652,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
             positionEditTextAtual -= 1;
 
-            if(positionEditTextAtual == -1) positionEditTextAtual = 0;
+            if(positionEditTextAtual == VALUE_UNIQUE) positionEditTextAtual = 0;
 
             editTextDefault.setText(newWorld);
             setcursorLast(positionEditTextAtual);
@@ -662,7 +717,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
         for(int i = 0; i < buttonListNumber.size();i++){
             if(buttonListNumber.get(i).getId() == id) return i;
         }
-        return -1;
+        return VALUE_UNIQUE;
     }
 
     private int positionEdtiText(MotionEvent event){
