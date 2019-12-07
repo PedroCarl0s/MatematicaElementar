@@ -48,7 +48,7 @@ public class TelaCombinatoria extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        MyAlertDialog myAlertDialog = new MyAlertDialog(this,"Voltar ao Home","Deseja voltar para Home?","Sim","Não");
+        MyAlertDialog myAlertDialog = new MyAlertDialog(this,"Voltar ao início","Deseja voltar para a tela inicial?","Sim","Não");
         myAlertDialog.backHome(this);
     }
 

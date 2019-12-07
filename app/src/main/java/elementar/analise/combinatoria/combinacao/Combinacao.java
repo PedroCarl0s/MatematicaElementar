@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -39,8 +40,8 @@ public class Combinacao extends Fragment {
 
     private static TextInputLayout inputElementos, inputPosicoes;
     private static TextInputEditText txtElementos, txtPosicoes;
-
     private static MathView formulaCombinacao, resultadoCombinacao;
+    private static Snackbar snackbar;
     private static int valorElementos, valorPosicoes;
     private Button btnCalcular;
     private boolean jaCalculou = false;
@@ -116,6 +117,8 @@ public class Combinacao extends Fragment {
         this.formulaCombinacao = view.findViewById(R.id.formula_combinacao);
         this.resultadoCombinacao = view.findViewById(R.id.resultado_combinacao);
 
+        this.snackbar = snackbar.make(view, "O cálculo detalhado estará disponível em breve!", Snackbar.LENGTH_LONG);
+
         this.btnCalcular = view.findViewById(R.id.btn_calcular);
 
         String formulaCombinacao = "$$\\normalsize \\bold{Formula}$$" + "$${C(n, p)} = \\frac{n!} {p! \\ (n-p)!}, n \\geqslant p$$";
@@ -128,7 +131,7 @@ public class Combinacao extends Fragment {
 
         try {
             elementos = Integer.parseInt(inputElementos.getEditText().getText().toString());
-
+            snackbar.setDuration(5000).show();
         } catch (Exception e) {
             return ERRO_CONVERSAO;
         }
@@ -204,7 +207,8 @@ public class Combinacao extends Fragment {
             @Override
             public void run() {
                 resultadoCombinacao.setText(gerador.gerarResultadoCombinacao(valorElementos, valorPosicoes));
-                LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
+
+//                LottieController.startLottieAnimation(view, animationSwipe, ID_SWIPE, "swipeup.json", 1f, 2);
             }
 
         }, DELAY_TIME);
@@ -225,7 +229,7 @@ public class Combinacao extends Fragment {
         animationSwipe = view.findViewById(R.id.animation_swipe);
 
         animationWrite.setVisibility(View.VISIBLE);
-        animationSwipe.setVisibility(View.VISIBLE);
+//        animationSwipe.setVisibility(View.VISIBLE);
     }
 
     // Cancela as animações Lottie
