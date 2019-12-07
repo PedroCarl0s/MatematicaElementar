@@ -36,13 +36,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import elementar.analise.combinatoria.Dialog.MyAlertDialog;
 import elementar.analise.combinatoria.floatingbutton.MenuFloatingButton;
 import elementar.analise.combinatoria.fragments.HistoricoFragment;
+import elementar.lottie.LottieController;
 import elementar.operacoes.conjuntos.GeradorOperacoesConjuntos;
-import elementar.analise.combinatoria.activitys.MainActivity;
 import elementar.matematica.pedrock.matemticaelementar.R;
 import io.github.kexanie.library.MathView;
 
@@ -54,7 +53,9 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     private Button btn_calc;
 
-    private LottieAnimationView animationWhite, animetionSwipe;
+    private LottieAnimationView animationSwipe;
+    private final int ID_SWIPE = R.id.animation_swipe;
+    private final int DELAY_TIME = 750;
 
     private MathView resultadoFinal, resultadoPasso;
 
@@ -97,8 +98,12 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
     private boolean initKeyboard = true;
 
     private Map<Integer, String> arrayIndexName = new HashMap<>();
-    private Map<String,String> arrayNameCalcule = new HashMap<>();
-    private final String[] arrayNames= { "união","interseção","complementar","diferança/a-b","diferança/b-a","conjunto das partes","cartesiano/a-b","cartesiano/b-a","análise combinatória"};
+    private HashMap<String,String> arrayNameCalcule = new HashMap<>();
+    private Map<String, String> resultados = new HashMap<>();
+
+    private final String[] arrayNames = {
+            "União","Interseção","Complementar","Diferença/A-B","Diferença/B-A","Conjunto das partes","Cartesiano/AxB","Cartesiano/BxA","Análise Combinatória"
+    };
 
     private List<Button> buttonListNumber;
 
@@ -131,17 +136,13 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
         disableInputKeyboard(conjuntoB);
         disableInputKeyboard(conjuntoU);
 
-        if(relativeLayout.getVisibility() == View.VISIBLE && !liberarCalculo){
-
+        if (relativeLayout.getVisibility() == View.VISIBLE && !liberarCalculo) {
             relativeLayout.setVisibility(View.GONE);
-
         }
 
         setSingleEvent(grupoGrid);
         onClicks();
         takeDataIntentFragments();
-
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -169,9 +170,8 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
         btn_calc = findViewById(R.id.btnCalcular);
 
-        animetionSwipe = findViewById(R.id.animation_swipe);
 
-        resultadoPasso = findViewById(R.id.resultado_conjutosPasso);
+        resultadoPasso = findViewById(R.id.resultado_conjuntosPasso);
         resultadoPasso.setVisibility(View.GONE);
 
         relativeLayout = findViewById(R.id.bottomsheetConjunto);
@@ -254,8 +254,6 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
         editText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
 
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-
-
                 return false;
             }
 
@@ -285,9 +283,11 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
         if(intent.hasExtra("conjA")){
             conjuntoA.getEditText().setText(intent.getStringExtra("conjA"));
             conjuntoB.getEditText().setText(intent.getStringExtra("conjB"));
+
             if(intent.getStringExtra("conjU") != null && !intent.getStringExtra("conjU").isEmpty()){
                 conjuntoU.getEditText().setText(intent.getStringExtra("conjU"));
                 conjuntoU.setVisibility(View.VISIBLE);
+
             }else if(intent.getStringExtra("conjU") != null && intent.getStringExtra("conjU").isEmpty()){
                 conjuntoU.setVisibility(View.GONE);
                 conjuntoU.getEditText().setText("");
@@ -353,12 +353,10 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
     private void addArray(CardView cardView, int valor){
 
         if(arraySelect[valor] == VALUE_UNIQUE){
-
             arraySelect[valor] = valor;
             changeBackGround(cardView, R.drawable.backgroundbordselected);
 
         }else if(arraySelect[valor] == valor){
-
             arraySelect[valor] = VALUE_UNIQUE;
             changeBackGround(cardView, R.drawable.backgroundbord);
 
@@ -371,34 +369,50 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     private StringBuilder makeOperationSet(int position,String inputA,String inputB,String inputU){
 
+        Log.i("[AQUI]", "POSITION" + position);
         switch(position){
 
+
             case 0:
+                Log.i("[AQUI]UNIAO", inputA + "|" + inputB);
                 return operacoesConjuntos.calcularUniao(inputA,inputB);
             case 1:
+                Log.i("[AQUI] INTERSEÇÃO", inputA + "|" + inputB);
                 return operacoesConjuntos.calcularIntersecao(inputA,inputB);
             case 2:
+                Log.i("[AQUI] COMPLEMENTAR", inputA + "|" + inputB);
                 return operacoesConjuntos.calcularComplementar(inputA,inputB,inputU);
             case 3:
+                Log.i("[AQUI] DIFERENÇA A/B", inputA + "|" + inputB);
                 return operacoesConjuntos.calcularDiferencaAB(inputA,inputB);
             case 4:
+                Log.i("[AQUI] DIFERENÇA B/A", inputA + "|" + inputB);
                 return operacoesConjuntos.calcularDiferencaBA(inputB,inputA);
             default:
                 return new StringBuilder("N/A");
         }
-
     }
-    private StringBuilder makeCalc(int[] arraySelected,String inputA,String inputB,String inputU) {
 
-        if(isValorUnicoArray(arraySelected)){
+    private HashMap<String, String> makeCalc(int[] arraySelected, String inputA, String inputB, String inputU) {
+        HashMap<String, String> resultados = new HashMap<>();
 
-            return makeOperationSet(arraySelected[posicaoArray],inputA,inputB,inputU);
+        if (isValorUnicoArray(arraySelected)){
+            Log.i("MAKED", "TRUE");
 
-        }else {
+            StringBuilder calcule = new StringBuilder();
 
-            multipleValue(arraySelected,inputA,inputB,inputU,arrayNameCalcule );
-            return mountValuesMultiplesCalcules(arrayNameCalcule);
+            String operacao = this.arrayIndexName.get(arraySelected[posicaoArray]);
+            String resultado = makeOperationSet(arraySelected[posicaoArray], inputA,inputB,inputU).toString();
 
+            resultados.put(operacao, resultado);
+
+            return resultados;
+
+        } else {
+            Log.i("MAKED", "FALSE");
+            resultados = calculateMultipleValues(arraySelected,inputA,inputB,inputU,arrayNameCalcule);
+
+            return resultados;
         }
 
     }
@@ -422,40 +436,35 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private StringBuilder mountValuesMultiplesCalcules(Map<String,String> mapValues){
+    private HashMap<String, String> mountValuesMultiplesCalcules(Map<String,String> mapValues){
 
-        StringBuilder valuesCalcule = new StringBuilder();
+        HashMap<String, String> resultados = new HashMap<>();
 
-        for(Map.Entry<String,String> entry: mapValues.entrySet()){
 
-            valuesCalcule.append(entry.getKey()+" = {");
-            valuesCalcule.append(entry.getValue());
-            valuesCalcule.append("}\n\n");
-
+        for (Map.Entry<String,String> entry: mapValues.entrySet()) {
+            resultados.put(entry.getKey(), entry.getValue());
         }
 
-        if(valuesCalcule.length() == 0) return new StringBuilder("N/A");
+        if (resultados.size() == 0) resultados.put("N/A", "N/A");
 
-        return valuesCalcule;
-
+        return resultados;
     }
 
-    private void multipleValue(int values[],String inputA,String inputB,String inputU,Map<String,String> valuesNames){
+    private HashMap<String, String> calculateMultipleValues(int values[], String inputA, String inputB, String inputU, HashMap<String,String> valuesNames){
 
-        String calule = "";
+        String calcule = "";
         for(int i = 0; i < values.length; i++){
             if(arraySelect[i] != VALUE_UNIQUE){
-                calule = makeOperationSet(i,inputA,inputB,inputU).toString();
-                valuesNames.put(arrayIndexName.get(i),calule);
+                calcule = makeOperationSet(i,inputA,inputB,inputU).toString();
+                valuesNames.put(arrayIndexName.get(i), calcule);
             }
         }
+        return valuesNames;
 
     }
 
     private boolean isValidoCalcular(int[] array){
-
         for(int valor:array){
-
             if(valor != VALUE_UNIQUE) return true;
 
         }
@@ -465,9 +474,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     private void mountHashNameIndex(){
         for(int i = 0; i < arraySelect.length; i++){
-
             arrayIndexName.put(i,arrayNames[i]);
-
         }
     }
     @Override
@@ -483,51 +490,38 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
             }else{
 
                 if(checkVisibiliteFab()) {
-
                     MyAlertDialog myAlertDialog = new MyAlertDialog(this,"Voltar ao início","Deseja voltar para a tela inicial?","Sim","Não");
                     myAlertDialog.backHome(this);
 
-
                 }else{
-
                     fab.show();
                     popFragments();
 
                 }
-
             }
-
         }
-
     }
 
     public boolean checkVisibiliteFab(){
-
         return fab.getVisibility() == View.VISIBLE;
-
     }
 
     public void removerAllValueInput(TextInputLayout conjuntoA, TextInputLayout conjuntoB, TextInputLayout conjuntoU){
 
         if(empty(conjuntoA) && empty(conjuntoB)) {
-
-            Toast.makeText(getApplicationContext(),"Preencha pelo menos um dos campo",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Preencha pelo menos um dos campos!",Toast.LENGTH_SHORT).show();
 
         } else if(!empty(conjuntoU) && conjuntoU.getVisibility() == View.VISIBLE) {
-
             conjuntoU.getEditText().setText(" ");
 
         }else {
-
             conjuntoA.getEditText().setText(" ");
             conjuntoB.getEditText().setText(" ");
         }
     }
 
     public boolean empty(TextInputLayout conjunto){
-
         return conjunto.getEditText().getText().toString().equalsIgnoreCase("");
-
     }
 
     private String convert(TextInputLayout textInputLayout){
@@ -543,28 +537,27 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
             case R.id.botao_info:
                 menuFloatingButton.controleMenuFab(fab);
                 break;
+
             case R.id.fab_historico:
                 menuFloatingButton.controleMenuFab(fab);
                 openFragments(new HistoricoFragment());
                 menuFloatingButton.showAndHide(fab);
                 break;
+
             case R.id.fab_removeAll:
                 menuFloatingButton.controleMenuFab(fab);
                 removerAllValueInput(conjuntoA,conjuntoB,conjuntoU);
                 break;
+
             case R.id.btnCalcular:
-
                 calculate();
-
                 break;
+
             case R.id.btnDelete:
-
                 removeLastcharEditText();
-
                 break;
 
             case R.id.btnGo:
-
                 int idConjuntoA = conjuntoA.getEditText().getId();
                 int idConjuntoB = conjuntoB.getEditText().getId();
                 int idConjuntoC = conjuntoU.getEditText().getId();
@@ -580,17 +573,13 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
                 }else if(editTextDefault.getId() == idConjuntoC){
                     calculateButtonGo();
                 }
-
                 break;
+
             default:
                 final int index = indexButton(v.getId());
-
                 final String value = buttonListNumber.get(index).getText().toString();
-
                 addCharText(value);
-
                 break;
-
         }
     }
 
@@ -608,9 +597,29 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
             if(!inputA.isEmpty() && !inputB.isEmpty() && (!inputU.isEmpty() && conjuntoU.getVisibility() == View.VISIBLE || inputU.isEmpty() && conjuntoU.getVisibility() == View.GONE)){
 
-                final String calculoResultadoFinal =  makeCalc(arraySelect,convert(conjuntoA),convert(conjuntoB),convert(conjuntoU)).toString();
-                resultadoPasso.setText("Calculado = "+calculoResultadoFinal);
-            }else{
+                // Ativando a animação de swipeup
+                animationSwipe = findViewById(R.id.animation_swipe);
+                animationSwipe.setVisibility(View.VISIBLE);
+
+                HashMap<String, String> resultados = makeCalc(arraySelect, convert(conjuntoA), convert(conjuntoB), convert(conjuntoU));
+
+
+                StringBuilder resultadoLatex = new StringBuilder();
+
+                for (Map.Entry<String,String> entry: resultados.entrySet()) {
+                    resultadoLatex.append(entry.getKey() + " = " + "{" + entry.getValue()+ "}");
+                }
+
+                resultadoPasso.setText(resultadoLatex.toString());
+
+                // Inicia a animação de deslizar
+                LottieController.startLottieAnimation(getWindow().getDecorView().getRootView(), animationSwipe, ID_SWIPE, "swipeup.json", 1f, 4);
+
+                // Cancela as animações
+                LottieController.cancelLottieAnimation(this.animationSwipe);
+
+
+            } else {
                 Toast.makeText(getApplicationContext(),"Preencha todos os campos!",Toast.LENGTH_SHORT).show();
             }
 
@@ -669,32 +678,22 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
         char[] array = editTextDefault.getText().toString().toCharArray();
 
         if(array.length == 0) {
-
             newWorld.append(world);
 
         }else if(array.length == positionEditTextAtual){
-
             newWorld.append(editTextDefault.getText().toString());
             newWorld.append(world);
 
         }else{
-
             blockPosition = true;
-
             int cont = 0;
 
             for(char worldChar : array){
-
                 if (cont == positionEditTextAtual) {
-
                     newWorld.append(world);
-
                 }
-
                 newWorld.append(worldChar);
-
                 cont++;
-
             }
 
         }
@@ -708,15 +707,14 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
     }
 
     private void setcursorLast(int position){
-
         editTextDefault.setSelection(position);
     }
 
     private int indexButton(int id){
-
         for(int i = 0; i < buttonListNumber.size();i++){
             if(buttonListNumber.get(i).getId() == id) return i;
         }
+
         return VALUE_UNIQUE;
     }
 
@@ -728,12 +726,21 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
         int touchPosition = editTextDefault.getOffsetForPosition(x, y);
 
         if (touchPosition>0){
-
             editTextDefault.setSelection(touchPosition);
-
         }
-
         return touchPosition;
+    }
+
+
+    // Torna as animações visíveis para serem usadas novamente
+    private void setVisibleAnimations() {
+        this.animationSwipe = findViewById(R.id.animation_swipe);
+        animationSwipe.setVisibility(View.VISIBLE);
+    }
+
+    // Cancela as animações Lottie
+    private void cancelAnimations() {
+        LottieController.cancelLottieAnimation(animationSwipe);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package elementar.analise.combinatoria.activitys;
 
-import android.content.Intent;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
