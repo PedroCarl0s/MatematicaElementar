@@ -208,13 +208,8 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View view, int i) {
-
-                switch (i){
-                    case BottomSheetBehavior.STATE_EXPANDED:
-                        fab.hide();
-                        break;
-                    case BottomSheetBehavior.STATE_COLLAPSED:
-                        fab.show();
+                if (i == BottomSheetBehavior.STATE_HIDDEN) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
 
             }
