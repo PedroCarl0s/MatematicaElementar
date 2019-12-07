@@ -1,0 +1,27 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="me.jfenn.attribouter"
+4    android:versionCode="14"
+5    android:versionName="0.1.5" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+8-->/home/pedrock/Desktop/MatematicaElementar/attribouter/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="28" />
+9-->/home/pedrock/Desktop/MatematicaElementar/attribouter/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/home/pedrock/Desktop/MatematicaElementar/attribouter/src/main/AndroidManifest.xml:4:5-67
+11-->/home/pedrock/Desktop/MatematicaElementar/attribouter/src/main/AndroidManifest.xml:4:22-64
+12
+13    <application>
+13-->/home/pedrock/Desktop/MatematicaElementar/attribouter/src/main/AndroidManifest.xml:6:5-12:19
+14        <activity
+14-->/home/pedrock/Desktop/MatematicaElementar/attribouter/src/main/AndroidManifest.xml:8:9-10:55
+15            android:name="me.jfenn.attribouter.activities.AboutActivity"
+15-->/home/pedrock/Desktop/MatematicaElementar/attribouter/src/main/AndroidManifest.xml:9:13-53
+16            android:theme="@style/AttribouterTheme" />
+16-->/home/pedrock/Desktop/MatematicaElementar/attribouter/src/main/AndroidManifest.xml:10:13-52
+17    </application>
+18
+19</manifest>

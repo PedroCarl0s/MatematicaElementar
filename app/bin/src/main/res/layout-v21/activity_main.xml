@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@drawable/bg"
     android:weightSum="10"
-    tools:context=".activity.MainActivity">
+    tools:context="elementar.analise.combinatoria.activitys.MainActivity">
 
 
     <!-- 3 rows and 2 columns -->

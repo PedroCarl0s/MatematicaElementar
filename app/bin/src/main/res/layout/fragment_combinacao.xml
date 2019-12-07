@@ -7,7 +7,7 @@
     android:layout_gravity="top"
     android:background="@android:color/transparent"
 
-    tools:context="elementar.analise.combinatoria.fragments.Combinacao">
+    tools:context="elementar.analise.combinatoria.activitys.TelaCombinatoria">
 
     <!-- TODO: Update blank fragment layout -->
 
