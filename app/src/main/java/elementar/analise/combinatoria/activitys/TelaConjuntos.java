@@ -63,6 +63,8 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
     private static FloatingActionButton fabHistorico;
     private static FloatingActionButton fabRemoveAll;
 
+
+    private StringBuilder resultadoTextosLatex;
     private GridLayout grupoGrid;
 
     private RelativeLayout relativeLayout;
@@ -97,9 +99,22 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     private boolean initKeyboard = true;
 
+    private final String UNIAO_LATEX = "\\cup";
+    private final String INTERSECAO_LATEX = "\\cap";
+    private final String DIFERENCA_LATEX = "-";
+
     private Map<Integer, String> arrayIndexName = new HashMap<>();
     private HashMap<String,String> arrayNameCalcule = new HashMap<>();
     private Map<String, String> resultados = new HashMap<>();
+
+
+    // Classe anônima que estende HashMap para armazenar os textos em LaTeX
+    Map<String,String> textosLatex = new HashMap<String,String>(){{
+        this.put("União", "");
+        this.put("Interseção", "");
+        this.put("Diferença/A-B", "");
+        this.put("Diferença/B-A", "");
+    }};
 
     private final String[] arrayNames = {
             "União","Interseção","Complementar","Diferença/A-B","Diferença/B-A","Conjunto das partes","Cartesiano/AxB","Cartesiano/BxA","Análise Combinatória"
@@ -143,6 +158,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
         setSingleEvent(grupoGrid);
         onClicks();
         takeDataIntentFragments();
+        this.resultadoTextosLatex = new StringBuilder();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -364,36 +380,70 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
     private StringBuilder makeOperationSet(int position,String inputA,String inputB,String inputU){
 
-        Log.i("[AQUI]", "POSITION" + position);
+        StringBuilder resultadoTemp = new StringBuilder();
+        StringBuilder latexTemp = new StringBuilder();
+
+
         switch(position){
-
-
             case 0:
-                Log.i("[AQUI]UNIAO", inputA + "|" + inputB);
-                return operacoesConjuntos.calcularUniao(inputA,inputB);
+                resultadoTemp = operacoesConjuntos.calcularUniao(inputA,inputB);
+                latexTemp.append(operacoesConjuntos.getTitleUniaoLatex());
+                latexTemp.append(operacoesConjuntos.getTextUniao());
+                latexTemp.append(operacoesConjuntos.getResultadoOperacaoAB("A", "B",UNIAO_LATEX, resultadoTemp.toString()));
+
+                this.resultadoTextosLatex.append(latexTemp);
+                this.textosLatex.put("União", latexTemp.toString());
+                return resultadoTemp;
+
             case 1:
-                Log.i("[AQUI] INTERSEÇÃO", inputA + "|" + inputB);
-                return operacoesConjuntos.calcularIntersecao(inputA,inputB);
+                resultadoTemp = operacoesConjuntos.calcularIntersecao(inputA,inputB);
+                latexTemp.append(operacoesConjuntos.getTitleIntersecaoLatex());
+                latexTemp.append(operacoesConjuntos.getTextIntersecao());
+                latexTemp.append(operacoesConjuntos.getResultadoOperacaoAB("A", "B", INTERSECAO_LATEX, resultadoTemp.toString()));
+
+                this.resultadoTextosLatex.append(latexTemp);
+                this.textosLatex.put("Interseção", latexTemp.toString());
+
+                return resultadoTemp;
+
             case 2:
-                Log.i("[AQUI] COMPLEMENTAR", inputA + "|" + inputB);
-                return operacoesConjuntos.calcularComplementar(inputA,inputB,inputU);
+                resultadoTemp = operacoesConjuntos.calcularComplementar(inputA,inputB,inputU);
+                return resultadoTemp;
+
             case 3:
-                Log.i("[AQUI] DIFERENÇA A/B", inputA + "|" + inputB);
-                return operacoesConjuntos.calcularDiferencaAB(inputA,inputB);
+                resultadoTemp = operacoesConjuntos.calcularDiferencaAB(inputA,inputB);
+                latexTemp.append(operacoesConjuntos.getTitleDiferencaABLatex());
+                latexTemp.append(operacoesConjuntos.getTextDiferencaAB());
+                latexTemp.append(operacoesConjuntos.getResultadoOperacaoAB("A", "B", DIFERENCA_LATEX, resultadoTemp.toString()));
+
+                this.resultadoTextosLatex.append(latexTemp);
+                this.textosLatex.put("Diferença/A-B", latexTemp.toString());
+
+                return resultadoTemp;
+
             case 4:
-                Log.i("[AQUI] DIFERENÇA B/A", inputA + "|" + inputB);
-                return operacoesConjuntos.calcularDiferencaBA(inputB,inputA);
+                resultadoTemp = operacoesConjuntos.calcularDiferencaBA(inputB,inputA);
+                latexTemp.append(operacoesConjuntos.getTitleDiferancaBALatex());
+                latexTemp.append(operacoesConjuntos.getTextDiferencaBA());
+                latexTemp.append(operacoesConjuntos.getResultadoOperacaoAB("B", "A", DIFERENCA_LATEX, resultadoTemp.toString()));
+
+                this.resultadoTextosLatex.append(latexTemp);
+                this.textosLatex.put("Diferença/B-A", latexTemp.toString());
+
+                return resultadoTemp;
+
             default:
-                return new StringBuilder("N/A");
+                return new StringBuilder("");
         }
+
     }
 
     private HashMap<String, String> makeCalc(int[] arraySelected, String inputA, String inputB, String inputU) {
         HashMap<String, String> resultados = new HashMap<>();
 
-        if (isValorUnicoArray(arraySelected)){
-            Log.i("MAKED", "TRUE");
+        this.textosLatex.clear();
 
+        if (isValorUnicoArray(arraySelected)){
             StringBuilder calcule = new StringBuilder();
 
             String operacao = this.arrayIndexName.get(arraySelected[posicaoArray]);
@@ -407,6 +457,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
             Log.i("MAKED", "FALSE");
             resultados = calculateMultipleValues(arraySelected,inputA,inputB,inputU,arrayNameCalcule);
 
+            Log.i("CATIORO", "" + this.arrayNameCalcule);
             return resultados;
         }
 
@@ -440,7 +491,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
             resultados.put(entry.getKey(), entry.getValue());
         }
 
-        if (resultados.size() == 0) resultados.put("N/A", "N/A");
+        if (resultados.size() == 0) resultados.put("", "");
 
         return resultados;
     }
@@ -519,9 +570,7 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
         return conjunto.getEditText().getText().toString().equalsIgnoreCase("");
     }
 
-    private String convert(TextInputLayout textInputLayout){
-        return textInputLayout.getEditText().getText().toString();
-    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -586,9 +635,14 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
             if ( resultadoPasso.getVisibility() == View.GONE ) resultadoPasso.setVisibility(View.VISIBLE);
 
-            String inputA = convert(conjuntoA);
-            String inputB = convert(conjuntoB);
-            String inputU = convert(conjuntoU);
+            String inputA = this.operacoesConjuntos.convert(conjuntoA);
+            inputA = this.operacoesConjuntos.checkComma(inputA);
+
+            String inputB = this.operacoesConjuntos.convert(conjuntoB);
+            inputB = this.operacoesConjuntos.checkComma(inputB);
+
+            String inputU = this.operacoesConjuntos.convert(conjuntoU);
+            inputU = this.operacoesConjuntos.checkComma(inputU);
 
             if(!inputA.isEmpty() && !inputB.isEmpty() && (!inputU.isEmpty() && conjuntoU.getVisibility() == View.VISIBLE || inputU.isEmpty() && conjuntoU.getVisibility() == View.GONE)){
 
@@ -596,16 +650,29 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
                 animationSwipe = findViewById(R.id.animation_swipe);
                 animationSwipe.setVisibility(View.VISIBLE);
 
-                HashMap<String, String> resultados = makeCalc(arraySelect, convert(conjuntoA), convert(conjuntoB), convert(conjuntoU));
+                resultadoPasso.setText("");
 
+
+                HashMap<String, String> resultados = makeCalc(arraySelect, this.operacoesConjuntos.convert(conjuntoA), this.operacoesConjuntos.convert(conjuntoB), this.operacoesConjuntos.convert(conjuntoU));
 
                 StringBuilder resultadoLatex = new StringBuilder();
 
-                for (Map.Entry<String,String> entry: resultados.entrySet()) {
-                    resultadoLatex.append(entry.getKey() + " = " + "{" + entry.getValue()+ "}");
+                String aplicacaoConjuntos = this.operacoesConjuntos.imprimirConjuntosLatex(inputA, inputB, inputU);
+
+                this.resultadoTextosLatex = new StringBuilder();
+
+                for (HashMap.Entry<String, String> textos: this.textosLatex.entrySet()) {
+                    String key = textos.getKey();
+                    String texto = textos.getValue();
+
+                    if (!texto.isEmpty()) {
+                        resultadoLatex.append(texto);
+                    }
+
                 }
 
-                resultadoPasso.setText(resultadoLatex.toString());
+                resultadoPasso.setText(aplicacaoConjuntos + resultadoLatex.toString());
+
 
                 // Inicia a animação de deslizar
                 LottieController.startLottieAnimation(getWindow().getDecorView().getRootView(), animationSwipe, ID_SWIPE, "swipeup.json", 1f, 4);
@@ -631,7 +698,6 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
     }
 
     private void calculateButtonGo(){
-
         keyboardNumber.setVisibility(View.GONE);
         calculate();
     }
@@ -647,11 +713,8 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
             for(int i = 0;i < array.length -1;i++){
 
                 if(i != positionEditTextAtual){
-
                     newWorld.append(array[i]);
-
                 }
-
             }
 
             positionEditTextAtual -= 1;
@@ -660,7 +723,6 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
 
             editTextDefault.setText(newWorld);
             setcursorLast(positionEditTextAtual);
-
         }
     }
 
@@ -757,4 +819,6 @@ public class TelaConjuntos extends AppCompatActivity implements View.OnClickList
         editTextDefault.setInputType(inType); // restore input type
         return true; // consume touch even
     }
+
+
 }

@@ -20,7 +20,7 @@ public class GeradorPermutacao extends GeradorFormulas {
         return "P(" + elementos + ", " + posicoes + ")";
     }
 
-    //Gera a primeira equação, após aplicar os valores N e P
+    //Gera a primeira equação, 4,1plicar os valores N e P
     private String gerarAplicacaoPermutacao(int elementos, int posicoes) {
         String resultado;
 
