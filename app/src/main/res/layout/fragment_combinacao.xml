@@ -59,7 +59,7 @@
                     style="@style/Widget.AppCompat.EditText"
                     android:layout_width="245dp"
                     android:layout_height="wrap_content"
-                    android:hint="Elementos a combinar"
+                    android:hint="n=Elementos a combinar"
                     android:inputType="number"
                     android:textColor="@color/corTabBar"
                     android:textColorLink="@color/corTabBar"
@@ -90,7 +90,7 @@
                     android:id="@+id/txt_posicoes"
                     android:layout_width="245dp"
                     android:layout_height="wrap_content"
-                    android:hint="Posições a combinar"
+                    android:hint="p=Posições a combinar"
                     android:imeOptions="actionDone|actionUnspecified"
                     android:inputType="number"
                     android:textColor="@color/corTabBar"
@@ -152,6 +152,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/bottomsheet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

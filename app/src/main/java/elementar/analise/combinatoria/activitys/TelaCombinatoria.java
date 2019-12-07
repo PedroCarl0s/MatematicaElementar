@@ -1,6 +1,5 @@
 package elementar.analise.combinatoria.activitys;
 
-import android.content.Intent;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,7 +47,7 @@ public class TelaCombinatoria extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        MyAlertDialog myAlertDialog = new MyAlertDialog(this,"Voltar ao Home","Deseja voltar para Home?","Sim","Não");
+        MyAlertDialog myAlertDialog = new MyAlertDialog(this,"Voltar ao início","Deseja voltar para a tela inicial?","Sim","Não");
         myAlertDialog.backHome(this);
     }
 

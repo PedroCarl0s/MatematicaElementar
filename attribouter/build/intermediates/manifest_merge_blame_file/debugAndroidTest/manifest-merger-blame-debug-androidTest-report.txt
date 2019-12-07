@@ -1,0 +1,47 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="me.jfenn.attribouter.test" >
+4
+5    <uses-sdk
+5-->/home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger840030272393167738.xml:5:5-74
+6        android:minSdkVersion="19"
+6-->/home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger840030272393167738.xml:5:15-41
+7        android:targetSdkVersion="28" />
+7-->/home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger840030272393167738.xml:5:42-71
+8
+9    <instrumentation
+9-->/home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger840030272393167738.xml:11:5-15:75
+10        android:name="androidx.test.runner.AndroidJUnitRunner"
+10-->/home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger840030272393167738.xml:11:22-76
+11        android:functionalTest="false"
+11-->/home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger840030272393167738.xml:14:22-52
+12        android:handleProfiling="false"
+12-->/home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger840030272393167738.xml:13:22-53
+13        android:label="Tests for me.jfenn.attribouter.test"
+13-->/home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger840030272393167738.xml:15:22-73
+14        android:targetPackage="me.jfenn.attribouter.test" />
+14-->/home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger840030272393167738.xml:12:22-71
+15
+16    <uses-permission android:name="android.permission.INTERNET" />
+16-->[__tested_artifact__::attribouter] /home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-67
+16-->[__tested_artifact__::attribouter] /home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:22-64
+17
+18    <application
+18-->/home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger840030272393167738.xml:7:5-9:19
+19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+19-->[androidx.core:core:1.0.0] /home/pedrock/.gradle/caches/transforms-2/files-2.1/4de34232979cbe134bd28b81339a3afe/core-1.0.0/AndroidManifest.xml:22:18-86
+20        android:debuggable="true" >
+20-->/home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger840030272393167738.xml:7:18-43
+21        <uses-library android:name="android.test.runner" />
+21-->/home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger840030272393167738.xml:8:9-60
+21-->/home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger840030272393167738.xml:8:23-57
+22
+23        <activity
+23-->[__tested_artifact__::attribouter] /home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:9-16:55
+24            android:name="me.jfenn.attribouter.activities.AboutActivity"
+24-->[__tested_artifact__::attribouter] /home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-73
+25            android:theme="@style/AttribouterTheme" />
+25-->[__tested_artifact__::attribouter] /home/pedrock/Desktop/MatematicaElementar/attribouter/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-52
+26    </application>
+27
+28</manifest>

@@ -2,7 +2,6 @@ package elementar.operacoes.conjuntos;
 
 import android.util.Log;
 
-import com.google.android.material.textfield.TextInputLayout;
 
 public class GeradorOperacoesConjuntos {
 
@@ -84,24 +83,19 @@ public class GeradorOperacoesConjuntos {
     public String checkComma(String value){
 
         value = value.replaceAll("\\s+","");
-
         String[] arrayValueA = value.split(comma);
-
         StringBuilder newValue = new StringBuilder();
 
         for(int i = 0; i < arrayValueA.length; i++){
 
             if(!arrayValueA[i].equals("")){
-
                 newValue.append(arrayValueA[i]);
-                if(i < arrayValueA.length -1) newValue.append(comma);
 
+                if(i < arrayValueA.length -1) newValue.append(comma);
             }
 
         }
-
         return newValue.toString().trim();
-
     }
 
     private String findEquals(String inputA, String inputB){
@@ -109,7 +103,6 @@ public class GeradorOperacoesConjuntos {
         StringBuilder newValue = new StringBuilder();
 
         inputA = removeEquals(inputA);
-
         inputB = removeEquals(inputB);
 
         String[] arrayInputA = inputA.split(comma);
@@ -125,9 +118,14 @@ public class GeradorOperacoesConjuntos {
             }
         }
 
-        if(newValue.charAt(newValue.length()-1) == ','){
-            newValue.deleteCharAt(newValue.length()-1);
+
+        int tamanho = newValue.length();
+        if (tamanho > 0) {
+            if(newValue.charAt(tamanho-1) == ','){
+                newValue.deleteCharAt(tamanho-1);
+            }
         }
+
         return newValue.toString();
     }
 
@@ -144,38 +142,36 @@ public class GeradorOperacoesConjuntos {
         for(int i = 0;i  < arrayValueA.length;i++){
 
             String compare = arrayValueA[i];
-
             String[] auxArray = newValue.toString().split(comma);
 
             int index = findArray(compare,auxArray);
-
             int indexValueB = findArray(compare,arrayValueB);
 
             if((index == -1 && indexValueB == -1) || newValue.length() == 0 &&  indexValueB == -1){
-
                 newValue.append(compare);
 
                 if(i < arrayValueA.length - 1) newValue.append(comma);
-
             }
 
         }
 
-        if(String.valueOf(newValue.charAt(newValue.length()-1)).equals(comma)) newValue.deleteCharAt(newValue.length() - 1);
+        int tamanho = newValue.length();
+        if (tamanho > 0) {
+            if(newValue.charAt(tamanho-1) == ','){
+                newValue.deleteCharAt(tamanho-1);
+            }
+        }
 
         return newValue.toString();
     }
 
-    //calculor individuais
-
+    //Cálculos individuais
     public StringBuilder calcularUniao(String inputA, String inputB){
-
         String resultado = checkComma(inputA) +","+ checkComma(inputB);
         return new StringBuilder(removeEquals(resultado));
     }
 
     public StringBuilder calcularIntersecao(String inputA, String inputB){
-
         StringBuilder newCalculo = new StringBuilder();
 
         inputA = checkComma(inputA);
@@ -186,7 +182,6 @@ public class GeradorOperacoesConjuntos {
         newCalculo.append(findEquals(inputA,inputB));
 
         if(newCalculo.toString().isEmpty()){
-
             return new StringBuilder("N/A");
         }
 

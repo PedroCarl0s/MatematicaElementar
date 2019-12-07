@@ -190,6 +190,7 @@
         app:layout_behavior="com.google.android.material.transformation.ExpandableBehavior"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
         android:id="@+id/fabs"
         android:layout_width="84dp"
         android:layout_height="wrap_content"
@@ -250,13 +251,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    <include-->
-<!--        layout="@layout/alphanumerickeyboard"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:visibility="gone"-->
-<!--        app:layout_anchor="@+id/constraintLayout"-->
-<!--        app:layout_anchorGravity="bottom" />-->
+    <!--    <include-->
+    <!--        layout="@layout/alphanumerickeyboard"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:visibility="gone"-->
+    <!--        app:layout_anchor="@+id/constraintLayout"-->
+    <!--        app:layout_anchorGravity="bottom" />-->
 
     <include
         layout="@layout/numerickeyboard"

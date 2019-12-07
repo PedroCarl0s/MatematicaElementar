@@ -27,7 +27,7 @@
             android:typeface="sans" />
 
         <io.github.kexanie.library.MathView
-            android:id="@+id/resultado_conjutosPasso"
+            android:id="@+id/resultado_conjuntosPasso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textBottomSheet"
