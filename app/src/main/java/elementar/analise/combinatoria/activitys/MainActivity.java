@@ -18,6 +18,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import elementar.about.ScreenAbout;
 import elementar.lottie.LottieController;
 import elementar.matematica.pedrock.matemticaelementar.R;
+import me.jfenn.attribouter.Attribouter;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -67,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case 5:
-                escolherActivity(ScreenAbout.class);
+                Attribouter.from(this)
+                        .withFile(R.xml.about)
+                        .show();
                 break;
 
             default:
@@ -121,12 +124,6 @@ public class MainActivity extends AppCompatActivity {
 
         }.start();
 
-    }
-
-
-    public void abrirScreenAbout() {
-        startActivity(new Intent(this, ScreenAbout.class));
-        finish();
     }
 
 
