@@ -22,6 +22,10 @@ Percebemos que para cada conteúdo de *Matemática Elementar*, casos quiséssemo
 ### 1.1 Aba de Permutação (c/ passo a passo)
 ![enter image description here](https://imgur.com/9D6bTRw.gif)
 
+> - É gerado o o resultado final  na mesma tela, e caso o usuário queira o detalhamento, deverá arrastar a aba **Passo a Passo** para o topo (há uma [Lottie Animation](https://airbnb.design/lottie/) indicando com uma seta)
+>
+> - Os trechos que envolvem partes matemáticas, utilizamos a biblioteca  [MathView](https://github.com/jianzhongli/MathView) que a partir dela consegue-se escrever códigos na linguagem [LaTeX](https://www.latex-project.org/)
+
 ---
 
 ### 1.2 Aba de Combinação (s/ passo a passo)
@@ -42,12 +46,6 @@ Percebemos que para cada conteúdo de *Matemática Elementar*, casos quiséssemo
 
 
 > **OBS.:** Futuramente haverá uma versão com cálculos mais detalhados
-
-
-
-> - É gerado o o resultado final  na mesma tela, e caso o usuário queira o detalhamento, deverá arrastar a aba **Passo a Passo** para o topo (há uma [Lottie Animation](https://airbnb.design/lottie/) indicando com uma seta)
->
-> - Os trechos que envolvem partes matemáticas, utilizamos a biblioteca  [MathView](https://github.com/jianzhongli/MathView) que a partir dela consegue-se escrever códigos na linguagem [LaTeX](https://www.latex-project.org/)
 
 
 ## 2. Tela de Operações entre conjuntos (União, Interseção, Diferença (A-B), Diferença (B-A))
